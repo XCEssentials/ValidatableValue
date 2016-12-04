@@ -24,7 +24,7 @@
 		BEC03195A3B2EB5D525C0D17 /* Main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		EF659EBE8A4E0DF7706CF0CE /* MKHValueWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MKHValueWrapper.h; sourceTree = "<group>"; };
 		F33AB0910E1AE9FDC42F0F2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		F6263323930DE61A98A969B5 /* MKHValueWrapperTst. */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; name = MKHValueWrapperTst.; path = MKHValueWrapperTst.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6263323930DE61A98A969B5 /* MKHValueWrapperTst.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MKHValueWrapperTst.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 		23DA8F5A5A707ACE363F3EFB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F6263323930DE61A98A969B5 /* MKHValueWrapperTst. */,
+				F6263323930DE61A98A969B5 /* MKHValueWrapperTst.xctest */,
 				8471536A7ED5143CD45BDA88 /* MKHValueWrapper. */,
 			);
 			name = Products;
@@ -143,7 +143,7 @@
 			);
 			name = MKHValueWrapperTst;
 			productName = MKHValueWrapperTst;
-			productReference = F6263323930DE61A98A969B5 /* MKHValueWrapperTst. */;
+			productReference = F6263323930DE61A98A969B5 /* MKHValueWrapperTst.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -280,7 +280,6 @@
 		99C939307EFE088356CA343D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = UJA88X59XP;
@@ -295,7 +294,6 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0.1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MKHValueWrapper.app/MKHValueWrapper";
 			};
 			name = Debug;
 		};
@@ -381,7 +379,6 @@
 		E48DE7EB3BE762BDEFDE753C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UJA88X59XP;
@@ -395,7 +392,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0.1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MKHValueWrapper.app/MKHValueWrapper";
 			};
 			name = Release;
 		};
