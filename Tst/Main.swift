@@ -11,8 +11,6 @@ import XCTest
 //@testable
 import MKHValueWrapper
 
-import MKHHelpers
-
 //===
 
 class MKHValueWrapperTst: XCTestCase
