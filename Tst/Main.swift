@@ -18,7 +18,7 @@ class MKHValueWrapperTst: XCTestCase
     struct MyUser
     {
         let someConstantValue = ValueWrapper(const: 3)
-        let firstName = ValueWrapper<String>{ $0.characters.count > 0 }
+        var firstName = ValueWrapper<String>{ $0.characters.count > 0 }
     }
     
     //===
@@ -33,7 +33,7 @@ class MKHValueWrapperTst: XCTestCase
     
     func testFirstNameValueWrapper()
     {
-        let u = MyUser()
+        var u = MyUser()
         
         //===
         
