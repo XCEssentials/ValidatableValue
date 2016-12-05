@@ -13,11 +13,13 @@ class ValueWrapper<Value>
     fileprivate
     var internalValue: Value? = nil
     
-    public
-    let mutable: Bool
-    
     fileprivate
     let validator: (Value) -> Bool
+    
+    //===
+    
+    public
+    let mutable: Bool
     
     //===
     
