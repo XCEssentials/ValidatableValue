@@ -18,7 +18,6 @@ class MKHValueWrapperTst: XCTestCase
     struct MyUser
     {
         let someConstantValue = ValueWrapper(const: 3)
-        
         let firstName = ValueWrapper<String>{ $0.characters.count > 0 }
     }
     

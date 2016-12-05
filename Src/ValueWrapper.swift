@@ -11,10 +11,7 @@ final
 class ValueWrapper<Value>
 {
     fileprivate
-    var internalValue: Value? = nil // you can force to have non-nil value in the validator
-    
-    fileprivate
-    var valueSetOnce = false
+    var internalValue: Value? = nil
     
     public
     let mutable: Bool
@@ -25,7 +22,7 @@ class ValueWrapper<Value>
     //===
     
     public
-    init(value initialValue: Value,
+    init(value initialValue: Value? = nil,
          mutable: Bool = false,
          validator: @escaping (Value) -> Bool)
     {
@@ -47,11 +44,13 @@ extension ValueWrapper
     convenience
     init(const constValue: Value)
     {
-        self.init(value: constValue, mutable: false, validator: { _ in return true })
+        self.init(value: constValue,
+                  mutable: false,
+                  validator: { _ in return true })
     }
 }
 
-//===
+//=== Value access
 
 public
 extension ValueWrapper
@@ -70,10 +69,10 @@ extension ValueWrapper
         return result
     }
     
-    func setValue<T>(_ newValue: T?) throws
+    func setValue<T>(_ newValue: T) throws
     {
         guard
-            notInitializedOrMutable()
+            notInitialized() || mutable
         else
         {
             throw MutabilityViolation()
@@ -92,11 +91,10 @@ extension ValueWrapper
         //===
         
         internalValue = newValue
-        valueSetOnce = true
     }
 }
 
-//===
+//=== Validation
 
 public
 extension ValueWrapper
@@ -109,7 +107,7 @@ extension ValueWrapper
     func mightBeSet<T>(with newValue: T) -> Bool
     {
         guard
-            notInitializedOrMutable()
+            notInitialized() || mutable
         else
         {
             return false
@@ -120,6 +118,9 @@ extension ValueWrapper
         guard
             let newValue = newValue as? Value,
             validator(newValue)
+            
+            // alternative expression:
+            // (newValue as? Value).map(validator) ?? false
         else
         {
             return false
@@ -131,13 +132,13 @@ extension ValueWrapper
     }
 }
 
-//===
+//=== Helpers
 
 fileprivate
 extension ValueWrapper
 {
-    func notInitializedOrMutable() -> Bool
+    func notInitialized() -> Bool
     {
-        return !valueSetOnce || mutable
+        return internalValue == nil
     }
 }
