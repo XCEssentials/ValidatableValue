@@ -69,7 +69,9 @@ platform :ios do
       build_number: newBuildNumber
     )
 
-    commit_version_bump # it will fail if more than version bump
+    commit_version_bump( # it will fail if more than version bump
+      message: 'Version Bump to ' + newVersionNumber + ' (' + newBuildNumber + ')'
+    )
 
   end
 
