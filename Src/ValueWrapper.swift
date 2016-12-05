@@ -10,56 +10,28 @@ public
 final
 class ValueWrapper<Value>
 {
-    public fileprivate(set)
-    var value: Value? = nil // you can force to have non-nil value in the validator
-    
     fileprivate
-    var valueSetOnce = false
+    var internalValue: Value? = nil
     
     public
     let mutable: Bool
     
     fileprivate
-    let validator: (Value?) -> Bool
+    let validator: (Value) -> Bool
     
     //===
     
     public
-    init(
-        mutable: Bool,
-        validator: @escaping (Value?) -> Bool)
+    init(value initialValue: Value? = nil,
+         mutable: Bool = false,
+         validator: @escaping (Value) -> Bool)
     {
         self.mutable = mutable
         self.validator = validator
-    }
-    
-    
-    public
-    init(initialValue: Value?,
-         validator: @escaping (Value?) -> Bool)
-    {
-        self.value = initialValue
-        self.mutable = true
-        self.validator =  validator
-    }
-    
-    public
-    init(constant value: Value?)
-    {
-        self.value = value
-        self.valueSetOnce = true
-        self.mutable = false
-        self.validator =  { _ in return true }
-    }
-    
-    public
-    init(
-        mutable: Bool = false,
-        acceptNil: Bool = false,
-        validator: @escaping (Value) -> Bool)
-    {
-        self.mutable = mutable
-        self.validator = { $0.map(validator) ?? acceptNil }
+        
+        //===
+        
+        try? setValue(initialValue)
     }
 }
 
@@ -68,10 +40,39 @@ class ValueWrapper<Value>
 public
 extension ValueWrapper
 {
-    func setValue<T>(_ externalValue: T?) throws
+    public
+    convenience
+    init(const constValue: Value)
+    {
+        self.init(value: constValue,
+                  mutable: false,
+                  validator: { _ in return true })
+    }
+}
+
+//=== Value access
+
+public
+extension ValueWrapper
+{
+    func value() throws -> Value
     {
         guard
-            !valueSetOnce || mutable
+            let result = internalValue
+        else
+        {
+            throw InvalidValue()
+        }
+        
+        //===
+        
+        return result
+    }
+    
+    func setValue<T>(_ newValue: T) throws
+    {
+        guard
+            notInitialized() || mutable
         else
         {
             throw MutabilityViolation()
@@ -79,38 +80,65 @@ extension ValueWrapper
         
         //===
         
-        let newValue = externalValue as? Value
-        
-        //===
-        
         guard
+            let newValue = newValue as? Value,
             validator(newValue)
         else
         {
-            throw
-                InvalidValue()
+            throw InvalidValue()
         }
         
         //===
         
-        value = newValue
-        valueSetOnce = true
+        internalValue = newValue
     }
 }
 
-//===
+//=== Validation
 
 public
 extension ValueWrapper
 {
     func isValid() -> Bool
     {
-        return validator(value)
+        return internalValue.map(validator) ?? false
     }
     
-    func mightBeSet<T>(with externalValue: T) -> Bool
+    func mightBeSet<T>(with newValue: T) -> Bool
     {
-        return !valueSetOnce
-            && validator(externalValue as? Value)
+        guard
+            notInitialized() || mutable
+        else
+        {
+            return false
+        }
+        
+        //===
+        
+        guard
+            let newValue = newValue as? Value,
+            validator(newValue)
+            
+            // alternative expression:
+            // (newValue as? Value).map(validator) ?? false
+        else
+        {
+            return false
+        }
+        
+        //===
+        
+        return true
+    }
+}
+
+//=== Helpers
+
+fileprivate
+extension ValueWrapper
+{
+    func notInitialized() -> Bool
+    {
+        return internalValue == nil
     }
 }

@@ -17,8 +17,7 @@ class MKHValueWrapperTst: XCTestCase
 {
     struct MyUser
     {
-        let someConstantValue = ValueWrapper(constant: 3)
-        
+        let someConstantValue = ValueWrapper(const: 3)
         let firstName = ValueWrapper<String>{ $0.characters.count > 0 }
     }
     
@@ -29,7 +28,7 @@ class MKHValueWrapperTst: XCTestCase
         let u = MyUser()
         
         XCTAssertTrue(u.someConstantValue.isValid())
-        XCTAssertEqual(u.someConstantValue.value!, 3)
+        XCTAssertEqual(try! u.someConstantValue.value(), 3)
     }
     
     func testFirstNameValueWrapper()
@@ -38,7 +37,6 @@ class MKHValueWrapperTst: XCTestCase
         
         //===
         
-        XCTAssertTrue(u.firstName.value == nil)
         XCTAssertFalse(u.firstName.isValid())
         
         //===
@@ -50,12 +48,11 @@ class MKHValueWrapperTst: XCTestCase
         }
         catch
         {
-            XCTAssertTrue(type(of: error) == InvalidValue.self)
+            XCTAssertTrue(error is InvalidValue)
         }
         
         //===
         
-        XCTAssertTrue(u.firstName.value == nil)
         XCTAssertFalse(u.firstName.isValid())
         
         //===
@@ -68,12 +65,11 @@ class MKHValueWrapperTst: XCTestCase
         }
         catch
         {
-            XCTAssertTrue(type(of: error) == InvalidValue.self)
+            XCTAssertTrue(error is InvalidValue)
         }
         
         //===
         
-        XCTAssertTrue(u.firstName.value == nil)
         XCTAssertFalse(u.firstName.isValid())
         
         //===
@@ -85,12 +81,11 @@ class MKHValueWrapperTst: XCTestCase
         }
         catch
         {
-            XCTAssertTrue(type(of: error) == InvalidValue.self)
+            XCTAssertTrue(error is InvalidValue)
         }
         
         //===
         
-        XCTAssertTrue(u.firstName.value == nil)
         XCTAssertFalse(u.firstName.isValid())
         
         //===
@@ -106,7 +101,7 @@ class MKHValueWrapperTst: XCTestCase
         
         //===
         
-        XCTAssertEqual(u.firstName.value!, "Max")
+        XCTAssertEqual(try! u.firstName.value(), "Max")
         XCTAssertTrue(u.firstName.isValid())
         
         //===
@@ -118,12 +113,12 @@ class MKHValueWrapperTst: XCTestCase
         }
         catch
         {
-            XCTAssertTrue(type(of: error) == MutabilityViolation.self)
+            XCTAssertTrue(error is MutabilityViolation)
         }
         
         //===
         
-        XCTAssertEqual(u.firstName.value!, "Max")
+        XCTAssertEqual(try! u.firstName.value(), "Max")
         XCTAssertTrue(u.firstName.isValid())
     }
 }
