@@ -108,9 +108,9 @@ extension ValueWrapper
         return validator(value)
     }
     
-    func mightBeSet<T>(with externalValue: T) -> Bool
+    func mightBeSet<T>(with newValue: T) -> Bool
     {
         return !valueSetOnce
-            && validator(externalValue as? Value)
+            && validator(newValue as? Value)
     }
 }
