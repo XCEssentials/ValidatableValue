@@ -22,7 +22,7 @@ default_platform :ios
 
 #===
 
-projName = 'MKHValueWrapper'
+projName = 'MKHValidatableValue'
 projFileName = projName + '.xcodeproj'
 
 #===

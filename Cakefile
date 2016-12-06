@@ -9,8 +9,8 @@ testSuffix = "Tst"
 
 #===
 
-project.name = "MKHValueWrapper"
-project.class_prefix = "VWP"
+project.name = "MKHValidatableValue"
+project.class_prefix = "VAL"
 project.organization = "Maxim Khatskevich"
 
 #===

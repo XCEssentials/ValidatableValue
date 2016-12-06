@@ -1,6 +1,6 @@
 //
 //  ValueAccess.swift
-//  MKHValueWrapper
+//  MKHValidatableValue
 //
 //  Created by Maxim Khatskevich on 12/6/16.
 //  Copyright © 2016 Maxim Khatskevich. All rights reserved.
@@ -11,7 +11,7 @@ import Foundation
 //===
 
 public
-extension ValueWrapper
+extension ValidatableValue
 {
     func value() throws -> Value
     {
