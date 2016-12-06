@@ -9,7 +9,7 @@
 import XCTest
 
 //@testable
-import MKHValueWrapper
+import MKHValidatableValue
 
 //===
 
@@ -17,8 +17,8 @@ class MKHValueWrapperTst: XCTestCase
 {
     struct MyUser
     {
-        let someConstantValue = ValueWrapper(const: 3)
-        var firstName = ValueWrapper<String>{ $0.characters.count > 0 }
+        let someConstantValue = ValidatableValue(const: 3)
+        var firstName = ValidatableValue<String>{ $0.characters.count > 0 }
     }
     
     //===

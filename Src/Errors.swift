@@ -1,18 +1,18 @@
 //
 //  Errors.swift
-//  MKHValueWrapper
+//  MKHValidatableValue
 //
 //  Created by Maxim Khatskevich on 8/27/16.
 //  Copyright © 2016 Maxim Khatskevich. All rights reserved.
 //
 
 public
-protocol ValueWrapperError: Error { }
+protocol ValidatableValueError: Error { }
 
 //===
 
 public
-struct MutabilityViolation: ValueWrapperError { }
+struct MutabilityViolation: ValidatableValueError { }
 
 public
-struct InvalidValue: ValueWrapperError { }
+struct InvalidValue: ValidatableValueError { }

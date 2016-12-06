@@ -1,13 +1,13 @@
 //
 //  Main.swift
-//  MKHValueWrapper
+//  MKHValidatableValue
 //
 //  Created by Maxim Khatskevich on 8/27/16.
 //  Copyright © 2016 Maxim Khatskevich. All rights reserved.
 //
 
 public
-struct ValueWrapper<Value>
+struct ValidatableValue<Value>
 {
     var internalValue: Value?
     
@@ -58,7 +58,7 @@ struct ValueWrapper<Value>
 //=== MARK: - Special initializer
 
 public
-extension ValueWrapper
+extension ValidatableValue
 {
     init(const constValue: Value)
     {

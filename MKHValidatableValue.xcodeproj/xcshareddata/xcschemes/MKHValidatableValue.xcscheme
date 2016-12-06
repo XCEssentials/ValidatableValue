@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6F31FE548493BF43F079B6D7"
-               BuildableName = "MKHValueWrapper.framework"
-               BlueprintName = "MKHValueWrapper"
-               ReferencedContainer = "container:MKHValueWrapper.xcodeproj">
+               BlueprintIdentifier = "ED63645334A359AA01F300AC"
+               BuildableName = "MKHValidatableValue.framework"
+               BlueprintName = "MKHValidatableValue"
+               ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,20 +32,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FC82833894C026985E5EED72"
-               BuildableName = "MKHValueWrapperTst.xctest"
-               BlueprintName = "MKHValueWrapperTst"
-               ReferencedContainer = "container:MKHValueWrapper.xcodeproj">
+               BlueprintIdentifier = "20371FF57B9E0FC3FBB8F61B"
+               BuildableName = "MKHValidatableValueTst.xctest"
+               BlueprintName = "MKHValidatableValueTst"
+               ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F31FE548493BF43F079B6D7"
-            BuildableName = "MKHValueWrapper.framework"
-            BlueprintName = "MKHValueWrapper"
-            ReferencedContainer = "container:MKHValueWrapper.xcodeproj">
+            BlueprintIdentifier = "ED63645334A359AA01F300AC"
+            BuildableName = "MKHValidatableValue.framework"
+            BlueprintName = "MKHValidatableValue"
+            ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -64,10 +64,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F31FE548493BF43F079B6D7"
-            BuildableName = "MKHValueWrapper.framework"
-            BlueprintName = "MKHValueWrapper"
-            ReferencedContainer = "container:MKHValueWrapper.xcodeproj">
+            BlueprintIdentifier = "ED63645334A359AA01F300AC"
+            BuildableName = "MKHValidatableValue.framework"
+            BlueprintName = "MKHValidatableValue"
+            ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -82,10 +82,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6F31FE548493BF43F079B6D7"
-            BuildableName = "MKHValueWrapper.framework"
-            BlueprintName = "MKHValueWrapper"
-            ReferencedContainer = "container:MKHValueWrapper.xcodeproj">
+            BlueprintIdentifier = "ED63645334A359AA01F300AC"
+            BuildableName = "MKHValidatableValue.framework"
+            BlueprintName = "MKHValidatableValue"
+            ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
