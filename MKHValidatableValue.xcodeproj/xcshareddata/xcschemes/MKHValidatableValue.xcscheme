@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED63645334A359AA01F300AC"
+               BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
                BuildableName = "MKHValidatableValue.framework"
                BlueprintName = "MKHValidatableValue"
                ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "20371FF57B9E0FC3FBB8F61B"
+               BlueprintIdentifier = "B48C4B56D324E4F1BD542BEB"
                BuildableName = "MKHValidatableValueTst.xctest"
                BlueprintName = "MKHValidatableValueTst"
                ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED63645334A359AA01F300AC"
+            BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
             BuildableName = "MKHValidatableValue.framework"
             BlueprintName = "MKHValidatableValue"
             ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -64,7 +64,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED63645334A359AA01F300AC"
+            BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
             BuildableName = "MKHValidatableValue.framework"
             BlueprintName = "MKHValidatableValue"
             ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -82,7 +82,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED63645334A359AA01F300AC"
+            BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
             BuildableName = "MKHValidatableValue.framework"
             BlueprintName = "MKHValidatableValue"
             ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
