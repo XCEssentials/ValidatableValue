@@ -12,4 +12,6 @@ Pod::Spec.new do |s|
   s.requires_arc              = true
   s.social_media_url          = 'http://www.linkedin.com/in/maximkhatskevich'
 
+  s.dependency                'MKHRequirement', '~> 1.0.0'
+
 end

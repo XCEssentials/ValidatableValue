@@ -75,6 +75,10 @@ platform :ios do
     versionNumber = get_version_number(xcodeproj: projFileName)
     buildNumber = get_build_number(xcodeproj: projFileName)
 
+    # # === Remove completely current project file/folder
+    #
+    # sh 'cd ./.. && rm -r ./' + projFileName
+
     # === Regenerate project
 
     # default initial location for any command

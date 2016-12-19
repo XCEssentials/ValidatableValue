@@ -10,6 +10,7 @@
 		0E66CDF62F19DCFA7E1E6151 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85480472FA8D35D33302BBEA /* Foundation.framework */; };
 		23DF71355AE6BC16C8FF164E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5916B5772C4BACDE14A8B2A9 /* Main.swift */; };
 		31C3D12A15ABF47A05BAAC66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7223EE56D0B64E01FBB843F /* UIKit.framework */; };
+		507E9EA74D6E94DD461F9AD1 /* Pods_MKHValidatableValue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A7DA274AAFBDB374F5C0155 /* Pods_MKHValidatableValue.framework */; };
 		5D9281C3A6C0CF200B3F31E2 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C080D8C42DB1CC34B7F66B00 /* Validation.swift */; };
 		87D223D0357E2E69209FF04E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B3B148292795418FEA39F4 /* Main.swift */; };
 		8987200B9A5B09C063A9335B /* ValueAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CA4FE287A27C2299EB4BB2 /* ValueAccess.swift */; };
@@ -20,11 +21,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A7DA274AAFBDB374F5C0155 /* Pods_MKHValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MKHValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A7E03EF307DD13E192A621D /* Pods-MKHValidatableValue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MKHValidatableValue.release.xcconfig"; path = "Pods/Target Support Files/Pods-MKHValidatableValue/Pods-MKHValidatableValue.release.xcconfig"; sourceTree = "<group>"; };
 		30CA4FE287A27C2299EB4BB2 /* ValueAccess.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValueAccess.swift; sourceTree = "<group>"; };
 		533146B4A1E7C4E63A80C375 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5916B5772C4BACDE14A8B2A9 /* Main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		6E4B5C646BDD3C1A0281B8BF /* MKHValidatableValue. */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = MKHValidatableValue.; path = MKHValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		770ECCAF97ED95F540D99137 /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		7CEB23B80DB49D0DB1BD9A39 /* Pods-MKHValidatableValue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MKHValidatableValue.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MKHValidatableValue/Pods-MKHValidatableValue.debug.xcconfig"; sourceTree = "<group>"; };
 		8433965FF320E6BE764D8DD8 /* MKHValidatableValue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MKHValidatableValue.h; sourceTree = "<group>"; };
 		85480472FA8D35D33302BBEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		97B3B148292795418FEA39F4 /* Main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
@@ -40,6 +44,7 @@
 			files = (
 				0E66CDF62F19DCFA7E1E6151 /* Foundation.framework in Frameworks */,
 				CE3154E91E0821DD63E6FFFD /* UIKit.framework in Frameworks */,
+				507E9EA74D6E94DD461F9AD1 /* Pods_MKHValidatableValue.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +68,7 @@
 				2D100EA0880AE345FF2793B2 /* Src */,
 				783A0FAC9EC94C0F96DC7707 /* Src-Extra */,
 				D0974A2589B249F6F59C81B5 /* Frameworks */,
+				8C9738F2103974520069D14A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +109,15 @@
 			path = "Src-Extra";
 			sourceTree = "<group>";
 		};
+		8C9738F2103974520069D14A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7CEB23B80DB49D0DB1BD9A39 /* Pods-MKHValidatableValue.debug.xcconfig */,
+				1A7E03EF307DD13E192A621D /* Pods-MKHValidatableValue.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BF0A641826FF8712B3D95275 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				508545DD76AC762C87333DC3 /* iOS */,
+				0A7DA274AAFBDB374F5C0155 /* Pods_MKHValidatableValue.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -143,8 +159,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4BCF20A1C9928FC1C28E685 /* Build configuration list for PBXNativeTarget "MKHValidatableValue" */;
 			buildPhases = (
+				EC8AD85886E80812335D6CC8 /* [CP] Check Pods Manifest.lock */,
 				02B29CE89370BEB4492B3DBC /* Sources */,
 				562EBAD788414B6F7537CE30 /* Frameworks */,
+				5E834FA1D453F9D973446AD5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -192,6 +210,39 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5E834FA1D453F9D973446AD5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MKHValidatableValue/Pods-MKHValidatableValue-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC8AD85886E80812335D6CC8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		02B29CE89370BEB4492B3DBC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -218,6 +269,7 @@
 /* Begin XCBuildConfiguration section */
 		0B98BA3F802F0DD531D6A3CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CEB23B80DB49D0DB1BD9A39 /* Pods-MKHValidatableValue.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 4;
@@ -360,6 +412,7 @@
 		};
 		B60EE64CA58CD88041248F03 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A7E03EF307DD13E192A621D /* Pods-MKHValidatableValue.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 4;
