@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
+               BlueprintIdentifier = "1CCFEB1BB671EF1207A2DFF1"
                BuildableName = "MKHValidatableValue.framework"
                BlueprintName = "MKHValidatableValue"
                ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B48C4B56D324E4F1BD542BEB"
+               BlueprintIdentifier = "273F505F66B6DA53F38027FB"
                BuildableName = "MKHValidatableValueTst.xctest"
                BlueprintName = "MKHValidatableValueTst"
                ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
+            BlueprintIdentifier = "1CCFEB1BB671EF1207A2DFF1"
             BuildableName = "MKHValidatableValue.framework"
             BlueprintName = "MKHValidatableValue"
             ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -64,7 +64,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
+            BlueprintIdentifier = "1CCFEB1BB671EF1207A2DFF1"
             BuildableName = "MKHValidatableValue.framework"
             BlueprintName = "MKHValidatableValue"
             ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
@@ -82,7 +82,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "909491A0DC4C41C6A5088BB8"
+            BlueprintIdentifier = "1CCFEB1BB671EF1207A2DFF1"
             BuildableName = "MKHValidatableValue.framework"
             BlueprintName = "MKHValidatableValue"
             ReferencedContainer = "container:MKHValidatableValue.xcodeproj">
