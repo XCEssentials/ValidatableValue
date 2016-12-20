@@ -6,12 +6,16 @@
 //  Copyright © 2016 Maxim Khatskevich. All rights reserved.
 //
 
+import MKHRequirement
+
+//===
+
 public
 struct ValidatableValue<Value>
 {
     var internalValue: Value?
     
-    let validator: (Value) -> Bool
+    let requirements: [Requirement<Value>]
     
     //===
     
@@ -22,23 +26,28 @@ struct ValidatableValue<Value>
     
     public
     init(mutable: Bool = false,
-         validator: @escaping (Value) -> Bool)
+         _ requirements: Requirement<Value>...)
     {
         self.internalValue = nil
         
         //===
         
         self.mutable = mutable
-        self.validator = validator
+        self.requirements = requirements
     }
     
     public
     init(value initialValue: Value?,
          mutable: Bool = false,
-         validator: @escaping (Value) -> Bool) throws
+         _ requirements: Requirement<Value>...) throws
     {
+        self.mutable = mutable
+        self.requirements = requirements
+        
+        //===
+        
         guard
-            initialValue.map(validator) ?? mutable
+            validate(initialValue)
         else
         {
             throw InvalidValue()
@@ -47,23 +56,5 @@ struct ValidatableValue<Value>
         //===
         
         self.internalValue = initialValue
-        
-        //===
-        
-        self.mutable = mutable
-        self.validator = validator
-    }
-}
-
-//=== MARK: - Special initializer
-
-public
-extension ValidatableValue
-{
-    init(const constValue: Value)
-    {
-        try! self.init(value: constValue,
-                       mutable: false,
-                       validator: { _ in return true })
     }
 }

@@ -6,10 +6,6 @@
 //  Copyright © 2016 Maxim Khatskevich. All rights reserved.
 //
 
-import Foundation
-
-//===
-
 public
 extension ValidatableValue
 {
@@ -17,7 +13,7 @@ extension ValidatableValue
     {
         guard
             let result = internalValue
-            else
+        else
         {
             throw InvalidValue()
         }
@@ -32,7 +28,7 @@ extension ValidatableValue
     {
         guard
             notInitialized() || mutable
-            else
+        else
         {
             throw MutabilityViolation()
         }
@@ -41,8 +37,8 @@ extension ValidatableValue
         
         guard
             let newValue = newValue as? Value,
-            validator(newValue)
-            else
+            validate(newValue)
+        else
         {
             throw InvalidValue()
         }

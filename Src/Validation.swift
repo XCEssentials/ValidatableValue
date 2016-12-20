@@ -6,23 +6,19 @@
 //  Copyright © 2016 Maxim Khatskevich. All rights reserved.
 //
 
-import Foundation
-
-//===
-
 public
 extension ValidatableValue
 {
     func isValid() -> Bool
     {
-        return internalValue.map(validator) ?? false
+        return validate(internalValue)
     }
     
     func mightBeSet<T>(with newValue: T) -> Bool
     {
         guard
             notInitialized() || mutable
-            else
+        else
         {
             return false
         }
@@ -30,8 +26,8 @@ extension ValidatableValue
         //===
         
         guard
-            (newValue as? Value).map(validator) ?? false
-            else
+            validate(newValue as? Value)
+        else
         {
             return false
         }
