@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                      = 'MKHValidatableValue'
-  s.version                   = '2.0.1'
+  s.version                   = '2.1.0'
   s.summary                   = 'Generic value wrapper with built-in validator and mutation control.'
   s.homepage                  = 'https://github.com/maximkhatskevich/#{s.name}'
   s.license                   = { :type => 'MIT', :file => 'LICENSE' }
