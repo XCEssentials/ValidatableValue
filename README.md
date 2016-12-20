@@ -1,2 +1,2 @@
-# MKHValueWrapper
-Generic value wrapper with built-in validator and mutation control.
+# MKHValidatableValue
+Generic value wrapper with built-in validation and mutation control.
