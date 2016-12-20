@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                      = 'MKHValidatableValue'
-  s.version                   = '2.0.1'
+  s.version                   = '2.1.0'
   s.summary                   = 'Generic value wrapper with built-in validator and mutation control.'
   s.homepage                  = 'https://github.com/maximkhatskevich/#{s.name}'
   s.license                   = { :type => 'MIT', :file => 'LICENSE' }
@@ -11,5 +11,7 @@ Pod::Spec.new do |s|
   s.source_files              = 'Src/**/*.swift'
   s.requires_arc              = true
   s.social_media_url          = 'http://www.linkedin.com/in/maximkhatskevich'
+
+  s.dependency                'MKHRequirement', '~> 1.0.0'
 
 end

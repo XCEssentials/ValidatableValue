@@ -75,12 +75,16 @@ platform :ios do
     versionNumber = get_version_number(xcodeproj: projFileName)
     buildNumber = get_build_number(xcodeproj: projFileName)
 
+    # === Remove completely current project file/folder
+    
+    sh 'cd ./.. && rm -r ./' + projFileName
+
     # === Regenerate project
 
     # default initial location for any command
     # is inside 'Fastlane' folder
 
-    sh 'cd ./.. && xcake make' # && pod update --no-repo-update'
+    sh 'cd ./.. && xcake make && pod update --no-repo-update'
 
     # === Set proper current version and build numbers
 
@@ -105,7 +109,7 @@ platform :ios do
     # default initial location for any command
     # is inside 'Fastlane' folder
 
-    sh 'cd ./.. && xcake make' # && pod update --no-repo-update'
+    sh 'cd ./.. && xcake make && pod update --no-repo-update'
 
     # === Set proper build number (proper version number is stored in the Info file)
 

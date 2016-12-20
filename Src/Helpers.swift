@@ -12,4 +12,27 @@ extension ValidatableValue
     {
         return internalValue == nil
     }
+    
+    func validate(_ input: Value?) -> Bool
+    {
+        guard
+            let input = input
+        else
+        {
+            return false
+        }
+        
+        //===
+        
+        guard
+            requirements.reduce(true, { $0 && $1.check(input) })
+        else
+        {
+            return false
+        }
+        
+        //===
+        
+        return true
+    }
 }
