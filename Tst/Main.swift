@@ -15,14 +15,6 @@ import MKHValidatableValue
 
 class MKHValueWrapperTst: XCTestCase
 {
-    struct MyUser
-    {
-        let someConstantValue = ValidatableValue(const: 3)
-        var firstName = ValidatableValue<String>{ $0.characters.count > 0 }
-    }
-    
-    //===
-    
     func testSomeConstantValueWrapper()
     {
         let u = MyUser()
