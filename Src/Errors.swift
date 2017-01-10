@@ -12,7 +12,4 @@ protocol ValidatableValueError: Error { }
 //===
 
 public
-struct MutabilityViolation: ValidatableValueError { }
-
-public
 struct InvalidValue: ValidatableValueError { }

@@ -8,11 +8,6 @@
 
 extension ValidatableValue
 {
-    func notInitialized() -> Bool
-    {
-        return internalValue == nil
-    }
-    
     func validate(_ input: Value?) -> Bool
     {
         guard
