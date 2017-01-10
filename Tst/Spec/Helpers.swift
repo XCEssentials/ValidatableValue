@@ -16,7 +16,7 @@ typealias CS = CharacterSet
 
 extension CS
 {
-    func countChars(at str: String) -> UInt
+    func count(at str: String) -> UInt
     {
         var result: UInt = 0
         
