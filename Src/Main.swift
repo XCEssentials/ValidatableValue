@@ -20,28 +20,17 @@ struct ValidatableValue<Value>
     //===
     
     public
-    let mutable: Bool
+    init(_ initialValue: Value?,
+         _ requirements: Requirement<Value>...) throws
+    {
+        try self.init(initialValue, requirements)
+    }
     
     //===
     
-    public
-    init(mutable: Bool = false,
-         _ requirements: Requirement<Value>...)
+    init(_ initialValue: Value?,
+         _ requirements: [Requirement<Value>]) throws
     {
-        self.internalValue = nil
-        
-        //===
-        
-        self.mutable = mutable
-        self.requirements = requirements
-    }
-    
-    public
-    init(value initialValue: Value?,
-         mutable: Bool = false,
-         _ requirements: Requirement<Value>...) throws
-    {
-        self.mutable = mutable
         self.requirements = requirements
         
         //===

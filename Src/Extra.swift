@@ -13,30 +13,17 @@ import MKHRequirement
 public
 extension ValidatableValue
 {
-    init(const constValue: Value)
-    {
-        self.mutable = false
-        self.requirements = []
-        self.internalValue = constValue
-    }
-    
     public
-    init(mutable: Bool = false)
+    init(_ initialValue: Value?)
     {
-        self.internalValue = nil
-        
-        //===
-        
-        self.mutable = mutable
-        self.requirements = []
-    }
-    
-    public
-    init(value initialValue: Value?,
-         mutable: Bool = false)
-    {
-        self.mutable = mutable
         self.requirements = []
         self.internalValue = initialValue
+    }
+    
+    public
+    init(_ requirements: Requirement<Value>...)
+    {
+        self.requirements = requirements
+        self.internalValue = nil
     }
 }

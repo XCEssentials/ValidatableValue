@@ -23,20 +23,15 @@ extension ValidatableValue
         return result
     }
     
+    func copy(with newValue: Value) throws -> ValidatableValue
+    {
+        return try ValidatableValue(newValue, requirements)
+    }
+    
     mutating
-    func setValue<T>(_ newValue: T) throws
+    func setValue(_ newValue: Value) throws
     {
         guard
-            notInitialized() || mutable
-        else
-        {
-            throw MutabilityViolation()
-        }
-        
-        //===
-        
-        guard
-            let newValue = newValue as? Value,
             validate(newValue)
         else
         {

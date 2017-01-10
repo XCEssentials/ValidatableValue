@@ -35,39 +35,6 @@ class MKHValueWrapperTst: XCTestCase
         
         do
         {
-            try u.firstName.setValue(5)
-            XCTFail("Should not get here ever")
-        }
-        catch
-        {
-            XCTAssertTrue(error is InvalidValue)
-        }
-        
-        //===
-        
-        XCTAssertFalse(u.firstName.isValid())
-        
-        //===
-        
-        do
-        {
-            let tmp: String? = nil
-            try u.firstName.setValue(tmp)
-            XCTFail("Should not get here ever")
-        }
-        catch
-        {
-            XCTAssertTrue(error is InvalidValue)
-        }
-        
-        //===
-        
-        XCTAssertFalse(u.firstName.isValid())
-        
-        //===
-        
-        do
-        {
             try u.firstName.setValue("")
             XCTFail("Should not get here ever")
         }
@@ -101,16 +68,15 @@ class MKHValueWrapperTst: XCTestCase
         do
         {
             try u.firstName.setValue("Alex")
-            XCTFail("Should not get here ever")
         }
         catch
         {
-            XCTAssertTrue(error is MutabilityViolation)
+            XCTFail("Should not get here ever")
         }
         
         //===
         
-        XCTAssertEqual(try! u.firstName.value(), "Max")
+        XCTAssertEqual(try! u.firstName.value(), "Alex")
         XCTAssertTrue(u.firstName.isValid())
     }
 }

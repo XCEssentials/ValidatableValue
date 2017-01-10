@@ -15,7 +15,7 @@ import MKHHelpers
 
 struct MyUser
 {
-    let someConstantValue = ValidatableValue(const: 3)
+    let someConstantValue = ValidatableValue(3)
     
     var email = ValidatableValue<String>(
         Require("Valid email address", String.isValidEmail) )
