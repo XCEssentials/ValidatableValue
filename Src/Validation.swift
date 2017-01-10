@@ -14,17 +14,8 @@ extension ValidatableValue
         return validate(internalValue)
     }
     
-    func mightBeSet<T>(with newValue: T) -> Bool
+    func willBeValid<T>(with newValue: T) -> Bool
     {
-        guard
-            notInitialized() || mutable
-        else
-        {
-            return false
-        }
-        
-        //===
-        
         guard
             validate(newValue as? Value)
         else
