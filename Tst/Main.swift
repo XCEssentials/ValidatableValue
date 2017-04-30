@@ -9,7 +9,7 @@
 import XCTest
 
 //@testable
-import MKHValidatableValue
+import XCEValidatableValue
 
 //===
 

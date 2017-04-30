@@ -20,7 +20,9 @@ extension ValidatableValue
         //===
         
         guard
-            requirements.reduce(true, { $0 && $1.check(input) })
+            requirements
+                .reduce(true,
+                        { $0 && $1.isFulfilled(with: input) })
         else
         {
             return false

@@ -17,7 +17,7 @@
 		9CEEA7D180A781108F9FB9EB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7D59C49EA102EA13F50EB9 /* User.swift */; };
 		A4CC55B4B4472012286A97C6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AC50A2D98D1E7F1A81328 /* Helpers.swift */; };
 		BF4A011D75F43D03FEAB5B11 /* Pods_Fwk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB855BFD3A8C2C997BCFBAF8 /* Pods_Fwk.framework */; };
-		C39033F91BDA041BEE584762 /* Fwk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E39127243C56E68CAF08F2 /* Fwk.framework */; };
+		C39033F91BDA041BEE584762 /* XCEValidatableValue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E39127243C56E68CAF08F2 /* XCEValidatableValue.framework */; };
 		C4BBA4146537845C6326C602 /* ValueAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844B654A5604F7FABC68C520 /* ValueAccess.swift */; };
 		C50A98A6BF0F72FACA7F398F /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA3E30DD7FE87217266E61B /* Password.swift */; };
 		CC5D847AE6B63F2D5FFEC9F8 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B79DB3BF9EA1DCA0A882D1 /* Main.swift */; };
@@ -76,7 +76,7 @@
 		CAA3E30DD7FE87217266E61B /* Password.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		EB855BFD3A8C2C997BCFBAF8 /* Pods_Fwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fwk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F14EBBDDAE350BCC15620DF0 /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		F6E39127243C56E68CAF08F2 /* Fwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fwk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6E39127243C56E68CAF08F2 /* XCEValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XCEValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A6FE0B80673877C89176BAF /* Foundation.framework in Frameworks */,
-				C39033F91BDA041BEE584762 /* Fwk.framework in Frameworks */,
+				C39033F91BDA041BEE584762 /* XCEValidatableValue.framework in Frameworks */,
 				277F67AE0B99568E7E740A13 /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,7 +129,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = "$local";
+			name = $local;
 			sourceTree = "<group>";
 		};
 		4EE3E6AC564585874BA020A7 /* Src */ = {
@@ -142,7 +142,6 @@
 				455750CC7C925B1DE1867D26 /* Validation.swift */,
 				844B654A5604F7FABC68C520 /* ValueAccess.swift */,
 			);
-			name = Src;
 			path = Src;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -161,7 +160,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = "$subproj";
+			name = $subproj;
 			sourceTree = "<group>";
 		};
 		C91B751EAED2C2559DAA98F0 /* iOS */ = {
@@ -178,7 +177,6 @@
 				CAA3E30DD7FE87217266E61B /* Password.swift */,
 				6E7D59C49EA102EA13F50EB9 /* User.swift */,
 			);
-			name = User;
 			path = User;
 			sourceTree = "<group>";
 		};
@@ -188,14 +186,13 @@
 				A8B79DB3BF9EA1DCA0A882D1 /* Main.swift */,
 				F264ED6D10836C4646D06D8D /* Spec */,
 			);
-			name = Tst;
 			path = Tst;
 			sourceTree = SOURCE_ROOT;
 		};
 		D97E001B83C5A4FF70A53762 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F6E39127243C56E68CAF08F2 /* Fwk.framework */,
+				F6E39127243C56E68CAF08F2 /* XCEValidatableValue.framework */,
 				1E27F67DCB7475ECDD722A37 /* Tests.xctest */,
 			);
 			name = Products;
@@ -207,7 +204,6 @@
 				AB9AC50A2D98D1E7F1A81328 /* Helpers.swift */,
 				D1A5013137EADCD5C2F04EB1 /* User */,
 			);
-			name = Spec;
 			path = Spec;
 			sourceTree = "<group>";
 		};
@@ -230,7 +226,7 @@
 			);
 			name = Fwk;
 			productName = Fwk;
-			productReference = F6E39127243C56E68CAF08F2 /* Fwk.framework */;
+			productReference = F6E39127243C56E68CAF08F2 /* XCEValidatableValue.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		D45CB0B27B6B9656B15E80CD /* Tests */ = {
