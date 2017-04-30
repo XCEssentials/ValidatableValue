@@ -1,8 +1,8 @@
-projectName = 'MKHValidatableValue'
+projName = 'ValidatableValue'
 
 platform :ios, '8.0'
 
-workspace projectName
+workspace projName
 
 use_frameworks!
 
@@ -10,16 +10,15 @@ use_frameworks!
 
 def sharedPods
 
-	pod 'MKHRequirement', :path => './../MKHRequirement'
-	# pod 'MKHRequirement', :git => 'https://github.com/maximkhatskevich/MKHRequirement.git'
+	pod 'XCERequirement', '~> 1.4'
 
 end
 
 #===
 
-target projectName do
+target 'Fwk' do
 
-	project projectName
+	project projName
 
 	#===
 
@@ -27,17 +26,12 @@ target projectName do
 
 end
 
-target projectName + 'Tst' do
+target 'Tests' do
 
-	project projectName
+	project projName
 
 	#===
 
 	sharedPods
-
-	#===
-
-	pod 'MKHHelpers', :path => './../MKHHelpers'
-	# pod 'MKHHelpers', :git => 'https://github.com/maximkhatskevich/MKHHelpers.git'
 
 end
