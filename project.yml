@@ -9,6 +9,7 @@ configurations:
     - "general:debug"
     overrides:
       IPHONEOS_DEPLOYMENT_TARGET: "8.0"
+      CODE_SIGN_IDENTITY[sdk=iphoneos*]: ""
       SWIFT_VERSION: "3.0"
       VERSIONING_SYSTEM: "apple-generic"
       SWIFT_OPTIMIZATION_LEVEL: "-Onone"
@@ -18,6 +19,7 @@ configurations:
     - "general:release"
     overrides:
       IPHONEOS_DEPLOYMENT_TARGET: "8.0"
+      CODE_SIGN_IDENTITY[sdk=iphoneos*]: ""
       SWIFT_VERSION: "3.0"
       VERSIONING_SYSTEM: "apple-generic"
 targets:

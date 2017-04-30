@@ -257,7 +257,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0830;
 			};
 			buildConfigurationList = B187C5AEA8DB707137621C33 /* Build configuration list for PBXProject "ValidatableValue" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -468,6 +468,7 @@
 			baseConfigurationReference = A657A3EEC393F030EB643D8E /* Pods-Fwk.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 7;
 				DEFINES_MODULE = NO;
 				ENABLE_TESTABILITY = YES;
@@ -556,6 +557,7 @@
 			baseConfigurationReference = 0426DB87FD5C7F03F4FCB5AD /* Pods-Fwk.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 7;
 				DEFINES_MODULE = NO;
 				ENABLE_TESTABILITY = YES;

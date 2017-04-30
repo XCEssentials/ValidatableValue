@@ -26,6 +26,8 @@ let project = Project(My.repoName) { p in
         
         "IPHONEOS_DEPLOYMENT_TARGET" <<< My.deploymentTarget, // bug wokraround
         
+        "CODE_SIGN_IDENTITY[sdk=iphoneos*]" <<< "",
+        
         "SWIFT_VERSION" <<< "3.0",
         "VERSIONING_SYSTEM" <<< "apple-generic"
     )
