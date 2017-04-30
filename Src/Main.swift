@@ -6,7 +6,7 @@
 //  Copyright © 2016 Maxim Khatskevich. All rights reserved.
 //
 
-import MKHRequirement
+import XCERequirement
 
 //===
 
