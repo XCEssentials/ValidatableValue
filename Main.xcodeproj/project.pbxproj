@@ -8,15 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0A7D462EFFB2784F10B354BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D0105507A534C47A7B35D8 /* Foundation.framework */; };
-		32B1DDC90CDC671EFA41A979 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91681DD5ABB4841D4C50EFA3 /* Main.swift */; };
-		3C1DAC1B86BEFE6FF44A841C /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC0A3464EC163E4BAB2CAA /* Validation.swift */; };
+		32B1DDC90CDC671EFA41A979 /* ValidatableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91681DD5ABB4841D4C50EFA3 /* ValidatableValue.swift */; };
 		44DFCFC7426487840C33657F /* Pods_Fwk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2F72B8EB9CC422FFD841FD3 /* Pods_Fwk.framework */; };
 		59A663C37B45728D6C1BE4DE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E266A041424CB320A6F7321E /* Helpers.swift */; };
-		5B48E8D414CB3044250A6CF8 /* ValueAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAB290E70CE5B0F08D9A19E /* ValueAccess.swift */; };
+		5B48E8D414CB3044250A6CF8 /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAB290E70CE5B0F08D9A19E /* Initializers.swift */; };
 		7E1F1831D6C63EDD6AB10FD4 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FE6A5E05BE1FFAB070BFB /* Password.swift */; };
-		91CF7465D8713EE44BE34117 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ABB1B35BDCD337879BD453 /* Helpers.swift */; };
 		927C14C6143FA2B19E366D09 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F791557D101E81B3C45CAD /* Errors.swift */; };
-		A6B1B66A76CC83F86D428903 /* Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DEF7394236CDE8BA32F98C /* Extra.swift */; };
+		948104D01F488ED2008B013D /* ValidatableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948104CF1F488ED2008B013D /* ValidatableEntity.swift */; };
 		CE08A8A84031005AC337383C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D0105507A534C47A7B35D8 /* Foundation.framework */; };
 		D7DF6AFF94EE3A04EC1C53BE /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625FCC032665EB3551BBED9 /* Main.swift */; };
 		E4A9D7B238786669E01E3312 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E62350DBEA821F9F23C0BD /* User.swift */; };
@@ -59,19 +57,17 @@
 /* Begin PBXFileReference section */
 		2F5FE6A5E05BE1FFAB070BFB /* Password.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		343B09A0D2E9085C310918BD /* Pods-Fwk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fwk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fwk/Pods-Fwk.debug.xcconfig"; sourceTree = "<group>"; };
-		43ABB1B35BDCD337879BD453 /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		44E62350DBEA821F9F23C0BD /* User.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		5FAB290E70CE5B0F08D9A19E /* ValueAccess.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValueAccess.swift; sourceTree = "<group>"; };
+		5FAB290E70CE5B0F08D9A19E /* Initializers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
 		62F791557D101E81B3C45CAD /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		91681DD5ABB4841D4C50EFA3 /* Main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		91681DD5ABB4841D4C50EFA3 /* ValidatableValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValidatableValue.swift; sourceTree = "<group>"; };
+		948104CF1F488ED2008B013D /* ValidatableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatableEntity.swift; sourceTree = "<group>"; };
 		A2F72B8EB9CC422FFD841FD3 /* Pods_Fwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fwk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4EC0A3464EC163E4BAB2CAA /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		B7DEF7394236CDE8BA32F98C /* Extra.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extra.swift; sourceTree = "<group>"; };
 		B8563FF7D888D8C7E2835F20 /* Pods-Fwk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fwk.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fwk/Pods-Fwk.release.xcconfig"; sourceTree = "<group>"; };
 		C3D0105507A534C47A7B35D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		C625FCC032665EB3551BBED9 /* Main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		D4BD43E935968D65787899B1 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		DCD82093FB94C61BC5522514 /* Fwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fwk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD82093FB94C61BC5522514 /* Fwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Fwk.framework; path = XCEValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E266A041424CB320A6F7321E /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		EC1247A0B5D87FF7FF944B76 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F68A8A5AA5C9053CA1C3C4 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +110,6 @@
 				C625FCC032665EB3551BBED9 /* Main.swift */,
 				FC4EC50B733BBE8B1004027E /* Spec */,
 			);
-			name = Tests;
 			path = Tests;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -124,7 +119,6 @@
 				2F5FE6A5E05BE1FFAB070BFB /* Password.swift */,
 				44E62350DBEA821F9F23C0BD /* User.swift */,
 			);
-			name = User;
 			path = User;
 			sourceTree = "<group>";
 		};
@@ -141,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = "$local";
+			name = $local;
 			sourceTree = "<group>";
 		};
 		846848AF303FF13288CF97D9 /* Pods */ = {
@@ -180,14 +174,11 @@
 		FAB257BCC8202690FFDC8543 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				91681DD5ABB4841D4C50EFA3 /* ValidatableValue.swift */,
 				62F791557D101E81B3C45CAD /* Errors.swift */,
-				B7DEF7394236CDE8BA32F98C /* Extra.swift */,
-				43ABB1B35BDCD337879BD453 /* Helpers.swift */,
-				91681DD5ABB4841D4C50EFA3 /* Main.swift */,
-				A4EC0A3464EC163E4BAB2CAA /* Validation.swift */,
-				5FAB290E70CE5B0F08D9A19E /* ValueAccess.swift */,
+				5FAB290E70CE5B0F08D9A19E /* Initializers.swift */,
+				948104CF1F488ED2008B013D /* ValidatableEntity.swift */,
 			);
-			name = Sources;
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -197,7 +188,6 @@
 				E266A041424CB320A6F7321E /* Helpers.swift */,
 				3956E500BF646E8DC86CBCB8 /* User */,
 			);
-			name = Spec;
 			path = Spec;
 			sourceTree = "<group>";
 		};
@@ -302,7 +292,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-			showEnvVarsInLog = 1;
 		};
 		A66D33BD0DAF2242B2B743DF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -382,12 +371,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				948104D01F488ED2008B013D /* ValidatableEntity.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
-				A6B1B66A76CC83F86D428903 /* Extra.swift in Sources */,
-				91CF7465D8713EE44BE34117 /* Helpers.swift in Sources */,
-				32B1DDC90CDC671EFA41A979 /* Main.swift in Sources */,
-				3C1DAC1B86BEFE6FF44A841C /* Validation.swift in Sources */,
-				5B48E8D414CB3044250A6CF8 /* ValueAccess.swift in Sources */,
+				32B1DDC90CDC671EFA41A979 /* ValidatableValue.swift in Sources */,
+				5B48E8D414CB3044250A6CF8 /* Initializers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

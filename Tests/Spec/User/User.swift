@@ -14,13 +14,16 @@ import XCERequirement
 
 struct MyUser
 {
-    let someConstantValue = ValidatableValue(3)
+    static
+    let someConstantValue = 3
+    
+    let someConstant = ValidatableValue(MyUser.someConstantValue)
     
     var email = ValidatableValue<String>(
         Require("Valid email address", String.isValidEmail) )
     
     var firstName = ValidatableValue<String>(
-        Require("Non-empty") { $0.characters.count > 0 } )
+        Require("Non-empty") { $0.characters.count > 0 })
     
     var lastName = ValidatableValue<String?>()
         // no requirements on value, even "nil" is okay

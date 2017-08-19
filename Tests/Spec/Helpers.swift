@@ -10,7 +10,7 @@ import Foundation
 
 //===
 
-typealias CS = CharacterSet
+typealias CS = CharacterSet // swiftlint:disable:this type_name
 
 //===
 

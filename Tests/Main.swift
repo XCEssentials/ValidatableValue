@@ -11,6 +11,9 @@ import XCTest
 //@testable
 import XCEValidatableValue
 
+import XCERequirement
+import XCETesting
+
 //===
 
 class MKHValueWrapperTst: XCTestCase
@@ -19,8 +22,19 @@ class MKHValueWrapperTst: XCTestCase
     {
         let u = MyUser()
         
-        XCTAssertTrue(u.someConstantValue.isValid())
-        XCTAssertEqual(try! u.someConstantValue.value(), 3)
+        //===
+        
+        RXC.isTrue("Constant value is valid") {
+            
+            u.someConstant.isValid()
+        }
+        
+        //===
+        
+        RXC.isTrue("Const vlaue is equal to pre-defined value") {
+            
+            u.someConstant.value == MyUser.someConstantValue
+        }
     }
     
     func testFirstNameValueWrapper()
@@ -29,29 +43,47 @@ class MKHValueWrapperTst: XCTestCase
         
         //===
         
-        XCTAssertFalse(u.firstName.isValid())
+        RXC.isTrue("Initially 'firstName' is NOT valid") {
+            
+            !u.firstName.isValid()
+        }
+        
+        //===
+        
+        let emptyString = ""
         
         //===
         
         do
         {
-            try u.firstName.setValue("")
+            try u.firstName.set(emptyString)
             XCTFail("Should not get here ever")
         }
         catch
         {
-            XCTAssertTrue(error is InvalidValue)
+            RXC.isTrue("An empty string is NOT a valid value for 'firstName'") {
+                
+                error is RequirementNotFulfilled // RequirementIssue
+            }
         }
         
         //===
         
-        XCTAssertFalse(u.firstName.isValid())
+        RXC.isTrue("'firstName' is untapped, so it's still NOT valid") {
+            
+            !u.firstName.isValid()
+        }
+        
+        //===
+        
+        let firstName = "Max"
+        let anotherFirstName = "Alex"
         
         //===
         
         do
         {
-            try u.firstName.setValue("Max")
+            try u.firstName.set(firstName)
         }
         catch
         {
@@ -60,14 +92,21 @@ class MKHValueWrapperTst: XCTestCase
         
         //===
         
-        XCTAssertEqual(try! u.firstName.value(), "Max")
-        XCTAssertTrue(u.firstName.isValid())
+        RXC.isTrue("'firstName' is now set to '\(firstName)'") {
+            
+            u.firstName.value == firstName
+        }
+        
+        RXC.isTrue("'firstName' is now VALID") {
+            
+            u.firstName.isValid()
+        }
         
         //===
         
         do
         {
-            try u.firstName.setValue("Alex")
+            try u.firstName.set(anotherFirstName)
         }
         catch
         {
@@ -76,7 +115,14 @@ class MKHValueWrapperTst: XCTestCase
         
         //===
         
-        XCTAssertEqual(try! u.firstName.value(), "Alex")
-        XCTAssertTrue(u.firstName.isValid())
+        RXC.isTrue("'firstName' is now set to '\(anotherFirstName)'") {
+            
+            u.firstName.value == anotherFirstName
+        }
+        
+        RXC.isTrue("'firstName' is now VALID") {
+            
+            u.firstName.isValid()
+        }
     }
 }
