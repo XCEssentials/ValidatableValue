@@ -25,7 +25,7 @@ struct MyUser
     var firstName = ValidatableValue<String>(
         Require("Non-empty") { $0.characters.count > 0 })
     
-    var lastName = ValidatableValue<String?>()
+    var lastName = ValidatableValue<String>()
         // no requirements on value, even "nil" is okay
     
     var password = ValidatableValue<String>(
