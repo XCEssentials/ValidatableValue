@@ -9,7 +9,7 @@ extension ValidatableValue
         _ initialValue: Value?,
         _ requirements: [Requirement<Value>])
     {
-        self.rawValue = initialValue
+        self.value = initialValue
         self.requirements = requirements
     }
 }

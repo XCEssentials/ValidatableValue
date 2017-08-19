@@ -6,7 +6,7 @@ public
 struct ValidatableValue<Value: Validatable>
 {
     public
-    var rawValue: Any?
+    var value: Value?
     
     public
     let requirements: [Requirement<Value>]
@@ -44,24 +44,12 @@ extension ValidatableValue
 public
 extension ValidatableValue
 {
-    var value: Value?
-    {
-        get
-        {
-            return rawValue.flatMap { $0 as? Value }
-        }
-        set
-        {
-            rawValue = newValue
-        }
-    }
-    
     var validValue: Value?
     {
         get
         {
             let result = try? type(of: self).validate(
-                rawValue,
+                value,
                 with: requirements
             )
             
@@ -69,7 +57,7 @@ extension ValidatableValue
         }
         set
         {
-            rawValue = try? type(of: self).validate(
+            value = try? type(of: self).validate(
                 newValue,
                 with: requirements
             )
@@ -86,7 +74,7 @@ extension ValidatableValue
     func validateCurrentValue() throws -> Value
     {
         return try type(of: self).validate(
-            rawValue,
+            value,
             with: requirements
         )
     }
@@ -103,7 +91,7 @@ extension ValidatableValue
     mutating
     func set(_ newValue: Any?) throws
     {
-        rawValue = try type(of: self).validate(
+        value = try type(of: self).validate(
             newValue,
             with: requirements
         )
