@@ -3,7 +3,7 @@ import XCERequirement
 //===
 
 public
-struct ValidatableValue<Value>
+struct ValidatableValue<Value: Validatable>
 {
     public
     var rawValue: Any?
@@ -60,10 +60,12 @@ extension ValidatableValue
     {
         get
         {
-            return try? type(of: self).validate(
+            let result = try? type(of: self).validate(
                 rawValue,
                 with: requirements
             )
+            
+            return result.flatMap { $0 }
         }
         set
         {
