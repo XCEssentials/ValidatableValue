@@ -48,12 +48,10 @@ extension ValidatableValue
     {
         get
         {
-            let result = try? type(of: self).validate(
+            return try? type(of: self).validate(
                 value,
                 with: requirements
             )
-            
-            return result.flatMap { $0 }
         }
         set
         {
