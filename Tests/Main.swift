@@ -26,7 +26,7 @@ class MKHValueWrapperTst: XCTestCase
         
         RXC.isTrue("Constant value is valid") {
             
-            u.someConstant.isValid()
+            u.someConstant.isValid
         }
         
         //===
@@ -45,7 +45,7 @@ class MKHValueWrapperTst: XCTestCase
         
         RXC.isTrue("Initially 'firstName' is NOT valid") {
             
-            !u.firstName.isValid()
+            !u.firstName.isValid
         }
         
         //===
@@ -57,6 +57,7 @@ class MKHValueWrapperTst: XCTestCase
         do
         {
             try u.firstName.set(emptyString)
+            
             XCTFail("Should not get here ever")
         }
         catch
@@ -71,7 +72,7 @@ class MKHValueWrapperTst: XCTestCase
         
         RXC.isTrue("'firstName' is untapped, so it's still NOT valid") {
             
-            !u.firstName.isValid()
+            !u.firstName.isValid
         }
         
         //===
@@ -99,7 +100,7 @@ class MKHValueWrapperTst: XCTestCase
         
         RXC.isTrue("'firstName' is now VALID") {
             
-            u.firstName.isValid()
+            u.firstName.isValid
         }
         
         //===
@@ -121,32 +122,50 @@ class MKHValueWrapperTst: XCTestCase
         }
         
         RXC.isTrue("'firstName' is now VALID") {
-            
-            u.firstName.isValid()
+        
+            u.firstName.isValid
         }
     }
     
     func testLastNameValueWrapper()
     {
-        let u = MyUser()
+        var u = MyUser()
         
         //===
         
         RXC.isNil("'lastName' is empty") {
 
-            u.lastName.validValue ?? nil
+            u.lastName.value
         }
+        
+        //===
         
         RXC.isTrue("'lastName' is VALID even if it's empty") {
             
-            u.lastName.isValid()
+            u.lastName.isValid
         }
         
-        RXC.isTrue("Any other random string would be VALID for 'lastName'") {
+        //===
+        
+        try? u.lastName.set(nil)
+        
+        RXC.isTrue("'nil' is VALID for 'lastName'") {
             
-            u.lastName.wouldBeValid(nil) &&
-            u.lastName.wouldBeValid("") &&
-            u.lastName.wouldBeValid("ldfewihfiqeuwbfweiubf")
+            u.lastName.isValid
+        }
+        
+        try? u.lastName.set("")
+        
+        RXC.isTrue("Empty string is VALID for 'lastName'") {
+            
+            u.lastName.isValid
+        }
+        
+        try? u.lastName.set("ldfewihfiqeuwbfweiubf")
+        
+        RXC.isTrue("A random non-empty string is VALID for 'lastName'") {
+            
+            u.lastName.isValid
         }
     }
 }

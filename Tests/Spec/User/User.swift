@@ -17,18 +17,18 @@ struct MyUser
     static
     let someConstantValue = 3
     
-    let someConstant = ValidatableValue(MyUser.someConstantValue)
+    let someConstant = MandatoryValue(MyUser.someConstantValue)
     
-    var email = ValidatableValue<String>(
-        Require("Valid email address", String.isValidEmail) )
+    var email = MandatoryValue<String>(
+        Require<String>("Valid email address", String.isValidEmail))
     
-    var firstName = ValidatableValue<String>(
+    var firstName = MandatoryValue<String>(
         Require("Non-empty") { $0.characters.count > 0 })
     
-    var lastName = ValidatableValue<String?>()
+    var lastName = OptionalValue<String>()
         // no requirements on value, even "nil" is okay
     
-    var password = ValidatableValue<String>(
+    var password = MandatoryValue<String>(
         Require("Lenght between 8 and 30 characters"){ 8...30 ~= $0.characters.count },
         Require("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
         Require("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
