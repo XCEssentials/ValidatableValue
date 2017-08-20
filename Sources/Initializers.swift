@@ -21,6 +21,17 @@ extension ValidatableValue
     }
 }
 
+public
+extension ValidatableValue where Value: ExpressibleByNilLiteral
+{
+    init(
+        _ requirementsGetter: () -> [Requirement<Value>] = { return [] })
+    {
+        self.wrapped = Wrapped(nil)
+        self.requirements = requirementsGetter()
+    }
+}
+
 //===
 
 public

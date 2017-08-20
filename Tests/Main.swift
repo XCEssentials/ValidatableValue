@@ -132,12 +132,10 @@ class MKHValueWrapperTst: XCTestCase
         
         //===
         
-//        RXC.isTrue("'lastName' is empty") {
-//
-//            print(u.lastName.validValue)
-//
-//            return u.lastName.validValue == Optional<String?>(nil)
-//        }
+        RXC.isNil("'lastName' is empty") {
+
+            u.lastName.validValue ?? nil
+        }
         
         RXC.isTrue("'lastName' is VALID even if it's empty") {
             
