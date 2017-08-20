@@ -3,10 +3,23 @@ import XCERequirement
 //===
 
 public
-struct ValidatableValue<Value: Validatable>
+struct Wrapped<Value>
 {
     public
-    var value: Value?
+    let value: Value
+    
+    init(_ value: Value)
+    {
+        self.value = value
+    }
+}
+
+//===
+
+public
+struct ValidatableValue<Value>
+{
+    var wrapped: Wrapped<Value>?
     
     public
     let requirements: [Requirement<Value>]
@@ -17,13 +30,13 @@ struct ValidatableValue<Value: Validatable>
 extension ValidatableValue
 {
     static
-    func validate(
-        _ rawValue: Any?,
+    func validate<T>(
+        _ candidate: T,
         with requirements: [Requirement<Value>]
         ) throws -> Value
     {
         guard
-            let result = rawValue.flatMap({ $0 as? Value })
+            let result = candidate as? Value
         else
         {
             throw WrongBaseType()
@@ -44,21 +57,62 @@ extension ValidatableValue
 public
 extension ValidatableValue
 {
+    var value: Value?
+    {
+        get
+        {
+            return wrapped?.value
+        }
+        set
+        {
+            guard
+                let newValue = newValue
+            else
+            {
+                return wrapped = nil
+            }
+            
+            //===
+            
+            wrapped = Wrapped(newValue)
+        }
+    }
+    
     var validValue: Value?
     {
         get
         {
-            return try? type(of: self).validate(
-                value,
-                with: requirements
-            )
+            guard
+                let wrapped = wrapped,
+                let result = try? type(of: self).validate(
+                    wrapped.value,
+                    with: requirements
+                )
+            else
+            {
+                return nil
+            }
+            
+            //===
+            
+            return result
         }
         set
         {
-            value = try? type(of: self).validate(
-                newValue,
-                with: requirements
-            )
+            guard
+                let candidate = newValue,
+                let result = try? type(of: self).validate(
+                    candidate,
+                    with: requirements
+                )
+            else
+            {
+                return wrapped = nil
+            }
+            
+            //===
+            
+            wrapped = Wrapped(result)
         }
     }
 }
@@ -71,14 +125,23 @@ extension ValidatableValue
     @discardableResult
     func validateCurrentValue() throws -> Value
     {
+        guard
+            let wrapped = wrapped
+        else
+        {
+            throw EmptyValue()
+        }
+        
+        //===
+        
         return try type(of: self).validate(
-            value,
+            wrapped.value,
             with: requirements
         )
     }
     
     @discardableResult
-    func validate(_ newValue: Any?) throws -> Value
+    func validate(_ newValue: Value) throws -> Value
     {
         return try type(of: self).validate(
             newValue,
@@ -87,12 +150,16 @@ extension ValidatableValue
     }
     
     mutating
-    func set(_ newValue: Any?) throws
+    func set(_ newValue: Value) throws
     {
-        value = try type(of: self).validate(
+        let result = try type(of: self).validate(
             newValue,
             with: requirements
         )
+        
+        //===
+        
+        wrapped = Wrapped(result)
     }
 }
 
@@ -117,7 +184,7 @@ extension ValidatableValue
         return true
     }
     
-    func isValid(_ newValue: Any?) -> Bool
+    func wouldBeValid(_ newValue: Value) -> Bool
     {
         do
         {

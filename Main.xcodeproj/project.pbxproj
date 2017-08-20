@@ -15,7 +15,6 @@
 		7E1F1831D6C63EDD6AB10FD4 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FE6A5E05BE1FFAB070BFB /* Password.swift */; };
 		927C14C6143FA2B19E366D09 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F791557D101E81B3C45CAD /* Errors.swift */; };
 		948104D01F488ED2008B013D /* ValidatableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948104CF1F488ED2008B013D /* ValidatableEntity.swift */; };
-		94F335FC1F48DBAF00D7E802 /* SupportedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F335FB1F48DBAF00D7E802 /* SupportedTypes.swift */; };
 		CE08A8A84031005AC337383C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D0105507A534C47A7B35D8 /* Foundation.framework */; };
 		D7DF6AFF94EE3A04EC1C53BE /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625FCC032665EB3551BBED9 /* Main.swift */; };
 		E4A9D7B238786669E01E3312 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E62350DBEA821F9F23C0BD /* User.swift */; };
@@ -63,7 +62,6 @@
 		62F791557D101E81B3C45CAD /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		91681DD5ABB4841D4C50EFA3 /* ValidatableValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValidatableValue.swift; sourceTree = "<group>"; };
 		948104CF1F488ED2008B013D /* ValidatableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatableEntity.swift; sourceTree = "<group>"; };
-		94F335FB1F48DBAF00D7E802 /* SupportedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedTypes.swift; sourceTree = "<group>"; };
 		A2F72B8EB9CC422FFD841FD3 /* Pods_Fwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fwk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8563FF7D888D8C7E2835F20 /* Pods-Fwk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fwk.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fwk/Pods-Fwk.release.xcconfig"; sourceTree = "<group>"; };
 		C3D0105507A534C47A7B35D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -180,7 +178,6 @@
 				62F791557D101E81B3C45CAD /* Errors.swift */,
 				5FAB290E70CE5B0F08D9A19E /* Initializers.swift */,
 				948104CF1F488ED2008B013D /* ValidatableEntity.swift */,
-				94F335FB1F48DBAF00D7E802 /* SupportedTypes.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -375,7 +372,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				948104D01F488ED2008B013D /* ValidatableEntity.swift in Sources */,
-				94F335FC1F48DBAF00D7E802 /* SupportedTypes.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
 				32B1DDC90CDC671EFA41A979 /* ValidatableValue.swift in Sources */,
 				5B48E8D414CB3044250A6CF8 /* Initializers.swift in Sources */,

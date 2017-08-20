@@ -128,14 +128,16 @@ class MKHValueWrapperTst: XCTestCase
     
     func testLastNameValueWrapper()
     {
-        var u = MyUser()
+        let u = MyUser()
         
         //===
         
-        RXC.isTrue("'lastName' is empty") {
-            
-            u.lastName.validValue == nil
-        }
+//        RXC.isTrue("'lastName' is empty") {
+//
+//            print(u.lastName.validValue)
+//
+//            return u.lastName.validValue == Optional<String?>(nil)
+//        }
         
         RXC.isTrue("'lastName' is VALID even if it's empty") {
             
@@ -144,9 +146,9 @@ class MKHValueWrapperTst: XCTestCase
         
         RXC.isTrue("Any other random string would be VALID for 'lastName'") {
             
-            u.lastName.isValid(nil) &&
-            u.lastName.isValid("") &&
-            u.lastName.isValid("ldfewihfiqeuwbfweiubf")
+            u.lastName.wouldBeValid(nil) &&
+            u.lastName.wouldBeValid("") &&
+            u.lastName.wouldBeValid("ldfewihfiqeuwbfweiubf")
         }
     }
 }
