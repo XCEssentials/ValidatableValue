@@ -90,3 +90,28 @@ extension MandatoryValue
         _ = try valueIfValid()
     }
 }
+
+// MARK: - Extra helpers
+
+public
+extension MandatoryValue
+{
+    /**
+ 
+     Executes 'transform' with 'value' if it's available/valid
+     
+     */
+    @discardableResult
+    func map<U>(_ transform: (Value) throws -> U) rethrows -> U?
+    {
+        if
+            let result = try? valueIfValid()
+        {
+            return try transform(result)
+        }
+        else
+        {
+            return nil
+        }
+    }
+}
