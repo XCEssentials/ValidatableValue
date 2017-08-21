@@ -38,6 +38,24 @@ extension ValidatableValue
         try validate()
     }
 }
+
+public
+func << <VV, T>(lhs: inout VV, rhs: T?) throws where
+    VV: ValidatableValue,
+    VV.Value == T
+{
+    try lhs.set(rhs)
+}
+
+infix operator <?
+
+public
+func <? <VV, T>(lhs: inout VV, rhs: T?) where
+    VV: ValidatableValue,
+    VV.Value == T
+{
+    lhs.draft = rhs
+}
     
 // MARK: - ValidatableSpecialized - Initializers
 

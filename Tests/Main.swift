@@ -84,7 +84,7 @@ class MKHValueWrapperTst: XCTestCase
         
         do
         {
-            try u.firstName.set(firstName)
+            try u.firstName << firstName
         }
         catch
         {
@@ -147,21 +147,21 @@ class MKHValueWrapperTst: XCTestCase
         
         //===
         
-        try? u.lastName.set(nil)
+        u.lastName <? nil
         
         RXC.isTrue("'nil' is VALID for 'lastName'") {
             
             u.lastName.isValid
         }
         
-        try? u.lastName.set("")
+        u.lastName <? ""
         
         RXC.isTrue("Empty string is VALID for 'lastName'") {
             
             u.lastName.isValid
         }
         
-        try? u.lastName.set("ldfewihfiqeuwbfweiubf")
+        u.lastName.draft = "ldfewihfiqeuwbfweiubf"
         
         RXC.isTrue("A random non-empty string is VALID for 'lastName'") {
             
