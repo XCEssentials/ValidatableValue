@@ -46,6 +46,31 @@ extension OptionalValidatable
             return nil
         }
     }
+    
+    public
+    func valueIfValid() throws -> Value?
+    {
+        if
+            let result = draft
+        {
+            // non-'nil' draft value must be checked againts requirements
+            
+            try type(of: self).requirements.forEach {
+                
+                try $0.check(with: result)
+            }
+            
+            //===
+            
+            return result
+        }
+        else
+        {
+            // 'draft' is 'nil', which is a valid 'value'
+            
+            return nil
+        }
+    }
 }
 
 // MARK: - Validatable support
@@ -58,7 +83,7 @@ extension OptionalValidatable
     {
         do
         {
-            try validate()
+            _ = try valueIfValid()
             
             return true
         }
@@ -71,20 +96,7 @@ extension OptionalValidatable
     public
     func validate() throws
     {
-        if
-            let candidate = draft
-        {
-            // non-'nil' draft value must be checked againts requirements
-            
-            try type(of: self).requirements.forEach {
-                
-                try $0.check(with: candidate)
-            }
-        }
-        else
-        {
-            // 'draft' is 'nil', which is a valid 'value'
-        }
+        _ = try valueIfValid()
     }
 }
 
