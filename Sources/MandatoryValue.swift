@@ -3,43 +3,38 @@ import XCERequirement
 //===
 
 public
-struct MandatoryValue<T>: ValidatableSpecialized
+struct MandatoryValue<T>: MandatoryValidatable
 {
     public
     typealias Value = T
+ 
+    public
+    static
+    var requirements: [Requirement<Value>]
+    {
+        return []
+    }
     
-    // MARK: - ValidatableSpecialized - Properties
-
     public
     var draft: Draft
     
     public
-    let requirements: [Requirement<Value>]
-    
-    // MARK: - ValidatableSpecialized - Initializers
-
-    public
-    init(_ initialValue: Draft,
-         requirements: [Requirement<Value>])
-    {
-        self.requirements = requirements
-        self.draft = initialValue
-    }
+    init() { }
 }
+
+public
+protocol MandatoryValidatable: ValidatableValue { }
 
 // MARK: - Custom members
 
 public
-extension MandatoryValue
+extension MandatoryValidatable
 {
     public
     var value: Value!
     {
         return try? valueIfValid()
     }
-    
-    public
-    struct ValueNotSet: ValidatableValueError { }
     
     public
     func valueIfValid() throws -> Value
@@ -49,7 +44,9 @@ extension MandatoryValue
         {
             // non-'nil' draft value must be checked againts requirements
             
-            try requirements.forEach { try $0.check(with: result) }
+            try type(of: self).requirements.forEach {
+                
+                try $0.check(with: result) }
             
             //===
             
@@ -67,7 +64,7 @@ extension MandatoryValue
 // MARK: - Validatable support
 
 public
-extension MandatoryValue
+extension MandatoryValidatable
 {
     public
     var isValid: Bool
@@ -94,7 +91,7 @@ extension MandatoryValue
 // MARK: - Extra helpers
 
 public
-extension MandatoryValue
+extension MandatoryValidatable
 {
     /**
  

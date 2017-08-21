@@ -3,34 +3,34 @@ import XCERequirement
 //===
 
 public
-struct OptionalValue<T>: ValidatableSpecialized
+struct OptionalValue<T>: OptionalValidatable
 {
     public
     typealias Value = T
     
-    // MARK: - ValidatableSpecialized - Properties
-
+    public
+    static
+    var requirements: [Requirement<Value>]
+    {
+        return []
+    }
+    
     public
     var draft: Draft
     
     public
-    let requirements: [Requirement<Value>]
-    
-    // MARK: - ValidatableSpecialized - Initializers
-    
-    public
-    init(_ initialValue: Draft,
-         requirements: [Requirement<Value>])
-    {
-        self.draft = initialValue
-        self.requirements = requirements
-    }
+    init() { }
 }
+
+//===
+
+public
+protocol OptionalValidatable: ValidatableValue { }
 
 // MARK: - Custom properties
 
 public
-extension OptionalValue
+extension OptionalValidatable
 {
     public
     var value: Value?
@@ -51,7 +51,7 @@ extension OptionalValue
 // MARK: - Validatable support
 
 public
-extension OptionalValue
+extension OptionalValidatable
 {
     public
     var isValid: Bool
@@ -76,7 +76,10 @@ extension OptionalValue
         {
             // non-'nil' draft value must be checked againts requirements
             
-            try requirements.forEach { try $0.check(with: candidate) }
+            try type(of: self).requirements.forEach {
+                
+                try $0.check(with: candidate)
+            }
         }
         else
         {
@@ -88,7 +91,7 @@ extension OptionalValue
 // MARK: - Extra helpers
 
 public
-extension OptionalValue
+extension OptionalValidatable
 {
     /**
      

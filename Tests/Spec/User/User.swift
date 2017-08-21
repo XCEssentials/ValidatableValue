@@ -19,48 +19,61 @@ struct MyUser
     
     let someConstant = MandatoryValue(MyUser.someConstantValue)
     
-    var email = MandatoryValue<String>(
-        Require<String>("Valid email address", String.isValidEmail))
+    var email = Email()
     
-    var firstName = MandatoryValue<String>(
-        Require("Non-empty") { $0.characters.count > 0 })
-    
+    var firstName = FirstName()
+
     var lastName = OptionalValue<String>()
         // no requirements on value, even "nil" is okay
-    
-    var password = MandatoryValue<String>(
-        Require("Lenght between 8 and 30 characters"){ 8...30 ~= $0.characters.count },
-        Require("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
-        Require("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
-        Require("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
-        Require("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
-        Require("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) })
+
+    var password = Password()
 }
 
-//===
+// MARK: Value validation
 
-fileprivate
-extension String
+extension MyUser
 {
-    static
-    func isValidEmail(_ value: String) -> Bool
-    {
-        return value.isValidEmail()
+    struct Email: MandatoryValidatable { typealias Value = String
+        
+        static
+        let requirements = [
+            
+            Require("Valid email address", String.isValidEmail)
+        ]
+        
+        var draft: Draft
+        
+        init() { }
     }
     
-    func isValidEmail() -> Bool
-    {
-        let emailRegex =
-            "(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
-                + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
-                + "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
-                + "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
-                + "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
-                + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
-                + "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+    struct FirstName: MandatoryValidatable { typealias Value = String
         
-        let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+        static
+        let requirements = [
+            
+            Require<Value>("Non-empty") { !$0.characters.isEmpty }
+        ]
         
-        return emailTest.evaluate(with: self)
+        var draft: Draft
+        
+        init() { }
+    }
+    
+    struct Password: MandatoryValidatable { typealias Value = String
+        
+        static
+        let requirements = [
+            
+            Require("Lenght between 8 and 30 characters"){ 8...30 ~= $0.characters.count },
+            Require("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
+            Require("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
+            Require("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
+            Require("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
+            Require("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+        ]
+        
+        var draft: Draft
+        
+        init() { }
     }
 }

@@ -12,23 +12,24 @@ protocol Validatable
 //===
 
 public
-protocol ValidatableSpecialized: Validatable
+protocol ValidatableValue: Validatable
 {
     associatedtype Value
     
     typealias Draft = Value?
     
-    var draft: Draft { get set }
+    static
     var requirements: [Requirement<Value>] { get }
     
-    init(_ initialValue: Draft,
-         requirements: [Requirement<Value>])
+    var draft: Draft { get set }
+    
+    init()
 }
 
 // MARK: - ValidatableSpecialized - Helpers
 
 public
-extension ValidatableSpecialized
+extension ValidatableValue
 {
     mutating
     func set(_ newValue: Draft) throws
@@ -41,42 +42,11 @@ extension ValidatableSpecialized
 // MARK: - ValidatableSpecialized - Initializers
 
 public
-extension ValidatableSpecialized
+extension ValidatableValue
 {
-    init()
+    init(_ initialValue: Draft)
     {
-        self.init(nil, requirements: [])
-    }
-}
-
-public
-extension ValidatableSpecialized
-{
-    init(_ requirementsGetter: () -> [Requirement<Value>])
-    {
-        self.init(nil, requirements: requirementsGetter())
-    }
-    
-    init(_ requirements: Requirement<Value>...)
-    {
-        self.init(nil, requirements: requirements)
-    }
-}
-
-public
-extension ValidatableSpecialized
-{
-    init(
-        _ initialValue: Draft,
-        requirements getter: () -> [Requirement<Value>])
-    {
-        self.init(initialValue, requirements: getter())
-    }
-    
-    init(
-        _ initialValue: Draft,
-        requirements: Requirement<Value>...)
-    {
-        self.init(initialValue, requirements: requirements)
+        self.init()
+        self.draft = initialValue
     }
 }
