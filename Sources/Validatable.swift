@@ -26,7 +26,7 @@ protocol ValidatableValue: Validatable
     init()
 }
 
-// MARK: - ValidatableSpecialized - Helpers
+// MARK: - ValidatableValue - Helpers
 
 public
 extension ValidatableValue
@@ -57,7 +57,7 @@ func <? <VV, T>(lhs: inout VV, rhs: T?) where
     lhs.draft = rhs
 }
     
-// MARK: - ValidatableSpecialized - Initializers
+// MARK: - ValidatableValue - Initializers
 
 public
 extension ValidatableValue
@@ -66,5 +66,23 @@ extension ValidatableValue
     {
         self.init()
         self.draft = initialValue
+    }
+}
+
+// MARK: - ValidatableValue - Higher order functions
+
+public
+extension ValidatableValue
+{
+    @discardableResult
+    func map<U>(_ transform: (Value) throws -> U) rethrows -> U?
+    {
+        return try draft.map(transform)
+    }
+    
+    @discardableResult
+    func flatMap<U>(_ transform: (Value) throws -> U?) rethrows -> U?
+    {
+        return try draft.flatMap(transform)
     }
 }

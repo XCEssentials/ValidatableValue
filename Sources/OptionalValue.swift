@@ -105,42 +105,15 @@ extension OptionalValidatable
 public
 extension OptionalValidatable
 {
-    /**
-     
-     Executes 'transform' with 'value' if it's valid
-     
-     */
     @discardableResult
-    func map<U>(_ transform: (Value?) throws -> U) rethrows -> U?
+    func mapValid<U>(_ transform: (Value) throws -> U) rethrows -> U?
     {
-        if
-            isValid
-        {
-            return try transform(draft)
-        }
-        else
-        {
-            return nil
-        }
+        return try (try? valueIfValid())?.flatMap({ $0 }).map(transform)
     }
     
-    /**
-     
-     Executes 'transform' with 'value' if it's non-'nil' & valid
-     
-     */
     @discardableResult
-    func flatMap<U>(_ transform: (Value) throws -> U) rethrows -> U?
+    func flatMapValid<U>(_ transform: (Value) throws -> U?) rethrows -> U?
     {
-        if
-            isValid,
-            let result = draft
-        {
-            return try transform(result)
-        }
-        else
-        {
-            return nil
-        }
+        return try (try? valueIfValid()).flatMap({ $0 }).flatMap(transform)
     }
 }

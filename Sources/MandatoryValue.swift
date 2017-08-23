@@ -93,22 +93,15 @@ extension MandatoryValidatable
 public
 extension MandatoryValidatable
 {
-    /**
- 
-     Executes 'transform' with 'value' if it's available/valid
-     
-     */
     @discardableResult
-    func map<U>(_ transform: (Value) throws -> U) rethrows -> U?
+    func mapValid<U>(_ transform: (Value) throws -> U) rethrows -> U?
     {
-        if
-            let result = try? valueIfValid()
-        {
-            return try transform(result)
-        }
-        else
-        {
-            return nil
-        }
+        return try (try? valueIfValid()).map(transform)
+    }
+    
+    @discardableResult
+    func flatMapValid<U>(_ transform: (Value) throws -> U?) rethrows -> U?
+    {
+        return try (try? valueIfValid()).flatMap(transform)
     }
 }
