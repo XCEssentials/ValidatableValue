@@ -1,7 +1,3 @@
-import XCERequirement
-
-//===
-
 public
 struct OptionalValue<T>: OptionalValidatable
 {
