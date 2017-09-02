@@ -11,7 +11,7 @@ use_frameworks!
 
 def sharedPods
 
-	pod 'XCERequirement', '~> 1.4'
+	#
 
 end
 

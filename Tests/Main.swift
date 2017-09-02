@@ -11,7 +11,6 @@ import XCTest
 //@testable
 import XCEValidatableValue
 
-import XCERequirement
 import XCETesting
 
 //===
@@ -64,7 +63,7 @@ class MKHValueWrapperTst: XCTestCase
         {
             RXC.isTrue("An empty string is NOT a valid value for 'firstName'") {
                 
-                error is RequirementNotFulfilled // RequirementIssue
+                error is ValidationFailed
             }
         }
         

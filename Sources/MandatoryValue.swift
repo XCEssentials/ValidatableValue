@@ -1,7 +1,3 @@
-import XCERequirement
-
-//===
-
 public
 struct MandatoryValue<T>: MandatoryValidatable
 {
@@ -10,7 +6,7 @@ struct MandatoryValue<T>: MandatoryValidatable
  
     public
     static
-    var requirements: [Requirement<Value>]
+    var validations: [Validation<Value>]
     {
         return []
     }
@@ -44,9 +40,9 @@ extension MandatoryValidatable
         {
             // non-'nil' draft value must be checked againts requirements
             
-            try type(of: self).requirements.forEach {
+            try type(of: self).validations.forEach {
                 
-                try $0.check(with: result) }
+                try $0.perform(with: result) }
             
             //===
             

@@ -1,7 +1,3 @@
-import XCERequirement
-
-//===
-
 public
 protocol Validatable
 {
@@ -19,7 +15,7 @@ protocol ValidatableValue: Validatable
     typealias Draft = Value?
     
     static
-    var requirements: [Requirement<Value>] { get }
+    var validations: [Validation<Value>] { get }
     
     var draft: Draft { get set }
     

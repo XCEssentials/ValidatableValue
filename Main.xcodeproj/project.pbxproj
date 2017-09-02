@@ -12,6 +12,7 @@
 		59A663C37B45728D6C1BE4DE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E266A041424CB320A6F7321E /* Helpers.swift */; };
 		7E1F1831D6C63EDD6AB10FD4 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FE6A5E05BE1FFAB070BFB /* Password.swift */; };
 		927C14C6143FA2B19E366D09 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F791557D101E81B3C45CAD /* Errors.swift */; };
+		9411FA2F1F5B486E000E65A9 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9411FA2E1F5B486E000E65A9 /* Validation.swift */; };
 		9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9415FE371F4A27FC0077E798 /* Validatable.swift */; };
 		9415FE3A1F4A281D0077E798 /* MandatoryValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9415FE391F4A281D0077E798 /* MandatoryValue.swift */; };
 		9415FE3C1F4A28400077E798 /* OptionalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9415FE3B1F4A28400077E798 /* OptionalValue.swift */; };
@@ -59,6 +60,7 @@
 		343B09A0D2E9085C310918BD /* Pods-Fwk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fwk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fwk/Pods-Fwk.debug.xcconfig"; sourceTree = "<group>"; };
 		44E62350DBEA821F9F23C0BD /* User.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		62F791557D101E81B3C45CAD /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		9411FA2E1F5B486E000E65A9 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		9415FE371F4A27FC0077E798 /* Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		9415FE391F4A281D0077E798 /* MandatoryValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryValue.swift; sourceTree = "<group>"; };
 		9415FE3B1F4A28400077E798 /* OptionalValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValue.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				9415FE391F4A281D0077E798 /* MandatoryValue.swift */,
 				9415FE3B1F4A28400077E798 /* OptionalValue.swift */,
 				62F791557D101E81B3C45CAD /* Errors.swift */,
+				9411FA2E1F5B486E000E65A9 /* Validation.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -374,6 +377,7 @@
 				9415FE3C1F4A28400077E798 /* OptionalValue.swift in Sources */,
 				9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
+				9411FA2F1F5B486E000E65A9 /* Validation.swift in Sources */,
 				9415FE3A1F4A281D0077E798 /* MandatoryValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

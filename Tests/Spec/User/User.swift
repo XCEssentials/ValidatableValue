@@ -8,8 +8,6 @@
 
 import XCEValidatableValue
 
-import XCERequirement
-
 //===
 
 struct MyUser
@@ -36,9 +34,9 @@ extension MyUser
     struct Email: MandatoryValidatable { typealias Value = String
         
         static
-        let requirements = [
+        let validations = [
             
-            Require("Valid email address", String.isValidEmail)
+            Validate("Valid email address", String.isValidEmail)
         ]
         
         var draft: Draft
@@ -49,9 +47,9 @@ extension MyUser
     struct FirstName: MandatoryValidatable { typealias Value = String
         
         static
-        let requirements = [
+        let validations = [
             
-            Require<Value>("Non-empty") { !$0.characters.isEmpty }
+            Validate<Value>("Non-empty") { !$0.characters.isEmpty }
         ]
         
         var draft: Draft
@@ -62,14 +60,14 @@ extension MyUser
     struct Password: MandatoryValidatable { typealias Value = String
         
         static
-        let requirements = [
+        let validations = [
             
-            Require("Lenght between 8 and 30 characters"){ 8...30 ~= $0.characters.count },
-            Require("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
-            Require("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
-            Require("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
-            Require("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
-            Require("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+            Validate("Lenght between 8 and 30 characters"){ 8...30 ~= $0.characters.count },
+            Validate("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
+            Validate("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
+            Validate("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
+            Validate("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
+            Validate("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
         ]
         
         var draft: Draft
