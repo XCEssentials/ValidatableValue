@@ -1,8 +1,9 @@
-projName = 'ValidatableValue'
+repoName = 'ValidatableValue'
+projName = 'Main'
 
 platform :ios, '8.0'
 
-workspace projName
+workspace repoName
 
 use_frameworks!
 
@@ -10,7 +11,7 @@ use_frameworks!
 
 def sharedPods
 
-	pod 'XCERequirement', '~> 1.4'
+	#
 
 end
 
@@ -34,4 +35,11 @@ target 'Tests' do
 
 	sharedPods
 
+    #===
+    
+    pod 'XCETesting', '~> 1.1'
+
 end
+
+
+
