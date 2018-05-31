@@ -51,8 +51,8 @@ extension OptionalValidatable
         {
             // non-'nil' draft value must be checked againts requirements
             
-            try type(of: self).validations.forEach {
-                
+            try type(of: self).validations.forEach
+            {
                 try $0.perform(with: result)
             }
             

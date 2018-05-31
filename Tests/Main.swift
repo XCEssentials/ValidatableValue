@@ -19,6 +19,7 @@ class MKHValueWrapperTst: XCTestCase
 {
     func testSomeConstantValueWrapper()
     {
+        //swiftlint:disable:next identifier_name
         let u = MyUser()
         
         //===
@@ -38,6 +39,7 @@ class MKHValueWrapperTst: XCTestCase
     
     func testFirstNameValueWrapper()
     {
+        //swiftlint:disable:next identifier_name
         var u = MyUser()
         
         //===
@@ -128,6 +130,7 @@ class MKHValueWrapperTst: XCTestCase
     
     func testLastNameValueWrapper()
     {
+        //swiftlint:disable:next identifier_name
         var u = MyUser()
         
         //===

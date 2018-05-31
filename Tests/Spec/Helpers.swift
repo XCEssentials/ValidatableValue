@@ -21,8 +21,9 @@ extension CS
         var result: UInt = 0
         
         //===
-        
-        for c in str.characters
+
+        //swiftlint:disable:next identifier_name
+        for c in str
             where String(c).rangeOfCharacter(from: self) != nil
         {
             result += 1

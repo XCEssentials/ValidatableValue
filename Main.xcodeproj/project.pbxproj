@@ -69,7 +69,7 @@
 		C3D0105507A534C47A7B35D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		C625FCC032665EB3551BBED9 /* Main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		D4BD43E935968D65787899B1 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		DCD82093FB94C61BC5522514 /* Fwk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Fwk.framework; path = XCEValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCD82093FB94C61BC5522514 /* XCEValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XCEValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E266A041424CB320A6F7321E /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		EC1247A0B5D87FF7FF944B76 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F68A8A5AA5C9053CA1C3C4 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,7 +127,7 @@
 		602094E624CC822B0063A5E0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DCD82093FB94C61BC5522514 /* Fwk.framework */,
+				DCD82093FB94C61BC5522514 /* XCEValidatableValue.framework */,
 				F1F68A8A5AA5C9053CA1C3C4 /* Tests.xctest */,
 			);
 			name = Products;
@@ -137,7 +137,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = "$local";
+			name = $local;
 			sourceTree = "<group>";
 		};
 		846848AF303FF13288CF97D9 /* Pods */ = {
@@ -206,7 +206,6 @@
 				9ABC3255650E23E6A0DA131C /* Sources */,
 				247C881A946FB5AB8DB0D05B /* Frameworks */,
 				1ABD69FDE56A02FAFF2F28A3 /* Embed Frameworks */,
-				8E4104649D4E9A82F78E5AB0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,7 +213,7 @@
 			);
 			name = Fwk;
 			productName = Fwk;
-			productReference = DCD82093FB94C61BC5522514 /* Fwk.framework */;
+			productReference = DCD82093FB94C61BC5522514 /* XCEValidatableValue.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		981DE569CFA1E438014626F9 /* Tests */ = {
@@ -226,7 +225,6 @@
 				BA0FF7E9FA302AEA3C4AB265 /* Frameworks */,
 				4DF4C4544292BCB013F2529B /* Embed Frameworks */,
 				B4D33423F787F02887A8A358 /* [CP] Embed Pods Frameworks */,
-				C608A63A660B3D10881BE571 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -267,21 +265,6 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8E4104649D4E9A82F78E5AB0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Fwk/Pods-Fwk-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A657A8082C1E3A4D76B4AA2D /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -332,21 +315,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C608A63A660B3D10881BE571 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EDBBF579AF06B16A1F33DD03 /* [CP] Check Pods Manifest.lock */ = {
@@ -445,7 +413,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -455,7 +423,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 343B09A0D2E9085C310918BD /* Pods-Fwk.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CURRENT_PROJECT_VERSION = 9;
 				DEFINES_MODULE = NO;
 				ENABLE_TESTABILITY = YES;
@@ -468,7 +435,6 @@
 				PRODUCT_NAME = XCEValidatableValue;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -523,7 +489,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -532,7 +498,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B8563FF7D888D8C7E2835F20 /* Pods-Fwk.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CURRENT_PROJECT_VERSION = 9;
 				DEFINES_MODULE = NO;
 				ENABLE_TESTABILITY = YES;
@@ -544,7 +509,6 @@
 				PRODUCT_NAME = XCEValidatableValue;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -555,7 +519,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D4BD43E935968D65787899B1 /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -568,7 +531,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.XCEssentials.ValidatableValue.Tst;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -576,7 +538,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC2C9BD3784D57AE7D3BC032 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -588,7 +549,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.XCEssentials.ValidatableValue.Tst;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

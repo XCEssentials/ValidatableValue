@@ -9,21 +9,13 @@ use_frameworks!
 
 #===
 
-def sharedPods
-
-	#
-
-end
-
-#===
-
 target 'Fwk' do
 
 	project projName
 
 	#===
 
-	sharedPods
+	podspec
 
 end
 
@@ -31,12 +23,8 @@ target 'Tests' do
 
 	project projName
 
-	#===
-
-	sharedPods
-
     #===
-    
+
     pod 'XCETesting', '~> 1.1'
 
 end
