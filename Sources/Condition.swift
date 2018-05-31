@@ -25,76 +25,67 @@
  */
 
 public
-struct OptionalValue<T>: OptionalValidatable
+struct Condition<Input>
 {
     public
-    typealias Value = T
+    typealias Body = (_ input: Input) -> Bool
+
+    //---
 
     public
-    static
-    var validations: [Validation<Value>]
+    let description: String
+
+    private
+    let body: Body
+
+    // MARK: - Initializers
+
+    public
+    init(
+        _ description: String,
+        _ body: @escaping Body
+        )
     {
-        return []
+        self.description = description
+        self.body = body
     }
 
     public
-    var draft: Draft
-
-    public
-    init() { }
+    init()
+    {
+        self.init("Any value") { _ in true }
+    }
 }
 
 //---
 
 public
-struct OptionalValueContainer<T>: ValidatableValueContainer
+extension Condition
 {
-    public
-    typealias RawValue = T
-
-    public
-    typealias ValidValue = T?
-
-    //---
-
-    public
-    var conditions: [Condition<T>]
-
-    public
-    var draft: T?
-
-    //---
-
-    public
-    init(conditions: [Condition<T>])
+    func isValid(value: Input) -> Bool
     {
-        self.conditions = conditions
+        return body(value)
     }
 
-    //---
-
-    public
-    func valueIfValid() throws -> ValidValue
+    func validate(value: Input) throws
     {
         guard
-            let result = draft
+            body(value)
         else
         {
-            // 'draft' is 'nil', which is a valid 'value'
-            return nil
+            throw ConditionIsNotMet(
+                condition: description,
+                input: value
+            )
         }
-
-        //---
-
-        // non-'nil' draft value must be checked againts requirements
-
-        try conditions.forEach
-        {
-            try $0.validate(value: result)
-        }
-
-        //---
-
-        return result
     }
 }
+
+//---
+
+extension Condition: CustomStringConvertible {}
+
+//---
+
+public
+typealias Check<Value> = Condition<Value>

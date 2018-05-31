@@ -24,17 +24,17 @@
 
  */
 
-public
-protocol ValidatableAuto
-{
-    //
-}
-
-extension ValidatableAuto
-{
-    func validate() throws
-    {
-        //        let mir = Mirror(reflecting: self)
-        //        mir.children.first?.value
-    }
-}
+//public
+//protocol ValidatableAuto
+//{
+//    //
+//}
+//
+//extension ValidatableAuto
+//{
+//    func validate() throws
+//    {
+//        //        let mir = Mirror(reflecting: self)
+//        //        mir.children.first?.value
+//    }
+//}

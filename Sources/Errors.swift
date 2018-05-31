@@ -25,6 +25,26 @@
  */
 
 public
+struct ConditionIsNotMet: Error, CustomStringConvertible
+{
+    public
+    let condition: String
+
+    public
+    let input : Any
+
+    //---
+
+    public
+    var description: String
+    {
+        return "Condition [\(condition)] is not met with input: \(input)."
+    }
+}
+
+//---
+
+public
 enum ValidatableValueError: Error
 {
     case valueNotSet

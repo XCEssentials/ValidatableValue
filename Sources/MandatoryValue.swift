@@ -43,3 +43,58 @@ struct MandatoryValue<T>: MandatoryValidatable
     public
     init() { }
 }
+
+//---
+
+public
+struct MandatoryValueContainer<T>: ValidatableValueContainer
+{
+    public
+    typealias RawValue = T
+
+    public
+    typealias ValidValue = RawValue
+
+    //---
+
+    public
+    var conditions: [Condition<T>]
+
+    public
+    var draft: T?
+
+    //---
+
+    public
+    init(conditions: [Condition<T>])
+    {
+        self.conditions = conditions
+    }
+
+    //---
+
+    public
+    func valueIfValid() throws -> ValidValue
+    {
+        guard
+            let result = draft
+        else
+        {
+            // 'draft' is 'nil', which is NOT allowed
+            throw ValidatableValueError.valueNotSet
+        }
+
+        //---
+
+        // non-'nil' draft value must be checked againts requirements
+
+        try conditions.forEach
+        {
+            try $0.validate(value: result)
+        }
+
+        //---
+
+        return result
+    }
+}
