@@ -33,38 +33,46 @@ import XCETesting
 
 //---
 
-class MKHValueWrapperTst: XCTestCase
+class MainTests: XCTestCase
+{
+    var user = MyUser()
+}
+
+// MARK: - Overrides
+
+extension MainTests
+{
+    override
+    func setUp()
+    {
+        user = MyUser()
+    }
+}
+
+// MARK: - Tests
+
+extension MainTests
 {
     func testSomeConstantValueWrapper()
     {
-        //swiftlint:disable:next identifier_name
-        let u = MyUser()
-        
-        //---
-        
         Assert("Constant value is valid").isTrue
         {
-            u.someConstant.isValid
+            user.someConstant.isValid
         }
         
         //---
         
         Assert("Const vlaue is equal to pre-defined value").isTrue
         {
-            try u.someConstant.valueIfValid() == MyUser.someConstantValue
+            try user.someConstant.valueIfValid() == MyUser.someConstantValue
         }
     }
     
     func testFirstNameValueWrapper()
     {
-        //swiftlint:disable:next identifier_name
-        var u = MyUser()
-        
-        //---
-        
         Assert("Initially 'firstName' is NOT valid").isTrue
         {
-            !u.firstName.isValid
+            !user.firstName.isValid
         }
         
         //---
@@ -75,7 +83,7 @@ class MKHValueWrapperTst: XCTestCase
         
         do
         {
-            try u.firstName.set(emptyString)
+            try user.firstName.set(emptyString)
             
             XCTFail("Should not get here ever")
         }
@@ -99,7 +107,7 @@ class MKHValueWrapperTst: XCTestCase
         
         Assert("'firstName' is untapped, so it's still NOT valid").isTrue
         {
-            !u.firstName.isValid
+            !user.firstName.isValid
         }
         
         //---
@@ -111,7 +119,7 @@ class MKHValueWrapperTst: XCTestCase
         
         do
         {
-            try u.firstName << firstName
+            try user.firstName << firstName
         }
         catch
         {
@@ -122,19 +130,19 @@ class MKHValueWrapperTst: XCTestCase
         
         Assert("'firstName' is now set to '\(firstName)'").isTrue
         {
-            u.firstName.draft == firstName
+            user.firstName.draft == firstName
         }
         
         Assert("'firstName' is now VALID").isTrue
         {
-            u.firstName.isValid
+            user.firstName.isValid
         }
         
         //---
         
         do
         {
-            try u.firstName.set(anotherFirstName)
+            try user.firstName.set(anotherFirstName)
         }
         catch
         {
@@ -145,55 +153,50 @@ class MKHValueWrapperTst: XCTestCase
         
         Assert("'firstName' is now set to '\(anotherFirstName)'").isTrue
         {
-            u.firstName.draft == anotherFirstName
+            user.firstName.draft == anotherFirstName
         }
         
         Assert("'firstName' is now VALID").isTrue
         {
-            u.firstName.isValid
+            user.firstName.isValid
         }
     }
     
     func testLastNameValueWrapper()
     {
-        //swiftlint:disable:next identifier_name
-        var u = MyUser()
-        
-        //---
-        
         Assert("'lastName' is empty").isNil
         {
-            u.lastName.draft
+            user.lastName.draft
         }
         
         //---
         
         Assert("'lastName' is VALID even if it's empty").isTrue
         {
-            u.lastName.isValid
+            user.lastName.isValid
         }
         
         //---
         
-        u.lastName <? nil
+        user.lastName <? nil
         
         Assert("'nil' is VALID for 'lastName'").isTrue
         {
-            u.lastName.isValid
+            user.lastName.isValid
         }
         
-        u.lastName <? ""
+        user.lastName <? ""
         
         Assert("Empty string is VALID for 'lastName'").isTrue
         {
-            u.lastName.isValid
+            user.lastName.isValid
         }
         
-        u.lastName.draft = "ldfewihfiqeuwbfweiubf"
+        user.lastName.draft = "ldfewihfiqeuwbfweiubf"
         
         Assert("A random non-empty string is VALID for 'lastName'").isTrue
         {
-            u.lastName.isValid
+            user.lastName.isValid
         }
     }
 }
