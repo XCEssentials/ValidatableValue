@@ -25,26 +25,8 @@
  */
 
 public
-enum ValidatableValueError: Error
+protocol Validatable
 {
-    case valueNotSet
-    case validationFailed(String, Any)
-}
-
-//---
-
-extension ValidatableValueError: CustomStringConvertible
-{
-    public
-    var description: String
-    {
-        switch self
-        {
-            case .valueNotSet:
-                return "Value is not set."
-
-            case .validationFailed(let validation, let input):
-                return "Validation [\(validation)] failed with input: \(input)."
-        }
-    }
+    var isValid: Bool { get }
+    func validate() throws
 }

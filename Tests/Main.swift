@@ -65,7 +65,15 @@ class MKHValueWrapperTst: XCTestCase
         {
             Assert("An empty string is NOT a valid value for 'firstName'").isTrue
             {
-                error is ValidationFailed
+                if
+                    case ValidatableValueError.validationFailed(_, _) = error
+                {
+                    return true
+                }
+                else
+                {
+                    return false
+                }
             }
         }
         

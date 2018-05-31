@@ -25,26 +25,57 @@
  */
 
 public
-enum ValidatableValueError: Error
+protocol ValidatableValue: Validatable
 {
-    case valueNotSet
-    case validationFailed(String, Any)
+    associatedtype Value
+
+    typealias Draft = Value?
+
+    static
+    var validations: [Validation<Value>] { get }
+
+    var draft: Draft { get set }
+
+    init()
 }
 
 //---
 
-extension ValidatableValueError: CustomStringConvertible
+public
+extension ValidatableValue
 {
-    public
-    var description: String
+    init(_ initialValue: Draft)
     {
-        switch self
-        {
-            case .valueNotSet:
-                return "Value is not set."
+        self.init()
+        self.draft = initialValue
+    }
 
-            case .validationFailed(let validation, let input):
-                return "Validation [\(validation)] failed with input: \(input)."
-        }
+    mutating
+    func set(_ newValue: Draft) throws
+    {
+        draft = newValue
+        try validate()
+    }
+}
+
+// MARK: - Higher order functions
+
+public
+extension ValidatableValue
+{
+    @discardableResult
+    func map<U>(
+        _ transform: (Value) throws -> U
+        ) rethrows -> U?
+    {
+        return try draft.map(transform)
+    }
+
+    @discardableResult
+    func flatMap<U>(
+        _ transform: (Value) throws -> U?
+        ) rethrows -> U?
+    {
+        return try draft.flatMap(transform)
     }
 }

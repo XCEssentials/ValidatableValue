@@ -25,26 +25,16 @@
  */
 
 public
-enum ValidatableValueError: Error
+protocol ValidatableAuto
 {
-    case valueNotSet
-    case validationFailed(String, Any)
+    //
 }
 
-//---
-
-extension ValidatableValueError: CustomStringConvertible
+extension ValidatableAuto
 {
-    public
-    var description: String
+    func validate() throws
     {
-        switch self
-        {
-            case .valueNotSet:
-                return "Value is not set."
-
-            case .validationFailed(let validation, let input):
-                return "Validation [\(validation)] failed with input: \(input)."
-        }
+        //        let mir = Mirror(reflecting: self)
+        //        mir.children.first?.value
     }
 }

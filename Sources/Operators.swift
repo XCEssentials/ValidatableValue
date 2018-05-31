@@ -25,26 +25,31 @@
  */
 
 public
-enum ValidatableValueError: Error
+func << <VV, T>(
+    lhs: inout VV,
+    rhs: T?
+    ) throws
+    where
+    VV: ValidatableValue,
+    VV.Value == T
 {
-    case valueNotSet
-    case validationFailed(String, Any)
+    try lhs.set(rhs)
 }
 
 //---
 
-extension ValidatableValueError: CustomStringConvertible
-{
-    public
-    var description: String
-    {
-        switch self
-        {
-            case .valueNotSet:
-                return "Value is not set."
+infix operator <?
 
-            case .validationFailed(let validation, let input):
-                return "Validation [\(validation)] failed with input: \(input)."
-        }
-    }
+//---
+
+public
+func <? <VV, T>(
+    lhs: inout VV,
+    rhs: T?
+    )
+    where
+    VV: ValidatableValue,
+    VV.Value == T
+{
+    lhs.draft = rhs
 }
