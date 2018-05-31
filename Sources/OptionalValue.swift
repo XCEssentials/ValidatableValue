@@ -18,7 +18,7 @@ struct OptionalValue<T>: OptionalValidatable
     init() { }
 }
 
-//===
+//---
 
 public
 protocol OptionalValidatable: ValidatableValue { }
@@ -56,7 +56,7 @@ extension OptionalValidatable
                 try $0.perform(with: result)
             }
             
-            //===
+            //---
             
             return result
         }

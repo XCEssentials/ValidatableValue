@@ -1,7 +1,7 @@
 public
 typealias ValidationBody<Input> = (_ input: Input) -> Bool
 
-//===
+//---
 
 public
 struct Validation<Input>

@@ -13,7 +13,7 @@ import XCEValidatableValue
 
 import XCETesting
 
-//===
+//---
 
 class MKHValueWrapperTst: XCTestCase
 {
@@ -22,17 +22,17 @@ class MKHValueWrapperTst: XCTestCase
         //swiftlint:disable:next identifier_name
         let u = MyUser()
         
-        //===
+        //---
         
-        RXC.isTrue("Constant value is valid") {
-            
+        Assert("Constant value is valid").isTrue
+        {
             u.someConstant.isValid
         }
         
-        //===
+        //---
         
-        RXC.isTrue("Const vlaue is equal to pre-defined value") {
-            
+        Assert("Const vlaue is equal to pre-defined value").isTrue
+        {
             u.someConstant.value == MyUser.someConstantValue
         }
     }
@@ -42,18 +42,18 @@ class MKHValueWrapperTst: XCTestCase
         //swiftlint:disable:next identifier_name
         var u = MyUser()
         
-        //===
+        //---
         
-        RXC.isTrue("Initially 'firstName' is NOT valid") {
-            
+        Assert("Initially 'firstName' is NOT valid").isTrue
+        {
             !u.firstName.isValid
         }
         
-        //===
+        //---
         
         let emptyString = ""
         
-        //===
+        //---
         
         do
         {
@@ -63,25 +63,25 @@ class MKHValueWrapperTst: XCTestCase
         }
         catch
         {
-            RXC.isTrue("An empty string is NOT a valid value for 'firstName'") {
-                
+            Assert("An empty string is NOT a valid value for 'firstName'").isTrue
+            {
                 error is ValidationFailed
             }
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'firstName' is untapped, so it's still NOT valid") {
-            
+        Assert("'firstName' is untapped, so it's still NOT valid").isTrue
+        {
             !u.firstName.isValid
         }
         
-        //===
+        //---
         
         let firstName = "Max"
         let anotherFirstName = "Alex"
         
-        //===
+        //---
         
         do
         {
@@ -92,19 +92,19 @@ class MKHValueWrapperTst: XCTestCase
             XCTFail("Should not get here ever")
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'firstName' is now set to '\(firstName)'") {
-            
+        Assert("'firstName' is now set to '\(firstName)'").isTrue
+        {
             u.firstName.value == firstName
         }
         
-        RXC.isTrue("'firstName' is now VALID") {
-            
+        Assert("'firstName' is now VALID").isTrue
+        {
             u.firstName.isValid
         }
         
-        //===
+        //---
         
         do
         {
@@ -115,15 +115,15 @@ class MKHValueWrapperTst: XCTestCase
             XCTFail("Should not get here ever")
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'firstName' is now set to '\(anotherFirstName)'") {
-            
+        Assert("'firstName' is now set to '\(anotherFirstName)'").isTrue
+        {
             u.firstName.value == anotherFirstName
         }
         
-        RXC.isTrue("'firstName' is now VALID") {
-        
+        Assert("'firstName' is now VALID").isTrue
+        {
             u.firstName.isValid
         }
     }
@@ -133,40 +133,40 @@ class MKHValueWrapperTst: XCTestCase
         //swiftlint:disable:next identifier_name
         var u = MyUser()
         
-        //===
+        //---
         
-        RXC.isNil("'lastName' is empty") {
-
+        Assert("'lastName' is empty").isNil
+        {
             u.lastName.value
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'lastName' is VALID even if it's empty") {
-            
+        Assert("'lastName' is VALID even if it's empty").isTrue
+        {
             u.lastName.isValid
         }
         
-        //===
+        //---
         
         u.lastName <? nil
         
-        RXC.isTrue("'nil' is VALID for 'lastName'") {
-            
+        Assert("'nil' is VALID for 'lastName'").isTrue
+        {
             u.lastName.isValid
         }
         
         u.lastName <? ""
         
-        RXC.isTrue("Empty string is VALID for 'lastName'") {
-            
+        Assert("Empty string is VALID for 'lastName'").isTrue
+        {
             u.lastName.isValid
         }
         
         u.lastName.draft = "ldfewihfiqeuwbfweiubf"
         
-        RXC.isTrue("A random non-empty string is VALID for 'lastName'") {
-            
+        Assert("A random non-empty string is VALID for 'lastName'").isTrue
+        {
             u.lastName.isValid
         }
     }

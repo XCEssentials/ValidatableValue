@@ -5,7 +5,7 @@ protocol Validatable
     func validate() throws
 }
 
-//===
+//---
 
 public
 protocol ValidatableValue: Validatable

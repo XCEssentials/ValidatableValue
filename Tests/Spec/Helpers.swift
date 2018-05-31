@@ -8,7 +8,7 @@
 
 import Foundation
 
-//===
+//---
 
 typealias CS = CharacterSet // swiftlint:disable:this type_name
 
@@ -20,7 +20,7 @@ extension CS
     {
         var result: UInt = 0
         
-        //===
+        //---
 
         //swiftlint:disable:next identifier_name
         for c in str
@@ -29,7 +29,7 @@ extension CS
             result += 1
         }
         
-        //===
+        //---
         
         return result
     }
@@ -40,7 +40,7 @@ extension CS
 extension String
 {
     static
-        func isValidEmail(_ value: String) -> Bool
+    func isValidEmail(_ value: String) -> Bool
     {
         return value.isValidEmail()
     }

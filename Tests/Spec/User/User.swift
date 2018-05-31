@@ -8,7 +8,7 @@
 
 import XCEValidatableValue
 
-//===
+//---
 
 struct MyUser
 {

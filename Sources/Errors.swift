@@ -1,12 +1,12 @@
 public
 protocol ValidatableValueError: Error { }
 
-//===
+//---
 
 public
 struct ValueNotSet: ValidatableValueError { }
 
-//===
+//---
 
 public
 struct ValidationFailed: ValidatableValueError, CustomStringConvertible
