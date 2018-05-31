@@ -25,28 +25,6 @@
  */
 
 public
-struct MandatoryValue<T>: MandatoryValidatable
-{
-    public
-    typealias Value = T
-
-    public
-    static
-    var validations: [Validation<Value>]
-    {
-        return []
-    }
-
-    public
-    var draft: Draft
-
-    public
-    init() { }
-}
-
-//---
-
-public
 struct MandatoryValueContainer<T>: ValidatableValueContainer
 {
     public

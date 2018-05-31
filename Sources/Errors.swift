@@ -25,30 +25,10 @@
  */
 
 public
-struct ConditionIsNotMet: Error, CustomStringConvertible
-{
-    public
-    let condition: String
-
-    public
-    let input : Any
-
-    //---
-
-    public
-    var description: String
-    {
-        return "Condition [\(condition)] is not met with input: \(input)."
-    }
-}
-
-//---
-
-public
 enum ValidatableValueError: Error
 {
     case valueNotSet
-    case validationFailed(String, Any)
+    case conditionCheckFailed(condition: String, input: Any)
 }
 
 //---
@@ -63,8 +43,8 @@ extension ValidatableValueError: CustomStringConvertible
             case .valueNotSet:
                 return "Value is not set."
 
-            case .validationFailed(let validation, let input):
-                return "Validation [\(validation)] failed with input: \(input)."
+            case .conditionCheckFailed(let condition, let input):
+                return "Validation [\(condition)] failed with input: \(input)."
         }
     }
 }

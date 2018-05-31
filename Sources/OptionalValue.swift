@@ -25,28 +25,6 @@
  */
 
 public
-struct OptionalValue<T>: OptionalValidatable
-{
-    public
-    typealias Value = T
-
-    public
-    static
-    var validations: [Validation<Value>]
-    {
-        return []
-    }
-
-    public
-    var draft: Draft
-
-    public
-    init() { }
-}
-
-//---
-
-public
 struct OptionalValueContainer<T>: ValidatableValueContainer
 {
     public

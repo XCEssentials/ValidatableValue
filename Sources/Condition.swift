@@ -73,7 +73,7 @@ extension Condition
             body(value)
         else
         {
-            throw ConditionIsNotMet(
+            throw ValidatableValueError.conditionCheckFailed(
                 condition: description,
                 input: value
             )
