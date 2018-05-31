@@ -27,6 +27,25 @@
 public
 protocol Validatable
 {
-    var isValid: Bool { get }
     func validate() throws
+}
+
+//---
+
+public
+extension Validatable
+{
+    var isValid: Bool
+    {
+        do
+        {
+            _ = try validate()
+
+            return true
+        }
+        catch
+        {
+            return false
+        }
+    }
 }

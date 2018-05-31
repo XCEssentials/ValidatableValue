@@ -30,6 +30,10 @@ protocol ValidatableValue: Validatable
     associatedtype RawValue
     associatedtype ValidValue
 
+    /**
+     Primary initializer that supposed to put provided conditions
+     into the 'conditions' property.
+     */
     init(conditions: [Condition<RawValue>])
 
     /**
@@ -58,20 +62,6 @@ protocol ValidatableValue: Validatable
 public
 extension ValidatableValue
 {
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try valueIfValid()
-
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
-
     func validate() throws
     {
         _ = try valueIfValid()
