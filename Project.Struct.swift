@@ -99,6 +99,3 @@ let project = Project("Main") { project in
         }
     }
 }
-
-
-

@@ -49,7 +49,7 @@ extension MyUser
         static
         let validations = [
             
-            Validate<Value>("Non-empty") { !$0.characters.isEmpty }
+            Validate<Value>("Non-empty") { !$0.isEmpty }
         ]
         
         var draft: Draft
@@ -62,7 +62,7 @@ extension MyUser
         static
         let validations = [
             
-            Validate("Lenght between 8 and 30 characters"){ 8...30 ~= $0.characters.count },
+            Validate("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
             Validate("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
             Validate("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
             Validate("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
