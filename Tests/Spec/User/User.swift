@@ -28,7 +28,7 @@ import XCEValidatableValue
 
 //---
 
-struct MyUser
+struct MyUser: ValidatableAuto
 {
     static
     let someConstantValue = 3

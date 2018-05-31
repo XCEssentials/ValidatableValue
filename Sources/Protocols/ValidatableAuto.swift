@@ -24,17 +24,20 @@
 
  */
 
-//public
-//protocol ValidatableAuto
-//{
-//    //
-//}
-//
-//extension ValidatableAuto
-//{
-//    func validate() throws
-//    {
-//        //        let mir = Mirror(reflecting: self)
-//        //        mir.children.first?.value
-//    }
-//}
+public
+protocol ValidatableAuto: Validatable {}
+
+//---
+
+public
+extension ValidatableAuto
+{
+    func validate() throws
+    {
+        try Mirror(reflecting: self)
+            .children
+            .map{ $0.value }
+            .compactMap{ $0 as? Validatable }
+            .forEach{ try $0.validate() }
+    }
+}

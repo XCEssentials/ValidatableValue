@@ -53,6 +53,35 @@ extension MainTests
 
 extension MainTests
 {
+    func testWholeUserIsValid()
+    {
+        user.firstName <? "Max"
+        user.lastName <? "Kevi"
+        user.username <? "maxim@google.com"
+        // forgot password...
+
+        Assert("Whole entity is NOT valid yet").isFalse
+        {
+            user.isValid
+        }
+
+        user.password <? "!C3t5y7gh"
+
+        do
+        {
+            try user.validate()
+        }
+        catch
+        {
+            print("ERROR ===>>> \(error)")
+        }
+
+        Assert("Whole entity is valid").isTrue
+        {
+            user.isValid
+        }
+    }
+
     func testSomeConstantValueWrapper()
     {
         Assert("Constant value is valid").isTrue
