@@ -25,22 +25,22 @@
  */
 
 public
-typealias ValidationBody<Input> = (_ input: Input) -> Bool
-
-//---
-
-public
 struct Validation<Input>
 {
     public
+    typealias Body = (_ input: Input) -> Bool
+
+    //---
+
+    public
     let title: String
     
-    let body: ValidationBody<Input>
+    let body: Body
     
     // MARK: - Initializers
 
     public
-    init(_ title: String, _ body: @escaping ValidationBody<Input>)
+    init(_ title: String, _ body: @escaping Body)
     {
         self.title = title
         self.body = body
