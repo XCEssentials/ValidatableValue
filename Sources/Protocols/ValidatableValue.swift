@@ -1,5 +1,5 @@
 public
-protocol ValidatableValueContainer: Validatable
+protocol ValidatableValue: Validatable
 {
     associatedtype RawValue
     associatedtype ValidValue
@@ -30,7 +30,7 @@ protocol ValidatableValueContainer: Validatable
 // MARK: - Automatic 'Validatable' conformance
 
 public
-extension ValidatableValueContainer
+extension ValidatableValue
 {
     var isValid: Bool
     {
@@ -55,7 +55,7 @@ extension ValidatableValueContainer
 // MARK: - Convenience helpers
 
 public
-extension ValidatableValueContainer
+extension ValidatableValue
 {
     init(
         initialValue: RawValue? = nil,
@@ -64,6 +64,19 @@ extension ValidatableValueContainer
     {
         self.init(conditions: conditions)
         self.draft = initialValue
+    }
+
+    func check(
+        _ description: String,
+        _ body: @escaping Check<RawValue>.Body
+        ) -> Self
+    {
+        var result = Self
+            .init(conditions: self.conditions + [Check<RawValue>(description, body)])
+
+        result.draft = self.draft
+
+        return result
     }
 
     mutating

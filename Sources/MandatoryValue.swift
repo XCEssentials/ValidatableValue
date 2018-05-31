@@ -25,7 +25,7 @@
  */
 
 public
-struct MandatoryValueContainer<T>: ValidatableValueContainer
+struct MandatoryValue<T>: ValidatableValue
 {
     public
     typealias RawValue = T
