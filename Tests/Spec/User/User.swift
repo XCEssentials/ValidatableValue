@@ -15,63 +15,32 @@ struct MyUser
     static
     let someConstantValue = 3
     
-    let someConstant = MandatoryValue(MyUser.someConstantValue)
-    
-    var email = Email()
-    
-    var firstName = FirstName()
+    let someConstant = MandatoryValue(initialValue: MyUser.someConstantValue)
+
+    var firstName = String.nonEmpty
 
     var lastName = OptionalValue<String>()
         // no requirements on value, even "nil" is okay
 
-    var password = Password()
+    var username = String.nonEmpty
+        .check("Valid email address", String.isValidEmail)
+
+    var password = MandatoryValue<String>(
+        Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
+        Check("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
+        Check("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
+        Check("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
+        Check("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
+        Check("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) })
 }
 
-// MARK: Value validation
+// MARK: - Helpers
 
-extension MyUser
+fileprivate
+extension String
 {
-    struct Email: MandatoryValidatable { typealias Value = String
-        
-        static
-        let validations = [
-            
-            Validate("Valid email address", String.isValidEmail)
-        ]
-        
-        var draft: Draft
-        
-        init() { }
-    }
-    
-    struct FirstName: MandatoryValidatable { typealias Value = String
-        
-        static
-        let validations = [
-            
-            Validate<Value>("Non-empty") { !$0.isEmpty }
-        ]
-        
-        var draft: Draft
-        
-        init() { }
-    }
-    
-    struct Password: MandatoryValidatable { typealias Value = String
-        
-        static
-        let validations = [
-            
-            Validate("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
-            Validate("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
-            Validate("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
-            Validate("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
-            Validate("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
-            Validate("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
-        ]
-        
-        var draft: Draft
-        
-        init() { }
-    }
+    static
+    let nonEmpty = MandatoryValue<String>(
+        Check("Non-empty") { !$0.isEmpty })
 }
+

@@ -33,7 +33,7 @@ class MKHValueWrapperTst: XCTestCase
         
         Assert("Const vlaue is equal to pre-defined value").isTrue
         {
-            u.someConstant.value == MyUser.someConstantValue
+            try u.someConstant.valueIfValid() == MyUser.someConstantValue
         }
     }
     
@@ -104,7 +104,7 @@ class MKHValueWrapperTst: XCTestCase
         
         Assert("'firstName' is now set to '\(firstName)'").isTrue
         {
-            u.firstName.value == firstName
+            u.firstName.draft == firstName
         }
         
         Assert("'firstName' is now VALID").isTrue
@@ -127,7 +127,7 @@ class MKHValueWrapperTst: XCTestCase
         
         Assert("'firstName' is now set to '\(anotherFirstName)'").isTrue
         {
-            u.firstName.value == anotherFirstName
+            u.firstName.draft == anotherFirstName
         }
         
         Assert("'firstName' is now VALID").isTrue
@@ -145,7 +145,7 @@ class MKHValueWrapperTst: XCTestCase
         
         Assert("'lastName' is empty").isNil
         {
-            u.lastName.value
+            u.lastName.draft
         }
         
         //---
