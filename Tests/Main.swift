@@ -65,7 +65,19 @@ extension MainTests
             user.isValid
         }
 
-        user.password <? "!C3t5y7gh"
+        user.password <? "123t5y7gh"
+
+        Assert("Whole entity is NOT valid yet").isFalse
+        {
+            user.isValid
+        }
+
+        // because...
+
+        Assert("Password value is NOT valid yet").isFalse
+        {
+            user.password.isValid
+        }
 
         do
         {
@@ -73,8 +85,12 @@ extension MainTests
         }
         catch
         {
-            print("ERROR ===>>> \(error)")
+            print(error) // see in  console for detailed explanation what's failed!
         }
+
+        // now lets improve the password to satisfy ALL conditions
+
+        user.password <? "!C3t5y7gh"
 
         Assert("Whole entity is valid").isTrue
         {
@@ -121,7 +137,7 @@ extension MainTests
             Assert("An empty string is NOT a valid value for 'firstName'").isTrue
             {
                 if
-                    case ValidatableValueError.conditionCheckFailed(_, _) = error
+                    case ValidatableValueError.validationFailed(_, _, _) = error
                 {
                     return true
                 }

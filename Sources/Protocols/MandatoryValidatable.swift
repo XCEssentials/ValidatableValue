@@ -46,9 +46,37 @@ extension MandatoryValidatable
 
         // non-'nil' draft value must be checked againts requirements
 
-        try Validator.conditions.forEach
+        let currentContext = String(reflecting: type(of: self))
+        var failedConditions: [String] = []
+
+        Validator.conditions.forEach
         {
-            try $0.validate(value: result)
+            do
+            {
+                try $0.validate(context: currentContext, value: result)
+            }
+            catch
+            {
+                if
+                    case ValidatableValueError
+                        .conditionCheckFailed(_, _, let condition) = error
+                {
+                    failedConditions.append(condition)
+                }
+            }
+        }
+
+        //---
+
+        guard
+            failedConditions.isEmpty
+        else
+        {
+            throw ValidatableValueError.validationFailed(
+                context: currentContext,
+                input: result,
+                conditions: failedConditions
+            )
         }
 
         //---

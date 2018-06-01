@@ -28,7 +28,8 @@ public
 enum ValidatableValueError: Error
 {
     case valueNotSet
-    case conditionCheckFailed(condition: String, input: Any)
+    case conditionCheckFailed(context: String, input: Any, condition: String)
+    case validationFailed(context: String, input: Any, conditions: [String])
 }
 
 //---
@@ -43,8 +44,23 @@ extension ValidatableValueError: CustomStringConvertible
             case .valueNotSet:
                 return "Value is not set."
 
-            case .conditionCheckFailed(let condition, let input):
-                return "Validation [\(condition)] failed with input: \(input)."
+            case .conditionCheckFailed(let context, let input, let condition):
+                return """
+                    ======
+                    Context: \(context).
+                    Input: \(input).
+                    Failed condition: \(condition).
+                    ---/
+                    """
+
+            case .validationFailed(let context, let input, let conditions):
+                return """
+                    ======
+                    Context: \(context).
+                    Input: \(input).
+                    Failed conditions: \(conditions).
+                    ---/
+                    """
         }
     }
 }

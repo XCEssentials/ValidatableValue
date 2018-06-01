@@ -67,15 +67,16 @@ extension Condition
         return body(value)
     }
 
-    func validate(value: Input) throws
+    func validate(context: String, value: Input) throws
     {
         guard
             body(value)
         else
         {
             throw ValidatableValueError.conditionCheckFailed(
-                condition: description,
-                input: value
+                context: context,
+                input: value,
+                condition: description
             )
         }
     }
