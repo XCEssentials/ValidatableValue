@@ -1,115 +1,67 @@
+/*
+
+ MIT License
+
+ Copyright (c) 2016 Maxim Khatskevich (maxim@khatskevi.ch)
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ */
+
 public
-struct OptionalValue<T>: OptionalValidatable
+struct OptionalValue<T: ValueValidator>: OptionalValidatable where T.Input: Codable
 {
     public
-    typealias Value = T
-    
+    typealias RawValue = T.Input
+
     public
-    static
-    var validations: [Validation<Value>]
-    {
-        return []
-    }
-    
+    typealias Validator = T
+
     public
-    var draft: Draft
-    
+    var draft: T.Input?
+
     public
-    init() { }
+    init() {}
 }
 
-//===
+//---
 
 public
-protocol OptionalValidatable: ValidatableValue { }
-
-// MARK: - Custom properties
-
-public
-extension OptionalValidatable
+struct OptionalValueBase<T: Codable>: OptionalValidatable
 {
     public
-    var value: Value?
-    {
-        do
-        {
-            try validate()
-            
-            return draft
-        }
-        catch
-        {
-            return nil
-        }
-    }
-    
+    typealias RawValue = T
+
     public
-    func valueIfValid() throws -> Value?
+    enum Validator: ValueValidator
     {
-        if
-            let result = draft
+        public
+        static
+        var conditions: [Condition<T>]
         {
-            // non-'nil' draft value must be checked againts requirements
-            
-            try type(of: self).validations.forEach {
-                
-                try $0.perform(with: result)
-            }
-            
-            //===
-            
-            return result
-        }
-        else
-        {
-            // 'draft' is 'nil', which is a valid 'value'
-            
-            return nil
+            return []
         }
     }
-}
 
-// MARK: - Validatable support
-
-public
-extension OptionalValidatable
-{
     public
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try valueIfValid()
-            
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
-    
+    var draft: T?
+
     public
-    func validate() throws
-    {
-        _ = try valueIfValid()
-    }
-}
-
-// MARK: - Extra helpers
-
-public
-extension OptionalValidatable
-{
-    @discardableResult
-    func mapValid<U>(_ transform: (Value) throws -> U) rethrows -> U?
-    {
-        return try (try? valueIfValid())?.flatMap({ $0 }).map(transform)
-    }
-    
-    @discardableResult
-    func flatMapValid<U>(_ transform: (Value) throws -> U?) rethrows -> U?
-    {
-        return try (try? valueIfValid()).flatMap({ $0 }).flatMap(transform)
-    }
+    init() {}
 }

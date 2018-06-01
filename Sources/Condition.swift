@@ -24,46 +24,72 @@
 
  */
 
-//---
-
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValidatable where T.Input: Codable
+struct Condition<Input>
 {
     public
-    typealias RawValue = T.Input
+    typealias Body = (_ input: Input) -> Bool
+
+    //---
 
     public
-    typealias Validator = T
+    let description: String
+
+    private
+    let body: Body
+
+    // MARK: - Initializers
 
     public
-    var draft: T.Input?
-
-    public
-    init() {}
-}
-
-//---
-
-public
-struct MandatoryValueBase<T: Codable>: MandatoryValidatable
-{
-    public
-    typealias RawValue = T
-
-    public
-    enum Validator: ValueValidator
+    init(
+        _ description: String,
+        _ body: @escaping Body
+        )
     {
-        public
-        static
-        var conditions: [Condition<T>]
-        {
-            return []
-        }
+        self.description = description
+        self.body = body
     }
 
     public
-    var draft: T?
-
-    public
-    init() {}
+    init()
+    {
+        self.init("Any value") { _ in true }
+    }
 }
+
+//---
+
+public
+extension Condition
+{
+    func isValid(value: Input) -> Bool
+    {
+        return body(value)
+    }
+
+    func validate(context: String, value: Input) throws
+    {
+        guard
+            body(value)
+        else
+        {
+            throw ValidatableValueError.conditionCheckFailed(
+                context: context,
+                input: value,
+                condition: description
+            )
+        }
+    }
+}
+
+//---
+
+extension Condition: CustomStringConvertible {}
+
+//---
+
+public
+typealias Check<Value> = Condition<Value>
+
+public
+typealias Conditions<Value> = [Condition<Value>]

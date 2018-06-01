@@ -1,10 +1,28 @@
-//
-//  Main.swift
-//  MKHValueWrapperTst
-//
-//  Created by Maxim Khatskevich on 8/22/16.
-//  Copyright © 2016 Maxim Khatskevich. All rights reserved.
-//
+/*
+
+ MIT License
+
+ Copyright (c) 2016 Maxim Khatskevich (maxim@khatskevi.ch)
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ */
 
 import XCTest
 
@@ -13,158 +31,217 @@ import XCEValidatableValue
 
 import XCETesting
 
-//===
+//---
 
-class MKHValueWrapperTst: XCTestCase
+class MainTests: XCTestCase
 {
+    var user = MyUser()
+}
+
+// MARK: - Overrides
+
+extension MainTests
+{
+    override
+    func setUp()
+    {
+        user = MyUser()
+    }
+}
+
+// MARK: - Tests
+
+extension MainTests
+{
+    func testWholeUserIsValid()
+    {
+        user.firstName <? "Max"
+        user.lastName <? "Kevi"
+        user.username <? "maxim@google.com"
+        // forgot password...
+
+        Assert("Whole entity is NOT valid yet").isFalse
+        {
+            user.isValid
+        }
+
+        user.password <? "123t5y7gh"
+
+        Assert("Whole entity is NOT valid yet").isFalse
+        {
+            user.isValid
+        }
+
+        // because...
+
+        Assert("Password value is NOT valid yet").isFalse
+        {
+            user.password.isValid
+        }
+
+        do
+        {
+            try user.validate()
+        }
+        catch
+        {
+            print(error) // see in  console for detailed explanation what's failed!
+        }
+
+        // now lets improve the password to satisfy ALL conditions
+
+        user.password <? "!C3t5y7gh"
+
+        Assert("Whole entity is valid").isTrue
+        {
+            user.isValid
+        }
+    }
+
     func testSomeConstantValueWrapper()
     {
-        let u = MyUser()
-        
-        //===
-        
-        RXC.isTrue("Constant value is valid") {
-            
-            u.someConstant.isValid
+        Assert("Constant value is valid").isTrue
+        {
+            user.someConstant.isValid
         }
         
-        //===
+        //---
         
-        RXC.isTrue("Const vlaue is equal to pre-defined value") {
-            
-            u.someConstant.value == MyUser.someConstantValue
+        Assert("Const vlaue is equal to pre-defined value").isTrue
+        {
+            try user.someConstant.valueIfValid() == MyUser.someConstantValue
         }
     }
     
     func testFirstNameValueWrapper()
     {
-        var u = MyUser()
-        
-        //===
-        
-        RXC.isTrue("Initially 'firstName' is NOT valid") {
-            
-            !u.firstName.isValid
+        Assert("Initially 'firstName' is NOT valid").isTrue
+        {
+            !user.firstName.isValid
         }
         
-        //===
+        //---
         
         let emptyString = ""
         
-        //===
+        //---
         
         do
         {
-            try u.firstName.set(emptyString)
+            try user.firstName.set(emptyString)
             
             XCTFail("Should not get here ever")
         }
         catch
         {
-            RXC.isTrue("An empty string is NOT a valid value for 'firstName'") {
-                
-                error is ValidationFailed
+            Assert("An empty string is NOT a valid value for 'firstName'").isTrue
+            {
+                if
+                    case ValidatableValueError.validationFailed(_, _, _) = error
+                {
+                    return true
+                }
+                else
+                {
+                    return false
+                }
             }
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'firstName' is untapped, so it's still NOT valid") {
-            
-            !u.firstName.isValid
+        Assert("'firstName' is untapped, so it's still NOT valid").isTrue
+        {
+            !user.firstName.isValid
         }
         
-        //===
+        //---
         
         let firstName = "Max"
         let anotherFirstName = "Alex"
         
-        //===
+        //---
         
         do
         {
-            try u.firstName << firstName
+            try user.firstName << firstName
         }
         catch
         {
             XCTFail("Should not get here ever")
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'firstName' is now set to '\(firstName)'") {
-            
-            u.firstName.value == firstName
+        Assert("'firstName' is now set to '\(firstName)'").isTrue
+        {
+            user.firstName.draft == firstName
         }
         
-        RXC.isTrue("'firstName' is now VALID") {
-            
-            u.firstName.isValid
+        Assert("'firstName' is now VALID").isTrue
+        {
+            user.firstName.isValid
         }
         
-        //===
+        //---
         
         do
         {
-            try u.firstName.set(anotherFirstName)
+            try user.firstName.set(anotherFirstName)
         }
         catch
         {
             XCTFail("Should not get here ever")
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'firstName' is now set to '\(anotherFirstName)'") {
-            
-            u.firstName.value == anotherFirstName
+        Assert("'firstName' is now set to '\(anotherFirstName)'").isTrue
+        {
+            user.firstName.draft == anotherFirstName
         }
         
-        RXC.isTrue("'firstName' is now VALID") {
-        
-            u.firstName.isValid
+        Assert("'firstName' is now VALID").isTrue
+        {
+            user.firstName.isValid
         }
     }
     
     func testLastNameValueWrapper()
     {
-        var u = MyUser()
-        
-        //===
-        
-        RXC.isNil("'lastName' is empty") {
-
-            u.lastName.value
+        Assert("'lastName' is empty").isNil
+        {
+            user.lastName.draft
         }
         
-        //===
+        //---
         
-        RXC.isTrue("'lastName' is VALID even if it's empty") {
-            
-            u.lastName.isValid
+        Assert("'lastName' is VALID even if it's empty").isTrue
+        {
+            user.lastName.isValid
         }
         
-        //===
+        //---
         
-        u.lastName <? nil
+        user.lastName <? nil
         
-        RXC.isTrue("'nil' is VALID for 'lastName'") {
-            
-            u.lastName.isValid
+        Assert("'nil' is VALID for 'lastName'").isTrue
+        {
+            user.lastName.isValid
         }
         
-        u.lastName <? ""
+        user.lastName <? ""
         
-        RXC.isTrue("Empty string is VALID for 'lastName'") {
-            
-            u.lastName.isValid
+        Assert("Empty string is VALID for 'lastName'").isTrue
+        {
+            user.lastName.isValid
         }
         
-        u.lastName.draft = "ldfewihfiqeuwbfweiubf"
+        user.lastName.draft = "ldfewihfiqeuwbfweiubf"
         
-        RXC.isTrue("A random non-empty string is VALID for 'lastName'") {
-            
-            u.lastName.isValid
+        Assert("A random non-empty string is VALID for 'lastName'").isTrue
+        {
+            user.lastName.isValid
         }
     }
 }

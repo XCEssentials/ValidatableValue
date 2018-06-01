@@ -24,46 +24,11 @@
 
  */
 
-//---
-
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValidatable where T.Input: Codable
+protocol ValueValidator
 {
-    public
-    typealias RawValue = T.Input
+    associatedtype Input
 
-    public
-    typealias Validator = T
-
-    public
-    var draft: T.Input?
-
-    public
-    init() {}
-}
-
-//---
-
-public
-struct MandatoryValueBase<T: Codable>: MandatoryValidatable
-{
-    public
-    typealias RawValue = T
-
-    public
-    enum Validator: ValueValidator
-    {
-        public
-        static
-        var conditions: [Condition<T>]
-        {
-            return []
-        }
-    }
-
-    public
-    var draft: T?
-
-    public
-    init() {}
+    static
+    var conditions: [Condition<Input>] { get }
 }
