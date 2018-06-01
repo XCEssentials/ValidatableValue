@@ -25,12 +25,18 @@
  */
 
 public
-protocol ValidatableAuto: Validatable {}
+protocol ValidatableEntity: Validatable {} // , Codable
 
 //---
 
+/**
+ Data model type that supposed to store all (dynamic) important data
+ in various validatable value properties. Such properties will be automatically
+ checked for validity each time when whole entity is being tested for validity.
+ Those property will be also automatically encoded and decoded.
+ */
 public
-extension ValidatableAuto
+extension ValidatableEntity
 {
     func validate() throws
     {
@@ -40,4 +46,11 @@ extension ValidatableAuto
             .compactMap{ $0 as? Validatable }
             .forEach{ try $0.validate() }
     }
+
+    //---
+
+//    init(from decoder: Decoder) throws
+//    {
+//        //
+//    }
 }

@@ -28,7 +28,7 @@ import XCEValidatableValue
 
 //---
 
-struct MyUser: ValidatableAuto
+struct MyUser//: ValidatableEntity
 {
     static
     let someConstantValue = 3
@@ -55,10 +55,64 @@ struct MyUser: ValidatableAuto
 // MARK: - Helpers
 
 fileprivate
+extension MyUser
+{
+    /**
+
+     To eliminate the need of 'draft' property being 'manually' declared in each type -
+     declare only 'wrapper' or 'validator ctr' or 'core' which embed into final type as generic
+     parameter??? Probably this core type should be mandatory/optional. So we declare
+     only 'core' validator, which is essentially defines only base type and set of checks/conditions.
+
+     */
+    struct Email: MandatoryValidatable { typealias Value = String
+
+        static
+        let conditions = [
+
+            String.nonEmptyCheck,
+            Check("Valid email address", String.isValidEmail)
+        ]
+
+        var draft: Value?
+    }
+
+    struct FirstName: MandatoryValidatable { typealias Value = String
+
+        static
+        let validations = [
+
+            Check<Value>("Non-empty") { !$0.isEmpty }
+        ]
+
+        var draft: Draft
+
+        init() { }
+    }
+
+    struct Password: MandatoryValidatable { typealias Value = String
+
+        static
+        let validations = [
+
+            Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
+            Check("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
+            Check("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
+            Check("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
+            Check("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
+            Check("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+        ]
+
+        var draft: Draft
+
+        init() { }
+    }
+}
+
+fileprivate
 extension String
 {
     static
-    let nonEmpty = MandatoryValue<String>(
-        Check("Non-empty") { !$0.isEmpty })
+    let nonEmptyCheck = Check<String>("Non-empty"){ !$0.isEmpty }
 }
 

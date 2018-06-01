@@ -25,21 +25,34 @@
  */
 
 public
-struct MandatoryValue<T: Codable>: MandatoryValidatable
+protocol MandatoryValidatable: ValidatableValue {}
+
+//---
+
+public
+extension MandatoryValidatable
 {
-    public
-    typealias RawValue = T
-
-    public
-    static
-    var conditions: [Condition<RawValue>]
+    func valueIfValid() throws -> RawValue
     {
-        return []
+        guard
+            let result = draft
+        else
+        {
+            // 'draft' is 'nil', which is NOT allowed
+            throw ValidatableValueError.valueNotSet
+        }
+
+        //---
+
+        // non-'nil' draft value must be checked againts requirements
+
+        try Self.conditions.forEach
+        {
+            try $0.validate(value: result)
+        }
+
+        //---
+
+        return result
     }
-
-    public
-    var draft: T?
-
-    public
-    init() {}
 }

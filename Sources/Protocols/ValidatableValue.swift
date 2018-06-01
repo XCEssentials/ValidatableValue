@@ -25,21 +25,20 @@
  */
 
 public
-protocol ValidatableValue: Validatable
+protocol ValidatableValue: Validatable, Encodable
 {
-    associatedtype RawValue
+    associatedtype RawValue: Codable
     associatedtype ValidValue
 
-    /**
-     Primary initializer that supposed to put provided conditions
-     into the 'conditions' property.
-     */
-    init(conditions: [Condition<RawValue>])
+    //---
+
+    init()
 
     /**
      These conditions represent all requirements that expected to be
      satisfied in order for a draft value to be considered as valid.
      */
+    static
     var conditions: [Condition<RawValue>] { get }
 
     /**
@@ -55,6 +54,18 @@ protocol ValidatableValue: Validatable
      is not satisfied.
      */
     func valueIfValid() throws -> ValidValue
+}
+
+// MARK: - Automatic 'Encodable' conformance
+
+public
+extension ValidatableValue
+{
+    func encode(to encoder: Encoder) throws
+    {
+        var container = encoder.singleValueContainer()
+        try container.encode(draft)
+    }
 }
 
 // MARK: - Automatic 'Validatable' conformance
@@ -74,25 +85,11 @@ public
 extension ValidatableValue
 {
     init(
-        initialValue: RawValue? = nil,
-        _ conditions: Condition<RawValue>...
+        initialValue: RawValue
         )
     {
-        self.init(conditions: conditions)
+        self.init()
         self.draft = initialValue
-    }
-
-    func check(
-        _ description: String,
-        _ body: @escaping Check<RawValue>.Body
-        ) -> Self
-    {
-        var result = Self
-            .init(conditions: self.conditions + [Check<RawValue>(description, body)])
-
-        result.draft = self.draft
-
-        return result
     }
 
     mutating

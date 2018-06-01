@@ -25,54 +25,21 @@
  */
 
 public
-struct OptionalValue<T>: ValidatableValue
+struct OptionalValue<T: Codable>: OptionalValidatable
 {
     public
     typealias RawValue = T
 
     public
-    typealias ValidValue = T?
-
-    //---
-
-    public
-    var conditions: [Condition<T>]
+    static
+    var conditions: [Condition<RawValue>]
+    {
+        return []
+    }
 
     public
     var draft: T?
 
-    //---
-
     public
-    init(conditions: [Condition<T>])
-    {
-        self.conditions = conditions
-    }
-
-    //---
-
-    public
-    func valueIfValid() throws -> ValidValue
-    {
-        guard
-            let result = draft
-        else
-        {
-            // 'draft' is 'nil', which is a valid 'value'
-            return nil
-        }
-
-        //---
-
-        // non-'nil' draft value must be checked againts requirements
-
-        try conditions.forEach
-        {
-            try $0.validate(value: result)
-        }
-
-        //---
-
-        return result
-    }
+    init() {}
 }
