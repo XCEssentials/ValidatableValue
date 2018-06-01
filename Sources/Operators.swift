@@ -53,3 +53,29 @@ func <? <VV, T>(
 {
     container.draft = newValue
 }
+
+//---
+
+public
+func == <VV, T>(
+    container: VV,
+    value: T?
+    ) -> Bool
+    where
+    VV: ValidatableValue,
+    VV.RawValue == T
+{
+    return container.draft == value
+}
+
+public
+func == <VV, T>(
+    value: T?,
+    container: VV
+    ) -> Bool
+    where
+    VV: ValidatableValue,
+    VV.RawValue == T
+{
+    return container.draft == value
+}

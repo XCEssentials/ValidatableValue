@@ -27,7 +27,8 @@
 //---
 
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValidatable where T.Input: Codable
+struct MandatoryValue<T: ValueValidator>: MandatoryValidatable
+    where T.Input: Codable, T.Input: Equatable
 {
     public
     typealias RawValue = T.Input
@@ -45,7 +46,8 @@ struct MandatoryValue<T: ValueValidator>: MandatoryValidatable where T.Input: Co
 //---
 
 public
-struct MandatoryValueBase<T: Codable>: MandatoryValidatable
+struct MandatoryValueBase<T>: MandatoryValidatable
+    where T: Codable, T: Equatable
 {
     public
     typealias RawValue = T
