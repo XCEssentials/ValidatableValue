@@ -1,21 +1,66 @@
+/*
+
+ MIT License
+
+ Copyright (c) 2016 Maxim Khatskevich (maxim@khatskevi.ch)
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ */
+
 public
-protocol ValidatableValueError: Error { }
+enum ValidatableValueError: Error
+{
+    case valueNotSet
+    case conditionCheckFailed(context: String, input: Any, condition: String)
+    case validationFailed(context: String, input: Any, conditions: [String])
+}
 
-//===
+//---
 
-public
-struct ValueNotSet: ValidatableValueError { }
-
-//===
-
-public
-struct ValidationFailed: ValidatableValueError, CustomStringConvertible
+extension ValidatableValueError: CustomStringConvertible
 {
     public
-    let description: String
-    
-    init(_ validation: String, input: Any)
+    var description: String
     {
-        self.description = "Validation [\(validation)] failed with input: \(input)."
+        switch self
+        {
+            case .valueNotSet:
+                return "Value is not set."
+
+            case .conditionCheckFailed(let context, let input, let condition):
+                return """
+                    ======
+                    Context: \(context).
+                    Input: \(input).
+                    Failed condition: \(condition).
+                    ---/
+                    """
+
+            case .validationFailed(let context, let input, let conditions):
+                return """
+                    ======
+                    Context: \(context).
+                    Input: \(input).
+                    Failed conditions: \(conditions).
+                    ---/
+                    """
+        }
     }
 }

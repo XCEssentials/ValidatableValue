@@ -24,46 +24,26 @@
 
  */
 
-//---
-
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValidatable where T.Input: Codable
-{
-    public
-    typealias RawValue = T.Input
-
-    public
-    typealias Validator = T
-
-    public
-    var draft: T.Input?
-
-    public
-    init() {}
-}
+protocol ValidatableEntity: Validatable, Codable {}
 
 //---
 
+/**
+ Data model type that supposed to store all (dynamic) important data
+ in various validatable value properties. Such properties will be automatically
+ checked for validity each time when whole entity is being tested for validity.
+ Those property will be also automatically encoded and decoded.
+ */
 public
-struct MandatoryValueBase<T: Codable>: MandatoryValidatable
+extension ValidatableEntity
 {
-    public
-    typealias RawValue = T
-
-    public
-    enum Validator: ValueValidator
+    func validate() throws
     {
-        public
-        static
-        var conditions: [Condition<T>]
-        {
-            return []
-        }
+        try Mirror(reflecting: self)
+            .children
+            .map{ $0.value }
+            .compactMap{ $0 as? Validatable }
+            .forEach{ try $0.validate() }
     }
-
-    public
-    var draft: T?
-
-    public
-    init() {}
 }

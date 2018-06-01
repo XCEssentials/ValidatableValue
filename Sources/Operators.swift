@@ -24,46 +24,32 @@
 
  */
 
-//---
-
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValidatable where T.Input: Codable
+func << <VV, T>(
+    container: inout VV,
+    newValue: T?
+    ) throws
+    where
+    VV: ValidatableValue,
+    VV.RawValue == T
 {
-    public
-    typealias RawValue = T.Input
-
-    public
-    typealias Validator = T
-
-    public
-    var draft: T.Input?
-
-    public
-    init() {}
+    try container.set(newValue)
 }
 
 //---
 
+infix operator <?
+
+//---
+
 public
-struct MandatoryValueBase<T: Codable>: MandatoryValidatable
+func <? <VV, T>(
+    container: inout VV,
+    newValue: T?
+    )
+    where
+    VV: ValidatableValue,
+    VV.RawValue == T
 {
-    public
-    typealias RawValue = T
-
-    public
-    enum Validator: ValueValidator
-    {
-        public
-        static
-        var conditions: [Condition<T>]
-        {
-            return []
-        }
-    }
-
-    public
-    var draft: T?
-
-    public
-    init() {}
+    container.draft = newValue
 }
