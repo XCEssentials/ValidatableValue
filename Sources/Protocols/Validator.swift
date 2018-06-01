@@ -24,24 +24,11 @@
 
  */
 
-import Foundation
-
-//---
-
-enum Pwd
+public
+protocol ValueValidator
 {
+    associatedtype Input
+
     static
-    let caps = CS.uppercaseLetters
-    
-    static
-    let lows = CS.lowercaseLetters
-    
-    static
-    let digits = CS.decimalDigits
-    
-    static
-    let specials = CS(charactersIn: " ,.!?@#$%^&*()-_+=")
-    
-    static
-    var allowed = caps.union(lows).union(digits).union(specials)
+    var conditions: [Condition<Input>] { get }
 }

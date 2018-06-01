@@ -89,3 +89,6 @@ extension Condition: CustomStringConvertible {}
 
 public
 typealias Check<Value> = Condition<Value>
+
+public
+typealias Conditions<Value> = [Condition<Value>]

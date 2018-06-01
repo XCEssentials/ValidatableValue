@@ -25,16 +25,38 @@
  */
 
 public
-struct OptionalValue<T: Codable>: OptionalValidatable
+struct OptionalValue<T: ValueValidator>: OptionalValidatable where T.Input: Codable
+{
+    public
+    typealias RawValue = T.Input
+
+    public
+    typealias Validator = T
+
+    public
+    var draft: T.Input?
+
+    public
+    init() {}
+}
+
+//---
+
+public
+struct OptionalValueBase<T: Codable>: OptionalValidatable
 {
     public
     typealias RawValue = T
 
     public
-    static
-    var conditions: [Condition<RawValue>]
+    enum Validator: ValueValidator
     {
-        return []
+        public
+        static
+        var conditions: [Condition<T>]
+        {
+            return []
+        }
     }
 
     public

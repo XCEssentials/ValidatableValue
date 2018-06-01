@@ -25,21 +25,15 @@
  */
 
 public
-protocol ValidatableValue: Validatable, Encodable
+protocol ValidatableValue: Validatable, Codable
 {
     associatedtype RawValue: Codable
+    associatedtype Validator: ValueValidator where Validator.Input == RawValue
     associatedtype ValidValue
 
     //---
 
     init()
-
-    /**
-     These conditions represent all requirements that expected to be
-     satisfied in order for a draft value to be considered as valid.
-     */
-    static
-    var conditions: [Condition<RawValue>] { get }
 
     /**
      This property can be freely modified at any point of time.
@@ -56,7 +50,7 @@ protocol ValidatableValue: Validatable, Encodable
     func valueIfValid() throws -> ValidValue
 }
 
-// MARK: - Automatic 'Encodable' conformance
+// MARK: - Automatic 'Codable' conformance
 
 public
 extension ValidatableValue
@@ -65,6 +59,17 @@ extension ValidatableValue
     {
         var container = encoder.singleValueContainer()
         try container.encode(draft)
+    }
+
+    init(from decoder: Decoder) throws
+    {
+        let container = try decoder.singleValueContainer()
+        let value = try container.decode(RawValue.self)
+
+        //---
+
+        self.init()
+        self.draft = value
     }
 }
 

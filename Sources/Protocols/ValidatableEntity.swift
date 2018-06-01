@@ -25,7 +25,7 @@
  */
 
 public
-protocol ValidatableEntity: Validatable {} // , Codable
+protocol ValidatableEntity: Validatable, Codable {}
 
 //---
 
@@ -46,11 +46,4 @@ extension ValidatableEntity
             .compactMap{ $0 as? Validatable }
             .forEach{ try $0.validate() }
     }
-
-    //---
-
-//    init(from decoder: Decoder) throws
-//    {
-//        //
-//    }
 }

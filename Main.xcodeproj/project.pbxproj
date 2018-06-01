@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		0A7D462EFFB2784F10B354BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D0105507A534C47A7B35D8 /* Foundation.framework */; };
 		44DFCFC7426487840C33657F /* Pods_Fwk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2F72B8EB9CC422FFD841FD3 /* Pods_Fwk.framework */; };
-		59A663C37B45728D6C1BE4DE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E266A041424CB320A6F7321E /* Helpers.swift */; };
-		7E1F1831D6C63EDD6AB10FD4 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5FE6A5E05BE1FFAB070BFB /* Password.swift */; };
 		927C14C6143FA2B19E366D09 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F791557D101E81B3C45CAD /* Errors.swift */; };
 		9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9415FE371F4A27FC0077E798 /* Validatable.swift */; };
+		947D3E8420C130AE00F97EDD /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D3E8320C130AE00F97EDD /* Validator.swift */; };
 		94E7EC1720C0358700132570 /* ValidatableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1620C0358700132570 /* ValidatableValue.swift */; };
 		94E7EC1920C03A7A00132570 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1820C03A7A00132570 /* Condition.swift */; };
 		94E7EC1B20C09AE300132570 /* ValidatableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */; };
@@ -61,11 +60,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F5FE6A5E05BE1FFAB070BFB /* Password.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		343B09A0D2E9085C310918BD /* Pods-Fwk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fwk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fwk/Pods-Fwk.debug.xcconfig"; sourceTree = "<group>"; };
 		44E62350DBEA821F9F23C0BD /* User.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		62F791557D101E81B3C45CAD /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9415FE371F4A27FC0077E798 /* Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
+		947D3E8320C130AE00F97EDD /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		94E7EC1620C0358700132570 /* ValidatableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableValue.swift; sourceTree = "<group>"; };
 		94E7EC1820C03A7A00132570 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
 		94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatableEntity.swift; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 		C625FCC032665EB3551BBED9 /* Main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		D4BD43E935968D65787899B1 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCD82093FB94C61BC5522514 /* XCEValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XCEValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E266A041424CB320A6F7321E /* Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		EC1247A0B5D87FF7FF944B76 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F68A8A5AA5C9053CA1C3C4 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC2C9BD3784D57AE7D3BC032 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -125,15 +123,6 @@
 			path = Tests;
 			sourceTree = SOURCE_ROOT;
 		};
-		3956E500BF646E8DC86CBCB8 /* User */ = {
-			isa = PBXGroup;
-			children = (
-				2F5FE6A5E05BE1FFAB070BFB /* Password.swift */,
-				44E62350DBEA821F9F23C0BD /* User.swift */,
-			);
-			path = User;
-			sourceTree = "<group>";
-		};
 		602094E624CC822B0063A5E0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				9415FE371F4A27FC0077E798 /* Validatable.swift */,
+				947D3E8320C130AE00F97EDD /* Validator.swift */,
 				94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */,
 				94E7EC1620C0358700132570 /* ValidatableValue.swift */,
 				94E7EC1C20C0A55500132570 /* MandatoryValidatable.swift */,
@@ -211,8 +201,7 @@
 		FC4EC50B733BBE8B1004027E /* Spec */ = {
 			isa = PBXGroup;
 			children = (
-				E266A041424CB320A6F7321E /* Helpers.swift */,
-				3956E500BF646E8DC86CBCB8 /* User */,
+				44E62350DBEA821F9F23C0BD /* User.swift */,
 			);
 			path = Spec;
 			sourceTree = "<group>";
@@ -365,9 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59A663C37B45728D6C1BE4DE /* Helpers.swift in Sources */,
 				D7DF6AFF94EE3A04EC1C53BE /* Main.swift in Sources */,
-				7E1F1831D6C63EDD6AB10FD4 /* Password.swift in Sources */,
 				E4A9D7B238786669E01E3312 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,6 +368,7 @@
 				94E7EC1720C0358700132570 /* ValidatableValue.swift in Sources */,
 				94E7EC1920C03A7A00132570 /* Condition.swift in Sources */,
 				94FF816F20C0079D00E69904 /* Operators.swift in Sources */,
+				947D3E8420C130AE00F97EDD /* Validator.swift in Sources */,
 				9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
 				94E7EC1F20C0A57F00132570 /* OptionalValidatable.swift in Sources */,

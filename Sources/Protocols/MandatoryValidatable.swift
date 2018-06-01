@@ -46,7 +46,7 @@ extension MandatoryValidatable
 
         // non-'nil' draft value must be checked againts requirements
 
-        try Self.conditions.forEach
+        try Validator.conditions.forEach
         {
             try $0.validate(value: result)
         }

@@ -24,17 +24,41 @@
 
  */
 
+//---
+
 public
-struct MandatoryValue<T: Codable>: MandatoryValidatable
+struct MandatoryValue<T: ValueValidator>: MandatoryValidatable where T.Input: Codable
+{
+    public
+    typealias RawValue = T.Input
+
+    public
+    typealias Validator = T
+
+    public
+    var draft: T.Input?
+
+    public
+    init() {}
+}
+
+//---
+
+public
+struct MandatoryValueBase<T: Codable>: MandatoryValidatable
 {
     public
     typealias RawValue = T
 
     public
-    static
-    var conditions: [Condition<RawValue>]
+    enum Validator: ValueValidator
     {
-        return []
+        public
+        static
+        var conditions: [Condition<T>]
+        {
+            return []
+        }
     }
 
     public
