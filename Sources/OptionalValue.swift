@@ -25,7 +25,8 @@
  */
 
 public
-struct OptionalValue<T: ValueValidator>: OptionalValidatable where T.Input: Codable
+struct OptionalValue<T: ValueValidator>: OptionalValidatable
+    where T.Input: Codable, T.Input: Equatable
 {
     public
     typealias RawValue = T.Input
@@ -43,7 +44,8 @@ struct OptionalValue<T: ValueValidator>: OptionalValidatable where T.Input: Coda
 //---
 
 public
-struct OptionalValueBase<T: Codable>: OptionalValidatable
+struct OptionalValueBase<T>: OptionalValidatable
+    where T: Codable, T: Equatable
 {
     public
     typealias RawValue = T

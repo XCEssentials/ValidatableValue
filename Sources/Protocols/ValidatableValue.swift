@@ -25,9 +25,9 @@
  */
 
 public
-protocol ValidatableValue: Validatable, Codable
+protocol ValidatableValue: Validatable, Codable, Equatable
 {
-    associatedtype RawValue: Codable
+    associatedtype RawValue: Codable, Equatable
     associatedtype Validator: ValueValidator where Validator.Input == RawValue
     associatedtype ValidValue
 
