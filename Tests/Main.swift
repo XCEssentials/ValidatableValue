@@ -141,8 +141,14 @@ extension MainTests
             Assert("An empty string is NOT a valid value for 'firstName'").isTrue
             {
                 if
-                    case ValidatableValueError.validationFailed(_, _, _) = error
+                    case ValidatableValueError
+                        .validationFailed(_, _, let failedConditions) = error
                 {
+                    Assert("Failed conditions list is consistent").isTrue
+                    {
+                        user.firstName.unsatisfiedConditions == failedConditions
+                    }
+
                     return true
                 }
                 else

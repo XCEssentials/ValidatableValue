@@ -109,4 +109,25 @@ extension ValidatableValue
         var tmp = self
         try tmp.set(value)
     }
+
+    var unsatisfiedConditions: [String]
+    {
+        do
+        {
+            try validate()
+        }
+        catch
+        {
+            if
+                case ValidatableValueError
+                    .validationFailed(_, _, let result) = error
+            {
+                return result // return list of failed conditions
+            }
+        }
+
+        //---
+
+        return [] // everything is okay, validation passed
+    }
 }
