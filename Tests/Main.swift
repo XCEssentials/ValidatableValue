@@ -35,7 +35,7 @@ import XCETesting
 
 class MainTests: XCTestCase
 {
-    var user = MyUser()
+    var user = User()
 }
 
 // MARK: - Overrides
@@ -49,7 +49,7 @@ extension MainTests
 
         //---
         
-        user = MyUser()
+        user = User()
     }
 }
 
@@ -57,6 +57,45 @@ extension MainTests
 
 extension MainTests
 {
+    func testConstVV()
+    {
+        Assert("Const number value is valid").isNotNil
+        {
+            try? MandatoryValueBase(const: 42)
+        }
+
+        //---
+
+        let correctEmail = "john@google.com"
+
+        Assert("Correct const email value is valid").isNotNil
+        {
+            try? MandatoryValue<User.Email>(const: correctEmail)
+        }
+
+        //---
+
+        let incorrectEmail = "john@google"
+
+        Assert("INcorrect const email value is NOT valid").isNil
+        {
+            try? MandatoryValue<User.Email>(const: incorrectEmail)
+        }
+
+        //---
+
+        do
+        {
+            _ = try MandatoryValue<User.Email>(const: incorrectEmail)
+
+            XCTFail("Should not get here ever")
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+
     func testWholeUserIsValid()
     {
         user.firstName <? "Max"
@@ -113,7 +152,7 @@ extension MainTests
         
         Assert("Const vlaue is equal to pre-defined value").isTrue
         {
-            try user.someConstant.valueIfValid() == MyUser.someConstantValue
+            try user.someConstant.valueIfValid() == User.someConstantValue
         }
     }
     
