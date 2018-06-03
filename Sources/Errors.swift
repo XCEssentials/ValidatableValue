@@ -29,7 +29,7 @@ enum ValidatableValueError: Error
 {
     case valueNotSet
     case conditionCheckFailed(context: String, input: Any, condition: String)
-    case validationFailed(context: String, input: Any, conditions: [String])
+    case validationFailed(context: String, input: Any, failedConditions: [String])
 }
 
 //---
@@ -53,12 +53,12 @@ extension ValidatableValueError: CustomStringConvertible
                     ---/
                     """
 
-            case .validationFailed(let context, let input, let conditions):
+            case .validationFailed(let context, let input, let failedConditions):
                 return """
                     ======
                     Context: \(context).
                     Input: \(input).
-                    Failed conditions: \(conditions).
+                    Failed conditions: \(failedConditions).
                     ---/
                     """
         }
