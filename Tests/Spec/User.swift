@@ -30,14 +30,14 @@ import XCEValidatableValue
 
 //---
 
-struct MyUser: ValidatableEntity
+struct User: ValidatableEntity
 {
     static
     let someConstantValue = 3
 
     //---
 
-    let someConstant = MandatoryValueBase(initialValue: MyUser.someConstantValue)
+    let someConstant = MandatoryValueBase(initialValue: User.someConstantValue)
 
     var firstName = MandatoryValue<FirstName>()
 
@@ -50,7 +50,7 @@ struct MyUser: ValidatableEntity
 
 // MARK: - Validators
 
-extension MyUser
+extension User
 {
     struct Email: ValueValidator
     {
