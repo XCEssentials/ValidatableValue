@@ -97,6 +97,14 @@ extension ValidatableValue
         self.draft = initialValue
     }
 
+    init(
+        const value: RawValue
+        ) throws
+    {
+        self.init()
+        try self.set(value)
+    }
+
     mutating
     func set(_ newValue: RawValue?) throws
     {
