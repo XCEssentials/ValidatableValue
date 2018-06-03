@@ -45,6 +45,10 @@ extension MainTests
     override
     func setUp()
     {
+        super.setUp()
+
+        //---
+        
         user = MyUser()
     }
 }
