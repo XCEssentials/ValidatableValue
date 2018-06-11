@@ -58,10 +58,9 @@ extension OptionalValidatable
             catch
             {
                 if
-                    case ValueValidationError
-                        .conditionCheckFailed(_, _, let condition) = error
+                    let error = error as? ConditionUnsatisfied
                 {
-                    failedConditions.append(condition)
+                    failedConditions.append(error.condition)
                 }
             }
         }
@@ -72,7 +71,7 @@ extension OptionalValidatable
             failedConditions.isEmpty
         else
         {
-            throw ValueValidationError.validationFailed(
+            throw ValidationFailed(
                 context: currentContext,
                 input: result,
                 failedConditions: failedConditions

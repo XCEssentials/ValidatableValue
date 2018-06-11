@@ -34,19 +34,22 @@ extension MandatoryValidatable
 {
     func valueIfValid() throws -> RawValue
     {
+        let currentContext = String(reflecting: type(of: self))
+
+        //---
+
         guard
             let result = draft
         else
         {
             // 'draft' is 'nil', which is NOT allowed
-            throw ValueValidationError.valueNotSet
+            throw ValueNotSet(context: currentContext)
         }
 
         //---
 
         // non-'nil' draft value must be checked againts requirements
 
-        let currentContext = String(reflecting: type(of: self))
         var failedConditions: [String] = []
 
         Validator.conditions.forEach
@@ -58,10 +61,9 @@ extension MandatoryValidatable
             catch
             {
                 if
-                    case ValueValidationError
-                        .conditionCheckFailed(_, _, let condition) = error
+                    let error = error as? ConditionUnsatisfied
                 {
-                    failedConditions.append(condition)
+                    failedConditions.append(error.condition)
                 }
             }
         }
@@ -72,7 +74,7 @@ extension MandatoryValidatable
             failedConditions.isEmpty
         else
         {
-            throw ValueValidationError.validationFailed(
+            throw ValidationFailed(
                 context: currentContext,
                 input: result,
                 failedConditions: failedConditions

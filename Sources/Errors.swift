@@ -25,42 +25,89 @@
  */
 
 public
-enum ValueValidationError: Error
+protocol ValueValidationError: Error, CustomStringConvertible
 {
-    case valueNotSet
-    case conditionCheckFailed(context: String, input: Any, condition: String)
-    case validationFailed(context: String, input: Any, failedConditions: [String])
+    var context: String { get }
 }
 
 //---
 
-extension ValueValidationError: CustomStringConvertible
+public
+struct ValueNotSet: ValueValidationError
+{
+    public
+    let context: String
+}
+
+//---
+
+public
+struct ConditionUnsatisfied: ValueValidationError
+{
+    public
+    let context: String
+
+    public
+    let input: Any
+
+    public
+    let condition: String
+}
+
+//---
+
+public
+struct ValidationFailed: ValueValidationError
+{
+    public
+    let context: String
+
+    public
+    let input: Any
+
+    public
+    let failedConditions: [String]
+}
+
+//---
+
+extension ValueValidationError
 {
     public
     var description: String
     {
-        switch self
+        if
+            self is ValueNotSet
         {
-            case .valueNotSet:
-                return "Value is not set."
-
-            case .conditionCheckFailed(let context, let input, let condition):
-                return """
-                    ======
-                    Context: \(context).
-                    Input: \(input).
-                    Failed condition: \(condition).
-                    ---/
-                    """
-
-            case .validationFailed(let context, let input, let failedConditions):
-                return """
-                    ======
-                    Context: \(context).
-                    Input: \(input).
-                    Failed conditions: \(failedConditions).
-                    ---/
-                    """
+            return "Value is not set."
+        }
+        else
+        if
+            let error = self as? ConditionUnsatisfied
+        {
+            return """
+                ======
+                Context: \(error.context).
+                Input: \(error.input).
+                Failed condition: \(error.condition).
+                ---/
+                """
+        }
+        else
+        if
+            let error = self as? ValidationFailed
+        {
+            return """
+                ======
+                Context: \(error.context).
+                Input: \(error.input).
+                Failed conditions: \(error.failedConditions).
+                ---/
+                """
+        }
+        else
+        {
+            return "\(self)"
         }
     }
 }
