@@ -37,15 +37,15 @@ struct User: ValidatableEntity
 
     //---
 
-    let someConstant = MandatoryValueBase(initialValue: User.someConstantValue)
+    let someConstant = MandatoryValueWrapperBase(initialValue: User.someConstantValue)
 
-    var firstName = MandatoryValue<FirstName>()
+    var firstName = MandatoryValueWrapper<FirstName>()
 
-    var lastName = OptionalValueBase<String>()
+    var lastName = OptionalValueWrapperBase<String>()
 
-    var username = MandatoryValue<Email>()
+    var username = MandatoryValueWrapper<Email>()
 
-    var password = MandatoryValue<Password>()
+    var password = MandatoryValueWrapper<Password>()
 }
 
 // MARK: - Validators

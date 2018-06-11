@@ -61,7 +61,7 @@ extension MainTests
     {
         Assert("Const number value is valid").isNotNil
         {
-            try? MandatoryValueBase(const: 42)
+            try? MandatoryValueWrapperBase(const: 42)
         }
 
         //---
@@ -70,7 +70,7 @@ extension MainTests
 
         Assert("Correct const email value is valid").isNotNil
         {
-            try? MandatoryValue<User.Email>(const: correctEmail)
+            try? MandatoryValueWrapper<User.Email>(const: correctEmail)
         }
 
         //---
@@ -79,14 +79,14 @@ extension MainTests
 
         Assert("Incorrect const email value is NOT valid").isNil
         {
-            try? MandatoryValue<User.Email>(const: incorrectEmail)
+            try? MandatoryValueWrapper<User.Email>(const: incorrectEmail)
         }
 
         //---
 
         do
         {
-            _ = try MandatoryValue<User.Email>(const: incorrectEmail)
+            _ = try MandatoryValueWrapper<User.Email>(const: incorrectEmail)
 
             XCTFail("Should not get here ever")
         }
@@ -260,7 +260,7 @@ extension MainTests
     {
         Assert("'lastName' is empty").isNil
         {
-            user.lastName.draft
+            user.lastName.value
         }
         
         //---
@@ -286,7 +286,7 @@ extension MainTests
             user.lastName.isValid
         }
         
-        user.lastName.draft = "ldfewihfiqeuwbfweiubf"
+        user.lastName.value = "ldfewihfiqeuwbfweiubf"
         
         Assert("A random non-empty string is VALID for 'lastName'").isTrue
         {

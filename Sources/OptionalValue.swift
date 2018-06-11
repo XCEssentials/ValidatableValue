@@ -25,7 +25,7 @@
  */
 
 public
-struct OptionalValue<T: ValueValidator>: OptionalValidatable
+struct OptionalValue<T: ValueValidator>: OptionalValueWrapper
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -35,7 +35,7 @@ struct OptionalValue<T: ValueValidator>: OptionalValidatable
     typealias Validator = T
 
     public
-    var draft: T.Input?
+    var value: T.Input?
 
     public
     init() {}
@@ -44,7 +44,7 @@ struct OptionalValue<T: ValueValidator>: OptionalValidatable
 //---
 
 public
-struct OptionalValueBase<T>: OptionalValidatable
+struct OptionalValueBase<T>: OptionalValueWrapper
     where T: Codable, T: Equatable
 {
     public
@@ -62,7 +62,7 @@ struct OptionalValueBase<T>: OptionalValidatable
     }
 
     public
-    var draft: T?
+    var value: T?
 
     public
     init() {}

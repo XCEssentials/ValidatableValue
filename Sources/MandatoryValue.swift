@@ -27,7 +27,7 @@
 //---
 
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValidatable
+struct MandatoryValue<T: ValueValidator>: MandatoryValueWrapper // Wrapper, Mandatory
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -37,7 +37,7 @@ struct MandatoryValue<T: ValueValidator>: MandatoryValidatable
     typealias Validator = T
 
     public
-    var draft: T.Input?
+    var value: T.Input?
 
     public
     init() {}
@@ -46,7 +46,7 @@ struct MandatoryValue<T: ValueValidator>: MandatoryValidatable
 //---
 
 public
-struct MandatoryValueBase<T>: MandatoryValidatable
+struct MandatoryValueBase<T>: MandatoryValueWrapper
     where T: Codable, T: Equatable
 {
     public
@@ -64,7 +64,7 @@ struct MandatoryValueBase<T>: MandatoryValidatable
     }
 
     public
-    var draft: T?
+    var value: T?
 
     public
     init() {}

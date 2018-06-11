@@ -24,41 +24,31 @@
 
  */
 
+/**
+ General purpose value wrapper that can store any
+ kind of value inside.
+ */
 public
-protocol ValidatableValue: Validatable, Codable, Equatable
+protocol ValueWrapperBase: Codable, Equatable // TODO: just 'ValueWrapper'
 {
     associatedtype RawValue: Codable, Equatable
-    associatedtype Validator: ValueValidator where Validator.Input == RawValue
-    associatedtype ValidValue
 
     //---
 
     init()
 
-    /**
-     This property can be freely modified at any point of time.
-     This is the value that is pretending to end up as final value
-     if it satisfies all conditions.
-     */
-    var draft: RawValue? { get set }
-
-    /**
-     Supposed to evaluate 'draft' against all conditions and
-     return a valid value or throw an error if any of the conditions
-     is not satisfied.
-     */
-    func valueIfValid() throws -> ValidValue
+    var value: RawValue? { get set }
 }
 
 // MARK: - Automatic 'Codable' conformance
 
 public
-extension ValidatableValue
+extension ValueWrapperBase
 {
     func encode(to encoder: Encoder) throws
     {
         var container = encoder.singleValueContainer()
-        try container.encode(draft)
+        try container.encode(value)
     }
 
     init(from decoder: Decoder) throws
@@ -69,14 +59,32 @@ extension ValidatableValue
         //---
 
         self.init()
-        self.draft = value
+        self.value = value
     }
+}
+
+//---
+
+public
+protocol ValueWrapper: ValueWrapperBase, Validatable
+{
+    associatedtype Validator: ValueValidator where Validator.Input == RawValue
+    associatedtype ValidValue
+
+    //---
+
+    /**
+     Supposed to evaluate 'value' against all conditions and
+     return a valid value or throw an error if any of the conditions
+     is not satisfied.
+     */
+    func valueIfValid() throws -> ValidValue
 }
 
 // MARK: - Automatic 'Validatable' conformance
 
 public
-extension ValidatableValue
+extension ValueWrapper
 {
     func validate() throws
     {
@@ -87,18 +95,18 @@ extension ValidatableValue
 // MARK: - Convenience helpers
 
 public
-extension ValidatableValue
+extension ValueWrapper
 {
     /**
      Convenience initializer that assigns provided value
-     as draft, does NOT check its validity.
+     as value, does NOT check its validity.
      */
     init(
         initialValue: RawValue
         )
     {
         self.init()
-        self.draft = initialValue
+        self.value = initialValue
     }
 
     /**
@@ -120,7 +128,7 @@ extension ValidatableValue
     mutating
     func set(_ newValue: RawValue?) throws
     {
-        draft = newValue
+        value = newValue
         try validate()
     }
 

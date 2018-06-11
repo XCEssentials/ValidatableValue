@@ -25,31 +25,28 @@
  */
 
 public
-protocol MandatoryValidatable: ValidatableValue {}
+protocol OptionalValueWrapper: ValueWrapper {}
 
 //---
 
 public
-extension MandatoryValidatable
+extension OptionalValueWrapper
 {
-    func valueIfValid() throws -> RawValue
+    func valueIfValid() throws -> RawValue?
     {
-        let currentContext = String(reflecting: type(of: self))
-
-        //---
-
         guard
-            let result = draft
+            let result = value
         else
         {
-            // 'draft' is 'nil', which is NOT allowed
-            throw ValueNotSet(context: currentContext)
+            // 'draft' is 'nil', which is a valid 'value'
+            return nil
         }
 
         //---
 
         // non-'nil' draft value must be checked againts requirements
 
+        let currentContext = String(reflecting: type(of: self))
         var failedConditions: [String] = []
 
         Validator.conditions.forEach

@@ -24,6 +24,14 @@
 
  */
 
+/**
+ Represents single purpose logic related to
+ validation of one particular kind of values,
+ usually within one particular type/entity.
+ It's not supposed to be instantiated,
+ it should be more like a scope, so recommended
+ to be used on 'enum' types.
+ */
 public
 protocol ValueValidator
 {
