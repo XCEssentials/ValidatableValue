@@ -89,6 +89,10 @@ extension ValidatableValue
 public
 extension ValidatableValue
 {
+    /**
+     Convenience initializer that assigns provided value
+     as draft, does NOT check its validity.
+     */
     init(
         initialValue: RawValue
         )
@@ -97,6 +101,11 @@ extension ValidatableValue
         self.draft = initialValue
     }
 
+    /**
+     Convenience initializer useful for setting a 'let' value,
+     that only should be set once during initialization. Assigns
+     provided value and validates it right away.
+     */
     init(
         const value: RawValue
         ) throws
@@ -105,6 +114,9 @@ extension ValidatableValue
         try self.set(value)
     }
 
+    /**
+     Set new value and validate it in single operation.
+     */
     mutating
     func set(_ newValue: RawValue?) throws
     {
@@ -112,6 +124,9 @@ extension ValidatableValue
         try validate()
     }
 
+    /**
+     Validate a given value without actually setting it to current value.
+     */
     func validate(value: RawValue?) throws
     {
         var tmp = self
