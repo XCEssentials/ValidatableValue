@@ -43,7 +43,7 @@ protocol ValidatableValueWrapper: ValueWrapper, Validatable
      return a valid value or throw an error if any of the conditions
      is not satisfied.
      */
-    func valueIfValid() throws -> ValidValue
+    func validValue() throws -> ValidValue
 }
 
 // MARK: - Automatic 'Validatable' conformance
@@ -53,7 +53,7 @@ extension ValidatableValueWrapper
 {
     func validate() throws
     {
-        _ = try valueIfValid()
+        _ = try validValue()
     }
 }
 

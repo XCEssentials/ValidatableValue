@@ -32,7 +32,7 @@ protocol MandatoryValueWrapper: ValidatableValueWrapper {}
 public
 extension MandatoryValueWrapper
 {
-    func valueIfValid() throws -> Value
+    func validValue() throws -> Value
     {
         let currentContext = String(reflecting: type(of: self))
 
