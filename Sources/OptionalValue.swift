@@ -25,8 +25,7 @@
  */
 
 public
-struct OptionalValue<T: ValueValidator>: OptionalValueWrapper,
-    CustomValidatableValueWrapper
+struct OptionalValue<T: ValueValidator>: OptionalValueWrapper, CustomValidatable
     where T.Input: Codable, T.Input: Equatable
 {
     public

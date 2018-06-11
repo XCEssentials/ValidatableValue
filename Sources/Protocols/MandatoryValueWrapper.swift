@@ -97,7 +97,9 @@ extension MandatoryValueWrapper
 public
 extension MandatoryValueWrapper
     where
-    Self: CustomValidatableValueWrapper
+    Self: CustomValidatable,
+    Self.Validator: ValueValidator,
+    Self.Validator.Input == Self.Value
 {
     /**
      It returns non-empty (safely unwrapped) 'value',

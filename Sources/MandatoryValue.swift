@@ -27,8 +27,7 @@
 //---
 
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValueWrapper,
-    CustomValidatableValueWrapper
+struct MandatoryValue<T: ValueValidator>: MandatoryValueWrapper, CustomValidatable
     where T.Input: Codable, T.Input: Equatable
 {
     public

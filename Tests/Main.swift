@@ -91,6 +91,27 @@ extension MainTests
 
         //---
 
+        Assert("Correct const email value is valid").isTrue
+        {
+            OptionalValue<User.Email>(initialValue: correctEmail).isValid
+        }
+
+        //---
+
+        Assert("Incorrect const email value is NOT valid").isFalse
+        {
+            OptionalValue<User.Email>(initialValue: incorrectEmail).isValid
+        }
+
+        //---
+
+        Assert("EMPTY optional email value is valid").isTrue
+        {
+            OptionalValue<User.Email>().isValid
+        }
+
+        //---
+
         do
         {
             _ = try MandatoryValue<User.Email>(const: incorrectEmail)

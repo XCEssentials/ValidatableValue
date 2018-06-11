@@ -40,12 +40,27 @@ extension OptionalValueWrapper
     func validate() throws {}
 }
 
+public
+extension OptionalValueWrapper
+    where
+    Self: CustomValidatable,
+    Self.Validator: ValueValidator,
+    Self.Validator.Input == Self.Value
+{
+    func validate() throws
+    {
+        _ = try validValue()
+    }
+}
+
 //---
 
 public
 extension OptionalValueWrapper
     where
-    Self: CustomValidatableValueWrapper
+    Self: CustomValidatable,
+    Self.Validator: ValueValidator,
+    Self.Validator.Input == Self.Value
 {
     /**
      It returns whatever is stored in 'value',
