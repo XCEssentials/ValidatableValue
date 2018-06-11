@@ -66,13 +66,6 @@ extension MainTests
 
         //---
 
-        Assert("Const number value is valid").isTrue
-        {
-            OptionalValueBase<Int>().isValid
-        }
-
-        //---
-
         let correctEmail = "john@google.com"
 
         Assert("Correct const email value is valid").isNotNil
@@ -267,44 +260,6 @@ extension MainTests
         Assert("'firstName' is now VALID").isTrue
         {
             user.firstName.isValid
-        }
-    }
-    
-    func testLastNameValueWrapper()
-    {
-        Assert("'lastName' is empty").isNil
-        {
-            user.lastName.value
-        }
-        
-        //---
-        
-        Assert("'lastName' is VALID even if it's empty").isTrue
-        {
-            user.lastName.isValid
-        }
-        
-        //---
-        
-        user.lastName <? nil
-        
-        Assert("'nil' is VALID for 'lastName'").isTrue
-        {
-            user.lastName.isValid
-        }
-        
-        user.lastName <? ""
-        
-        Assert("Empty string is VALID for 'lastName'").isTrue
-        {
-            user.lastName.isValid
-        }
-        
-        user.lastName.value = "ldfewihfiqeuwbfweiubf"
-        
-        Assert("A random non-empty string is VALID for 'lastName'").isTrue
-        {
-            user.lastName.isValid
         }
     }
 }

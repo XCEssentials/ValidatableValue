@@ -24,10 +24,12 @@
 
  */
 
-//---
-
+/**
+ It considers as 'valid' any non-'nil' 'value' that
+ satisfies all conditions from custom provided Validator.
+ */
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValueWrapper, CustomValidatable
+struct MandatoryValue<T: ValueValidator>: ValueWrapper, Mandatory, CustomValidatable
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -45,8 +47,11 @@ struct MandatoryValue<T: ValueValidator>: MandatoryValueWrapper, CustomValidatab
 
 //---
 
+/**
+ It considers as 'valid' any non-'nil' 'value'.
+ */
 public
-struct MandatoryValueBase<T>: MandatoryValueWrapper
+struct MandatoryValueBase<T>: ValueWrapper, Mandatory, Validatable
     where T: Codable, T: Equatable
 {
     public

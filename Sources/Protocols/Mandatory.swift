@@ -26,23 +26,77 @@
 
 /**
  Emphasizes the fact that the value stored inside
- can be considered as 'valid' even if it's empty,
- so it's 'validValue()' function returns optional value.
+ can only be considered as 'valid' if it's non-empty,
+ so it's 'validValue()' function returns non-empty value.
  */
 public
-protocol OptionalValueWrapper: ValueWrapper, Validatable {}
-
-// MARK: - Automatic 'Validatable' conformance
-
-public
-extension OptionalValueWrapper
+protocol Mandatory
 {
-    func validate() throws {}
+//    associatedtype ValidValue
+//
+//    func validValue() throws -> ValidValue
 }
 
-public
-extension OptionalValueWrapper
+//---
+
+private
+extension Mandatory
     where
+    Self: ValueWrapper
+{
+    /**
+     It returns non-empty (safely unwrapped) 'value',
+     or throws 'ValueNotSet' error, if the 'value' is 'nil.
+     */
+    func unwrapValueOrThrow() throws -> Value
+    {
+        let currentContext = Utils.globalContext(with: self)
+
+        //---
+
+        guard
+            let result = value
+        else
+        {
+            // 'value' is 'nil', which is NOT allowed
+            throw ValueNotSet(context: currentContext)
+        }
+
+        //---
+
+        return result
+    }
+}
+
+//---
+
+public
+extension Mandatory
+    where
+    Self: ValueWrapper,
+    Self: Validatable
+{
+    func validate() throws
+    {
+        _ = try validValue()
+    }
+
+    /**
+     It returns non-empty (safely unwrapped) 'value',
+     or throws 'ValueNotSet' error, if the 'value' is 'nil.
+     */
+    func validValue() throws -> Value
+    {
+        return try unwrapValueOrThrow()
+    }
+}
+
+//---
+
+public
+extension Mandatory
+    where
+    Self: ValueWrapper,
     Self: CustomValidatable,
     Self.Validator: ValueValidator,
     Self.Validator.Input == Self.Value
@@ -51,32 +105,16 @@ extension OptionalValueWrapper
     {
         _ = try validValue()
     }
-}
 
-//---
-
-public
-extension OptionalValueWrapper
-    where
-    Self: CustomValidatable,
-    Self.Validator: ValueValidator,
-    Self.Validator.Input == Self.Value
-{
     /**
-     It returns whatever is stored in 'value',
-     or throws 'ValidationFailed' error if
-     'value' is not 'nil' and at least one of
-     the custom conditions from Validator has failed.
+     It returns non-empty (safely unwrapped) 'value',
+     or throws 'ValueNotSet' error if the 'value' is 'nil',
+     or throws 'ValidationFailed' error if at least one
+     of the custom conditions from Validator has failed.
      */
-    func validValue() throws -> Value?
+    func validValue() throws -> Value
     {
-        guard
-            let result = value
-        else
-        {
-            // 'nil' is allowed
-            return nil
-        }
+        let result = try unwrapValueOrThrow()
 
         //---
 

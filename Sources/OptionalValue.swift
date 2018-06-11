@@ -24,8 +24,12 @@
 
  */
 
+/**
+ It considers as 'valid' either 'nil' or non-'nil' 'value' that
+ satisfies all conditions from custom provided Validator.
+ */
 public
-struct OptionalValue<T: ValueValidator>: OptionalValueWrapper, CustomValidatable
+struct OptionalValue<T: ValueValidator>: ValueWrapper, Optional, CustomValidatable
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -43,8 +47,12 @@ struct OptionalValue<T: ValueValidator>: OptionalValueWrapper, CustomValidatable
 
 //---
 
+/**
+ Analogue of jsut having 'Swift.Optional',
+ but allows to unify API for dealing with entities.
+ */
 public
-struct OptionalValueBase<T>: OptionalValueWrapper
+struct OptionalValueBase<T>: ValueWrapper, Optional // nothing to validate!
     where T: Codable, T: Equatable
 {
     public

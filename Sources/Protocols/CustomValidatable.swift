@@ -25,7 +25,7 @@
  */
 
 public
-protocol CustomValidatable
+protocol CustomValidatable: Validatable
 {
     associatedtype Validator
 }
