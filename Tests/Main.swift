@@ -77,7 +77,7 @@ extension MainTests
 
         let incorrectEmail = "john@google"
 
-        Assert("INcorrect const email value is NOT valid").isNil
+        Assert("Incorrect const email value is NOT valid").isNil
         {
             try? MandatoryValue<User.Email>(const: incorrectEmail)
         }
