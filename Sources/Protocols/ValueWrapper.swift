@@ -40,6 +40,24 @@ protocol ValueWrapper: Codable, Equatable
     var value: Value? { get set }
 }
 
+// MARK: - Convenience helpers
+
+public
+extension ValueWrapper
+{
+    /**
+     Convenience initializer that assigns provided value
+     as value, does NOT check its validity.
+     */
+    init(
+        initialValue: Value
+        )
+    {
+        self.init()
+        self.value = initialValue
+    }
+}
+
 // MARK: - Automatic 'Codable' conformance
 
 public

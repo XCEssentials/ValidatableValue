@@ -25,48 +25,13 @@
  */
 
 public
-protocol ValidatableValueWrapper: ValueWrapper, Validatable
-{
-    associatedtype ValidValue
-
-    //---
-
-    /**
-     Supposed to evaluate 'value' against all conditions and
-     return a valid value or throw an error if any of the conditions
-     is not satisfied.
-     */
-    func validValue() throws -> ValidValue
-}
-
-// MARK: - Automatic 'Validatable' conformance
-
-public
-extension ValidatableValueWrapper
-{
-    func validate() throws
-    {
-        _ = try validValue()
-    }
-}
+protocol ValidatableValueWrapper: ValueWrapper, Validatable {}
 
 // MARK: - Convenience helpers
 
 public
 extension ValidatableValueWrapper
 {
-    /**
-     Convenience initializer that assigns provided value
-     as value, does NOT check its validity.
-     */
-    init(
-        initialValue: Value
-        )
-    {
-        self.init()
-        self.value = initialValue
-    }
-
     /**
      Convenience initializer useful for setting a 'let' value,
      that only should be set once during initialization. Assigns

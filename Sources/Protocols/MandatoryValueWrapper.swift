@@ -32,6 +32,17 @@
 public
 protocol MandatoryValueWrapper: ValidatableValueWrapper {}
 
+// MARK: - Automatic 'Validatable' conformance
+
+public
+extension MandatoryValueWrapper
+{
+    func validate() throws
+    {
+        _ = try validValue()
+    }
+}
+
 //---
 
 private

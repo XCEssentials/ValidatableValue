@@ -32,21 +32,12 @@
 public
 protocol OptionalValueWrapper: ValidatableValueWrapper {}
 
-//---
+// MARK: - Automatic 'Validatable' conformance
 
 public
 extension OptionalValueWrapper
 {
-    /**
-     Just returns whatever is stored in 'value'.
-     Since any value or even 'nil' considered to be
-     'valid' - it never throws any errors,
-     regardless of the 'value'.
-     */
-    func validValue() throws -> Value?
-    {
-        return value
-    }
+    func validate() throws {}
 }
 
 //---
