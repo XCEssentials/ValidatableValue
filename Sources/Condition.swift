@@ -25,7 +25,7 @@
  */
 
 public
-struct Condition<Input>
+struct Condition<Input>: CustomStringConvertible
 {
     public
     typealias Body = (_ input: Input) -> Bool
@@ -81,10 +81,6 @@ extension Condition
         }
     }
 }
-
-//---
-
-extension Condition: CustomStringConvertible {}
 
 //---
 

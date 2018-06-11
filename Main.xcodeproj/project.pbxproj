@@ -188,12 +188,12 @@
 		FAB257BCC8202690FFDC8543 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				62F791557D101E81B3C45CAD /* Errors.swift */,
+				94E7EC1820C03A7A00132570 /* Condition.swift */,
 				94FF817220C0111000E69904 /* Protocols */,
 				94FF816E20C0079D00E69904 /* Operators.swift */,
 				94FF817020C0106700E69904 /* MandatoryValue.swift */,
 				94FF817320C0115100E69904 /* OptionalValue.swift */,
-				62F791557D101E81B3C45CAD /* Errors.swift */,
-				94E7EC1820C03A7A00132570 /* Condition.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
