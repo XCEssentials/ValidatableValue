@@ -179,20 +179,7 @@ extension MainTests
         {
             Assert("An empty string is NOT a valid value for 'firstName'").isTrue
             {
-                if
-                    let error = error as? ValidationFailed
-                {
-//                    Assert("Failed conditions list is consistent").isTrue
-//                    {
-//                        user.firstName.unsatisfiedConditions == error.failedConditions
-//                    }
-
-                    return true
-                }
-                else
-                {
-                    return false
-                }
+                error is ValidationFailed
             }
         }
         

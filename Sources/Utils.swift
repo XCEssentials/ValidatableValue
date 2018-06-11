@@ -24,37 +24,18 @@
 
  */
 
-//---
-
-public
-struct MandatoryValue<T: ValueValidator>: MandatoryValueWrapper, CustomValidatable
-    where T.Input: Codable, T.Input: Equatable
+//internal
+enum Utils
 {
-    public
-    typealias Value = T.Input
+    static
+    func globalContext<T>(with currentScope: T) -> String
+    {
+        return String(reflecting: type(of: currentScope))
+    }
 
-    public
-    typealias Validator = T
-
-    public
-    var value: T.Input?
-
-    public
-    init() {}
-}
-
-//---
-
-public
-struct MandatoryValueBase<T>: MandatoryValueWrapper
-    where T: Codable, T: Equatable
-{
-    public
-    typealias Value = T
-
-    public
-    var value: T?
-
-    public
-    init() {}
+    static
+    func localContext<T>(with currentScope: T) -> String
+    {
+        return String(describing: type(of: currentScope))
+    }
 }

@@ -24,17 +24,26 @@
 
  */
 
+/**
+ Emphasizes the fact that the value stored inside
+ can only be considered as 'valid' if it's non-empty,
+ so it's 'validValue()' function returns non-empty value.
+ */
 public
 protocol MandatoryValueWrapper: ValidatableValueWrapper {}
 
 //---
 
-public
+private
 extension MandatoryValueWrapper
 {
-    func validValue() throws -> Value
+    /**
+     It returns non-empty (safely unwrapped) 'value',
+     or throws 'ValueNotSet' error, if the 'value' is 'nil.
+     */
+    func unwrapValueOrThrow() throws -> Value
     {
-        let currentContext = String(reflecting: type(of: self))
+        let currentContext = Utils.globalContext(with: self)
 
         //---
 
@@ -42,14 +51,55 @@ extension MandatoryValueWrapper
             let result = value
         else
         {
-            // 'draft' is 'nil', which is NOT allowed
+            // 'value' is 'nil', which is NOT allowed
             throw ValueNotSet(context: currentContext)
         }
 
         //---
 
-        // non-'nil' draft value must be checked againts requirements
+        return result
+    }
+}
 
+//---
+
+public
+extension MandatoryValueWrapper
+{
+    /**
+     It returns non-empty (safely unwrapped) 'value',
+     or throws 'ValueNotSet' error, if the 'value' is 'nil.
+     */
+    func validValue() throws -> Value
+    {
+        return try unwrapValueOrThrow()
+    }
+}
+
+//---
+
+public
+extension MandatoryValueWrapper
+    where
+    Self: CustomValidatable,
+    Self.Validator: ValueValidator,
+    Self.Validator.Input == Self.Value
+{
+    /**
+     It returns non-empty (safely unwrapped) 'value',
+     or throws 'ValueNotSet' error if the 'value' is 'nil',
+     or throws 'ValidationFailed' error if at least one
+     of the custom conditions from Validator has failed.
+     */
+    func validValue() throws -> Value
+    {
+        let result = try unwrapValueOrThrow()
+
+        //---
+
+        // non-'nil' value must be checked againts requirements
+
+        let currentContext = Utils.globalContext(with: self)
         var failedConditions: [String] = []
 
         Validator.conditions.forEach

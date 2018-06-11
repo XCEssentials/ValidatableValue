@@ -25,7 +25,7 @@
  */
 
 public
-struct OptionalValue<T: ValueValidator>: OptionalValueWrapper
+struct OptionalValue<T: ValueValidator>: OptionalValueWrapper, CustomValidatable
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -49,17 +49,6 @@ struct OptionalValueBase<T>: OptionalValueWrapper
 {
     public
     typealias Value = T
-
-    public
-    enum Validator: ValueValidator
-    {
-        public
-        static
-        var conditions: [Condition<T>]
-        {
-            return []
-        }
-    }
 
     public
     var value: T?

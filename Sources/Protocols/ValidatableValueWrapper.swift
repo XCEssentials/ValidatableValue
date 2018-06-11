@@ -24,16 +24,9 @@
 
  */
 
-//public
-//protocol CustomValidatable
-//{
-//    associatedtype Validator
-//}
-
 public
 protocol ValidatableValueWrapper: ValueWrapper, Validatable
 {
-    associatedtype Validator: ValueValidator where Validator.Input == Value
     associatedtype ValidValue
 
     //---

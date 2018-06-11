@@ -12,6 +12,8 @@
 		927C14C6143FA2B19E366D09 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F791557D101E81B3C45CAD /* Errors.swift */; };
 		9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9415FE371F4A27FC0077E798 /* Validatable.swift */; };
 		9459A04620CF006900D4F644 /* ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04520CF006900D4F644 /* ValueWrapper.swift */; };
+		9459A04820CF0C5300D4F644 /* CustomValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04720CF0C5300D4F644 /* CustomValidatable.swift */; };
+		9459A04A20CF0CB500D4F644 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04920CF0CB500D4F644 /* Utils.swift */; };
 		947D3E8420C130AE00F97EDD /* ValueValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947D3E8320C130AE00F97EDD /* ValueValidator.swift */; };
 		94E7EC1720C0358700132570 /* ValidatableValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1620C0358700132570 /* ValidatableValueWrapper.swift */; };
 		94E7EC1920C03A7A00132570 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1820C03A7A00132570 /* Condition.swift */; };
@@ -66,6 +68,8 @@
 		62F791557D101E81B3C45CAD /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9415FE371F4A27FC0077E798 /* Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		9459A04520CF006900D4F644 /* ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueWrapper.swift; sourceTree = "<group>"; };
+		9459A04720CF0C5300D4F644 /* CustomValidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomValidatable.swift; sourceTree = "<group>"; };
+		9459A04920CF0CB500D4F644 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		947D3E8320C130AE00F97EDD /* ValueValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueValidator.swift; sourceTree = "<group>"; };
 		94E7EC1620C0358700132570 /* ValidatableValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableValueWrapper.swift; sourceTree = "<group>"; };
 		94E7EC1820C03A7A00132570 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 			children = (
 				9415FE371F4A27FC0077E798 /* Validatable.swift */,
 				947D3E8320C130AE00F97EDD /* ValueValidator.swift */,
+				9459A04720CF0C5300D4F644 /* CustomValidatable.swift */,
 				9459A04520CF006900D4F644 /* ValueWrapper.swift */,
 				94E7EC1620C0358700132570 /* ValidatableValueWrapper.swift */,
 				94E7EC1C20C0A55500132570 /* MandatoryValueWrapper.swift */,
@@ -191,6 +196,7 @@
 		FAB257BCC8202690FFDC8543 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				9459A04920CF0CB500D4F644 /* Utils.swift */,
 				62F791557D101E81B3C45CAD /* Errors.swift */,
 				94E7EC1820C03A7A00132570 /* Condition.swift */,
 				94FF817220C0111000E69904 /* Protocols */,
@@ -368,6 +374,8 @@
 			files = (
 				94E7EC1B20C09AE300132570 /* ValidatableEntity.swift in Sources */,
 				94E7EC1D20C0A55500132570 /* MandatoryValueWrapper.swift in Sources */,
+				9459A04820CF0C5300D4F644 /* CustomValidatable.swift in Sources */,
+				9459A04A20CF0CB500D4F644 /* Utils.swift in Sources */,
 				94E7EC1720C0358700132570 /* ValidatableValueWrapper.swift in Sources */,
 				9459A04620CF006900D4F644 /* ValueWrapper.swift in Sources */,
 				94E7EC1920C03A7A00132570 /* Condition.swift in Sources */,

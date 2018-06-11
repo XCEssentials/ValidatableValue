@@ -24,37 +24,8 @@
 
  */
 
-//---
-
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValueWrapper, CustomValidatable
-    where T.Input: Codable, T.Input: Equatable
+protocol CustomValidatable
 {
-    public
-    typealias Value = T.Input
-
-    public
-    typealias Validator = T
-
-    public
-    var value: T.Input?
-
-    public
-    init() {}
-}
-
-//---
-
-public
-struct MandatoryValueBase<T>: MandatoryValueWrapper
-    where T: Codable, T: Equatable
-{
-    public
-    typealias Value = T
-
-    public
-    var value: T?
-
-    public
-    init() {}
+    associatedtype Validator
 }

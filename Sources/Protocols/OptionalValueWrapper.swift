@@ -24,6 +24,11 @@
 
  */
 
+/**
+ Emphasizes the fact that the value stored inside
+ can be considered as 'valid' even if it's empty,
+ so it's 'validValue()' function returns optional value.
+ */
 public
 protocol OptionalValueWrapper: ValidatableValueWrapper {}
 
@@ -32,21 +37,48 @@ protocol OptionalValueWrapper: ValidatableValueWrapper {}
 public
 extension OptionalValueWrapper
 {
+    /**
+     Just returns whatever is stored in 'value'.
+     Since any value or even 'nil' considered to be
+     'valid' - it never throws any errors,
+     regardless of the 'value'.
+     */
+    func validValue() throws -> Value?
+    {
+        return value
+    }
+}
+
+//---
+
+public
+extension OptionalValueWrapper
+    where
+    Self: CustomValidatable,
+    Self.Validator: ValueValidator,
+    Self.Validator.Input == Self.Value
+{
+    /**
+     It returns whatever is stored in 'value',
+     or throws 'ValidationFailed' error if
+     'value' is not 'nil' and at least one of
+     the custom conditions from Validator has failed.
+     */
     func validValue() throws -> Value?
     {
         guard
             let result = value
         else
         {
-            // 'draft' is 'nil', which is a valid 'value'
+            // 'nil' is allowed
             return nil
         }
 
         //---
 
-        // non-'nil' draft value must be checked againts requirements
+        // non-'nil' value must be checked againts requirements
 
-        let currentContext = String(reflecting: type(of: self))
+        let currentContext = Utils.globalContext(with: self)
         var failedConditions: [String] = []
 
         Validator.conditions.forEach
