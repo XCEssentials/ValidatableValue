@@ -166,10 +166,10 @@
 			children = (
 				9415FE371F4A27FC0077E798 /* Validatable.swift */,
 				947D3E8320C130AE00F97EDD /* Validator.swift */,
-				94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */,
 				94E7EC1620C0358700132570 /* ValidatableValue.swift */,
 				94E7EC1C20C0A55500132570 /* MandatoryValidatable.swift */,
 				94E7EC1E20C0A57F00132570 /* OptionalValidatable.swift */,
+				94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

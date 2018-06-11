@@ -25,7 +25,7 @@
  */
 
 public
-enum ValidatableValueError: Error
+enum ValueValidationError: Error
 {
     case valueNotSet
     case conditionCheckFailed(context: String, input: Any, condition: String)
@@ -34,7 +34,7 @@ enum ValidatableValueError: Error
 
 //---
 
-extension ValidatableValueError: CustomStringConvertible
+extension ValueValidationError: CustomStringConvertible
 {
     public
     var description: String

@@ -39,7 +39,7 @@ extension MandatoryValidatable
         else
         {
             // 'draft' is 'nil', which is NOT allowed
-            throw ValidatableValueError.valueNotSet
+            throw ValueValidationError.valueNotSet
         }
 
         //---
@@ -58,7 +58,7 @@ extension MandatoryValidatable
             catch
             {
                 if
-                    case ValidatableValueError
+                    case ValueValidationError
                         .conditionCheckFailed(_, _, let condition) = error
                 {
                     failedConditions.append(condition)
@@ -72,7 +72,7 @@ extension MandatoryValidatable
             failedConditions.isEmpty
         else
         {
-            throw ValidatableValueError.validationFailed(
+            throw ValueValidationError.validationFailed(
                 context: currentContext,
                 input: result,
                 failedConditions: failedConditions
