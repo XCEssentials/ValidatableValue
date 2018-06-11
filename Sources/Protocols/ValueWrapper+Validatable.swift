@@ -25,12 +25,7 @@
  */
 
 public
-protocol ValidatableValueWrapper: ValueWrapper, Validatable {}
-
-// MARK: - Convenience helpers
-
-public
-extension ValidatableValueWrapper
+extension ValueWrapper where Self: Validatable
 {
     /**
      Convenience initializer useful for setting a 'let' value,

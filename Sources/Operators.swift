@@ -30,7 +30,7 @@ func << <VV, T>(
     newValue: T?
     ) throws
     where
-    VV: ValidatableValueWrapper,
+    VV: ValueWrapper & Validatable,
     VV.Value == T
 {
     try container.set(newValue)
@@ -48,7 +48,7 @@ func <? <VV, T>(
     newValue: T?
     )
     where
-    VV: ValidatableValueWrapper,
+    VV: ValueWrapper & Validatable,
     VV.Value == T
 {
     container.value = newValue
@@ -62,7 +62,7 @@ func == <VV, T>(
     value: T?
     ) -> Bool
     where
-    VV: ValidatableValueWrapper,
+    VV: ValueWrapper & Validatable,
     VV.Value == T
 {
     return container.value == value
@@ -74,7 +74,7 @@ func == <VV, T>(
     container: VV
     ) -> Bool
     where
-    VV: ValidatableValueWrapper,
+    VV: ValueWrapper & Validatable,
     VV.Value == T
 {
     return container.value == value

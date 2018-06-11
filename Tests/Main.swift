@@ -66,6 +66,13 @@ extension MainTests
 
         //---
 
+        Assert("Const number value is valid").isTrue
+        {
+            OptionalValueBase<Int>().isValid
+        }
+
+        //---
+
         let correctEmail = "john@google.com"
 
         Assert("Correct const email value is valid").isNotNil

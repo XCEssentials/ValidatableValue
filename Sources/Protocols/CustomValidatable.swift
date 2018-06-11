@@ -25,7 +25,7 @@
  */
 
 public
-protocol CustomValidatable
+protocol CustomValidatableValueWrapper: ValueWrapper
 {
-    associatedtype Validator
+    associatedtype Validator: ValueValidator where Validator.Input == Self.Value
 }

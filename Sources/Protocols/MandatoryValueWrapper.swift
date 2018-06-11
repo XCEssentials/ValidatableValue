@@ -30,7 +30,12 @@
  so it's 'validValue()' function returns non-empty value.
  */
 public
-protocol MandatoryValueWrapper: ValidatableValueWrapper {}
+protocol MandatoryValueWrapper: ValueWrapper, Validatable
+{
+    associatedtype ValidValue
+
+    func validValue() throws -> ValidValue
+}
 
 // MARK: - Automatic 'Validatable' conformance
 
@@ -92,9 +97,7 @@ extension MandatoryValueWrapper
 public
 extension MandatoryValueWrapper
     where
-    Self: CustomValidatable,
-    Self.Validator: ValueValidator,
-    Self.Validator.Input == Self.Value
+    Self: CustomValidatableValueWrapper
 {
     /**
      It returns non-empty (safely unwrapped) 'value',
