@@ -25,14 +25,14 @@
  */
 
 public
-protocol OptionalValueWrapper: ValueWrapper {}
+protocol OptionalValueWrapper: ValidatableValueWrapper {}
 
 //---
 
 public
 extension OptionalValueWrapper
 {
-    func valueIfValid() throws -> RawValue?
+    func valueIfValid() throws -> Value?
     {
         guard
             let result = value

@@ -29,21 +29,21 @@
  kind of value inside.
  */
 public
-protocol ValueWrapperBase: Codable, Equatable // TODO: just 'ValueWrapper'
+protocol ValueWrapper: Codable, Equatable
 {
-    associatedtype RawValue: Codable, Equatable
+    associatedtype Value: Codable, Equatable
 
     //---
 
     init()
 
-    var value: RawValue? { get set }
+    var value: Value? { get set }
 }
 
 // MARK: - Automatic 'Codable' conformance
 
 public
-extension ValueWrapperBase
+extension ValueWrapper
 {
     func encode(to encoder: Encoder) throws
     {
@@ -54,90 +54,11 @@ extension ValueWrapperBase
     init(from decoder: Decoder) throws
     {
         let container = try decoder.singleValueContainer()
-        let value = try container.decode(RawValue.self)
+        let value = try container.decode(Value.self)
 
         //---
 
         self.init()
         self.value = value
-    }
-}
-
-//---
-
-public
-protocol ValueWrapper: ValueWrapperBase, Validatable
-{
-    associatedtype Validator: ValueValidator where Validator.Input == RawValue
-    associatedtype ValidValue
-
-    //---
-
-    /**
-     Supposed to evaluate 'value' against all conditions and
-     return a valid value or throw an error if any of the conditions
-     is not satisfied.
-     */
-    func valueIfValid() throws -> ValidValue
-}
-
-// MARK: - Automatic 'Validatable' conformance
-
-public
-extension ValueWrapper
-{
-    func validate() throws
-    {
-        _ = try valueIfValid()
-    }
-}
-
-// MARK: - Convenience helpers
-
-public
-extension ValueWrapper
-{
-    /**
-     Convenience initializer that assigns provided value
-     as value, does NOT check its validity.
-     */
-    init(
-        initialValue: RawValue
-        )
-    {
-        self.init()
-        self.value = initialValue
-    }
-
-    /**
-     Convenience initializer useful for setting a 'let' value,
-     that only should be set once during initialization. Assigns
-     provided value and validates it right away.
-     */
-    init(
-        const value: RawValue
-        ) throws
-    {
-        self.init()
-        try self.set(value)
-    }
-
-    /**
-     Set new value and validate it in single operation.
-     */
-    mutating
-    func set(_ newValue: RawValue?) throws
-    {
-        value = newValue
-        try validate()
-    }
-
-    /**
-     Validate a given value without actually setting it to current value.
-     */
-    func validate(value: RawValue?) throws
-    {
-        var tmp = self
-        try tmp.set(value)
     }
 }

@@ -25,14 +25,14 @@
  */
 
 public
-protocol MandatoryValueWrapper: ValueWrapper {}
+protocol MandatoryValueWrapper: ValidatableValueWrapper {}
 
 //---
 
 public
 extension MandatoryValueWrapper
 {
-    func valueIfValid() throws -> RawValue
+    func valueIfValid() throws -> Value
     {
         let currentContext = String(reflecting: type(of: self))
 

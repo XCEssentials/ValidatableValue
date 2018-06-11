@@ -29,7 +29,7 @@ struct OptionalValue<T: ValueValidator>: OptionalValueWrapper
     where T.Input: Codable, T.Input: Equatable
 {
     public
-    typealias RawValue = T.Input
+    typealias Value = T.Input
 
     public
     typealias Validator = T
@@ -48,7 +48,7 @@ struct OptionalValueBase<T>: OptionalValueWrapper
     where T: Codable, T: Equatable
 {
     public
-    typealias RawValue = T
+    typealias Value = T
 
     public
     enum Validator: ValueValidator
