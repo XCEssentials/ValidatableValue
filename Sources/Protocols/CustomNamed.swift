@@ -25,59 +25,23 @@
  */
 
 public
-protocol OptionalValidatable: ValidatableValue {}
+protocol CustomNamed
+{
+    var name: String { get set }
+}
 
 //---
 
 public
-extension OptionalValidatable
+extension CustomNamed
 {
-    func valueIfValid() throws -> RawValue?
+    func named(_ newName: String) -> Self
     {
-        guard
-            let result = draft
-        else
-        {
-            // 'draft' is 'nil', which is a valid 'value'
-            return nil
-        }
+        var result = self
 
         //---
 
-        // non-'nil' draft value must be checked againts requirements
-
-        let currentContext = String(reflecting: type(of: self))
-        var failedConditions: [String] = []
-
-        Validator.conditions.forEach
-        {
-            do
-            {
-                try $0.validate(context: currentContext, value: result)
-            }
-            catch
-            {
-                if
-                    case ValidatableValueError
-                        .conditionCheckFailed(_, _, let condition) = error
-                {
-                    failedConditions.append(condition)
-                }
-            }
-        }
-
-        //---
-
-        guard
-            failedConditions.isEmpty
-        else
-        {
-            throw ValidatableValueError.validationFailed(
-                context: currentContext,
-                input: result,
-                failedConditions: failedConditions
-            )
-        }
+        result.name = newName
 
         //---
 

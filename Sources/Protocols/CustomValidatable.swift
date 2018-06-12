@@ -25,10 +25,7 @@
  */
 
 public
-protocol ValueValidator
+protocol CustomValidatable: Validatable
 {
-    associatedtype Input
-
-    static
-    var conditions: [Condition<Input>] { get }
+    associatedtype Validator
 }

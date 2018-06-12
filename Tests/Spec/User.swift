@@ -28,7 +28,7 @@ import Foundation
 
 import XCEValidatableValue
 
-//---
+// MARK: - User
 
 struct User: ValidatableEntity
 {
@@ -37,22 +37,106 @@ struct User: ValidatableEntity
 
     //---
 
-    let someConstant = MandatoryValueBase(initialValue: User.someConstantValue)
+    let someConstant = someConstantValue.validatable().named("Constant")
 
-    var firstName = MandatoryValue<FirstName>()
+    var firstName = FirstName.validatable().named("First Name")
 
-    var lastName = OptionalValueBase<String>()
+    var lastName = String?.wrapped().named("Last Name")
 
-    var username = MandatoryValue<Email>()
+    var username = Email.validatable().named("Username")
 
-    var password = MandatoryValue<Password>()
+    var password = Password.validatable().named("Password")
 }
 
-// MARK: - Validators
+// MARK: - User: CustomReportable
+
+extension User: CustomReportable
+{
+    func prepareReport(
+        with error: EntityValidationFailed
+        ) -> (title: String, message: String)
+    {
+        let issues = [
+            report(for: firstName, with: error),
+            report(for: username, with: error),
+            report(for: password, with: error)
+            ]
+            .compactMap{ $0?.message }
+            .map{ "- \($0)" }
+            .joined(separator: "\n")
+
+        return (
+            title: "User validation failed",
+            message: """
+                User validation failed due to the following issues:
+                \(issues)
+                """
+        )
+    }
+}
+
+// MARK: - User: Representations
 
 extension User
 {
-    struct Email: ValueValidator
+    typealias Draft = (
+        someConstant: Int?,
+        firstName: String?,
+        lastName: String?,
+        username: String?,
+        passwordIsSet: Bool
+    )
+
+    func draft() -> Draft
+    {
+        return (
+            someConstant.value,
+            firstName.value,
+            lastName.value,
+            username.value,
+            password.value != nil
+        )
+    }
+
+    //---
+
+    typealias Valid = (
+        someConstant: Int,
+        firstName: String,
+        lastName: String?,
+        username: String
+    )
+
+    func valid() throws -> Valid
+    {
+        var issues: [ValidatableValueError] = []
+
+        let result: Valid = try (
+            someConstant.validValue(&issues),
+            firstName.validValue(&issues),
+            lastName.value,
+            username.validValue(&issues)
+        )
+
+        //---
+
+        if
+            issues.isEmpty
+        {
+            return result
+        }
+        else
+        {
+            throw issues.asValidationIssues()
+        }
+    }
+}
+
+// MARK: - User: Validators
+
+extension User
+{
+    enum Email: ValueValidator
     {
         static
         let conditions = [
@@ -62,7 +146,7 @@ extension User
         ]
     }
 
-    struct FirstName: ValueValidator
+    enum FirstName: ValueValidator
     {
         static
         let conditions = [
@@ -71,17 +155,19 @@ extension User
         ]
     }
 
-    struct Password: ValueValidator
+    enum Password: ValueValidator
     {
         static
         let conditions: Conditions<String> = [
 
             Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
-            Check("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
-            Check("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
-            Check("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
-            Check("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
-            Check("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+            Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
+            Check("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
+            Check("Has at least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
+            Check("Has at least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
+            Check("Consists of lowercase letters, decimal digits and following characters: ,.!?@#$%^&*()-_+="){
+                Pwd.allowed.isSuperset(of: CS(charactersIn: $0))
+            }
         ]
     }
 }

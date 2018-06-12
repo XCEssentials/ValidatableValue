@@ -24,46 +24,72 @@
 
  */
 
+// swiftlint:disable comma
+
+import Foundation
+
+/**
+ It considers as 'valid' any non-'nil' 'value' that
+ satisfies all conditions from custom provided Validator.
+ */
 public
-struct OptionalValue<T: ValueValidator>: OptionalValidatable
+struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
+    , Mandatory
+    , CustomValidatable
+    , CustomNamed
+    , CustomReportableAuto
     where T.Input: Codable, T.Input: Equatable
 {
     public
-    typealias RawValue = T.Input
+    typealias Value = T.Input
 
     public
     typealias Validator = T
 
     public
-    var draft: T.Input?
+    var name: String = ""
 
     public
-    init() {}
+    let identifier: String
+
+    public
+    var value: T.Input?
+
+    public
+    init()
+    {
+        self.identifier = UUID().uuidString
+    }
 }
 
 //---
 
+/**
+ It considers as 'valid' any non-'nil' 'value'.
+ */
 public
-struct OptionalValueBase<T>: OptionalValidatable
+struct MandatoryWrapped<T>: ValueWrapper
+    , Mandatory
+    , Validatable
+    , CustomNamed
+    , CustomReportableAuto
     where T: Codable, T: Equatable
 {
     public
-    typealias RawValue = T
+    typealias Value = T
 
     public
-    enum Validator: ValueValidator
+    var name: String = ""
+
+    public
+    let identifier: String
+
+    public
+    var value: T?
+
+    public
+    init()
     {
-        public
-        static
-        var conditions: [Condition<T>]
-        {
-            return []
-        }
+        self.identifier = UUID().uuidString
     }
-
-    public
-    var draft: T?
-
-    public
-    init() {}
 }
