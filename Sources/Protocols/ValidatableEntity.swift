@@ -86,7 +86,6 @@ extension ValidatableEntity
             !issues.isEmpty
         {
             throw EntityValidationFailed(
-                context: Utils.globalContext(with: self),
                 issues: issues
             )
         }

@@ -67,14 +67,13 @@ extension Condition
         return body(value)
     }
 
-    func validate(context: String, value: Input) throws
+    func validate(value: Input) throws
     {
         guard
             body(value)
         else
         {
             throw ConditionUnsatisfied(
-                context: context,
                 input: value,
                 condition: description
             )

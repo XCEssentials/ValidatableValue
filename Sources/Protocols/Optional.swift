@@ -115,14 +115,13 @@ extension Optional
 
         // non-'nil' value must be checked againts requirements
 
-        let currentContext = Utils.globalContext(with: self)
         var failedConditions: [String] = []
 
         Validator.conditions.forEach
         {
             do
             {
-                try $0.validate(context: currentContext, value: result)
+                try $0.validate(value: result)
             }
             catch
             {
@@ -141,7 +140,7 @@ extension Optional
         else
         {
             throw ValueValidationFailed(
-                context: currentContext,
+                origin: self.reference,
                 input: result,
                 failedConditions: failedConditions
             )

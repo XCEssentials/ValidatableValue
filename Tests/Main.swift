@@ -57,6 +57,15 @@ extension MainTests
 
 extension MainTests
 {
+    func testEntityValidation()
+    {
+        Assert("User is NOT valid in the beginning").isFalse
+        {
+            user.isValid
+        }
+
+    }
+
     func testConstVV()
     {
         Assert("Const number value is valid").isNotNil

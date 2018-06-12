@@ -45,16 +45,12 @@ extension Mandatory
      */
     func unwrapValueOrThrow() throws -> Value
     {
-        let currentContext = Utils.globalContext(with: self)
-
-        //---
-
         guard
             let result = value
         else
         {
             // 'value' is 'nil', which is NOT allowed
-            throw ValueNotSet(context: currentContext)
+            throw ValueNotSet(origin: self.reference)
         }
 
         //---
@@ -199,14 +195,13 @@ extension Mandatory
 
         // non-'nil' value must be checked againts requirements
 
-        let currentContext = Utils.globalContext(with: self)
         var failedConditions: [String] = []
 
         Validator.conditions.forEach
         {
             do
             {
-                try $0.validate(context: currentContext, value: result)
+                try $0.validate(value: result)
             }
             catch
             {
@@ -225,7 +220,7 @@ extension Mandatory
         else
         {
             throw ValueValidationFailed(
-                context: currentContext,
+                origin: self.reference,
                 input: result,
                 failedConditions: failedConditions
             )

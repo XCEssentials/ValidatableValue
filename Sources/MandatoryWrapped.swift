@@ -24,6 +24,8 @@
 
  */
 
+import Foundation
+
 /**
  It considers as 'valid' any non-'nil' 'value' that
  satisfies all conditions from custom provided Validator.
@@ -39,10 +41,16 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper, Mandatory, 
     typealias Validator = T
 
     public
+    let identifier: String
+
+    public
     var value: T.Input?
 
     public
-    init() {}
+    init()
+    {
+        self.identifier = UUID().uuidString
+    }
 }
 
 //---
@@ -58,8 +66,14 @@ struct MandatoryWrapped<T>: ValueWrapper, Mandatory, Validatable
     typealias Value = T
 
     public
+    let identifier: String
+
+    public
     var value: T?
 
     public
-    init() {}
+    init()
+    {
+        self.identifier = UUID().uuidString
+    }
 }

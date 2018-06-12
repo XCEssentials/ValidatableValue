@@ -25,28 +25,8 @@
  */
 
 public
-protocol ValidatableValueError: Error, CustomStringConvertible
+struct ConditionUnsatisfied: Error
 {
-    var context: String { get }
-}
-
-//---
-
-public
-struct ValueNotSet: ValidatableValueError
-{
-    public
-    let context: String
-}
-
-//---
-
-public
-struct ConditionUnsatisfied: ValidatableValueError
-{
-    public
-    let context: String
-
     public
     let input: Any
 
@@ -57,10 +37,27 @@ struct ConditionUnsatisfied: ValidatableValueError
 //---
 
 public
+protocol ValidatableValueError: Error //, CustomStringConvertible
+{
+    var origin: ValueInstanceReference { get }
+}
+
+//---
+
+public
+struct ValueNotSet: ValidatableValueError
+{
+    public
+    let origin: ValueInstanceReference
+}
+
+//---
+
+public
 struct ValueValidationFailed: ValidatableValueError
 {
     public
-    let context: String
+    let origin: ValueInstanceReference
 
     public
     let input: Any
@@ -72,10 +69,10 @@ struct ValueValidationFailed: ValidatableValueError
 //---
 
 public
-struct EntityValidationFailed: ValidatableValueError
+struct EntityValidationFailed: Error
 {
-    public
-    let context: String
+//    public
+//    let origin: ValueInstanceReference // maybe use whole entity hashValue make whole Entity Equatable ???
 
     public
     let issues: [ValueValidationFailed]
@@ -84,104 +81,106 @@ struct EntityValidationFailed: ValidatableValueError
 
     // internal
     init(
-        context: String,
+//        origin: ValueInstanceReference,
         issues: [ValueValidationFailed]
         )
     {
-        self.context = context
+//        self.origin = origin
         self.issues = issues
     }
 
-    public
-    init(
-        fromEntity entity: Entity,
-        issues: [ValueValidationFailed]
-        )
-    {
-        self.context = Utils.globalContext(with: entity)
-        self.issues = issues
-    }
+//    public
+//    init(
+////        fromEntity entity: Entity,
+//        issues: [ValueValidationFailed]
+//        )
+//    {
+////        self.context = Utils.globalContext(with: entity)
+//        self.issues = issues
+//    }
 }
 
 public
 extension Array where Element == ValueValidationFailed
 {
-    func asValidationIssues(for entity: Entity) -> EntityValidationFailed
+    func asValidationIssues(
+//        for entity: Entity
+        ) -> EntityValidationFailed
     {
         return EntityValidationFailed(
-            fromEntity: entity,
+//            fromEntity: entity,
             issues: self
         )
     }
 }
 
-// MARK: - CustomStringConvertible conformance
-
-public
-extension ValidatableValueError
-{
-    var description: String
-    {
-        if
-            self is ValueNotSet
-        {
-            return "Value is not set."
-        }
-        else
-        if
-            let error = self as? ConditionUnsatisfied
-        {
-            return """
-                ======
-                Context: \(error.context).
-                Input: \(error.input).
-                Failed condition: \(error.condition).
-                ---/
-                """
-        }
-        else
-        if
-            let error = self as? ValueValidationFailed
-        {
-            return """
-                ======
-                Context: \(error.context).
-                Input: \(error.input).
-                Failed conditions: \(error.failedConditions).
-                ---/
-                """
-        }
-        else
-        if
-            let error = self as? EntityValidationFailed
-        {
-            let issues = error
-                .issues
-                .map{
-
-                    """
-                    Input: \($0.input). Failed conditions: \($0.failedConditions).
-                    """
-                }
-                .joined(
-                    separator: """
-                        ---
-                        """
-                )
-
-            //---
-
-            return """
-                ======
-                Context: \(error.context).
-                Issues:
-                \(issues)
-                ---/
-                """
-        }
-        else
-        {
-            return "\(self)"
-        }
-    }
-}
+//// MARK: - CustomStringConvertible conformance
+//
+//public
+//extension ValidatableValueError
+//{
+//    var description: String
+//    {
+//        if
+//            self is ValueNotSet
+//        {
+//            return "Value is not set."
+//        }
+//        else
+//        if
+//            let error = self as? ConditionUnsatisfied
+//        {
+//            return """
+//                ======
+//                Context: \(error.context).
+//                Input: \(error.input).
+//                Failed condition: \(error.condition).
+//                ---/
+//                """
+//        }
+//        else
+//        if
+//            let error = self as? ValueValidationFailed
+//        {
+//            return """
+//                ======
+//                Context: \(error.context).
+//                Input: \(error.input).
+//                Failed conditions: \(error.failedConditions).
+//                ---/
+//                """
+//        }
+//        else
+//        if
+//            let error = self as? EntityValidationFailed
+//        {
+//            let issues = error
+//                .issues
+//                .map{
+//
+//                    """
+//                    Input: \($0.input). Failed conditions: \($0.failedConditions).
+//                    """
+//                }
+//                .joined(
+//                    separator: """
+//                        ---
+//                        """
+//                )
+//
+//            //---
+//
+//            return """
+//                ======
+//                Context: \(error.context).
+//                Issues:
+//                \(issues)
+//                ---/
+//                """
+//        }
+//        else
+//        {
+//            return "\(self)"
+//        }
+//    }
+//}

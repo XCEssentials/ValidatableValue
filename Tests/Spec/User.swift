@@ -97,7 +97,7 @@ struct User: ValidatableEntity
         }
         else
         {
-            throw issues.asValidationIssues(for: self)
+            throw issues.asValidationIssues()
         }
     }
 }

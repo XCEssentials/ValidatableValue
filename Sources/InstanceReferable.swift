@@ -24,18 +24,33 @@
 
  */
 
-//internal
-enum Utils
+public
+struct ValueInstanceReference: Equatable
 {
-    static
-    func globalContext<T>(with currentScope: T) -> String
-    {
-        return String(reflecting: type(of: currentScope))
-    }
+    public
+    let identifier: String
 
-    static
-    func localContext<T>(with currentScope: T) -> String
-    {
-        return String(describing: type(of: currentScope))
-    }
+    public
+    let type: Any.Type
+}
+
+public
+func == (lhs: ValueInstanceReference, rhs: ValueInstanceReference) -> Bool
+{
+    return (lhs.identifier == rhs.identifier)
+        && (String(reflecting: lhs.type) == String(reflecting: rhs.type))
+}
+
+//---
+
+public
+protocol InstanceReferable
+{
+    /**
+     Unique identifier for the instance, especially useful for value types.
+     It's recommended to use UUID to generate this value. Also make sure it
+     stays the same during lifecycle of the instance, so it should be stored
+     value, not dynamic/calculateable.
+     */
+    var reference: ValueInstanceReference { get }
 }
