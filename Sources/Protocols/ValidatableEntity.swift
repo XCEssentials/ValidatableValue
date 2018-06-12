@@ -25,11 +25,6 @@
  */
 
 public
-protocol Entity: Codable {}
-
-//---
-
-public
 protocol ValidatableEntity: Entity, Validatable
 {
     associatedtype Draft
