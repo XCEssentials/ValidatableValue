@@ -40,10 +40,35 @@ extension ValidatableEntity
 {
     func validate() throws
     {
-        try Mirror(reflecting: self)
+        var issues: [ValueValidationFailed] = []
+
+        //---
+
+        Mirror(reflecting: self)
             .children
             .map{ $0.value }
             .compactMap{ $0 as? Validatable }
-            .forEach{ try $0.validate() }
+            .forEach{
+
+                do
+                {
+                    try $0.validate()
+                }
+                catch
+                {
+                    (error as? ValueValidationFailed).map{ issues.append($0) }
+                }
+            }
+
+        //---
+
+        if
+            !issues.isEmpty
+        {
+            throw EntityValidationFailed(
+                context: Utils.globalContext(with: self),
+                issues: issues
+            )
+        }
     }
 }

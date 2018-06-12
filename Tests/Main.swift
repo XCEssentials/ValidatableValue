@@ -200,7 +200,7 @@ extension MainTests
         {
             Assert("An empty string is NOT a valid value for 'firstName'").isTrue
             {
-                error is ValidationFailed
+                error is ValueValidationFailed
             }
         }
         

@@ -25,7 +25,7 @@
  */
 
 public
-protocol ValueValidationError: Error, CustomStringConvertible
+protocol ValidatableValueError: Error, CustomStringConvertible
 {
     var context: String { get }
 }
@@ -33,7 +33,7 @@ protocol ValueValidationError: Error, CustomStringConvertible
 //---
 
 public
-struct ValueNotSet: ValueValidationError
+struct ValueNotSet: ValidatableValueError
 {
     public
     let context: String
@@ -42,7 +42,7 @@ struct ValueNotSet: ValueValidationError
 //---
 
 public
-struct ConditionUnsatisfied: ValueValidationError
+struct ConditionUnsatisfied: ValidatableValueError
 {
     public
     let context: String
@@ -57,7 +57,7 @@ struct ConditionUnsatisfied: ValueValidationError
 //---
 
 public
-struct ValidationFailed: ValueValidationError
+struct ValueValidationFailed: ValidatableValueError
 {
     public
     let context: String
@@ -71,9 +71,21 @@ struct ValidationFailed: ValueValidationError
 
 //---
 
-extension ValueValidationError
+public
+struct EntityValidationFailed: ValidatableValueError
 {
     public
+    let context: String
+
+    public
+    let issues: [ValueValidationFailed]
+}
+
+// MARK: - CustomStringConvertible conformance
+
+public
+extension ValidatableValueError
+{
     var description: String
     {
         if
@@ -95,13 +107,41 @@ extension ValueValidationError
         }
         else
         if
-            let error = self as? ValidationFailed
+            let error = self as? ValueValidationFailed
         {
             return """
                 ======
                 Context: \(error.context).
                 Input: \(error.input).
                 Failed conditions: \(error.failedConditions).
+                ---/
+                """
+        }
+        else
+        if
+            let error = self as? EntityValidationFailed
+        {
+            let issues = error
+                .issues
+                .map{
+
+                    """
+                    Input: \($0.input). Failed conditions: \($0.failedConditions).
+                    """
+                }
+                .joined(
+                    separator: """
+                        ---
+                        """
+                )
+
+            //---
+
+            return """
+                ======
+                Context: \(error.context).
+                Issues:
+                \(issues)
                 ---/
                 """
         }

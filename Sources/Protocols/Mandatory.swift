@@ -140,7 +140,7 @@ extension Mandatory
             failedConditions.isEmpty
         else
         {
-            throw ValidationFailed(
+            throw ValueValidationFailed(
                 context: currentContext,
                 input: result,
                 failedConditions: failedConditions
