@@ -25,42 +25,74 @@
  */
 
 public
-enum ValidatableValueError: Error
+struct ConditionUnsatisfied: Error
 {
-    case valueNotSet
-    case conditionCheckFailed(context: String, input: Any, condition: String)
-    case validationFailed(context: String, input: Any, failedConditions: [String])
+    public
+    let input: Any
+
+    public
+    let condition: String
 }
 
 //---
 
-extension ValidatableValueError: CustomStringConvertible
+public
+protocol ValidatableValueError: Error
+{
+    var origin: ValueInstanceReference { get }
+}
+
+//---
+
+public
+struct ValueIsNotSet: ValidatableValueError
 {
     public
-    var description: String
+    let origin: ValueInstanceReference
+}
+
+//---
+
+public
+struct ValueIsNotValid: ValidatableValueError
+{
+    public
+    let origin: ValueInstanceReference
+
+    public
+    let input: Any
+
+    public
+    let failedConditions: [String]
+}
+
+//---
+
+public
+struct EntityValidationFailed: Error
+{
+    public
+    let issues: [ValidatableValueError]
+
+    //---
+
+    // internal
+    init(
+        issues: [ValidatableValueError]
+        )
     {
-        switch self
-        {
-            case .valueNotSet:
-                return "Value is not set."
+        self.issues = issues
+    }
+}
 
-            case .conditionCheckFailed(let context, let input, let condition):
-                return """
-                    ======
-                    Context: \(context).
-                    Input: \(input).
-                    Failed condition: \(condition).
-                    ---/
-                    """
-
-            case .validationFailed(let context, let input, let failedConditions):
-                return """
-                    ======
-                    Context: \(context).
-                    Input: \(input).
-                    Failed conditions: \(failedConditions).
-                    ---/
-                    """
-        }
+public
+extension Array where Element == ValidatableValueError
+{
+    func asValidationIssues(
+        ) -> EntityValidationFailed
+    {
+        return EntityValidationFailed(
+            issues: self
+        )
     }
 }

@@ -24,35 +24,19 @@
 
  */
 
-/**
- Represents anything that can be validated.
- */
 public
-protocol Validatable
+struct ValueInstanceReference: Equatable
 {
-    func validate() throws
+    public
+    let identifier: String
+
+    public
+    let type: Any.Type
 }
 
-//---
-
 public
-extension Validatable
+func == (lhs: ValueInstanceReference, rhs: ValueInstanceReference) -> Bool
 {
-    /**
-     Relies on the 'validate()' func, returns 'false'
-     if 'validate()' throws an error, or returns 'true' otherwise.
-     */
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try validate()
-
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
+    return (lhs.identifier == rhs.identifier)
+        && (String(reflecting: lhs.type) == String(reflecting: rhs.type))
 }

@@ -24,35 +24,5 @@
 
  */
 
-/**
- Represents anything that can be validated.
- */
 public
-protocol Validatable
-{
-    func validate() throws
-}
-
-//---
-
-public
-extension Validatable
-{
-    /**
-     Relies on the 'validate()' func, returns 'false'
-     if 'validate()' throws an error, or returns 'true' otherwise.
-     */
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try validate()
-
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
-}
+protocol Entity: Codable {}

@@ -57,11 +57,174 @@ extension MainTests
 
 extension MainTests
 {
+    func testEntityValidation()
+    {
+        Assert("User is NOT valid in the beginning").isFalse
+        {
+            user.isValid
+        }
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"First Name\" is empty, but expected to be a non-empty value.\n- \"Username\" is empty, but expected to be a non-empty value.\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.firstName <? "Jonh"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Username\" is empty, but expected to be a non-empty value.\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.username <? "Jonh@.yaaa"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Username\" is invalid, because it does not satisfy following conditions: [\"Valid email address\"].\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.username <? "Jonh@google.co"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.password <? "123t5y7gh"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Password\" is invalid, because it does not satisfy following conditions: [\"Has at least 1 capital character\", \"Has at least 1 special character\"]."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        // now lets improve the password to satisfy ALL conditions
+
+        user.password <? "!C3t5y7gh"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            // now user is valid...
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+    }
+
     func testConstVV()
     {
         Assert("Const number value is valid").isNotNil
         {
-            try? MandatoryValueBase(const: 42)
+            try? 42.validatableConst()
         }
 
         //---
@@ -70,23 +233,44 @@ extension MainTests
 
         Assert("Correct const email value is valid").isNotNil
         {
-            try? MandatoryValue<User.Email>(const: correctEmail)
+            try? User.Email.validatable(const: correctEmail)
         }
 
         //---
 
         let incorrectEmail = "john@google"
 
-        Assert("INcorrect const email value is NOT valid").isNil
+        Assert("Incorrect const email value is NOT valid").isNil
         {
-            try? MandatoryValue<User.Email>(const: incorrectEmail)
+            try? User.Email.validatable(const: incorrectEmail)
+        }
+
+        //---
+
+        Assert("Correct const email value is valid").isTrue
+        {
+            User.Email?.validatable(initialValue: correctEmail).isValid
+        }
+
+        //---
+
+        Assert("Incorrect const email value is NOT valid").isFalse
+        {
+            User.Email.validatable(initialValue: incorrectEmail).isValid
+        }
+
+        //---
+
+        Assert("EMPTY optional email value is valid").isTrue
+        {
+            User.Email?.validatable().isValid
         }
 
         //---
 
         do
         {
-            _ = try MandatoryValue<User.Email>(const: incorrectEmail)
+            _ = try User.Email.validatable(const: incorrectEmail)
 
             XCTFail("Should not get here ever")
         }
@@ -152,7 +336,7 @@ extension MainTests
         
         Assert("Const vlaue is equal to pre-defined value").isTrue
         {
-            try user.someConstant.valueIfValid() == User.someConstantValue
+            try user.someConstant.validValue() == User.someConstantValue
         }
     }
     
@@ -179,21 +363,7 @@ extension MainTests
         {
             Assert("An empty string is NOT a valid value for 'firstName'").isTrue
             {
-                if
-                    case ValidatableValueError
-                        .validationFailed(_, _, let failedConditions) = error
-                {
-                    Assert("Failed conditions list is consistent").isTrue
-                    {
-                        user.firstName.unsatisfiedConditions == failedConditions
-                    }
-
-                    return true
-                }
-                else
-                {
-                    return false
-                }
+                error is ValueIsNotValid
             }
         }
         
@@ -224,7 +394,7 @@ extension MainTests
         
         Assert("'firstName' is now set to '\(firstName)'").isTrue
         {
-            user.firstName.draft == firstName
+            user.firstName.value == firstName
         }
         
         Assert("'firstName' is now VALID").isTrue
@@ -247,50 +417,12 @@ extension MainTests
         
         Assert("'firstName' is now set to '\(anotherFirstName)'").isTrue
         {
-            user.firstName.draft == anotherFirstName
+            user.firstName.value == anotherFirstName
         }
         
         Assert("'firstName' is now VALID").isTrue
         {
             user.firstName.isValid
-        }
-    }
-    
-    func testLastNameValueWrapper()
-    {
-        Assert("'lastName' is empty").isNil
-        {
-            user.lastName.draft
-        }
-        
-        //---
-        
-        Assert("'lastName' is VALID even if it's empty").isTrue
-        {
-            user.lastName.isValid
-        }
-        
-        //---
-        
-        user.lastName <? nil
-        
-        Assert("'nil' is VALID for 'lastName'").isTrue
-        {
-            user.lastName.isValid
-        }
-        
-        user.lastName <? ""
-        
-        Assert("Empty string is VALID for 'lastName'").isTrue
-        {
-            user.lastName.isValid
-        }
-        
-        user.lastName.draft = "ldfewihfiqeuwbfweiubf"
-        
-        Assert("A random non-empty string is VALID for 'lastName'").isTrue
-        {
-            user.lastName.isValid
         }
     }
 }

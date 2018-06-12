@@ -25,34 +25,18 @@
  */
 
 /**
- Represents anything that can be validated.
+ Represents single purpose logic related to
+ validation of one particular kind of values,
+ usually within one particular type/entity.
+ It's not supposed to be instantiated,
+ it should be more like a scope, so recommended
+ to be used on 'enum' types.
  */
 public
-protocol Validatable
+protocol ValueValidator
 {
-    func validate() throws
-}
+    associatedtype Input
 
-//---
-
-public
-extension Validatable
-{
-    /**
-     Relies on the 'validate()' func, returns 'false'
-     if 'validate()' throws an error, or returns 'true' otherwise.
-     */
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try validate()
-
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
+    static
+    var conditions: [Condition<Input>] { get }
 }

@@ -24,35 +24,14 @@
 
  */
 
-/**
- Represents anything that can be validated.
- */
 public
-protocol Validatable
-{
-    func validate() throws
-}
-
-//---
-
-public
-extension Validatable
+protocol InstanceReferable
 {
     /**
-     Relies on the 'validate()' func, returns 'false'
-     if 'validate()' throws an error, or returns 'true' otherwise.
+     Unique identifier for the instance, especially useful for value types.
+     It's recommended to use UUID to generate this value. Also make sure it
+     stays the same during lifecycle of the instance, so it should be stored
+     value, not dynamic/calculateable.
      */
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try validate()
-
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
+    var reference: ValueInstanceReference { get }
 }

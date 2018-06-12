@@ -25,7 +25,7 @@
  */
 
 public
-struct Condition<Input>
+struct Condition<Input>: CustomStringConvertible
 {
     public
     typealias Body = (_ input: Input) -> Bool
@@ -67,24 +67,19 @@ extension Condition
         return body(value)
     }
 
-    func validate(context: String, value: Input) throws
+    func validate(value: Input) throws
     {
         guard
             body(value)
         else
         {
-            throw ValidatableValueError.conditionCheckFailed(
-                context: context,
+            throw ConditionUnsatisfied(
                 input: value,
                 condition: description
             )
         }
     }
 }
-
-//---
-
-extension Condition: CustomStringConvertible {}
 
 //---
 

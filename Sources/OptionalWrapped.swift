@@ -24,35 +24,72 @@
 
  */
 
+// swiftlint:disable comma
+
+import Foundation
+
 /**
- Represents anything that can be validated.
+ It considers as 'valid' either 'nil' or non-'nil' 'value' that
+ satisfies all conditions from custom provided Validator.
  */
 public
-protocol Validatable
+struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
+    , Optional
+    , CustomValidatable
+    , CustomNamed
+    , CustomReportableAuto
+    where T.Input: Codable, T.Input: Equatable
 {
-    func validate() throws
+    public
+    typealias Value = T.Input
+
+    public
+    typealias Validator = T
+
+    public
+    var name: String = ""
+
+    public
+    let identifier: String
+
+    public
+    var value: T.Input?
+
+    public
+    init()
+    {
+        self.identifier = UUID().uuidString
+    }
 }
 
 //---
 
+/**
+ Analogue of jsut having 'Swift.Optional',
+ but allows to unify API for dealing with entities.
+ */
 public
-extension Validatable
+struct OptionalWrapped<T>: ValueWrapper
+    , Optional
+    // nothing to validate!
+    , CustomNamed
+    where T: Codable, T: Equatable
 {
-    /**
-     Relies on the 'validate()' func, returns 'false'
-     if 'validate()' throws an error, or returns 'true' otherwise.
-     */
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try validate()
+    public
+    typealias Value = T
 
-            return true
-        }
-        catch
-        {
-            return false
-        }
+    public
+    var name: String = ""
+
+    public
+    let identifier: String
+
+    public
+    var value: T?
+
+    public
+    init()
+    {
+        self.identifier = UUID().uuidString
     }
 }
