@@ -31,6 +31,8 @@ extension Equatable
     where
     Self: Codable
 {
+    typealias Validatable = MandatoryWrapped<Self>
+
     static
     func validatable() -> MandatoryWrapped<Self>
     {
@@ -67,6 +69,8 @@ extension ValueValidator
     where
     Self.Input: Codable & Equatable
 {
+    typealias Validatable = MandatoryValidatableWrapped<Self>
+
     static
     func validatable() -> MandatoryValidatableWrapped<Self>
     {
@@ -93,6 +97,8 @@ extension Swift.Optional
     where
     Wrapped: Codable & Equatable
 {
+    typealias Wrapper = OptionalWrapped<Wrapped>
+
     static
     func wrapped() -> OptionalWrapped<Wrapped>
     {
@@ -114,6 +120,8 @@ extension Swift.Optional
     Wrapped: ValueValidator,
     Wrapped.Input: Codable & Equatable
 {
+    typealias Validatable = OptionalValidatableWrapped<Wrapped>
+
     static
     func validatable() -> OptionalValidatableWrapped<Wrapped>
     {
