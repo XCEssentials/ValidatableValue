@@ -37,7 +37,7 @@ struct ConditionUnsatisfied: Error
 //---
 
 public
-protocol ValidatableValueError: Error //, CustomStringConvertible
+protocol ValidatableValueError: Error
 {
     var origin: ValueInstanceReference { get }
 }
@@ -71,9 +71,6 @@ struct ValueIsNotValid: ValidatableValueError
 public
 struct EntityValidationFailed: Error
 {
-//    public
-//    let origin: ValueInstanceReference // maybe use whole entity hashValue make whole Entity Equatable ???
-
     public
     let issues: [ValidatableValueError]
 
@@ -81,106 +78,21 @@ struct EntityValidationFailed: Error
 
     // internal
     init(
-//        origin: ValueInstanceReference,
         issues: [ValidatableValueError]
         )
     {
-//        self.origin = origin
         self.issues = issues
     }
-
-//    public
-//    init(
-////        fromEntity entity: Entity,
-//        issues: [ValidatableValueError]
-//        )
-//    {
-////        self.context = Utils.globalContext(with: entity)
-//        self.issues = issues
-//    }
 }
 
 public
 extension Array where Element == ValidatableValueError
 {
     func asValidationIssues(
-//        for entity: Entity
         ) -> EntityValidationFailed
     {
         return EntityValidationFailed(
-//            fromEntity: entity,
             issues: self
         )
     }
 }
-
-//// MARK: - CustomStringConvertible conformance
-//
-//public
-//extension ValidatableValueError
-//{
-//    var description: String
-//    {
-//        if
-//            self is ValueNotSet
-//        {
-//            return "Value is not set."
-//        }
-//        else
-//        if
-//            let error = self as? ConditionUnsatisfied
-//        {
-//            return """
-//                ======
-//                Context: \(error.context).
-//                Input: \(error.input).
-//                Failed condition: \(error.condition).
-//                ---/
-//                """
-//        }
-//        else
-//        if
-//            let error = self as? ValueValidationFailed
-//        {
-//            return """
-//                ======
-//                Context: \(error.context).
-//                Input: \(error.input).
-//                Failed conditions: \(error.failedConditions).
-//                ---/
-//                """
-//        }
-//        else
-//        if
-//            let error = self as? EntityValidationFailed
-//        {
-//            let issues = error
-//                .issues
-//                .map{
-//
-//                    """
-//                    Input: \($0.input). Failed conditions: \($0.failedConditions).
-//                    """
-//                }
-//                .joined(
-//                    separator: """
-//                        ---
-//                        """
-//                )
-//
-//            //---
-//
-//            return """
-//                ======
-//                Context: \(error.context).
-//                Issues:
-//                \(issues)
-//                ---/
-//                """
-//        }
-//        else
-//        {
-//            return "\(self)"
-//        }
-//    }
-//}
