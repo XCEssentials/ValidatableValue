@@ -46,6 +46,60 @@ struct User: ValidatableEntity
     var username = Email.validatable()
 
     var password = Password.validatable()
+
+    //---
+
+    typealias Draft = (
+        someConstant: Int?,
+        firstName: String?,
+        lastName: String?,
+        username: String?,
+        passwordIsSet: Bool
+    )
+
+    func draft() -> Draft
+    {
+        return (
+            someConstant.value,
+            firstName.value,
+            lastName.value,
+            username.value,
+            password.value != nil
+        )
+    }
+
+    //---
+
+    typealias Valid = (
+        someConstant: Int,
+        firstName: String,
+        lastName: String?,
+        username: String
+    )
+
+    func valid() throws -> Valid
+    {
+        var issues: [ValueValidationFailed] = []
+
+        let result: Valid = try (
+            someConstant.validValue(&issues),
+            firstName.validValue(&issues),
+            lastName.value,
+            username.validValue(&issues)
+        )
+
+        //---
+
+        if
+            issues.isEmpty
+        {
+            return result
+        }
+        else
+        {
+            throw issues.asValidationIssues(for: self)
+        }
+    }
 }
 
 // MARK: - Validators

@@ -59,6 +59,43 @@ extension Optional
     }
 
     /**
+     This is a special getter that allows to get an optional valid value
+     OR collect an error, if stored value is invalid.
+     This helper function allows to collect issues from multiple
+     validateable values wihtout throwing an error immediately,
+     but received value should ONLY be used/read if the 'collectError'
+     is empty in the end.
+     */
+    func validValue(
+        _ accumulateValidationError: inout [ValueValidationFailed]
+        ) throws -> Value?
+    {
+        let result: Value?
+
+        //---
+
+        do
+        {
+            result = try validValue()
+        }
+        catch let error as ValueValidationFailed
+        {
+            accumulateValidationError.append(error)
+            result = nil
+        }
+        catch
+        {
+            // anything except 'ValueValidationFailed'
+            // should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return result
+    }
+
+    /**
      It returns whatever is stored in 'value',
      or throws 'ValidationFailed' error if
      'value' is not 'nil' and at least one of

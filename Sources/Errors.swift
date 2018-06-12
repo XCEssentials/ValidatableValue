@@ -79,6 +79,40 @@ struct EntityValidationFailed: ValidatableValueError
 
     public
     let issues: [ValueValidationFailed]
+
+    //---
+
+    // internal
+    init(
+        context: String,
+        issues: [ValueValidationFailed]
+        )
+    {
+        self.context = context
+        self.issues = issues
+    }
+
+    public
+    init(
+        fromEntity entity: Entity,
+        issues: [ValueValidationFailed]
+        )
+    {
+        self.context = Utils.globalContext(with: entity)
+        self.issues = issues
+    }
+}
+
+public
+extension Array where Element == ValueValidationFailed
+{
+    func asValidationIssues(for entity: Entity) -> EntityValidationFailed
+    {
+        return EntityValidationFailed(
+            fromEntity: entity,
+            issues: self
+        )
+    }
 }
 
 // MARK: - CustomStringConvertible conformance

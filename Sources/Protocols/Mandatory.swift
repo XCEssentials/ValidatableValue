@@ -77,6 +77,48 @@ extension Mandatory
     }
 
     /**
+     USE THIS CAREFULLY!
+     This is a special getter that allows to get non-optional valid value
+     OR collect an error, if stored value is  invalid,
+     while still returning a non-optional value. Notice, that result is
+     implicitly unwrapped, but may be actually 'nil'. If stored 'value'
+     is invalid - the function adds validation error into the
+     'collectError' array and returns implicitly unwrapped 'nil'.
+     This helper function allows to collect issues from multiple
+     validateable values wihtout throwing an error immediately,
+     but received value should ONLY be used/read if the 'collectError'
+     is empty in the end.
+     */
+    func validValue(
+        _ accumulateValidationError: inout [ValueValidationFailed]
+        ) throws -> Value!
+    {
+        let result: Value?
+
+        //---
+
+        do
+        {
+            result = try validValue()
+        }
+        catch let error as ValueValidationFailed
+        {
+            accumulateValidationError.append(error)
+            result = nil
+        }
+        catch
+        {
+            // anything except 'ValueValidationFailed'
+            // should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return result!
+    }
+
+    /**
      It returns non-empty (safely unwrapped) 'value',
      or throws 'ValueNotSet' error, if the 'value' is 'nil.
      */
@@ -99,6 +141,48 @@ extension Mandatory
     func validate() throws
     {
         _ = try validValue()
+    }
+
+    /**
+     USE THIS CAREFULLY!
+     This is a special getter that allows to get non-optional valid value
+     OR collect an error, if stored value is  invalid,
+     while still returning a non-optional value. Notice, that result is
+     implicitly unwrapped, but may be actually 'nil'. If stored 'value'
+     is invalid - the function adds validation error into the
+     'collectError' array and returns implicitly unwrapped 'nil'.
+     This helper function allows to collect issues from multiple
+     validateable values wihtout throwing an error immediately,
+     but received value should ONLY be used/read if the 'collectError'
+     is empty in the end.
+     */
+    func validValue(
+        _ accumulateValidationError: inout [ValueValidationFailed]
+        ) throws -> Value!
+    {
+        let result: Value?
+
+        //---
+
+        do
+        {
+            result = try validValue()
+        }
+        catch let error as ValueValidationFailed
+        {
+            accumulateValidationError.append(error)
+            result = nil
+        }
+        catch
+        {
+            // anything except 'ValueValidationFailed'
+            // should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return result!
     }
 
     /**

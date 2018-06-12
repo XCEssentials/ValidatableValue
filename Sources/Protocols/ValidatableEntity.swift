@@ -25,7 +25,19 @@
  */
 
 public
-protocol ValidatableEntity: Validatable, Codable {}
+protocol Entity: Codable {}
+
+//---
+
+public
+protocol ValidatableEntity: Entity, Validatable
+{
+    associatedtype Draft
+    associatedtype Valid
+
+    func draft() -> Draft
+    func valid() throws -> Valid
+}
 
 //---
 
@@ -38,6 +50,15 @@ protocol ValidatableEntity: Validatable, Codable {}
 public
 extension ValidatableEntity
 {
+    /**
+     Note, that validate does NOT rely on 'valid()' function,
+     because 'valid()' returns a representation of the entity
+     in case it's fully valid, but not necessary has to contain
+     all validatable values in it, i.e. you don't want to include
+     password in a representation, or instead of representing it
+     with a String you might want just use Bool to indicare
+     if it's set or not.
+     */
     func validate() throws
     {
         var issues: [ValueValidationFailed] = []
