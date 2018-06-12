@@ -25,25 +25,6 @@
  */
 
 public
-struct ValueInstanceReference: Equatable
-{
-    public
-    let identifier: String
-
-    public
-    let type: Any.Type
-}
-
-public
-func == (lhs: ValueInstanceReference, rhs: ValueInstanceReference) -> Bool
-{
-    return (lhs.identifier == rhs.identifier)
-        && (String(reflecting: lhs.type) == String(reflecting: rhs.type))
-}
-
-//---
-
-public
 protocol InstanceReferable
 {
     /**
