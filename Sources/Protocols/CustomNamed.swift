@@ -24,72 +24,27 @@
 
  */
 
-// swiftlint:disable comma
-
-import Foundation
-
-/**
- It considers as 'valid' any non-'nil' 'value' that
- satisfies all conditions from custom provided Validator.
- */
 public
-struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
-    , Mandatory
-    , CustomValidatable
-    , CustomNamed
-    , CustomReportableAuto
-    where T.Input: Codable, T.Input: Equatable
+protocol CustomNamed
 {
-    public
-    typealias Value = T.Input
-
-    public
-    typealias Validator = T
-
-    public
-    var name: String = ""
-
-    public
-    let identifier: String
-
-    public
-    var value: T.Input?
-
-    public
-    init()
-    {
-        self.identifier = UUID().uuidString
-    }
+    var name: String { get set }
 }
 
 //---
 
-/**
- It considers as 'valid' any non-'nil' 'value'.
- */
 public
-struct MandatoryWrapped<T>: ValueWrapper
-    , Mandatory
-    , Validatable
-    , CustomNamed
-    , CustomReportableAuto
-    where T: Codable, T: Equatable
+extension CustomNamed
 {
-    public
-    typealias Value = T
-
-    public
-    var name: String = ""
-
-    public
-    let identifier: String
-
-    public
-    var value: T?
-
-    public
-    init()
+    func named(_ newName: String) -> Self
     {
-        self.identifier = UUID().uuidString
+        var result = self
+
+        //---
+
+        result.name = newName
+
+        //---
+
+        return result
     }
 }

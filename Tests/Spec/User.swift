@@ -28,7 +28,7 @@ import Foundation
 
 import XCEValidatableValue
 
-//---
+// MARK: - User
 
 struct User: ValidatableEntity
 {
@@ -37,18 +37,48 @@ struct User: ValidatableEntity
 
     //---
 
-    let someConstant = User.someConstantValue.validatable()
+    let someConstant = someConstantValue.validatable().named("Constant")
 
-    var firstName = FirstName.validatable()
+    var firstName = FirstName.validatable().named("First Name")
 
-    var lastName = String?.wrapped()
+    var lastName = String?.wrapped().named("Last Name")
 
-    var username = Email.validatable()
+    var username = Email.validatable().named("Username")
 
-    var password = Password.validatable()
+    var password = Password.validatable().named("Password")
+}
 
-    //---
+// MARK: - User: CustomReportable
 
+extension User: CustomReportable
+{
+    func prepareReport(
+        with error: EntityValidationFailed
+        ) -> (title: String, message: String)
+    {
+        let issues = [
+            report(for: firstName, with: error),
+            report(for: username, with: error),
+            report(for: password, with: error)
+            ]
+            .compactMap{ $0?.message }
+            .map{ "- \($0)" }
+            .joined(separator: "\n")
+
+        return (
+            title: "User validation failed",
+            message: """
+                User validation failed due to the following issues:
+                \(issues)
+                """
+        )
+    }
+}
+
+// MARK: - User: Representations
+
+extension User
+{
     typealias Draft = (
         someConstant: Int?,
         firstName: String?,
@@ -79,7 +109,7 @@ struct User: ValidatableEntity
 
     func valid() throws -> Valid
     {
-        var issues: [ValueValidationFailed] = []
+        var issues: [ValidatableValueError] = []
 
         let result: Valid = try (
             someConstant.validValue(&issues),
@@ -102,7 +132,7 @@ struct User: ValidatableEntity
     }
 }
 
-// MARK: - Validators
+// MARK: - User: Validators
 
 extension User
 {
@@ -131,11 +161,13 @@ extension User
         let conditions: Conditions<String> = [
 
             Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
-            Check("At least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
-            Check("At least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
-            Check("At least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
-            Check("At least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
-            Check("Valid characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+            Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
+            Check("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
+            Check("Has at least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
+            Check("Has at least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
+            Check("Consists of lowercase letters, decimal digits and following characters: ,.!?@#$%^&*()-_+="){
+                Pwd.allowed.isSuperset(of: CS(charactersIn: $0))
+            }
         ]
     }
 }

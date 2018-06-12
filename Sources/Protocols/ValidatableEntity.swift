@@ -45,6 +45,14 @@ protocol ValidatableEntity: Entity, Validatable
 public
 extension ValidatableEntity
 {
+    var allValidatableMembers: [Validatable]
+    {
+        return Mirror(reflecting: self)
+            .children
+            .map{ $0.value }
+            .compactMap{ $0 as? Validatable }
+    }
+
     /**
      Validates all validateable values conteined inside the entity,
      throws 'EntityValidationFailed' if any issues found.
@@ -60,25 +68,21 @@ extension ValidatableEntity
      */
     func validate() throws
     {
-        var issues: [ValueValidationFailed] = []
+        var issues: [ValidatableValueError] = []
 
         //---
 
-        Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
-            .compactMap{ $0 as? Validatable }
-            .forEach{
+        allValidatableMembers.forEach{
 
-                do
-                {
-                    try $0.validate()
-                }
-                catch
-                {
-                    (error as? ValueValidationFailed).map{ issues.append($0) }
-                }
+            do
+            {
+                try $0.validate()
             }
+            catch
+            {
+                (error as? ValidatableValueError).map{ issues.append($0) }
+            }
+        }
 
         //---
 
@@ -89,5 +93,31 @@ extension ValidatableEntity
                 issues: issues
             )
         }
+    }
+}
+
+//---
+
+public
+extension ValidatableEntity
+    where Self: CustomReportable // NOT Auto!!!
+{
+    /**
+     Note, that this is jsut a helper that may be used from
+     custom entity to actually generate report for the whole entity.
+     */
+    func report<W>(
+        for valueWrapper: W,
+        with error: EntityValidationFailed
+        ) -> (title: String, message: String)?
+        where
+        W: ValueWrapper & Validatable & CustomReportable
+    {
+        return error
+            .issues
+            .filter({ $0.origin == valueWrapper.reference })
+            .first
+            .flatMap({ $0 as? W.ReportInput })
+            .map(valueWrapper.prepareReport)
     }
 }

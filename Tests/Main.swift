@@ -64,6 +64,160 @@ extension MainTests
             user.isValid
         }
 
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"First Name\" is empty, but expected to be a non-empty value.\n- \"Username\" is empty, but expected to be a non-empty value.\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.firstName <? "Jonh"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Username\" is empty, but expected to be a non-empty value.\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.username <? "Jonh@.yaaa"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Username\" is invalid, because it does not satisfy following conditions: [\"Valid email address\"].\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.username <? "Jonh@google.co"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Password\" is empty, but expected to be a non-empty value."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        user.password <? "123t5y7gh"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch let error as EntityValidationFailed
+        {
+            let report = user.prepareReport(with: error)
+
+            let expectedReportMessage = "User validation failed due to the following issues:\n- \"Password\" is invalid, because it does not satisfy following conditions: [\"Has at least 1 capital character\", \"Has at least 1 special character\"]."
+
+            Assert("Report is equal to expected one").isTrue{
+
+                report.message == expectedReportMessage
+            }
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        // now lets improve the password to satisfy ALL conditions
+
+        user.password <? "!C3t5y7gh"
+
+        //---
+
+        do
+        {
+            try user.validate()
+
+            // now user is valid...
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
     }
 
     func testConstVV()
@@ -209,7 +363,7 @@ extension MainTests
         {
             Assert("An empty string is NOT a valid value for 'firstName'").isTrue
             {
-                error is ValueValidationFailed
+                error is ValueIsNotValid
             }
         }
         

@@ -50,7 +50,7 @@ extension Mandatory
         else
         {
             // 'value' is 'nil', which is NOT allowed
-            throw ValueNotSet(origin: self.reference)
+            throw ValueIsNotSet(origin: self.reference)
         }
 
         //---
@@ -86,7 +86,7 @@ extension Mandatory
      is empty in the end.
      */
     func validValue(
-        _ accumulateValidationError: inout [ValueValidationFailed]
+        _ accumulateValidationError: inout [ValidatableValueError]
         ) throws -> Value!
     {
         let result: Value?
@@ -97,7 +97,7 @@ extension Mandatory
         {
             result = try validValue()
         }
-        catch let error as ValueValidationFailed
+        catch let error as ValidatableValueError
         {
             accumulateValidationError.append(error)
             result = nil
@@ -153,7 +153,7 @@ extension Mandatory
      is empty in the end.
      */
     func validValue(
-        _ accumulateValidationError: inout [ValueValidationFailed]
+        _ accumulateValidationError: inout [ValidatableValueError]
         ) throws -> Value!
     {
         let result: Value?
@@ -164,7 +164,7 @@ extension Mandatory
         {
             result = try validValue()
         }
-        catch let error as ValueValidationFailed
+        catch let error as ValidatableValueError
         {
             accumulateValidationError.append(error)
             result = nil
@@ -219,7 +219,7 @@ extension Mandatory
             failedConditions.isEmpty
         else
         {
-            throw ValueValidationFailed(
+            throw ValueIsNotValid(
                 origin: self.reference,
                 input: result,
                 failedConditions: failedConditions

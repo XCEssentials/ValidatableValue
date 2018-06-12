@@ -67,7 +67,7 @@ extension Optional
      is empty in the end.
      */
     func validValue(
-        _ accumulateValidationError: inout [ValueValidationFailed]
+        _ accumulateValidationError: inout [ValidatableValueError]
         ) throws -> Value?
     {
         let result: Value?
@@ -78,7 +78,7 @@ extension Optional
         {
             result = try validValue()
         }
-        catch let error as ValueValidationFailed
+        catch let error as ValidatableValueError
         {
             accumulateValidationError.append(error)
             result = nil
@@ -139,7 +139,7 @@ extension Optional
             failedConditions.isEmpty
         else
         {
-            throw ValueValidationFailed(
+            throw ValueIsNotValid(
                 origin: self.reference,
                 input: result,
                 failedConditions: failedConditions

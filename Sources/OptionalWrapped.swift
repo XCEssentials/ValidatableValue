@@ -24,6 +24,8 @@
 
  */
 
+// swiftlint:disable comma
+
 import Foundation
 
 /**
@@ -31,7 +33,11 @@ import Foundation
  satisfies all conditions from custom provided Validator.
  */
 public
-struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper, Optional, CustomValidatable
+struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
+    , Optional
+    , CustomValidatable
+    , CustomNamed
+    , CustomReportableAuto
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -39,6 +45,9 @@ struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper, Optional, Cu
 
     public
     typealias Validator = T
+
+    public
+    var name: String = ""
 
     public
     let identifier: String
@@ -60,11 +69,17 @@ struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper, Optional, Cu
  but allows to unify API for dealing with entities.
  */
 public
-struct OptionalWrapped<T>: ValueWrapper, Optional // nothing to validate!
+struct OptionalWrapped<T>: ValueWrapper
+    , Optional
+    // nothing to validate!
+    , CustomNamed
     where T: Codable, T: Equatable
 {
     public
     typealias Value = T
+
+    public
+    var name: String = ""
 
     public
     let identifier: String

@@ -24,72 +24,23 @@
 
  */
 
-// swiftlint:disable comma
-
-import Foundation
-
-/**
- It considers as 'valid' any non-'nil' 'value' that
- satisfies all conditions from custom provided Validator.
- */
 public
-struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
-    , Mandatory
-    , CustomValidatable
-    , CustomNamed
-    , CustomReportableAuto
-    where T.Input: Codable, T.Input: Equatable
+protocol CustomReportable
 {
-    public
-    typealias Value = T.Input
+    associatedtype ReportInput
 
-    public
-    typealias Validator = T
-
-    public
-    var name: String = ""
-
-    public
-    let identifier: String
-
-    public
-    var value: T.Input?
-
-    public
-    init()
-    {
-        self.identifier = UUID().uuidString
-    }
+    func prepareReport(
+        with input: ReportInput
+        ) -> (title: String, message: String)
 }
 
 //---
 
 /**
- It considers as 'valid' any non-'nil' 'value'.
+ Special protocol-marker that should be used to
+ implement 'CustomReportable' in a protocol extension,
+ so that final type that adopts this protocol won't need
+ to care about supporting 'CustomReportable' explicitly.
  */
 public
-struct MandatoryWrapped<T>: ValueWrapper
-    , Mandatory
-    , Validatable
-    , CustomNamed
-    , CustomReportableAuto
-    where T: Codable, T: Equatable
-{
-    public
-    typealias Value = T
-
-    public
-    var name: String = ""
-
-    public
-    let identifier: String
-
-    public
-    var value: T?
-
-    public
-    init()
-    {
-        self.identifier = UUID().uuidString
-    }
-}
+protocol CustomReportableAuto: CustomReportable {}

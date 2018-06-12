@@ -45,7 +45,7 @@ protocol ValidatableValueError: Error //, CustomStringConvertible
 //---
 
 public
-struct ValueNotSet: ValidatableValueError
+struct ValueIsNotSet: ValidatableValueError
 {
     public
     let origin: ValueInstanceReference
@@ -54,7 +54,7 @@ struct ValueNotSet: ValidatableValueError
 //---
 
 public
-struct ValueValidationFailed: ValidatableValueError
+struct ValueIsNotValid: ValidatableValueError
 {
     public
     let origin: ValueInstanceReference
@@ -75,14 +75,14 @@ struct EntityValidationFailed: Error
 //    let origin: ValueInstanceReference // maybe use whole entity hashValue make whole Entity Equatable ???
 
     public
-    let issues: [ValueValidationFailed]
+    let issues: [ValidatableValueError]
 
     //---
 
     // internal
     init(
 //        origin: ValueInstanceReference,
-        issues: [ValueValidationFailed]
+        issues: [ValidatableValueError]
         )
     {
 //        self.origin = origin
@@ -92,7 +92,7 @@ struct EntityValidationFailed: Error
 //    public
 //    init(
 ////        fromEntity entity: Entity,
-//        issues: [ValueValidationFailed]
+//        issues: [ValidatableValueError]
 //        )
 //    {
 ////        self.context = Utils.globalContext(with: entity)
@@ -101,7 +101,7 @@ struct EntityValidationFailed: Error
 }
 
 public
-extension Array where Element == ValueValidationFailed
+extension Array where Element == ValidatableValueError
 {
     func asValidationIssues(
 //        for entity: Entity
