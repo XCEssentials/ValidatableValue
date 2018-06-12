@@ -30,12 +30,7 @@
  so it's 'validValue()' function returns non-empty value.
  */
 public
-protocol Mandatory
-{
-//    associatedtype ValidValue
-//
-//    func validValue() throws -> ValidValue
-}
+protocol Mandatory {}
 
 //---
 
