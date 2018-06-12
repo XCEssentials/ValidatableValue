@@ -46,13 +46,17 @@ public
 extension ValidatableEntity
 {
     /**
+     Validates all validateable values conteined inside the entity,
+     throws 'EntityValidationFailed' if any issues found.
+
      Note, that validate does NOT rely on 'valid()' function,
-     because 'valid()' returns a representation of the entity
-     in case it's fully valid, but not necessary has to contain
-     all validatable values in it, i.e. you don't want to include
-     password in a representation, or instead of representing it
-     with a String you might want just use Bool to indicare
-     if it's set or not.
+     because 'valid()' function supposed to return a custom
+     representation of the entity in case it's fully valid,
+     but we should make NO assumption about what it is and
+     which properties will be evaluated for validity during
+     preparation of this representation. That means there is no
+     guarantee that all presented validatable values of the entity
+     will be validated during this process.
      */
     func validate() throws
     {
