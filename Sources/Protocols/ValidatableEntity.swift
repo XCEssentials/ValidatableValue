@@ -120,4 +120,20 @@ extension ValidatableEntity
             .flatMap({ $0 as? W.ReportInput })
             .map(valueWrapper.prepareReport)
     }
+
+    func customReport<W>(
+        for valueWrapper: W,
+        ifMentionedIn error: EntityValidationFailed,
+        _ composer: (W.ReportInput) -> (title: String, message: String)
+        ) -> (title: String, message: String)?
+        where
+        W: ValueWrapper & Validatable & CustomReportable
+    {
+        return error
+            .issues
+            .filter({ $0.origin == valueWrapper.reference })
+            .first
+            .flatMap({ $0 as? W.ReportInput })
+            .map(composer)
+    }
 }
