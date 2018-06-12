@@ -61,7 +61,7 @@ extension MainTests
     {
         Assert("Const number value is valid").isNotNil
         {
-            try? MandatoryValueBase(const: 42)
+            try? 42.validatableConst()
         }
 
         //---
@@ -70,7 +70,7 @@ extension MainTests
 
         Assert("Correct const email value is valid").isNotNil
         {
-            try? MandatoryValue<User.Email>(const: correctEmail)
+            try? User.Email.validatable(const: correctEmail)
         }
 
         //---
@@ -79,35 +79,35 @@ extension MainTests
 
         Assert("Incorrect const email value is NOT valid").isNil
         {
-            try? MandatoryValue<User.Email>(const: incorrectEmail)
+            try? User.Email.validatable(const: incorrectEmail)
         }
 
         //---
 
         Assert("Correct const email value is valid").isTrue
         {
-            OptionalValue<User.Email>(initialValue: correctEmail).isValid
+            User.Email?.validatable(initialValue: correctEmail).isValid
         }
 
         //---
 
         Assert("Incorrect const email value is NOT valid").isFalse
         {
-            OptionalValue<User.Email>(initialValue: incorrectEmail).isValid
+            User.Email.validatable(initialValue: incorrectEmail).isValid
         }
 
         //---
 
         Assert("EMPTY optional email value is valid").isTrue
         {
-            OptionalValue<User.Email>().isValid
+            User.Email?.validatable().isValid
         }
 
         //---
 
         do
         {
-            _ = try MandatoryValue<User.Email>(const: incorrectEmail)
+            _ = try User.Email.validatable(const: incorrectEmail)
 
             XCTFail("Should not get here ever")
         }

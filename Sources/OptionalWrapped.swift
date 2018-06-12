@@ -25,11 +25,11 @@
  */
 
 /**
- It considers as 'valid' any non-'nil' 'value' that
+ It considers as 'valid' either 'nil' or non-'nil' 'value' that
  satisfies all conditions from custom provided Validator.
  */
 public
-struct MandatoryValue<T: ValueValidator>: ValueWrapper, Mandatory, CustomValidatable
+struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper, Optional, CustomValidatable
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -48,10 +48,11 @@ struct MandatoryValue<T: ValueValidator>: ValueWrapper, Mandatory, CustomValidat
 //---
 
 /**
- It considers as 'valid' any non-'nil' 'value'.
+ Analogue of jsut having 'Swift.Optional',
+ but allows to unify API for dealing with entities.
  */
 public
-struct MandatoryValueBase<T>: ValueWrapper, Mandatory, Validatable
+struct OptionalWrapped<T>: ValueWrapper, Optional // nothing to validate!
     where T: Codable, T: Equatable
 {
     public

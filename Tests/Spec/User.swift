@@ -37,22 +37,22 @@ struct User: ValidatableEntity
 
     //---
 
-    let someConstant = MandatoryValueBase(initialValue: User.someConstantValue)
+    let someConstant = User.someConstantValue.validatable()
 
-    var firstName = MandatoryValue<FirstName>()
+    var firstName = FirstName.validatable()
 
-    var lastName = OptionalValueBase<String>()
+    var lastName = String?.wrapped()
 
-    var username = MandatoryValue<Email>()
+    var username = Email.validatable()
 
-    var password = MandatoryValue<Password>()
+    var password = Password.validatable()
 }
 
 // MARK: - Validators
 
 extension User
 {
-    struct Email: ValueValidator
+    enum Email: ValueValidator
     {
         static
         let conditions = [
@@ -62,7 +62,7 @@ extension User
         ]
     }
 
-    struct FirstName: ValueValidator
+    enum FirstName: ValueValidator
     {
         static
         let conditions = [
@@ -71,7 +71,7 @@ extension User
         ]
     }
 
-    struct Password: ValueValidator
+    enum Password: ValueValidator
     {
         static
         let conditions: Conditions<String> = [
