@@ -25,7 +25,14 @@
  */
 
 public
-protocol ValidatableEntity: Validatable, Codable {}
+protocol ValidatableEntity: Entity, Validatable
+{
+    associatedtype Draft
+    associatedtype Valid
+
+    func draft() -> Draft
+    func valid() throws -> Valid
+}
 
 //---
 
@@ -38,12 +45,95 @@ protocol ValidatableEntity: Validatable, Codable {}
 public
 extension ValidatableEntity
 {
-    func validate() throws
+    var allValidatableMembers: [Validatable]
     {
-        try Mirror(reflecting: self)
+        return Mirror(reflecting: self)
             .children
             .map{ $0.value }
             .compactMap{ $0 as? Validatable }
-            .forEach{ try $0.validate() }
+    }
+
+    /**
+     Validates all validateable values conteined inside the entity,
+     throws 'EntityValidationFailed' if any issues found.
+
+     Note, that validate does NOT rely on 'valid()' function,
+     because 'valid()' function supposed to return a custom
+     representation of the entity in case it's fully valid,
+     but we should make NO assumption about what it is and
+     which properties will be evaluated for validity during
+     preparation of this representation. That means there is no
+     guarantee that all presented validatable values of the entity
+     will be validated during this process.
+     */
+    func validate() throws
+    {
+        var issues: [ValidatableValueError] = []
+
+        //---
+
+        allValidatableMembers.forEach{
+
+            do
+            {
+                try $0.validate()
+            }
+            catch
+            {
+                (error as? ValidatableValueError).map{ issues.append($0) }
+            }
+        }
+
+        //---
+
+        if
+            !issues.isEmpty
+        {
+            throw EntityValidationFailed(
+                issues: issues
+            )
+        }
+    }
+}
+
+//---
+
+public
+extension ValidatableEntity
+    where Self: CustomReportable // NOT Auto!!!
+{
+    /**
+     Note, that this is jsut a helper that may be used from
+     custom entity to actually generate report for the whole entity.
+     */
+    func report<W>(
+        for valueWrapper: W,
+        with error: EntityValidationFailed
+        ) -> (title: String, message: String)?
+        where
+        W: ValueWrapper & Validatable & CustomReportable
+    {
+        return error
+            .issues
+            .filter({ $0.origin == valueWrapper.reference })
+            .first
+            .flatMap({ $0 as? W.ReportInput })
+            .map(valueWrapper.prepareReport)
+    }
+
+    func customReport<W>(
+        for valueWrapper: W,
+        ifMentionedIn error: EntityValidationFailed,
+        _ composer: (W.ReportInput) -> (title: String, message: String)
+        ) -> (title: String, message: String)?
+        where
+        W: ValueWrapper & Validatable & CustomReportable
+    {
+        return error
+            .issues
+            .filter({ $0.origin == valueWrapper.reference })
+            .first
+            .flatMap({ $0 as? W.ReportInput })
+            .map(composer)
     }
 }

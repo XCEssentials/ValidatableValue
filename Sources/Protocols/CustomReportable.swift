@@ -24,48 +24,23 @@
 
  */
 
-//---
-
 public
-struct MandatoryValue<T: ValueValidator>: MandatoryValidatable
-    where T.Input: Codable, T.Input: Equatable
+protocol CustomReportable
 {
-    public
-    typealias RawValue = T.Input
+    associatedtype ReportInput
 
-    public
-    typealias Validator = T
-
-    public
-    var draft: T.Input?
-
-    public
-    init() {}
+    func prepareReport(
+        with input: ReportInput
+        ) -> (title: String, message: String)
 }
 
 //---
 
+/**
+ Special protocol-marker that should be used to
+ implement 'CustomReportable' in a protocol extension,
+ so that final type that adopts this protocol won't need
+ to care about supporting 'CustomReportable' explicitly.
+ */
 public
-struct MandatoryValueBase<T>: MandatoryValidatable
-    where T: Codable, T: Equatable
-{
-    public
-    typealias RawValue = T
-
-    public
-    enum Validator: ValueValidator
-    {
-        public
-        static
-        var conditions: [Condition<T>]
-        {
-            return []
-        }
-    }
-
-    public
-    var draft: T?
-
-    public
-    init() {}
-}
+protocol CustomReportableAuto: CustomReportable {}
