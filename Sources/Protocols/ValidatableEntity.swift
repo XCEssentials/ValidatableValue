@@ -100,7 +100,7 @@ extension ValidatableEntity
 
 public
 extension ValidatableEntity
-    where Self: CustomReportable // NOT Auto!!!
+    where Self: FailureReportable // NOT Auto!!!
 {
     /**
      Note, that this is jsut a helper that may be used from
@@ -111,29 +111,29 @@ extension ValidatableEntity
         with error: EntityValidationFailed
         ) -> (title: String, message: String)?
         where
-        W: ValueWrapper & Validatable & CustomReportable
+        W: ValueWrapper & Validatable & FailureReportable
     {
         return error
             .issues
             .filter({ $0.origin == valueWrapper.reference })
             .first
-            .flatMap({ $0 as? W.ReportInput })
-            .map(valueWrapper.prepareReport)
+            .flatMap({ $0 as? W.FailureReportInput })
+            .map(valueWrapper.failureReport)
     }
 
     func customReport<W>(
         for valueWrapper: W,
         ifMentionedIn error: EntityValidationFailed,
-        _ composer: (W.ReportInput) -> (title: String, message: String)
+        _ composer: (W.FailureReportInput) -> (title: String, message: String)
         ) -> (title: String, message: String)?
         where
-        W: ValueWrapper & Validatable & CustomReportable
+        W: ValueWrapper & Validatable & FailureReportable
     {
         return error
             .issues
             .filter({ $0.origin == valueWrapper.reference })
             .first
-            .flatMap({ $0 as? W.ReportInput })
+            .flatMap({ $0 as? W.FailureReportInput })
             .map(composer)
     }
 }

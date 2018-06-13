@@ -25,12 +25,12 @@
  */
 
 public
-protocol CustomReportable
+protocol FailureReportable
 {
-    associatedtype ReportInput
+    associatedtype FailureReportInput // supposed to be an error
 
-    func prepareReport(
-        with input: ReportInput
+    func failureReport(
+        with error: FailureReportInput
         ) -> (title: String, message: String)
 }
 
@@ -43,4 +43,4 @@ protocol CustomReportable
  to care about supporting 'CustomReportable' explicitly.
  */
 public
-protocol CustomReportableAuto: CustomReportable {}
+protocol FailureReportableAuto: FailureReportable {}

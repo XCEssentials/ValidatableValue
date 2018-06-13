@@ -37,7 +37,7 @@ struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
     , Optional
     , CustomValidatable
     , DisplayNamed
-    , CustomReportableAuto
+    , FailureReportableAuto
     where T.Input: Codable, T.Input: Equatable
 {
     public

@@ -37,7 +37,7 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
     , Mandatory
     , CustomValidatable
     , DisplayNamed
-    , CustomReportableAuto
+    , FailureReportableAuto
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -72,7 +72,7 @@ struct MandatoryWrapped<T>: ValueWrapper
     , Mandatory
     , Validatable
     , DisplayNamed
-    , CustomReportableAuto
+    , FailureReportableAuto
     where T: Codable, T: Equatable
 {
     public

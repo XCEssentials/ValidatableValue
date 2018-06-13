@@ -65,9 +65,9 @@ extension ValueWrapper
 
 public
 extension ValueWrapper
-    where Self: Validatable & DisplayNamed & CustomReportableAuto
+    where Self: Validatable & DisplayNamed & FailureReportableAuto
 {
-    func prepareReport(
+    func failureReport(
         with error: ValidatableValueError
         ) -> (title: String, message: String)
     {
@@ -101,9 +101,9 @@ extension ValueWrapper
 
 public
 extension ValueWrapper
-    where Self: Validatable & CustomReportableAuto
+    where Self: Validatable & FailureReportableAuto
 {
-    func prepareReport(
+    func failureReportReport(
         with error: ValidatableValueError
         ) -> (title: String, message: String)
     {

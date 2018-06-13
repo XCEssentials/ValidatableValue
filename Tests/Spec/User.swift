@@ -50,7 +50,7 @@ struct User: ValidatableEntity
 
 // MARK: - User: CustomReportable
 
-extension User: CustomReportable
+extension User: FailureReportable
 {
     func prepareReport(
         with error: EntityValidationFailed
