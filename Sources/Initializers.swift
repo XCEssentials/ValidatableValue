@@ -24,7 +24,7 @@
 
  */
 
-// MARK: - Mandatory
+// MARK: - MandatoryValueWrapper
 
 public
 extension Equatable
@@ -62,7 +62,7 @@ extension Equatable
     }
 }
 
-// MARK: - Mandatory + Validator
+// MARK: - MandatoryValueWrapper + Validator
 
 public
 extension ValueValidator

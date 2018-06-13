@@ -32,6 +32,10 @@ protocol ValidatableEntity: Entity, Validatable
 
     func draft() -> Draft
     func valid() throws -> Valid
+
+    func prepareValidationFailureReport(
+        with issues: [ValidationError]
+        ) -> (title: String, message: String)
 }
 
 //---
@@ -68,7 +72,7 @@ extension ValidatableEntity
      */
     func validate() throws
     {
-        var issues: [ValidatableValueError] = []
+        var issues: [ValidationError] = []
 
         //---
 
@@ -78,9 +82,13 @@ extension ValidatableEntity
             {
                 try $0.validate()
             }
+            catch let error as ValidationError
+            {
+                issues.append(error)
+            }
             catch
             {
-                (error as? ValidatableValueError).map{ issues.append($0) }
+                // ignore any unexpected erros
             }
         }
 
@@ -89,51 +97,7 @@ extension ValidatableEntity
         if
             !issues.isEmpty
         {
-            throw EntityValidationFailed(
-                issues: issues
-            )
+            throw issues.asValidationIssues(for: self)
         }
-    }
-}
-
-//---
-
-public
-extension ValidatableEntity
-    where Self: FailureReportable // NOT Auto!!!
-{
-    /**
-     Note, that this is jsut a helper that may be used from
-     custom entity to actually generate report for the whole entity.
-     */
-    func report<W>(
-        for valueWrapper: W,
-        with error: EntityValidationFailed
-        ) -> (title: String, message: String)?
-        where
-        W: ValueWrapper & Validatable & FailureReportable
-    {
-        return error
-            .issues
-            .filter({ $0.origin == valueWrapper.reference })
-            .first
-            .flatMap({ $0 as? W.FailureReportInput })
-            .map(valueWrapper.failureReport)
-    }
-
-    func customReport<W>(
-        for valueWrapper: W,
-        ifMentionedIn error: EntityValidationFailed,
-        _ composer: (W.FailureReportInput) -> (title: String, message: String)
-        ) -> (title: String, message: String)?
-        where
-        W: ValueWrapper & Validatable & FailureReportable
-    {
-        return error
-            .issues
-            .filter({ $0.origin == valueWrapper.reference })
-            .first
-            .flatMap({ $0 as? W.FailureReportInput })
-            .map(composer)
     }
 }

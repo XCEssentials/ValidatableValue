@@ -33,11 +33,9 @@ import Foundation
  satisfies all conditions from custom provided Validator.
  */
 public
-struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
-    , Optional
+struct OptionalValidatableWrapped<T: ValueValidator>: OptionalValueWrapper
     , CustomValidatable
     , DisplayNamed
-    , FailureReportableAuto
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -66,8 +64,7 @@ struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
  but allows to unify API for dealing with entities.
  */
 public
-struct OptionalWrapped<T>: ValueWrapper
-    , Optional
+struct OptionalWrapped<T>: OptionalValueWrapper
     // nothing to validate!
     , DisplayNamed
     where T: Codable, T: Equatable

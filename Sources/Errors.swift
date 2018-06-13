@@ -42,19 +42,22 @@ enum ValidationError: Error
     // swiftlint:disable identifier_name //TODO: remove later!
 
     case mandatoryValueIsNotSet(
-        origin: ValueInstanceReference
+        origin: ValueInstanceReference,
+        report: (title: String, message: String)
     )
 
     case valueIsNotValid(
         origin: ValueInstanceReference,
         value: Any,
-        failedConditions: [String]
+        failedConditions: [String],
+        report: (title: String, message: String)
     )
 
     indirect
     case entityIsNotValid(
         origin: ValueInstanceReference,
-        issues: [ValidationError]
+        issues: [ValidationError],
+        report: (title: String, message: String)
     )
 
     // swiftlint:enable identifier_name //TODO: remove later!
@@ -65,13 +68,13 @@ enum ValidationError: Error
     {
         switch self
         {
-            case .mandatoryValueIsNotSet(let result):
+            case .mandatoryValueIsNotSet(let result, _):
                 return result
 
-            case .valueIsNotValid(let result, _, _):
+            case .valueIsNotValid(let result, _, _, _):
                 return result
 
-            case .entityIsNotValid(let result, _):
+            case .entityIsNotValid(let result, _, _):
                 return result
         }
     }
@@ -86,7 +89,8 @@ extension Array where Element == ValidationError
     {
         return .entityIsNotValid(
             origin: entity.reference,
-            issues: self
+            issues: self,
+            report: entity.prepareValidationFailureReport(with: self)
         )
     }
 }
