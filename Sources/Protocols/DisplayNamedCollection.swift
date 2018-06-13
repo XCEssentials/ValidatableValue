@@ -25,23 +25,44 @@
  */
 
 public
-protocol CustomDisplayNamed
+protocol DisplayNamedCollection
 {
-    var displayName: String { get set }
+    var collectionDisplayName: String { get set }
 }
 
 //---
 
 public
-extension CustomDisplayNamed
+extension DisplayNamedCollection
 {
-    func displayAs(_ newDisplayNamed: String) -> Self
+    func many(_ collectionDisplayName: String) -> Self
     {
         var result = self
 
         //---
 
-        result.displayName = newDisplayNamed
+        result.collectionDisplayName = collectionDisplayName
+
+        //---
+
+        return result
+    }
+}
+
+//---
+
+public
+extension DisplayNamedCollection
+    where Self: DisplayNamed
+{
+    func displayAs(_ displayName: String, many collectionDisplayName: String) -> Self
+    {
+        var result = self
+
+        //---
+
+        result.displayName = displayName
+        result.collectionDisplayName = collectionDisplayName
 
         //---
 
