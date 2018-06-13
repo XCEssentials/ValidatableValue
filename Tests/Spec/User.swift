@@ -54,59 +54,59 @@ struct User: ValidatableEntity, ValidationFailureReportAuto, DisplayNamed
 
 // MARK: - User: Representations
 
-extension User
+extension User: NoRepresentations
 {
-    typealias Draft = (
-        someConstant: Int?,
-        firstName: String?,
-        lastName: String?,
-        username: String?,
-        passwordIsSet: Bool
-    )
-
-    func draft() -> Draft
-    {
-        return (
-            someConstant.value,
-            firstName.value,
-            lastName.value,
-            username.value,
-            password.value != nil
-        )
-    }
-
-    //---
-
-    typealias Valid = (
-        someConstant: Int,
-        firstName: String,
-        lastName: String?,
-        username: String
-    )
-
-    func valid() throws -> Valid
-    {
-        var issues: [ValidationError] = []
-
-        let result: Valid = try (
-            someConstant.validValue(&issues),
-            firstName.validValue(&issues),
-            lastName.value,
-            username.validValue(&issues)
-        )
-
-        //---
-
-        if
-            issues.isEmpty
-        {
-            return result
-        }
-        else
-        {
-            throw issues.asValidationIssues(for: self)
-        }
-    }
+//    typealias Draft = (
+//        someConstant: Int?,
+//        firstName: String?,
+//        lastName: String?,
+//        username: String?,
+//        passwordIsSet: Bool
+//    )
+//
+//    func draft() -> Draft
+//    {
+//        return (
+//            someConstant.value,
+//            firstName.value,
+//            lastName.value,
+//            username.value,
+//            password.value != nil
+//        )
+//    }
+//
+//    //---
+//
+//    typealias Valid = (
+//        someConstant: Int,
+//        firstName: String,
+//        lastName: String?,
+//        username: String
+//    )
+//
+//    func valid() throws -> Valid
+//    {
+//        var issues: [ValidationError] = []
+//
+//        let result: Valid = try (
+//            someConstant.validValue(&issues),
+//            firstName.validValue(&issues),
+//            lastName.value,
+//            username.validValue(&issues)
+//        )
+//
+//        //---
+//
+//        if
+//            issues.isEmpty
+//        {
+//            return result
+//        }
+//        else
+//        {
+//            throw issues.asValidationIssues(for: self)
+//        }
+//    }
 }
 
 // MARK: - User: Validators
