@@ -32,6 +32,10 @@ protocol ValidatableEntity: Entity, Validatable
 
     func draft() -> Draft
     func valid() throws -> Valid
+
+    func prepareValidationFailureReport(
+        with issues: [ValidationError]
+        ) -> (title: String, message: String)
 }
 
 //---
@@ -68,7 +72,7 @@ extension ValidatableEntity
      */
     func validate() throws
     {
-        var issues: [ValidatableValueError] = []
+        var issues: [ValidationError] = []
 
         //---
 
@@ -78,9 +82,13 @@ extension ValidatableEntity
             {
                 try $0.validate()
             }
+            catch let error as ValidationError
+            {
+                issues.append(error)
+            }
             catch
             {
-                (error as? ValidatableValueError).map{ issues.append($0) }
+                // ignore any unexpected erros
             }
         }
 
@@ -89,51 +97,64 @@ extension ValidatableEntity
         if
             !issues.isEmpty
         {
-            throw EntityValidationFailed(
-                issues: issues
-            )
+            throw issues.asValidationIssues(for: self)
         }
     }
 }
 
-//---
+// MARK: - Reporting
 
 public
 extension ValidatableEntity
-    where Self: CustomReportable // NOT Auto!!!
+    where
+    Self: ValidationFailureReportAuto
 {
-    /**
-     Note, that this is jsut a helper that may be used from
-     custom entity to actually generate report for the whole entity.
-     */
-    func report<W>(
-        for valueWrapper: W,
-        with error: EntityValidationFailed
-        ) -> (title: String, message: String)?
-        where
-        W: ValueWrapper & Validatable & CustomReportable
+    func prepareValidationFailureReport(
+        with issues: [ValidationError]
+        ) -> (title: String, message: String)
     {
-        return error
-            .issues
-            .filter({ $0.origin == valueWrapper.reference })
-            .first
-            .flatMap({ $0 as? W.ReportInput })
-            .map(valueWrapper.prepareReport)
-    }
+        let messages = issues
+            .map{ $0.report.message }
+            .map{ "- \($0)" }
+            .joined(separator: "\n")
 
-    func customReport<W>(
-        for valueWrapper: W,
-        ifMentionedIn error: EntityValidationFailed,
-        _ composer: (W.ReportInput) -> (title: String, message: String)
-        ) -> (title: String, message: String)?
-        where
-        W: ValueWrapper & Validatable & CustomReportable
+        //---
+
+        return (
+            title: "Validation failed",
+            message: """
+            Validation failed due to the following issues:
+            \(messages)
+            """
+        )
+    }
+}
+
+// MARK: - Reporting + DisplayNamed
+
+public
+extension ValidatableEntity
+    where
+    Self: ValidationFailureReportAuto,
+    Self: DisplayNamed
+{
+    func prepareValidationFailureReport(
+        with issues: [ValidationError]
+        ) -> (title: String, message: String)
     {
-        return error
-            .issues
-            .filter({ $0.origin == valueWrapper.reference })
-            .first
-            .flatMap({ $0 as? W.ReportInput })
-            .map(composer)
+        let messages = issues
+            .map{ $0.report.message }
+            .map{ "- \($0)" }
+            .joined(separator: "\n")
+
+        //---
+
+        return (
+            title: "\"\(self.displayName)\" validation failed",
+            message: """
+            \"\(self.displayName)\" validation failed due to the following issues:
+            \(messages)
+            """
+        )
     }
 }

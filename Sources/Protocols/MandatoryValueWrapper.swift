@@ -30,14 +30,74 @@
  so it's 'validValue()' function returns non-empty value.
  */
 public
-protocol Mandatory {}
+protocol MandatoryValueWrapper: ValueWrapper, Validatable
+{
+    func prepareEmptyValueReport(
+        ) -> (title: String, message: String)
+
+    func prepareValidationFailureReport(
+        with failedConditions: [String]
+        ) -> (title: String, message: String)
+}
 
 //---
 
-private
-extension Mandatory
+// MARK: - Reporting
+
+public
+extension MandatoryValueWrapper
+{
+    func prepareEmptyValueReport(
+        ) -> (title: String, message: String)
+    {
+        return (
+            "Value is empty",
+            "Value is empty, but expected to be non-empty."
+        )
+    }
+
+    func prepareValidationFailureReport(
+        with failedConditions: [String]
+        ) -> (title: String, message: String)
+    {
+        return (
+            "Value validation failed",
+            "Value is invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
+}
+
+// MARK: - Reporting + DisplayNamed
+
+public
+extension MandatoryValueWrapper
     where
-    Self: ValueWrapper
+    Self: DisplayNamed
+{
+    func prepareEmptyValueReport(
+        ) -> (title: String, message: String)
+    {
+        return (
+            "\"\(self.displayName)\" is empty",
+            "\"\(self.displayName)\" is empty, but expected to be non-empty."
+        )
+    }
+
+    func prepareValidationFailureReport(
+        with failedConditions: [String]
+        ) -> (title: String, message: String)
+    {
+        return (
+            "\"\(self.displayName)\" validation failed",
+            "\"\(self.displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
+}
+
+// MARK: - unwrapValueOrThrow()
+
+private
+extension MandatoryValueWrapper
 {
     /**
      It returns non-empty (safely unwrapped) 'value',
@@ -50,7 +110,10 @@ extension Mandatory
         else
         {
             // 'value' is 'nil', which is NOT allowed
-            throw ValueIsNotSet(origin: self.reference)
+            throw ValidationError.mandatoryValueIsNotSet(
+                origin: reference,
+                report: prepareEmptyValueReport()
+            )
         }
 
         //---
@@ -59,13 +122,10 @@ extension Mandatory
     }
 }
 
-//---
+// MARK: - Validation
 
 public
-extension Mandatory
-    where
-    Self: ValueWrapper,
-    Self: Validatable
+extension MandatoryValueWrapper
 {
     func validate() throws
     {
@@ -86,7 +146,7 @@ extension Mandatory
      is empty in the end.
      */
     func validValue(
-        _ accumulateValidationError: inout [ValidatableValueError]
+        _ accumulateValidationError: inout [ValidationError]
         ) throws -> Value!
     {
         let result: Value?
@@ -97,7 +157,7 @@ extension Mandatory
         {
             result = try validValue()
         }
-        catch let error as ValidatableValueError
+        catch let error as ValidationError
         {
             accumulateValidationError.append(error)
             result = nil
@@ -124,12 +184,11 @@ extension Mandatory
     }
 }
 
-//---
+// MARK: - Validation + CustomValidatable
 
 public
-extension Mandatory
+extension MandatoryValueWrapper
     where
-    Self: ValueWrapper,
     Self: CustomValidatable,
     Self.Validator: ValueValidator,
     Self.Validator.Input == Self.Value
@@ -153,7 +212,7 @@ extension Mandatory
      is empty in the end.
      */
     func validValue(
-        _ accumulateValidationError: inout [ValidatableValueError]
+        _ accumulateValidationError: inout [ValidationError]
         ) throws -> Value!
     {
         let result: Value?
@@ -164,7 +223,7 @@ extension Mandatory
         {
             result = try validValue()
         }
-        catch let error as ValidatableValueError
+        catch let error as ValidationError
         {
             accumulateValidationError.append(error)
             result = nil
@@ -219,10 +278,11 @@ extension Mandatory
             failedConditions.isEmpty
         else
         {
-            throw ValueIsNotValid(
-                origin: self.reference,
-                input: result,
-                failedConditions: failedConditions
+            throw ValidationError.valueIsNotValid(
+                origin: reference,
+                value: result,
+                failedConditions: failedConditions,
+                report: prepareValidationFailureReport(with: failedConditions)
             )
         }
 

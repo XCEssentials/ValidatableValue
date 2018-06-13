@@ -25,4 +25,39 @@
  */
 
 public
-protocol Entity: Codable {}
+protocol Entity: Codable, InstanceReferable
+{
+    /**
+     This value will be used for 'reference' value, which,
+     in turn, will be used to reference to this entity
+     from the errors thrown during validation, so it's easy
+     later to identify origin of any error.
+     */
+    var internalIdentifier: String { get }
+}
+
+// MARK: - InstanceReferable conformance
+
+public
+extension Entity
+{
+    var reference: ValueInstanceReference
+    {
+        return ValueInstanceReference(
+            identifier: internalIdentifier,
+            type: type(of: self)
+        )
+    }
+}
+
+// MARK: - Display name helpers
+
+public
+extension Entity
+{
+    static
+    var intrinsicDisplayName: String
+    {
+        return String(describing: self)
+    }
+}

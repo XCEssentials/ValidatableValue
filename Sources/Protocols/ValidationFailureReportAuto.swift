@@ -25,22 +25,4 @@
  */
 
 public
-protocol CustomReportable
-{
-    associatedtype ReportInput
-
-    func prepareReport(
-        with input: ReportInput
-        ) -> (title: String, message: String)
-}
-
-//---
-
-/**
- Special protocol-marker that should be used to
- implement 'CustomReportable' in a protocol extension,
- so that final type that adopts this protocol won't need
- to care about supporting 'CustomReportable' explicitly.
- */
-public
-protocol CustomReportableAuto: CustomReportable {}
+protocol ValidationFailureReportAuto {}

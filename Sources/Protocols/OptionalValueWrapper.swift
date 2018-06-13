@@ -30,7 +30,7 @@
  so it's 'validValue()' function returns optional value.
  */
 public
-protocol Optional {}
+protocol OptionalValueWrapper: ValueWrapper {}
 
 //---
 
@@ -43,12 +43,48 @@ protocol Optional {}
 
  */
 
-//---
+// MARK: - Reporting
 
 public
-extension Optional
+extension OptionalValueWrapper
     where
-    Self: ValueWrapper,
+    Self: Validatable
+{
+    func prepareInvalidValueReport(
+        with failedConditions: [String]
+        ) -> (title: String, message: String)
+    {
+        return (
+            "Value validation failed",
+            "Value is non-empty, but invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
+}
+
+// MARK: - Reporting + DisplayNamed
+
+public
+extension OptionalValueWrapper
+    where
+    Self: Validatable,
+    Self: DisplayNamed
+{
+    func prepareInvalidValueReport(
+        with failedConditions: [String]
+        ) -> (title: String, message: String)
+    {
+        return (
+            "\"\(self.displayName)\" validation failed",
+            "\"\(self.displayName)\" is non-empty, but invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
+}
+
+// MARK: - Validation + CustomValidatable
+
+public
+extension OptionalValueWrapper
+    where
     Self: CustomValidatable,
     Self.Validator: ValueValidator,
     Self.Validator.Input == Self.Value
@@ -67,7 +103,7 @@ extension Optional
      is empty in the end.
      */
     func validValue(
-        _ accumulateValidationError: inout [ValidatableValueError]
+        _ accumulateValidationError: inout [ValidationError]
         ) throws -> Value?
     {
         let result: Value?
@@ -78,7 +114,7 @@ extension Optional
         {
             result = try validValue()
         }
-        catch let error as ValidatableValueError
+        catch let error as ValidationError
         {
             accumulateValidationError.append(error)
             result = nil
@@ -139,10 +175,11 @@ extension Optional
             failedConditions.isEmpty
         else
         {
-            throw ValueIsNotValid(
-                origin: self.reference,
-                input: result,
-                failedConditions: failedConditions
+            throw ValidationError.valueIsNotValid(
+                origin: reference,
+                value: result,
+                failedConditions: failedConditions,
+                report: prepareInvalidValueReport(with: failedConditions)
             )
         }
 
