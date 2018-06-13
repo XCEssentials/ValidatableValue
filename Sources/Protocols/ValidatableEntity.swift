@@ -27,12 +27,6 @@
 public
 protocol ValidatableEntity: Entity, Validatable
 {
-    associatedtype Draft
-    associatedtype Valid
-
-    func draft() -> Draft
-    func valid() throws -> Valid
-
     func prepareValidationFailureReport(
         with issues: [ValidationError]
         ) -> (title: String, message: String)

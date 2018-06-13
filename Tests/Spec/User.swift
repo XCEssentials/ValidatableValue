@@ -54,7 +54,7 @@ struct User: ValidatableEntity, ValidationFailureReportAuto, DisplayNamed
 
 // MARK: - User: Representations
 
-extension User: NoRepresentations
+extension User
 {
 //    typealias Draft = (
 //        someConstant: Int?,

@@ -31,34 +31,34 @@ extension Equatable
     where
     Self: Codable
 {
-    typealias Validatable = MandatoryWrapped<Self>
+    typealias ValidatableWrapper = MandatoryWrapped<Self>
 
     static
-    func validatable() -> MandatoryWrapped<Self>
+    func validatable() -> ValidatableWrapper
     {
-        return MandatoryWrapped<Self>()
-    }
-
-    static
-    func validatable(initialValue value: Self) -> MandatoryWrapped<Self>
-    {
-        return MandatoryWrapped<Self>(initialValue: value)
+        return ValidatableWrapper()
     }
 
     static
-    func validatable(const value: Self) throws -> MandatoryWrapped<Self>
+    func validatable(initialValue value: Self) -> ValidatableWrapper
     {
-        return try MandatoryWrapped<Self>(const: value)
+        return ValidatableWrapper(initialValue: value)
     }
 
-    func validatable() -> MandatoryWrapped<Self>
+    static
+    func validatable(const value: Self) throws -> ValidatableWrapper
     {
-        return MandatoryWrapped(initialValue: self)
+        return try ValidatableWrapper(const: value)
     }
 
-    func validatableConst() throws -> MandatoryWrapped<Self>
+    func validatable() -> ValidatableWrapper
     {
-        return try MandatoryWrapped<Self>(const: self)
+        return ValidatableWrapper(initialValue: self)
+    }
+
+    func validatableConst() throws -> ValidatableWrapper
+    {
+        return try ValidatableWrapper(const: self)
     }
 }
 
@@ -69,24 +69,24 @@ extension ValueValidator
     where
     Self.Input: Codable & Equatable
 {
-    typealias Validatable = MandatoryValidatableWrapped<Self>
+    typealias ValidatableWrapper = MandatoryValidatableWrapped<Self>
 
     static
-    func validatable() -> MandatoryValidatableWrapped<Self>
+    func validatable() -> ValidatableWrapper
     {
-        return MandatoryValidatableWrapped<Self>()
+        return ValidatableWrapper()
     }
 
     static
-    func validatable(initialValue value: Self.Input) -> MandatoryValidatableWrapped<Self>
+    func validatable(initialValue value: Self.Input) -> ValidatableWrapper
     {
-        return MandatoryValidatableWrapped<Self>(initialValue: value)
+        return ValidatableWrapper(initialValue: value)
     }
 
     static
-    func validatable(const value: Self.Input) throws -> MandatoryValidatableWrapped<Self>
+    func validatable(const value: Self.Input) throws -> ValidatableWrapper
     {
-        return try MandatoryValidatableWrapped<Self>(const: value)
+        return try ValidatableWrapper(const: value)
     }
 }
 
@@ -100,15 +100,15 @@ extension Swift.Optional
     typealias Wrapper = OptionalWrapped<Wrapped>
 
     static
-    func wrapped() -> OptionalWrapped<Wrapped>
+    func wrapped() -> Wrapper
     {
-        return OptionalWrapped<Wrapped>()
+        return Wrapper()
     }
 
     static
-    func wrapped(initialValue value: Wrapped) -> OptionalWrapped<Wrapped>
+    func wrapped(initialValue value: Wrapped) -> Wrapper
     {
-        return OptionalWrapped<Wrapped>(initialValue: value)
+        return Wrapper(initialValue: value)
     }
 }
 
@@ -120,23 +120,23 @@ extension Swift.Optional
     Wrapped: ValueValidator,
     Wrapped.Input: Codable & Equatable
 {
-    typealias Validatable = OptionalValidatableWrapped<Wrapped>
+    typealias ValidatableWrapper = OptionalValidatableWrapped<Wrapped>
 
     static
-    func validatable() -> OptionalValidatableWrapped<Wrapped>
+    func validatable() -> ValidatableWrapper
     {
-        return OptionalValidatableWrapped<Wrapped>()
+        return ValidatableWrapper()
     }
 
     static
-    func validatable(initialValue value: Wrapped.Input) -> OptionalValidatableWrapped<Wrapped>
+    func validatable(initialValue value: Wrapped.Input) -> ValidatableWrapper
     {
-        return OptionalValidatableWrapped<Wrapped>(initialValue: value)
+        return ValidatableWrapper(initialValue: value)
     }
 
     static
-    func validatable(const value: Wrapped.Input) throws -> OptionalValidatableWrapped<Wrapped>
+    func validatable(const value: Wrapped.Input) throws -> ValidatableWrapper
     {
-        return try OptionalValidatableWrapped<Wrapped>(const: value)
+        return try ValidatableWrapper(const: value)
     }
 }
