@@ -121,35 +121,6 @@ extension ValidatableEntity
         //---
 
         return (
-            title: "Validation failed",
-            message: """
-            Validation failed due to the following issues:
-            \(messages)
-            """
-        )
-    }
-}
-
-// MARK: - Reporting + DisplayNamed
-
-public
-extension ValidatableEntity
-    where
-    Self: ValidationFailureReportAuto,
-    Self: DisplayNamed
-{
-    func prepareValidationFailureReport(
-        with issues: [ValidationError]
-        ) -> (title: String, message: String)
-    {
-        let messages = issues
-            .map{ $0.report.message }
-            .map{ "- \($0)" }
-            .joined(separator: "\n")
-
-        //---
-
-        return (
             title: "\"\(self.displayName)\" validation failed",
             message: """
             \"\(self.displayName)\" validation failed due to the following issues:

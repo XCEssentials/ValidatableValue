@@ -32,8 +32,6 @@ import XCEValidatableValue
 
 struct User: ValidatableEntity, ValidationFailureReportAuto, DisplayNamed
 {
-    var internalIdentifier: String = UUID().uuidString
-
     var displayName: String = User.intrinsicDisplayName
 
     //---

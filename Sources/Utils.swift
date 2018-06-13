@@ -24,14 +24,19 @@
 
  */
 
-public
-protocol InstanceReferable
+// internal
+enum Utils
 {
-    /**
-     Unique identifier for the instance, especially useful for value types.
-     It's recommended to use UUID to generate this value. Also make sure it
-     stays the same during lifecycle of the instance, so it should be stored
-     value, not dynamic/calculateable.
-     */
-    var reference: ValueInstanceReference { get }
+    static
+    func intrinsicDisplayName<T>(for input: T) -> String
+    {
+        return String(describing: type(of: input))
+    }
+
+
+    static
+    func intrinsicDisplayName<T>(for input: T.Type) -> String
+    {
+        return String(describing: input)
+    }
 }

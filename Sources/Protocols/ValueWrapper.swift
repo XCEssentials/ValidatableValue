@@ -29,7 +29,7 @@
  kind of value inside.
  */
 public
-protocol ValueWrapper: Codable, Equatable, InstanceReferable
+protocol ValueWrapper: Codable, Equatable, DisplayNamed
 {
     associatedtype Value: Codable, Equatable
 
@@ -41,31 +41,9 @@ protocol ValueWrapper: Codable, Equatable, InstanceReferable
     init()
 
     /**
-     This value will be used for 'reference' value, which,
-     in turn, will be used to reference to this wrapper
-     from the errors thrown during validation, so it's easy
-     later to identify origin of any error.
-     */
-    var internalIdentifier: String { get }
-
-    /**
      Teh value that this wrapper is storing.
      */
     var value: Value? { get set }
-}
-
-// MARK: - InstanceReferable conformance
-
-public
-extension ValueWrapper
-{
-    var reference: ValueInstanceReference
-    {
-        return ValueInstanceReference(
-            identifier: internalIdentifier,
-            type: type(of: self)
-        )
-    }
 }
 
 // MARK: - Convenience helpers
