@@ -47,7 +47,7 @@ struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
     typealias Validator = T
 
     public
-    var displayName: String = ""
+    var displayName: String = String(describing: T.self)
 
     public
     let identifier: String
@@ -79,7 +79,7 @@ struct OptionalWrapped<T>: ValueWrapper
     typealias Value = T
 
     public
-    var displayName: String = ""
+    var displayName: String = String(describing: T.self)
 
     public
     let identifier: String
