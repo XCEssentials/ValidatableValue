@@ -25,23 +25,23 @@
  */
 
 public
-protocol CustomNamed
+protocol CustomDisplayNamed
 {
-    var name: String { get set }
+    var displayName: String { get set }
 }
 
 //---
 
 public
-extension CustomNamed
+extension CustomDisplayNamed
 {
-    func named(_ newName: String) -> Self
+    func displayAs(_ newDisplayNamed: String) -> Self
     {
         var result = self
 
         //---
 
-        result.name = newName
+        result.displayName = newDisplayNamed
 
         //---
 

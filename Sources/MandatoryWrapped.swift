@@ -36,7 +36,7 @@ public
 struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
     , Mandatory
     , CustomValidatable
-    , CustomNamed
+    , CustomDisplayNamed
     , CustomReportableAuto
     where T.Input: Codable, T.Input: Equatable
 {
@@ -47,7 +47,7 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
     typealias Validator = T
 
     public
-    var name: String = ""
+    var displayName: String = ""
 
     public
     let identifier: String
@@ -71,7 +71,7 @@ public
 struct MandatoryWrapped<T>: ValueWrapper
     , Mandatory
     , Validatable
-    , CustomNamed
+    , CustomDisplayNamed
     , CustomReportableAuto
     where T: Codable, T: Equatable
 {
@@ -79,7 +79,7 @@ struct MandatoryWrapped<T>: ValueWrapper
     typealias Value = T
 
     public
-    var name: String = ""
+    var displayName: String = ""
 
     public
     let identifier: String

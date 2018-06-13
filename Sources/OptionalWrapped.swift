@@ -36,7 +36,7 @@ public
 struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
     , Optional
     , CustomValidatable
-    , CustomNamed
+    , CustomDisplayNamed
     , CustomReportableAuto
     where T.Input: Codable, T.Input: Equatable
 {
@@ -47,7 +47,7 @@ struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
     typealias Validator = T
 
     public
-    var name: String = ""
+    var displayName: String = ""
 
     public
     let identifier: String
@@ -72,14 +72,14 @@ public
 struct OptionalWrapped<T>: ValueWrapper
     , Optional
     // nothing to validate!
-    , CustomNamed
+    , CustomDisplayNamed
     where T: Codable, T: Equatable
 {
     public
     typealias Value = T
 
     public
-    var name: String = ""
+    var displayName: String = ""
 
     public
     let identifier: String

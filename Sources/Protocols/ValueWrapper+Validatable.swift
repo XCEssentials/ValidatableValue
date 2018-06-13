@@ -65,7 +65,7 @@ extension ValueWrapper
 
 public
 extension ValueWrapper
-    where Self: Validatable & CustomNamed & CustomReportableAuto
+    where Self: Validatable & CustomDisplayNamed & CustomReportableAuto
 {
     func prepareReport(
         with error: ValidatableValueError
@@ -75,23 +75,23 @@ extension ValueWrapper
             error is ValueIsNotSet
         {
             return (
-                "\"\(self.name)\" is empty",
-                "\"\(self.name)\" is empty, but expected to be a non-empty value."
+                "\"\(self.displayName)\" is empty",
+                "\"\(self.displayName)\" is empty, but expected to be a non-empty value."
             )
         }
         if
             let error = error as? ValueIsNotValid
         {
             return (
-                "\"\(self.name)\" validation failed",
-                "\"\(self.name)\" is invalid, because it does not satisfy following conditions: \(error.failedConditions)."
+                "\"\(self.displayName)\" validation failed",
+                "\"\(self.displayName)\" is invalid, because it does not satisfy following conditions: \(error.failedConditions)."
             )
         }
         else
         {
             return (
-                "Something is wrong with \"\(self.name)\"",
-                "An unexpected error occured during \"\(self.name)\" validation."
+                "Something is wrong with \"\(self.displayName)\"",
+                "An unexpected error occured during \"\(self.displayName)\" validation."
             )
         }
     }
