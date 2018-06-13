@@ -95,6 +95,19 @@ enum ValidationError: Error
                 return result
         }
     }
+
+    public
+    var hasNestedIssues: Bool
+    {
+        switch self
+        {
+            case .entityIsNotValid(_, _, _):
+                return true
+
+            default:
+                return false
+        }
+    }
 }
 
 public

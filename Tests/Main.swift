@@ -76,7 +76,7 @@ extension MainTests
         {
             let report = error.report
 
-            let expectedReportMessage = "\"User\" validation failed due to the following issues:\n- \"First Name\" is empty, but expected to be non-empty.\n- \"Username\" is empty, but expected to be non-empty.\n- \"Password\" is empty, but expected to be non-empty."
+            let expectedReportMessage = "\"User\" validation failed due to the issues listed below.\n- \"First Name\" is empty, but expected to be non-empty.\n- \"Username\" is empty, but expected to be non-empty.\n- \"Password\" is empty, but expected to be non-empty."
 
             Assert("Report is equal to expected one").isTrue{
 
@@ -104,7 +104,7 @@ extension MainTests
         {
             let report = error.report
 
-            let expectedReportMessage = "\"User\" validation failed due to the following issues:\n- \"Username\" is empty, but expected to be non-empty.\n- \"Password\" is empty, but expected to be non-empty."
+            let expectedReportMessage = "\"User\" validation failed due to the issues listed below.\n- \"Username\" is empty, but expected to be non-empty.\n- \"Password\" is empty, but expected to be non-empty."
 
             Assert("Report is equal to expected one").isTrue{
 
@@ -132,7 +132,7 @@ extension MainTests
         {
             let report = error.report
 
-            let expectedReportMessage = "\"User\" validation failed due to the following issues:\n- \"Username\" is invalid, because it does not satisfy following conditions: [\"Valid email address\"].\n- \"Password\" is empty, but expected to be non-empty."
+            let expectedReportMessage = "\"User\" validation failed due to the issues listed below.\n- \"Username\" is invalid, because it does not satisfy following conditions: [\"Valid email address\"].\n- \"Password\" is empty, but expected to be non-empty."
 
             Assert("Report is equal to expected one").isTrue{
 
@@ -160,7 +160,7 @@ extension MainTests
         {
             let report = error.report
 
-            let expectedReportMessage = "\"User\" validation failed due to the following issues:\n- \"Password\" is empty, but expected to be non-empty."
+            let expectedReportMessage = "\"User\" validation failed due to the issues listed below.\n- \"Password\" is empty, but expected to be non-empty."
 
             Assert("Report is equal to expected one").isTrue{
 
@@ -188,7 +188,7 @@ extension MainTests
         {
             let report = error.report
 
-            let expectedReportMessage = "\"User\" validation failed due to the following issues:\n- \"Password\" is invalid, because it does not satisfy following conditions: [\"Has at least 1 capital character\", \"Has at least 1 special character\"]."
+            let expectedReportMessage = "\"User\" validation failed due to the issues listed below.\n- \"Password\" is invalid, because it does not satisfy following conditions: [\"Has at least 1 capital character\", \"Has at least 1 special character\"]."
 
             Assert("Report is equal to expected one").isTrue{
 

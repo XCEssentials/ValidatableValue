@@ -30,15 +30,7 @@
  so it's 'validValue()' function returns non-empty value.
  */
 public
-protocol MandatoryValueWrapper: ValueWrapper, Validatable
-{
-    func prepareEmptyValueReport(
-        ) -> (title: String, message: String)
-
-    func prepareValidationFailureReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
-}
+protocol MandatoryValueWrapper: ValueWrapper, Validatable {}
 
 //---
 
@@ -53,16 +45,6 @@ extension MandatoryValueWrapper
         return (
             "\"\(self.displayName)\" is empty",
             "\"\(self.displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-
-    func prepareValidationFailureReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
-    {
-        return (
-            "\"\(self.displayName)\" validation failed",
-            "\"\(self.displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
         )
     }
 }
@@ -255,7 +237,10 @@ extension MandatoryValueWrapper
                 origin: displayName,
                 value: result,
                 failedConditions: failedConditions,
-                report: prepareValidationFailureReport(with: failedConditions)
+                report: Validator.prepareValidationFailureReport(
+                    with: displayName,
+                    failedConditions: failedConditions
+                )
             )
         }
 

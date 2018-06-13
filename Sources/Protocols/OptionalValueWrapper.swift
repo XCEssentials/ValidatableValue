@@ -43,24 +43,6 @@ protocol OptionalValueWrapper: ValueWrapper {}
 
  */
 
-// MARK: - Reporting
-
-public
-extension OptionalValueWrapper
-    where
-    Self: Validatable
-{
-    func prepareInvalidValueReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
-    {
-        return (
-            "\"\(self.displayName)\" validation failed",
-            "\"\(self.displayName)\" is non-empty, but invalid, because it does not satisfy following conditions: \(failedConditions)."
-        )
-    }
-}
-
 // MARK: - Validation + CustomValidatable
 
 public
@@ -160,7 +142,10 @@ extension OptionalValueWrapper
                 origin: displayName,
                 value: result,
                 failedConditions: failedConditions,
-                report: prepareInvalidValueReport(with: failedConditions)
+                report: Validator.prepareValidationFailureReport(
+                    with: displayName,
+                    failedConditions: failedConditions
+                )
             )
         }
 
