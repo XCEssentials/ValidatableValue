@@ -55,25 +55,6 @@ extension OptionalValueWrapper
         ) -> (title: String, message: String)
     {
         return (
-            "Value validation failed",
-            "Value is non-empty, but invalid, because it does not satisfy following conditions: \(failedConditions)."
-        )
-    }
-}
-
-// MARK: - Reporting + DisplayNamed
-
-public
-extension OptionalValueWrapper
-    where
-    Self: Validatable,
-    Self: DisplayNamed
-{
-    func prepareInvalidValueReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
-    {
-        return (
             "\"\(self.displayName)\" validation failed",
             "\"\(self.displayName)\" is non-empty, but invalid, because it does not satisfy following conditions: \(failedConditions)."
         )
@@ -176,7 +157,7 @@ extension OptionalValueWrapper
         else
         {
             throw ValidationError.valueIsNotValid(
-                origin: reference,
+                origin: displayName,
                 value: result,
                 failedConditions: failedConditions,
                 report: prepareInvalidValueReport(with: failedConditions)

@@ -51,33 +51,6 @@ extension MandatoryValueWrapper
         ) -> (title: String, message: String)
     {
         return (
-            "Value is empty",
-            "Value is empty, but expected to be non-empty."
-        )
-    }
-
-    func prepareValidationFailureReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
-    {
-        return (
-            "Value validation failed",
-            "Value is invalid, because it does not satisfy following conditions: \(failedConditions)."
-        )
-    }
-}
-
-// MARK: - Reporting + DisplayNamed
-
-public
-extension MandatoryValueWrapper
-    where
-    Self: DisplayNamed
-{
-    func prepareEmptyValueReport(
-        ) -> (title: String, message: String)
-    {
-        return (
             "\"\(self.displayName)\" is empty",
             "\"\(self.displayName)\" is empty, but expected to be non-empty."
         )
@@ -111,7 +84,7 @@ extension MandatoryValueWrapper
         {
             // 'value' is 'nil', which is NOT allowed
             throw ValidationError.mandatoryValueIsNotSet(
-                origin: reference,
+                origin: displayName,
                 report: prepareEmptyValueReport()
             )
         }
@@ -279,7 +252,7 @@ extension MandatoryValueWrapper
         else
         {
             throw ValidationError.valueIsNotValid(
-                origin: reference,
+                origin: displayName,
                 value: result,
                 failedConditions: failedConditions,
                 report: prepareValidationFailureReport(with: failedConditions)

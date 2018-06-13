@@ -45,10 +45,7 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: MandatoryValueWrapper
     typealias Validator = T
 
     public
-    var displayName: String = String(describing: T.self)
-
-    public
-    let internalIdentifier: String = UUID().uuidString
+    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
 
     public
     var value: T.Input?
@@ -71,10 +68,7 @@ struct MandatoryWrapped<T>: MandatoryValueWrapper
     typealias Value = T
 
     public
-    var displayName: String = String(describing: T.self)
-
-    public
-    let internalIdentifier: String = UUID().uuidString
+    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
 
     public
     var value: T?
