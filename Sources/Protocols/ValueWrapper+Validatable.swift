@@ -26,7 +26,8 @@
 
 public
 extension ValueWrapper
-    where Self: Validatable
+    where
+    Self: Validatable
 {
     /**
      Convenience initializer useful for setting a 'let' value,
@@ -58,77 +59,5 @@ extension ValueWrapper
     {
         var tmp = self
         try tmp.set(value)
-    }
-}
-
-//---
-
-public
-extension ValueWrapper
-    where Self: Validatable & CustomNamed & CustomReportableAuto
-{
-    func prepareReport(
-        with error: ValidatableValueError
-        ) -> (title: String, message: String)
-    {
-        if
-            error is ValueIsNotSet
-        {
-            return (
-                "\"\(self.name)\" is empty",
-                "\"\(self.name)\" is empty, but expected to be a non-empty value."
-            )
-        }
-        if
-            let error = error as? ValueIsNotValid
-        {
-            return (
-                "\"\(self.name)\" validation failed",
-                "\"\(self.name)\" is invalid, because it does not satisfy following conditions: \(error.failedConditions)."
-            )
-        }
-        else
-        {
-            return (
-                "Something is wrong with \"\(self.name)\"",
-                "An unexpected error occured during \"\(self.name)\" validation."
-            )
-        }
-    }
-}
-
-//---
-
-public
-extension ValueWrapper
-    where Self: Validatable & CustomReportableAuto
-{
-    func prepareReport(
-        with error: ValidatableValueError
-        ) -> (title: String, message: String)
-    {
-        if
-            error is ValueIsNotSet
-        {
-            return (
-                "Value is empty",
-                "Value is empty, but expected to be a non-empty value."
-            )
-        }
-        if
-            let error = error as? ValueIsNotValid
-        {
-            return (
-                "Value validation failed",
-                "Value is invalid, because it does not satisfy following conditions: \(error.failedConditions)."
-            )
-        }
-        else
-        {
-            return (
-                "Something is wrong",
-                "An unexpected error occured during value validation."
-            )
-        }
     }
 }

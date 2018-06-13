@@ -33,11 +33,9 @@ import Foundation
  satisfies all conditions from custom provided Validator.
  */
 public
-struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
-    , Mandatory
+struct MandatoryValidatableWrapped<T: ValueValidator>: MandatoryValueWrapper
     , CustomValidatable
-    , CustomNamed
-    , CustomReportableAuto
+    , DisplayNamed
     where T.Input: Codable, T.Input: Equatable
 {
     public
@@ -47,19 +45,16 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
     typealias Validator = T
 
     public
-    var name: String = ""
+    var displayName: String = String(describing: T.self)
 
     public
-    let identifier: String
+    let internalIdentifier: String = UUID().uuidString
 
     public
     var value: T.Input?
 
     public
-    init()
-    {
-        self.identifier = UUID().uuidString
-    }
+    init() {}
 }
 
 //---
@@ -68,28 +63,22 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
  It considers as 'valid' any non-'nil' 'value'.
  */
 public
-struct MandatoryWrapped<T>: ValueWrapper
-    , Mandatory
-    , Validatable
-    , CustomNamed
-    , CustomReportableAuto
+struct MandatoryWrapped<T>: MandatoryValueWrapper
+    , DisplayNamed
     where T: Codable, T: Equatable
 {
     public
     typealias Value = T
 
     public
-    var name: String = ""
+    var displayName: String = String(describing: T.self)
 
     public
-    let identifier: String
+    let internalIdentifier: String = UUID().uuidString
 
     public
     var value: T?
 
     public
-    init()
-    {
-        self.identifier = UUID().uuidString
-    }
+    init() {}
 }
