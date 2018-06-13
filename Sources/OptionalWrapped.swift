@@ -45,10 +45,7 @@ struct OptionalValidatableWrapped<T: ValueValidator>: OptionalValueWrapper
     typealias Validator = T
 
     public
-    var displayName: String = String(describing: T.self)
-
-    public
-    let internalIdentifier: String = UUID().uuidString
+    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
 
     public
     var value: T.Input?
@@ -73,10 +70,7 @@ struct OptionalWrapped<T>: OptionalValueWrapper
     typealias Value = T
 
     public
-    var displayName: String = String(describing: T.self)
-
-    public
-    let internalIdentifier: String = UUID().uuidString
+    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
 
     public
     var value: T?
