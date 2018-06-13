@@ -24,23 +24,5 @@
 
  */
 
-public
-protocol FailureReportable
-{
-    associatedtype FailureReportInput // supposed to be an error
-
-    func failureReport(
-        with error: FailureReportInput
-        ) -> (title: String, message: String)
-}
-
-//---
-
-/**
- Special protocol-marker that should be used to
- implement 'CustomReportable' in a protocol extension,
- so that final type that adopts this protocol won't need
- to care about supporting 'CustomReportable' explicitly.
- */
-public
-protocol FailureReportableAuto: FailureReportable {}
+// internal
+protocol FailureReportableAuto {}

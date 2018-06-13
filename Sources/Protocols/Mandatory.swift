@@ -32,7 +32,7 @@
 public
 protocol Mandatory {}
 
-//---
+// MARK: - unwrapValueOrThrow()
 
 private
 extension Mandatory

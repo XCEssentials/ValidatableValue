@@ -50,16 +50,13 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
     var displayName: String = String(describing: T.self)
 
     public
-    let identifier: String
+    let internalIdentifier: String = UUID().uuidString
 
     public
     var value: T.Input?
 
     public
-    init()
-    {
-        self.identifier = UUID().uuidString
-    }
+    init() {}
 }
 
 //---
@@ -82,14 +79,11 @@ struct MandatoryWrapped<T>: ValueWrapper
     var displayName: String = String(describing: T.self)
 
     public
-    let identifier: String
+    let internalIdentifier: String = UUID().uuidString
 
     public
     var value: T?
 
     public
-    init()
-    {
-        self.identifier = UUID().uuidString
-    }
+    init() {}
 }

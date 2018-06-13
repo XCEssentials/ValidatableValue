@@ -37,61 +37,55 @@ struct ConditionUnsatisfied: Error
 //---
 
 public
-protocol ValidatableValueError: Error
+enum ValidationError: Error
 {
-    var origin: ValueInstanceReference { get }
-}
+    // swiftlint:disable identifier_name //TODO: remove later!
 
-//---
+    case mandatoryValueIsNotSet(
+        origin: ValueInstanceReference
+    )
 
-public
-struct ValueIsNotSet: ValidatableValueError
-{
-    public
-    let origin: ValueInstanceReference
-}
+    case valueIsNotValid(
+        origin: ValueInstanceReference,
+        value: Any,
+        failedConditions: [String]
+    )
 
-//---
+    indirect
+    case entityIsNotValid(
+        origin: ValueInstanceReference,
+        issues: [ValidationError]
+    )
 
-public
-struct ValueIsNotValid: ValidatableValueError
-{
-    public
-    let origin: ValueInstanceReference
-
-    public
-    let input: Any
-
-    public
-    let failedConditions: [String]
-}
-
-//---
-
-public
-struct EntityValidationFailed: Error
-{
-    public
-    let issues: [ValidatableValueError]
+    // swiftlint:enable identifier_name //TODO: remove later!
 
     //---
 
-    // internal
-    init(
-        issues: [ValidatableValueError]
-        )
+    var origin: ValueInstanceReference
     {
-        self.issues = issues
+        switch self
+        {
+            case .mandatoryValueIsNotSet(let result):
+                return result
+
+            case .valueIsNotValid(let result, _, _):
+                return result
+
+            case .entityIsNotValid(let result, _):
+                return result
+        }
     }
 }
 
 public
-extension Array where Element == ValidatableValueError
+extension Array where Element == ValidationError
 {
-    func asValidationIssues(
-        ) -> EntityValidationFailed
+    func asValidationIssues<E: ValidatableEntity & InstanceReferable>(
+        for entity: E
+        ) -> ValidationError
     {
-        return EntityValidationFailed(
+        return .entityIsNotValid(
+            origin: entity.reference,
             issues: self
         )
     }

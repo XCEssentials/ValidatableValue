@@ -42,11 +42,11 @@ protocol ValueWrapper: Codable, Equatable, InstanceReferable
 
     /**
      This value will be used for 'reference' value, which,
-     in turn, will be used for reference to this wrapper
+     in turn, will be used to reference to this wrapper
      from the errors thrown during validation, so it's easy
      later to identify origin of any error.
      */
-    var identifier: String { get }
+    var internalIdentifier: String { get }
 
     /**
      Teh value that this wrapper is storing.
@@ -62,7 +62,7 @@ extension ValueWrapper
     var reference: ValueInstanceReference
     {
         return ValueInstanceReference(
-            identifier: identifier,
+            identifier: internalIdentifier,
             type: type(of: self)
         )
     }
