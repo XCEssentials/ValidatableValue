@@ -64,6 +64,7 @@ enum ValidationError: Error
 
     //---
 
+    public
     var origin: ValueInstanceReference
     {
         switch self
@@ -75,6 +76,22 @@ enum ValidationError: Error
                 return result
 
             case .entityIsNotValid(let result, _, _):
+                return result
+        }
+    }
+
+    public
+    var report: (title: String, message: String)
+    {
+        switch self
+        {
+            case .mandatoryValueIsNotSet(_, let result):
+                return result
+
+            case .valueIsNotValid(_, _, _, let result):
+                return result
+
+            case .entityIsNotValid(_, _, let result):
                 return result
         }
     }

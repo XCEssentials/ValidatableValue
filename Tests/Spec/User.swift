@@ -30,49 +30,28 @@ import XCEValidatableValue
 
 // MARK: - User
 
-struct User: ValidatableEntity
+struct User: ValidatableEntity, ValidationFailureReportAuto, DisplayNamed
 {
+    var internalIdentifier: String = UUID().uuidString
+
+    var displayName: String = User.intrinsicDisplayName
+
+    //---
+
     static
     let someConstantValue = 3
 
     //---
 
-    let someConstant = someConstantValue.validatable().named("Constant")
+    let someConstant = someConstantValue.validatable().displayAs("Const")
 
-    var firstName = FirstName.validatable().named("First Name")
+    var firstName = FirstName.validatable().displayAs("First Name")
 
-    var lastName = String?.wrapped().named("Last Name")
+    var lastName = String?.wrapped().displayAs("Last Name")
 
-    var username = Email.validatable().named("Username")
+    var username = Email.validatable().displayAs("Username")
 
-    var password = Password.validatable().named("Password")
-}
-
-// MARK: - User: CustomReportable
-
-extension User: FailureReportable
-{
-    func prepareReport(
-        with error: EntityValidationFailed
-        ) -> (title: String, message: String)
-    {
-        let issues = [
-            report(for: firstName, with: error),
-            report(for: username, with: error),
-            report(for: password, with: error)
-            ]
-            .compactMap{ $0?.message }
-            .map{ "- \($0)" }
-            .joined(separator: "\n")
-
-        return (
-            title: "User validation failed",
-            message: """
-                User validation failed due to the following issues:
-                \(issues)
-                """
-        )
-    }
+    var password = Password.validatable() // rely on implicit 'displayName'!
 }
 
 // MARK: - User: Representations
@@ -109,7 +88,7 @@ extension User
 
     func valid() throws -> Valid
     {
-        var issues: [ValidatableValueError] = []
+        var issues: [ValidationError] = []
 
         let result: Valid = try (
             someConstant.validValue(&issues),
@@ -127,7 +106,7 @@ extension User
         }
         else
         {
-            throw issues.asValidationIssues()
+            throw issues.asValidationIssues(for: self)
         }
     }
 }
