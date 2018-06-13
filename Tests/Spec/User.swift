@@ -113,7 +113,7 @@ extension User
 
 extension User
 {
-    enum Email: ValueValidator
+    enum Email: ValueValidator, ValidationFailureReportAuto
     {
         static
         let conditions = [
@@ -123,7 +123,7 @@ extension User
         ]
     }
 
-    enum FirstName: ValueValidator
+    enum FirstName: ValueValidator, ValidationFailureReportAuto
     {
         static
         let conditions = [
@@ -132,7 +132,7 @@ extension User
         ]
     }
 
-    enum Password: ValueValidator
+    enum Password: ValueValidator, ValidationFailureReportAuto
     {
         static
         let conditions: Conditions<String> = [

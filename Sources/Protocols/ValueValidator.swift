@@ -39,4 +39,30 @@ protocol ValueValidator
 
     static
     var conditions: [Condition<Input>] { get }
+
+    static
+    func prepareValidationFailureReport(
+        with displayName: String,
+        failedConditions: [String]
+        ) -> (title: String, message: String)
+}
+
+//---
+
+public
+extension ValueValidator
+    where
+    Self: ValidationFailureReportAuto
+{
+    static
+    func prepareValidationFailureReport(
+        with displayName: String,
+        failedConditions: [String]
+        ) -> (title: String, message: String)
+    {
+        return (
+            "\"\(displayName)\" validation failed",
+            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
 }
