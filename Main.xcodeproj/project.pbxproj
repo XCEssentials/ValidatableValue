@@ -23,7 +23,6 @@
 		94E7EC1B20C09AE300132570 /* ValidatableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */; };
 		94E7EC1D20C0A55500132570 /* Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1C20C0A55500132570 /* Mandatory.swift */; };
 		94E7EC1F20C0A57F00132570 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1E20C0A57F00132570 /* Optional.swift */; };
-		94F269E020D1099600D0D046 /* DisplayNamedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F269DF20D1099600D0D046 /* DisplayNamedCollection.swift */; };
 		94FF816F20C0079D00E69904 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF816E20C0079D00E69904 /* Operators.swift */; };
 		94FF817120C0106700E69904 /* MandatoryWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF817020C0106700E69904 /* MandatoryWrapped.swift */; };
 		94FF817420C0115100E69904 /* OptionalWrapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF817320C0115100E69904 /* OptionalWrapped.swift */; };
@@ -83,7 +82,6 @@
 		94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatableEntity.swift; sourceTree = "<group>"; };
 		94E7EC1C20C0A55500132570 /* Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mandatory.swift; sourceTree = "<group>"; };
 		94E7EC1E20C0A57F00132570 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
-		94F269DF20D1099600D0D046 /* DisplayNamedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayNamedCollection.swift; sourceTree = "<group>"; };
 		94FF816E20C0079D00E69904 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		94FF817020C0106700E69904 /* MandatoryWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryWrapped.swift; sourceTree = "<group>"; };
 		94FF817320C0115100E69904 /* OptionalWrapped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalWrapped.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 				947D3E8320C130AE00F97EDD /* ValueValidator.swift */,
 				9459A04720CF0C5300D4F644 /* CustomValidatable.swift */,
 				9449F43320D03D2D00C9C635 /* DisplayNamed.swift */,
-				94F269DF20D1099600D0D046 /* DisplayNamedCollection.swift */,
 				9459A04520CF006900D4F644 /* ValueWrapper.swift */,
 				94E7EC1620C0358700132570 /* ValueWrapper+Validatable.swift */,
 				94E7EC1C20C0A55500132570 /* Mandatory.swift */,
@@ -395,7 +392,6 @@
 				94FF816F20C0079D00E69904 /* Operators.swift in Sources */,
 				943EA2A220CF3CD0006CF016 /* Initializers.swift in Sources */,
 				947D3E8420C130AE00F97EDD /* ValueValidator.swift in Sources */,
-				94F269E020D1099600D0D046 /* DisplayNamedCollection.swift in Sources */,
 				9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
 				94E7EC1F20C0A57F00132570 /* Optional.swift in Sources */,
