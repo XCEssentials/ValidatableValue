@@ -65,11 +65,11 @@ struct User<C>: ValidatableEntity,
 
     //---
 
-    let someConstant = someConstantValue.wrapped(as: SomeConst.self)
+    let someConstant = someConstantValue.wrapped()
 
     var firstName = FirstName.wrapped()
 
-    var lastName = String?.wrapped(as: FirstName.self)
+    var lastName = LastName?.wrapped()
 
     var username = Username.wrapped() // rely on implicit 'displayName'!
 
@@ -137,15 +137,34 @@ extension User
 
 extension User
 {
-    enum SomeConst: DisplayNameProvider
+    enum FirstName: ValueSpecification,
+        AutoReporting
     {
         static
-        var displayName: String { return "Some Const" }
+        var displayName: String { return "First Name" }
+
+        static
+        var conditions: Conditions<String>
+        {
+            return [
+                String.checkNonEmpty
+            ]
+        }
     }
 
-    enum Username: ValueValidator,
-        AutoReporting,
-        AutoDisplayNamed
+    enum LastName: ValueSpecification,
+        NoConditions,
+        AutoReporting
+    {
+        typealias Value = String
+
+        static
+        var displayName: String { return "Last Name" }
+    }
+
+    enum Username: ValueSpecification,
+        AutoDisplayNamed,
+        AutoReporting
     {
         static
         var conditions: Conditions<String>
@@ -157,31 +176,9 @@ extension User
         }
     }
 
-    enum FirstName: ValueValidator,
-        AutoReporting,
-        DisplayNamed
-    {
-        static
-        var displayName: String { return "First Name" }
-
-        static
-        var conditions: Conditions<String>
-        {
-            return [
-                String.checkNonEmpty
-                ]
-        }
-    }
-
-    enum LastName: DisplayNameProvider
-    {
-        static
-        var displayName: String { return "Last Name" }
-    }
-
-    enum Password: ValueValidator,
-        AutoReporting,
-        AutoDisplayNamed
+    enum Password: ValueSpecification,
+        AutoDisplayNamed,
+        AutoReporting
     {
         static
         var conditions: Conditions<String>

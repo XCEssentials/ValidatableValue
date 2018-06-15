@@ -35,10 +35,10 @@
 public
 protocol ValueValidator
 {
-    associatedtype Input
+    associatedtype Value
 
     static
-    var conditions: [Condition<Input>] { get }
+    var conditions: [Condition<Value>] { get }
 
     static
     func prepareValidationFailureReport(
@@ -50,19 +50,15 @@ protocol ValueValidator
 //---
 
 public
-extension ValueValidator
+protocol NoConditions {}
+
+//---
+
+public
+extension NoConditions
     where
-    Self: AutoReporting
+    Self: ValueValidator
 {
     static
-    func prepareValidationFailureReport(
-        with displayName: String,
-        failedConditions: [String]
-        ) -> (title: String, message: String)
-    {
-        return (
-            "\"\(displayName)\" validation failed",
-            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
-        )
-    }
+    var conditions: [Condition<Self.Value>] { return [] }
 }

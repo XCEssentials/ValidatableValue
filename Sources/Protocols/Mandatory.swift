@@ -130,15 +130,14 @@ extension Mandatory
     }
 }
 
-// MARK: - Validation + CustomValidatable
+// MARK: - Validation + WithCustomValue
 
 public
 extension Mandatory
     where
     Self: ValueWrapper,
-    Self: CustomValidatable,
-    Self.Validator: ValueValidator,
-    Self.Validator.Input == Self.Value
+    Self: WithCustomValue,
+    Self.Specification.Value == Self.Value
 {
     func validate() throws
     {
@@ -191,7 +190,7 @@ extension Mandatory
      It returns non-empty (safely unwrapped) 'value',
      or throws 'ValueNotSet' error if the 'value' is 'nil',
      or throws 'ValidationFailed' error if at least one
-     of the custom conditions from Validator has failed.
+     of the custom conditions from Specification has failed.
      */
     func validValue() throws -> Value
     {
@@ -203,7 +202,7 @@ extension Mandatory
 
         var failedConditions: [String] = []
 
-        Validator.conditions.forEach
+        Specification.conditions.forEach
         {
             do
             {
@@ -229,7 +228,7 @@ extension Mandatory
                 origin: displayName,
                 value: result,
                 failedConditions: failedConditions,
-                report: Validator.prepareValidationFailureReport(
+                report: Specification.prepareValidationFailureReport(
                     with: displayName,
                     failedConditions: failedConditions
                 )

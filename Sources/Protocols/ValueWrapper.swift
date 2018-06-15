@@ -29,7 +29,7 @@
  kind of value inside.
  */
 public
-protocol ValueWrapper: Codable, Equatable, DisplayNamed
+protocol ValueWrapper: Codable, Equatable, AutoDisplayNamed
 {
     associatedtype Value: Codable, Equatable
 
@@ -84,5 +84,31 @@ extension ValueWrapper
 
         self.init()
         self.value = value
+    }
+}
+
+// MARK: - Automatic DisplayNamed support
+
+public
+extension ValueWrapper
+{
+    static
+    var displayName: String
+    {
+        return Utils.intrinsicDisplayName(for: Self.Value.self)
+    }
+}
+
+//---
+
+public
+extension ValueWrapper
+    where
+    Self: WithCustomValue
+{
+    static
+    var displayName: String
+    {
+        return Self.Specification.displayName
     }
 }

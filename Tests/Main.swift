@@ -35,10 +35,6 @@ import XCETesting
 
 class MainTests: XCTestCase
 {
-    enum TstValue: AutoDisplayNamed {}
-
-    //---
-
     var user = User<UnlistedFeature>()
 }
 
@@ -237,7 +233,7 @@ extension MainTests
     {
         Assert("Const number value is valid").isNotNil
         {
-            try? 42.wrappedConst(as: TstValue.self)
+            try? 42.wrappedConst()
         }
 
         //---
