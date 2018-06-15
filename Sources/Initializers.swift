@@ -24,16 +24,14 @@
 
  */
 
-// MARK: - Mandatory + Validator
+// MARK: - Mandatory + Specification
 
 public
-extension ValueValidator
+extension ValueSpecification
     where
-    Self: DisplayNamed,
-    Self.Input: Codable & Equatable
+    Self.Value: Codable & Equatable
 {
-    typealias Wrapper =
-        MandatoryCustom<Self>
+    typealias Wrapper = MandatoryCustom<Self>
 
     //---
 
@@ -46,7 +44,7 @@ extension ValueValidator
 
     static
     func wrapped(
-        initialValue value: Self.Input
+        initialValue value: Self.Value
         ) -> Wrapper
     {
         return Wrapper(initialValue: value)
@@ -54,7 +52,7 @@ extension ValueValidator
 
     static
     func wrapped(
-        const value: Self.Input
+        const value: Self.Value
         ) throws -> Wrapper
     {
         return try Wrapper(const: value)
@@ -110,16 +108,15 @@ extension Equatable
     }
 }
 
-// MARK: - Optional + Validator
+// MARK: - Optional + Specification
 
 public
 extension Swift.Optional
     where
-    Wrapped: ValueValidator & DisplayNamed,
-    Wrapped.Input: Codable & Equatable
+    Wrapped: ValueSpecification,
+    Wrapped.Value: Codable & Equatable
 {
-    typealias Wrapper =
-        OptionalCustom<Wrapped>
+    typealias Wrapper = OptionalCustom<Wrapped>
 
     //---
 
@@ -132,7 +129,7 @@ extension Swift.Optional
 
     static
     func wrapped(
-        initialValue value: Wrapped.Input
+        initialValue value: Wrapped.Value
         ) -> Wrapper
     {
         return Wrapper(initialValue: value)
@@ -140,7 +137,7 @@ extension Swift.Optional
 
     static
     func wrapped(
-        const value: Wrapped.Input
+        const value: Wrapped.Value
         ) throws -> Wrapper
     {
         return try Wrapper(const: value)

@@ -28,26 +28,25 @@ import Foundation
 
 /**
  It considers as 'valid' either 'nil' or non-'nil' 'value' that
- satisfies all conditions from custom provided Validator.
+ satisfies all conditions from custom provided Specification.
  */
 public
 struct OptionalCustom<T>: ValueWrapper,
     Optional,
-    CustomValidatable
+    WithCustomValue
     where
-    T: ValueValidator,
-    T: DisplayNamed,
-    T.Input: Codable & Equatable
+    T: ValueSpecification,
+    T.Value: Codable & Equatable
 {
     public
-    typealias Validator = T
+    typealias Specification = T
 
     public
     static
-    var displayName: String { return Validator.displayName }
+    var displayName: String { return Specification.displayName }
 
     public
-    var value: Validator.Input?
+    var value: Specification.Value?
 
     public
     init() {}

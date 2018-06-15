@@ -104,14 +104,11 @@ extension ValueWrapper
 public
 extension ValueWrapper
     where
-    Self: CustomValidatable,
-    Self.Validator: ValueValidator,
-    Self.Validator.Input == Self.Value,
-    Self.Validator: DisplayNamed
+    Self: WithCustomValue
 {
     static
     var displayName: String
     {
-        return Self.Validator.displayName
+        return Self.Specification.displayName
     }
 }

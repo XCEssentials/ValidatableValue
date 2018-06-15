@@ -24,54 +24,39 @@
 
  */
 
-import Foundation
+public
+protocol ValueSpecification: ValueValidator, DisplayNamed {}
 
 //---
 
-/**
- It considers as 'valid' any non-'nil' 'value' that
- satisfies all conditions from custom provided Specification.
- */
 public
-struct MandatoryCustom<T>: ValueWrapper,
-    Mandatory,
-    WithCustomValue
+extension ValueSpecification
     where
-    T: ValueSpecification,
-    T.Value: Codable & Equatable
+    Self: AutoDisplayNamed
 {
-    public
-    typealias Specification = T
-
-    public
     static
-    var displayName: String { return Specification.displayName }
-
-    public
-    var value: Specification.Value?
-
-    public
-    init() {}
+    var displayName: String
+    {
+        return Utils.intrinsicDisplayName(for: self)
+    }
 }
 
 //---
 
-/**
- It considers as 'valid' any non-'nil' 'value'.
- */
 public
-struct MandatoryBasic<T>: ValueWrapper,
-    Mandatory,
-    Validatable
+extension ValueSpecification
     where
-    T: Codable & Equatable
+    Self: AutoReporting
 {
-    public
-    typealias Value = T
-
-    public
-    var value: Value?
-
-    public
-    init() {}
+    static
+        func prepareValidationFailureReport(
+        with displayName: String,
+        failedConditions: [String]
+        ) -> (title: String, message: String)
+    {
+        return (
+            "\"\(displayName)\" validation failed",
+            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
 }
