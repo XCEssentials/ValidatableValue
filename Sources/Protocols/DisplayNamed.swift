@@ -27,7 +27,14 @@
 public
 protocol DisplayNamed
 {
-    var displayName: String { get set }
+    /**
+     End user friendly title of any instance of this type,
+     represents the recommended way to refer to instances
+     of this type in GUI. Implemented automatically if
+     the type conforms to 'AutoDisplayName' protocol.
+     */
+    static
+    var displayName: String { get }
 }
 
 //---
@@ -35,16 +42,28 @@ protocol DisplayNamed
 public
 extension DisplayNamed
 {
-    func displayAs(_ displayName: String) -> Self
+    /**
+     Convenience helper to access 'displayName' from instance level.
+     */
+    var displayName: String
     {
-        var result = self
+        return type(of: self).displayName
+    }
+}
 
-        //---
+//---
 
-        result.displayName = displayName
+public
+protocol AutoDisplayNamed: DisplayNamed {}
 
-        //---
+//---
 
-        return result
+public
+extension AutoDisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return String(describing: self)
     }
 }

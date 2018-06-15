@@ -32,25 +32,6 @@
 public
 protocol Mandatory {}
 
-//---
-
-// MARK: - Reporting
-
-public
-extension Mandatory
-    where
-    Self: DisplayNamed
-{
-    func prepareEmptyValueReport(
-        ) -> (title: String, message: String)
-    {
-        return (
-            "\"\(self.displayName)\" is empty",
-            "\"\(self.displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-}
-
 // MARK: - unwrapValueOrThrow()
 
 private
@@ -71,7 +52,10 @@ extension Mandatory
             // 'value' is 'nil', which is NOT allowed
             throw ValidationError.mandatoryValueIsNotSet(
                 origin: displayName,
-                report: prepareEmptyValueReport()
+                report: (
+                    "\"\(displayName)\" is empty",
+                    "\"\(displayName)\" is empty, but expected to be non-empty."
+                )
             )
         }
 

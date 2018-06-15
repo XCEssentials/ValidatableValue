@@ -43,12 +43,6 @@ protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
 public
 extension ValidatableEntity
 {
-    static
-    var intrinsicDisplayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
-    }
-
     var allValidatableMembers: [Validatable]
     {
         return Mirror(reflecting: self)

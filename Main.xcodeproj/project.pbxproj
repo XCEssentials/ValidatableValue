@@ -12,7 +12,6 @@
 		927C14C6143FA2B19E366D09 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F791557D101E81B3C45CAD /* Errors.swift */; };
 		9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9415FE371F4A27FC0077E798 /* Validatable.swift */; };
 		943EA2A220CF3CD0006CF016 /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943EA2A120CF3CD0006CF016 /* Initializers.swift */; };
-		944941E420D1794200CF07C3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944941E320D1794200CF07C3 /* Utils.swift */; };
 		9449F43420D03D2D00C9C635 /* DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9449F43320D03D2D00C9C635 /* DisplayNamed.swift */; };
 		9459A04620CF006900D4F644 /* ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04520CF006900D4F644 /* ValueWrapper.swift */; };
 		9459A04820CF0C5300D4F644 /* CustomValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04720CF0C5300D4F644 /* CustomValidatable.swift */; };
@@ -71,7 +70,6 @@
 		62F791557D101E81B3C45CAD /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		9415FE371F4A27FC0077E798 /* Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		943EA2A120CF3CD0006CF016 /* Initializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
-		944941E320D1794200CF07C3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		9449F43320D03D2D00C9C635 /* DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayNamed.swift; sourceTree = "<group>"; };
 		9459A04520CF006900D4F644 /* ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueWrapper.swift; sourceTree = "<group>"; };
 		9459A04720CF0C5300D4F644 /* CustomValidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomValidatable.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 		FAB257BCC8202690FFDC8543 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				944941E320D1794200CF07C3 /* Utils.swift */,
 				62F791557D101E81B3C45CAD /* Errors.swift */,
 				94E7EC1820C03A7A00132570 /* Condition.swift */,
 				94FF817220C0111000E69904 /* Protocols */,
@@ -396,7 +393,6 @@
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
 				94E7EC1F20C0A57F00132570 /* Optional.swift in Sources */,
 				94FF817120C0106700E69904 /* MandatoryWrapped.swift in Sources */,
-				944941E420D1794200CF07C3 /* Utils.swift in Sources */,
 				94FF817420C0115100E69904 /* OptionalWrapped.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

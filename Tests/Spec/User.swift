@@ -32,10 +32,6 @@ import XCEValidatableValue
 
 struct User: ValidatableEntity, AutoReporting, DisplayNamed
 {
-    var displayName: String = User.intrinsicDisplayName
-
-    //---
-
     static
     let someConstantValue = 3
 

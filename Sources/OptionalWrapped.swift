@@ -46,9 +46,6 @@ struct OptionalValidatableWrapped<T: ValueValidator>: ValueWrapper
     typealias Validator = T
 
     public
-    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
-
-    public
     var value: T.Input?
 
     public
@@ -70,9 +67,6 @@ struct OptionalWrapped<T>: ValueWrapper
 {
     public
     typealias Value = T
-
-    public
-    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
 
     public
     var value: T?
