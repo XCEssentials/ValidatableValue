@@ -39,8 +39,7 @@ struct MandatoryCustom<T>: ValueWrapper,
     where
     T: ValueValidator,
     T: DisplayNamed,
-    T.Input: Codable,
-    T.Input: Equatable
+    T.Input: Codable & Equatable
 {
     public
     typealias Validator = T
@@ -66,8 +65,7 @@ struct MandatoryBasic<T>: ValueWrapper,
     Mandatory,
     Validatable
     where
-    T: Codable,
-    T: Equatable
+    T: Codable & Equatable
 {
     public
     typealias Value = T

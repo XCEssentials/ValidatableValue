@@ -29,31 +29,25 @@ import Foundation
 /**
  It considers as 'valid' either 'nil' or non-'nil' 'value' that
  satisfies all conditions from custom provided Validator.
- 'V' stands for 'Validator'.
  */
 public
-struct CustomValidatableOptionalValue<V>: ValueWrapper,
+struct OptionalCustom<T>: ValueWrapper,
     Optional,
-    CustomValidatable,
-    DisplayNamed
+    CustomValidatable
     where
-    V: ValueValidator,
-    V: DisplayNamed,
-    V.Input: Codable,
-    V.Input: Equatable
+    T: ValueValidator,
+    T: DisplayNamed,
+    T.Input: Codable & Equatable
 {
     public
-    typealias Value = V.Input
-
-    public
-    typealias Validator = V
+    typealias Validator = T
 
     public
     static
-    var displayName: String { return V.displayName }
+    var displayName: String { return Validator.displayName }
 
     public
-    var value: V.Input?
+    var value: Validator.Input?
 
     public
     init() {}
@@ -64,59 +58,19 @@ struct CustomValidatableOptionalValue<V>: ValueWrapper,
 /**
  Analogue of jsut having 'Swift.Optional',
  but allows to unify API for dealing with entities.
- 'NP' stands for '(Display) Name Provider'.
- 'I' stands for 'Input'.
  */
 public
-struct ContextualOptionalValue<NP, I>: ValueWrapper,
-    Optional,
+struct OptionalBasic<T>: ValueWrapper,
+    Optional
     // nothing to validate!
-    DisplayNamed
     where
-    NP: DisplayNamed,
-    I: Codable,
-    I: Equatable
+    T: Codable & Equatable
 {
     public
-    typealias Value = I
+    typealias Value = T
 
     public
-    static
-    var displayName: String { return NP.displayName }
-
-    public
-    var value: I?
-
-    public
-    init() {}
-}
-
-//---
-
-/**
- Analogue of jsut having 'Swift.Optional',
- but allows to unify API for dealing with entities.
- 'I' stands for 'Input'.
- */
-public
-struct OptionalValue<I>: ValueWrapper,
-    Optional,
-    // nothing to validate!
-    DisplayNamed
-    where
-    I: DisplayNamed,
-    I: Codable,
-    I: Equatable
-{
-    public
-    typealias Value = I
-
-    public
-    static
-    var displayName: String { return I.displayName }
-
-    public
-    var value: I?
+    var value: Value?
 
     public
     init() {}
