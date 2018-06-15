@@ -24,5 +24,11 @@
 
  */
 
+/**
+ Protocol-marker that implies that error reporting
+ should be doen automatically/implicitly (if given
+ type supports that feature via one of the adapted
+ protocols).
+ */
 public
-protocol ValidationFailureReportAuto {}
+protocol AutoReporting {}

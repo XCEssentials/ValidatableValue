@@ -52,7 +52,7 @@ protocol ValueValidator
 public
 extension ValueValidator
     where
-    Self: ValidationFailureReportAuto
+    Self: AutoReporting
 {
     static
     func prepareValidationFailureReport(

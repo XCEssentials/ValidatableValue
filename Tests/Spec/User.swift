@@ -30,7 +30,7 @@ import XCEValidatableValue
 
 // MARK: - User
 
-struct User: ValidatableEntity, ValidationFailureReportAuto, DisplayNamed
+struct User: ValidatableEntity, AutoReporting, DisplayNamed
 {
     var displayName: String = User.intrinsicDisplayName
 
@@ -113,7 +113,7 @@ extension User
 
 extension User
 {
-    enum Email: ValueValidator, ValidationFailureReportAuto
+    enum Email: ValueValidator, AutoReporting
     {
         static
         let conditions = [
@@ -123,7 +123,7 @@ extension User
         ]
     }
 
-    enum FirstName: ValueValidator, ValidationFailureReportAuto
+    enum FirstName: ValueValidator, AutoReporting
     {
         static
         let conditions = [
@@ -132,7 +132,7 @@ extension User
         ]
     }
 
-    enum Password: ValueValidator, ValidationFailureReportAuto
+    enum Password: ValueValidator, AutoReporting
     {
         static
         let conditions: Conditions<String> = [
