@@ -39,8 +39,6 @@ struct ConditionUnsatisfied: Error
 public
 enum ValidationError: Error
 {
-    // swiftlint:disable identifier_name //TODO: remove later!
-
     case mandatoryValueIsNotSet(
         origin: String,
         report: (title: String, message: String)
@@ -59,8 +57,6 @@ enum ValidationError: Error
         issues: [ValidationError],
         report: (title: String, message: String)
     )
-
-    // swiftlint:enable identifier_name //TODO: remove later!
 
     //---
 
