@@ -37,21 +37,20 @@ protocol Optional {}
 /*
 
  NOTE: there is nothing to validate (if it would be 'Validatable')
- unless it's 'CustomValidatable' - because 'value' is allowed
+ unless it's 'WithCustomValue' - because 'value' is allowed
  to be either 'nil' or non-'nil', there is nothing we can
- validate automatically, so only 'CustomValidatable' makes sense.
+ validate automatically, so only 'WithCustomValue' makes sense.
 
  */
 
-// MARK: - Validation + CustomValidatable
+// MARK: - Validation + WithCustomValue
 
 public
 extension Optional
     where
     Self: ValueWrapper,
-    Self: CustomValidatable,
-    Self.Validator: ValueValidator,
-    Self.Validator.Input == Self.Value
+    Self: WithCustomValue,
+    Self.Specification.Value == Self.Value
 {
     func validate() throws
     {
@@ -99,7 +98,7 @@ extension Optional
      It returns whatever is stored in 'value',
      or throws 'ValidationFailed' error if
      'value' is not 'nil' and at least one of
-     the custom conditions from Validator has failed.
+     the custom conditions from Specification has failed.
      */
     func validValue() throws -> Value?
     {
@@ -117,7 +116,7 @@ extension Optional
 
         var failedConditions: [String] = []
 
-        Validator.conditions.forEach
+        Specification.conditions.forEach
         {
             do
             {
@@ -143,7 +142,7 @@ extension Optional
                 origin: displayName,
                 value: result,
                 failedConditions: failedConditions,
-                report: Validator.prepareValidationFailureReport(
+                report: Specification.prepareValidationFailureReport(
                     with: displayName,
                     failedConditions: failedConditions
                 )

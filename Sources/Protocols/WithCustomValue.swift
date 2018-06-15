@@ -25,7 +25,7 @@
  */
 
 public
-protocol CustomValidatable: Validatable
+protocol WithCustomValue: Validatable
 {
-    associatedtype Validator
+    associatedtype Specification: ValueSpecification
 }
