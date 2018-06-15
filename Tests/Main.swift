@@ -35,6 +35,10 @@ import XCETesting
 
 class MainTests: XCTestCase
 {
+    enum TstValue: AutoDisplayNamed {}
+
+    //---
+
     var user = User()
 }
 
@@ -224,7 +228,7 @@ extension MainTests
     {
         Assert("Const number value is valid").isNotNil
         {
-            try? 42.validatableConst()
+            try? 42.wrappedConst(as: TstValue.self)
         }
 
         //---
@@ -233,7 +237,7 @@ extension MainTests
 
         Assert("Correct const email value is valid").isNotNil
         {
-            try? User.Email.validatable(const: correctEmail)
+            try? User.Username.wrapped(const: correctEmail)
         }
 
         //---
@@ -242,35 +246,35 @@ extension MainTests
 
         Assert("Incorrect const email value is NOT valid").isNil
         {
-            try? User.Email.validatable(const: incorrectEmail)
+            try? User.Username.wrapped(const: incorrectEmail)
         }
 
         //---
 
         Assert("Correct const email value is valid").isTrue
         {
-            User.Email?.validatable(initialValue: correctEmail).isValid
+            User.Username?.wrapped(initialValue: correctEmail).isValid
         }
 
         //---
 
         Assert("Incorrect const email value is NOT valid").isFalse
         {
-            User.Email.validatable(initialValue: incorrectEmail).isValid
+            User.Username.wrapped(initialValue: incorrectEmail).isValid
         }
 
         //---
 
         Assert("EMPTY optional email value is valid").isTrue
         {
-            User.Email?.validatable().isValid
+            User.Username?.wrapped().isValid
         }
 
         //---
 
         do
         {
-            _ = try User.Email.validatable(const: incorrectEmail)
+            _ = try User.Username.wrapped(const: incorrectEmail)
 
             XCTFail("Should not get here ever")
         }

@@ -30,22 +30,27 @@ import XCEValidatableValue
 
 // MARK: - User
 
-struct User: ValidatableEntity, AutoReporting, DisplayNamed
+struct User: ValidatableEntity, AutoReporting
 {
+    static
+    let displayName: String = "User" // TODO: use contextual Name Providers!
+
+    //---
+
     static
     let someConstantValue = 3
 
     //---
 
-    let someConstant = someConstantValue.validatable().displayAs("Const")
+    let someConstant = someConstantValue.wrapped(as: SomeConst.self)
 
-    var firstName = FirstName.validatable().displayAs("First Name")
+    var firstName = FirstName.wrapped()
 
-    var lastName = String?.wrapped().displayAs("Last Name")
+    var lastName = String?.wrapped(as: FirstName.self)
 
-    var username = Email.validatable().displayAs("Username")
+    var username = Username.wrapped() // rely on implicit 'displayName'!
 
-    var password = Password.validatable() // rely on implicit 'displayName'!
+    var password = Password.wrapped() // rely on implicit 'displayName'!
 }
 
 // MARK: - User: Representations
@@ -105,11 +110,19 @@ extension User
 //    }
 }
 
-// MARK: - User: Validators
+// MARK: - User: Validators & Name Providers
 
 extension User
 {
-    enum Email: ValueValidator, AutoReporting
+    enum SomeConst: DisplayNameProvider
+    {
+        static
+        let displayName: String = "Some Const"
+    }
+
+    enum Username: ValueValidator,
+        AutoReporting,
+        AutoDisplayNamed
     {
         static
         let conditions = [
@@ -119,8 +132,13 @@ extension User
         ]
     }
 
-    enum FirstName: ValueValidator, AutoReporting
+    enum FirstName: ValueValidator,
+        AutoReporting,
+        DisplayNamed
     {
+        static
+        let displayName: String = "First Name"
+
         static
         let conditions = [
 
@@ -128,7 +146,15 @@ extension User
         ]
     }
 
-    enum Password: ValueValidator, AutoReporting
+    enum LastName: DisplayNameProvider
+    {
+        static
+        let displayName: String = "Last Name"
+    }
+
+    enum Password: ValueValidator,
+        AutoReporting,
+        AutoDisplayNamed
     {
         static
         let conditions: Conditions<String> = [

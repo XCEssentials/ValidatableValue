@@ -24,6 +24,8 @@
 
  */
 
+// MARK: - DisplayNamed
+
 public
 protocol DisplayNamed
 {
@@ -42,6 +44,12 @@ protocol DisplayNamed
 public
 extension DisplayNamed
 {
+    static
+    func intrinsicDisplayName<T>(for input: T.Type) -> String
+    {
+        return String(describing: input)
+    }
+
     /**
      Convenience helper to access 'displayName' from instance level.
      */
@@ -51,7 +59,7 @@ extension DisplayNamed
     }
 }
 
-//---
+// MARK: - AutoDisplayNamed
 
 public
 protocol AutoDisplayNamed: DisplayNamed {}
@@ -64,6 +72,16 @@ extension AutoDisplayNamed
     static
     var displayName: String
     {
-        return String(describing: self)
+        return intrinsicDisplayName(for: self)
     }
 }
+
+// MARK: - DisplayNameProvider
+
+/**
+ Provides a more meaningful way to describe a type
+ dedicated just for being a source for custom non-intrinsic
+ 'displayName' for a value wrapper.
+ */
+public
+protocol DisplayNameProvider: DisplayNamed {}
