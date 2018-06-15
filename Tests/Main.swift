@@ -39,7 +39,7 @@ class MainTests: XCTestCase
 
     //---
 
-    var user = User()
+    var user = User<UnlistedFeature>()
 }
 
 // MARK: - Overrides
@@ -53,7 +53,7 @@ extension MainTests
 
         //---
         
-        user = User()
+        user = User<UnlistedFeature>()
     }
 }
 
@@ -237,7 +237,7 @@ extension MainTests
 
         Assert("Correct const email value is valid").isNotNil
         {
-            try? User.Username.wrapped(const: correctEmail)
+            try? User<UnlistedFeature>.Username.wrapped(const: correctEmail)
         }
 
         //---
@@ -246,35 +246,35 @@ extension MainTests
 
         Assert("Incorrect const email value is NOT valid").isNil
         {
-            try? User.Username.wrapped(const: incorrectEmail)
+            try? User<UnlistedFeature>.Username.wrapped(const: incorrectEmail)
         }
 
         //---
 
         Assert("Correct const email value is valid").isTrue
         {
-            User.Username?.wrapped(initialValue: correctEmail).isValid
+            User<UnlistedFeature>.Username?.wrapped(initialValue: correctEmail).isValid
         }
 
         //---
 
         Assert("Incorrect const email value is NOT valid").isFalse
         {
-            User.Username.wrapped(initialValue: incorrectEmail).isValid
+            User<UnlistedFeature>.Username.wrapped(initialValue: incorrectEmail).isValid
         }
 
         //---
 
         Assert("EMPTY optional email value is valid").isTrue
         {
-            User.Username?.wrapped().isValid
+            User<UnlistedFeature>.Username?.wrapped().isValid
         }
 
         //---
 
         do
         {
-            _ = try User.Username.wrapped(const: incorrectEmail)
+            _ = try User<UnlistedFeature>.Username.wrapped(const: incorrectEmail)
 
             XCTFail("Should not get here ever")
         }
@@ -340,7 +340,7 @@ extension MainTests
         
         Assert("Const vlaue is equal to pre-defined value").isTrue
         {
-            try user.someConstant.validValue() == User.someConstantValue
+            try user.someConstant.validValue() == User<UnlistedFeature>.someConstantValue
         }
     }
     

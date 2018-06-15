@@ -28,17 +28,40 @@ import Foundation
 
 import XCEValidatableValue
 
+// MARK: - Contexts
+
+enum UnlistedFeature {}
+
+enum PersonalProfile {}
+enum SocialConnections {}
+enum Publication {}
+enum PublicationComment {}
+
 // MARK: - User
 
-struct User: ValidatableEntity, AutoReporting
+struct User<C>: ValidatableEntity,
+    ContextualEntity,
+    AutoReporting
 {
+    typealias Context = C
+
     static
-    let displayName: String = "User" // TODO: use contextual Name Providers!
+    var displayNameFor: ContextualEntity.DisplayNameRegistry
+    {
+        return [
+            (self, "User"),
+            (PersonalProfile.self, "Profile"),
+            (SocialConnections.self, "Follower"),
+            (Publication.self, "Author"), // of the publication
+            (PublicationComment.self, "Author") // of the comment
+            ]
+    }
+
 
     //---
 
     static
-    let someConstantValue = 3
+    var someConstantValue: Int { return 3 }
 
     //---
 
@@ -117,7 +140,7 @@ extension User
     enum SomeConst: DisplayNameProvider
     {
         static
-        let displayName: String = "Some Const"
+        var displayName: String { return "Some Const" }
     }
 
     enum Username: ValueValidator,
@@ -125,11 +148,13 @@ extension User
         AutoDisplayNamed
     {
         static
-        let conditions = [
-
-            String.checkNonEmpty,
-            Check("Valid email address", String.isValidEmail)
-        ]
+        var conditions: Conditions<String>
+        {
+            return [
+                String.checkNonEmpty,
+                Check("Valid email address", String.isValidEmail)
+                ]
+        }
     }
 
     enum FirstName: ValueValidator,
@@ -137,19 +162,21 @@ extension User
         DisplayNamed
     {
         static
-        let displayName: String = "First Name"
+        var displayName: String { return "First Name" }
 
         static
-        let conditions = [
-
-            String.checkNonEmpty
-        ]
+        var conditions: Conditions<String>
+        {
+            return [
+                String.checkNonEmpty
+                ]
+        }
     }
 
     enum LastName: DisplayNameProvider
     {
         static
-        let displayName: String = "Last Name"
+        var displayName: String { return "Last Name" }
     }
 
     enum Password: ValueValidator,
@@ -157,17 +184,27 @@ extension User
         AutoDisplayNamed
     {
         static
-        let conditions: Conditions<String> = [
+        var conditions: Conditions<String>
+        {
+            return [
 
-            Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
-            Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
-            Check("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
-            Check("Has at least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
-            Check("Has at least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
-            Check("Consists of lowercase letters, decimal digits and following characters: ,.!?@#$%^&*()-_+="){
-                Pwd.allowed.isSuperset(of: CS(charactersIn: $0))
-            }
-        ]
+                Check("Lenght between 8 and 30 characters")
+                    { 8...30 ~= $0.count },
+                Check("Has at least 1 capital character")
+                    { 1 <= Pwd.caps.count(at: $0) },
+                Check("Has at least 4 lower characters")
+                    { 4 <= Pwd.lows.count(at: $0) },
+                Check("Has at least 1 digit character")
+                    { 1 <= Pwd.digits.count(at: $0) },
+                Check("Has at least 1 special character")
+                    { 1 <= Pwd.specials.count(at: $0) },
+                Check("""
+                    Consists of lowercase letters, decimal digits and
+                    following characters: ,.!?@#$%^&*()-_+=
+                    """)
+                    { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+                ]
+        }
     }
 }
 

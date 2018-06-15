@@ -24,6 +24,8 @@
 
  */
 
+//---
+
 /**
  Data model type that supposed to store all important data
  in various validatable value properties. Such properties will be automatically

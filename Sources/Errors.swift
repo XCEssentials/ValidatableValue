@@ -107,7 +107,9 @@ enum ValidationError: Error
 }
 
 public
-extension Array where Element == ValidationError
+extension Array
+    where
+    Element == ValidationError
 {
     func asValidationIssues<E: ValidatableEntity>(
         for entity: E

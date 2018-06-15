@@ -24,64 +24,44 @@
 
  */
 
-// MARK: - DisplayNamed
-
 public
-protocol DisplayNamed
+protocol ContextualEntity: DisplayNamed
 {
+    associatedtype Context
+
+    typealias DisplayNameRegistry = [(context: Any.Type, name: String)]
+
     /**
-     End user friendly title of any instance of this type,
-     represents the recommended way to refer to instances
-     of this type in GUI. Implemented automatically if
-     the type conforms to 'AutoDisplayName' protocol.
+     Display name registry. If no explicit name found for the
+     'Context' - then explicit self-defined display name will be used
+     or intrinsic display name will be used.
+     NOTE: intrinsic name may look inappropriate for displaying in GUI,
+     because it will contain 'Context' generic type mentioned,
+     to specify 'default non-intrinsic' kind of display name —
+     put 'self' type into registry with desired display name.
      */
     static
-    var displayName: String { get }
+    var displayNameFor: DisplayNameRegistry { get }
 }
 
 //---
 
 public
-extension DisplayNamed
-{
-    static
-    var intrinsicDisplayName: String
-    {
-        return String(describing: self)
-    }
-
-    /**
-     Convenience helper to access 'displayName' from instance level.
-     */
-    var displayName: String
-    {
-        return type(of: self).displayName
-    }
-}
-
-// MARK: - AutoDisplayNamed
-
-public
-protocol AutoDisplayNamed: DisplayNamed {}
-
-//---
-
-public
-extension AutoDisplayNamed
+extension ContextualEntity
 {
     static
     var displayName: String
     {
-        return intrinsicDisplayName
+        return displayNameFor
+            .filter{ $0.context == Context.self }
+            .first?
+            .name
+            ??
+            displayNameFor
+            .filter{ $0.context == self }
+            .first?
+            .name
+            ??
+            intrinsicDisplayName
     }
 }
-
-// MARK: - DisplayNameProvider
-
-/**
- Provides a more meaningful way to describe a type
- dedicated just for being a source for custom non-intrinsic
- 'displayName' for a value wrapper.
- */
-public
-protocol DisplayNameProvider: DisplayNamed {}
