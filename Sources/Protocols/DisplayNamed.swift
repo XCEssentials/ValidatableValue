@@ -44,12 +44,6 @@ protocol DisplayNamed
 public
 extension DisplayNamed
 {
-    static
-    var intrinsicDisplayName: String
-    {
-        return String(describing: self)
-    }
-
     /**
      Convenience helper to access 'displayName' from instance level.
      */
@@ -64,24 +58,19 @@ extension DisplayNamed
 public
 protocol AutoDisplayNamed: DisplayNamed {}
 
+// MARK: - IntrinsicDisplayNamed
+
+public
+protocol IntrinsicDisplayNamed: DisplayNamed {}
+
 //---
 
 public
-extension AutoDisplayNamed
+extension IntrinsicDisplayNamed
 {
     static
     var displayName: String
     {
-        return intrinsicDisplayName
+        return Utils.intrinsicDisplayName(for: self)
     }
 }
-
-// MARK: - DisplayNameProvider
-
-/**
- Provides a more meaningful way to describe a type
- dedicated just for being a source for custom non-intrinsic
- 'displayName' for a value wrapper.
- */
-public
-protocol DisplayNameProvider: DisplayNamed {}

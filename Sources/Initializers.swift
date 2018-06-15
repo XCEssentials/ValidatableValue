@@ -32,32 +32,32 @@ extension ValueValidator
     Self: DisplayNamed,
     Self.Input: Codable & Equatable
 {
-    typealias ValidatableWrapper =
-        CustomValidatableMandatoryValue<Self>
+    typealias Wrapper =
+        MandatoryCustom<Self>
 
     //---
 
     static
     func wrapped(
-        ) -> ValidatableWrapper
+        ) -> Wrapper
     {
-        return ValidatableWrapper()
+        return Wrapper()
     }
 
     static
     func wrapped(
         initialValue value: Self.Input
-        ) -> ValidatableWrapper
+        ) -> Wrapper
     {
-        return ValidatableWrapper(initialValue: value)
+        return Wrapper(initialValue: value)
     }
 
     static
     func wrapped(
         const value: Self.Input
-        ) throws -> ValidatableWrapper
+        ) throws -> Wrapper
     {
-        return try ValidatableWrapper(const: value)
+        return try Wrapper(const: value)
     }
 }
 
@@ -66,48 +66,47 @@ extension ValueValidator
 public
 extension Equatable
     where
-    Self: Codable,
-    Self: DisplayNamed
+    Self: Codable
 {
-    typealias ValidatableWrapper = ValidatableMandatoryValue<Self>
+    typealias Wrapper = MandatoryBasic<Self>
 
     //---
 
     static
     func wrapped(
-        ) -> ValidatableWrapper
+        ) -> Wrapper
     {
-        return ValidatableWrapper()
+        return Wrapper()
     }
 
     static
     func wrapped(
         initialValue value: Self
-        ) -> ValidatableWrapper
+        ) -> Wrapper
     {
-        return ValidatableWrapper(initialValue: value)
+        return Wrapper(initialValue: value)
     }
 
     static
     func wrapped(
         const value: Self
-        ) throws -> ValidatableWrapper
+        ) throws -> Wrapper
     {
-        return try ValidatableWrapper(const: value)
+        return try Wrapper(const: value)
     }
 
     //---
 
     func wrapped(
-        ) -> ValidatableWrapper
+        ) -> Wrapper
     {
-        return ValidatableWrapper(initialValue: self)
+        return Wrapper(initialValue: self)
     }
 
     func wrappedConst(
-        ) throws -> ValidatableWrapper
+        ) throws -> Wrapper
     {
-        return try ValidatableWrapper(const: self)
+        return try Wrapper(const: self)
     }
 }
 

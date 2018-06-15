@@ -62,6 +62,6 @@ extension ContextualEntity
             .first?
             .name
             ??
-            intrinsicDisplayName
+            Utils.intrinsicDisplayName(for: self)
     }
 }
