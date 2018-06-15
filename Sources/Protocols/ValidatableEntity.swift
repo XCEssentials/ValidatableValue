@@ -31,7 +31,7 @@
  Those property will be also automatically encoded and decoded.
  */
 public
-protocol ValidatableEntity: Codable, Validatable, DisplayNamed
+protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
 {
     func prepareValidationFailureReport(
         with issues: [ValidationError]
