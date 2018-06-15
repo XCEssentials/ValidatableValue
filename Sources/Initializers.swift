@@ -61,65 +61,6 @@ extension ValueValidator
     }
 }
 
-// MARK: - Mandatory + Context
-
-public
-extension Equatable
-    where
-    Self: Codable
-{
-    typealias ContextualValidatableWrapper<NP: DisplayNamed> =
-        ContextualValidatableMandatoryValue<NP, Self>
-
-    //---
-
-    //swiftlint:disable identifier_name
-
-    static
-    func wrapped<NP: DisplayNamed>(
-        as: NP.Type
-        ) -> ContextualValidatableWrapper<NP>
-    {
-        return ContextualValidatableWrapper<NP>()
-    }
-
-    static
-    func wrapped<NP: DisplayNamed>(
-        as: NP.Type,
-        initialValue value: Self
-        ) -> ContextualValidatableWrapper<NP>
-    {
-        return ContextualValidatableWrapper<NP>(initialValue: value)
-    }
-
-    static
-    func wrapped<NP: DisplayNamed>(
-        as: NP.Type,
-        const value: Self
-        ) throws -> ContextualValidatableWrapper<NP>
-    {
-        return try ContextualValidatableWrapper<NP>(const: value)
-    }
-
-    //---
-
-    func wrapped<NP: DisplayNamed>(
-        as: NP.Type
-        ) -> ContextualValidatableWrapper<NP>
-    {
-        return ContextualValidatableWrapper<NP>(initialValue: self)
-    }
-
-    func wrappedConst<NP: DisplayNamed>(
-        as: NP.Type
-        ) throws -> ContextualValidatableWrapper<NP>
-    {
-        return try ContextualValidatableWrapper<NP>(const: self)
-    }
-
-    //swiftlint:enable identifier_name
-}
-
 // MARK: - Mandatory
 
 public

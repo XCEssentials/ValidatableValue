@@ -63,37 +63,6 @@ struct CustomValidatableMandatoryValue<V>: ValueWrapper,
 
 /**
  It considers as 'valid' any non-'nil' 'value'.
- 'NP' stands for '(Display) Name Provider'.
- 'I' stands for 'Input'.
- */
-public
-struct ContextualValidatableMandatoryValue<NP, I>: ValueWrapper,
-    Mandatory,
-    Validatable,
-    DisplayNamed
-    where
-    NP: DisplayNamed,
-    I: Codable,
-    I: Equatable
-{
-    public
-    typealias Value = I
-
-    public
-    static
-    var displayName: String { return NP.displayName }
-
-    public
-    var value: I?
-
-    public
-    init() {}
-}
-
-//---
-
-/**
- It considers as 'valid' any non-'nil' 'value'.
  'I' stands for 'Input'.
  */
 public
