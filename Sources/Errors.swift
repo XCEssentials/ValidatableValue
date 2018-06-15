@@ -97,7 +97,7 @@ enum ValidationError: Error
     {
         switch self
         {
-            case .entityIsNotValid(_, _, _):
+            case .entityIsNotValid:
                 return true
 
             default:

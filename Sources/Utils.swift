@@ -33,7 +33,6 @@ enum Utils
         return String(describing: type(of: input))
     }
 
-
     static
     func intrinsicDisplayName<T>(for input: T.Type) -> String
     {

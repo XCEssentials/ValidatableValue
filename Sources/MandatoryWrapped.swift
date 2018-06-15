@@ -33,7 +33,8 @@ import Foundation
  satisfies all conditions from custom provided Validator.
  */
 public
-struct MandatoryValidatableWrapped<T: ValueValidator>: MandatoryValueWrapper
+struct MandatoryValidatableWrapped<T: ValueValidator>: ValueWrapper
+    , Mandatory
     , CustomValidatable
     , DisplayNamed
     where T.Input: Codable, T.Input: Equatable
@@ -60,7 +61,9 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: MandatoryValueWrapper
  It considers as 'valid' any non-'nil' 'value'.
  */
 public
-struct MandatoryWrapped<T>: MandatoryValueWrapper
+struct MandatoryWrapped<T>: ValueWrapper
+    , Mandatory
+    , Validatable
     , DisplayNamed
     where T: Codable, T: Equatable
 {
