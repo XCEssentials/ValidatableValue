@@ -30,7 +30,7 @@
  so it's 'validValue()' function returns optional value.
  */
 public
-protocol OptionalValueWrapper: ValueWrapper {}
+protocol Optional {}
 
 //---
 
@@ -46,8 +46,9 @@ protocol OptionalValueWrapper: ValueWrapper {}
 // MARK: - Validation + CustomValidatable
 
 public
-extension OptionalValueWrapper
+extension Optional
     where
+    Self: ValueWrapper,
     Self: CustomValidatable,
     Self.Validator: ValueValidator,
     Self.Validator.Input == Self.Value

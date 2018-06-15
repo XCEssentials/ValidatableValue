@@ -24,10 +24,19 @@
 
  */
 
+// MARK: - DisplayNamed
+
 public
 protocol DisplayNamed
 {
-    var displayName: String { get set }
+    /**
+     End user friendly title of any instance of this type,
+     represents the recommended way to refer to instances
+     of this type in GUI. Implemented automatically if
+     the type conforms to 'AutoDisplayName' protocol.
+     */
+    static
+    var displayName: String { get }
 }
 
 //---
@@ -35,16 +44,44 @@ protocol DisplayNamed
 public
 extension DisplayNamed
 {
-    func displayAs(_ displayName: String) -> Self
+    static
+    var intrinsicDisplayName: String
     {
-        var result = self
+        return String(describing: self)
+    }
 
-        //---
-
-        result.displayName = displayName
-
-        //---
-
-        return result
+    /**
+     Convenience helper to access 'displayName' from instance level.
+     */
+    var displayName: String
+    {
+        return type(of: self).displayName
     }
 }
+
+// MARK: - AutoDisplayNamed
+
+public
+protocol AutoDisplayNamed: DisplayNamed {}
+
+//---
+
+public
+extension AutoDisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return intrinsicDisplayName
+    }
+}
+
+// MARK: - DisplayNameProvider
+
+/**
+ Provides a more meaningful way to describe a type
+ dedicated just for being a source for custom non-intrinsic
+ 'displayName' for a value wrapper.
+ */
+public
+protocol DisplayNameProvider: DisplayNamed {}

@@ -24,31 +24,36 @@
 
  */
 
-// swiftlint:disable comma
-
 import Foundation
 
 /**
- It considers as 'valid' either 'nil' or non-'nil' 'value' that
+ It considers as 'valid' any non-'nil' 'value' that
  satisfies all conditions from custom provided Validator.
+ 'V' stands for 'Validator'.
  */
 public
-struct OptionalValidatableWrapped<T: ValueValidator>: OptionalValueWrapper
-    , CustomValidatable
-    , DisplayNamed
-    where T.Input: Codable, T.Input: Equatable
+struct CustomValidatableMandatoryValue<V>: ValueWrapper,
+    Mandatory,
+    CustomValidatable,
+    DisplayNamed
+    where
+    V: ValueValidator,
+    V: DisplayNamed,
+    V.Input: Codable,
+    V.Input: Equatable
 {
     public
-    typealias Value = T.Input
+    typealias Value = V.Input
 
     public
-    typealias Validator = T
+    typealias Validator = V
 
     public
-    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
+    static
+    var displayName: String { return V.displayName }
 
     public
-    var value: T.Input?
+    var value: V.Input?
 
     public
     init() {}
@@ -57,23 +62,59 @@ struct OptionalValidatableWrapped<T: ValueValidator>: OptionalValueWrapper
 //---
 
 /**
- Analogue of jsut having 'Swift.Optional',
- but allows to unify API for dealing with entities.
+ It considers as 'valid' any non-'nil' 'value'.
+ 'NP' stands for '(Display) Name Provider'.
+ 'I' stands for 'Input'.
  */
 public
-struct OptionalWrapped<T>: OptionalValueWrapper
-    // nothing to validate!
-    , DisplayNamed
-    where T: Codable, T: Equatable
+struct ContextualValidatableMandatoryValue<NP, I>: ValueWrapper,
+    Mandatory,
+    Validatable,
+    DisplayNamed
+    where
+    NP: DisplayNamed,
+    I: Codable,
+    I: Equatable
 {
     public
-    typealias Value = T
+    typealias Value = I
 
     public
-    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
+    static
+    var displayName: String { return NP.displayName }
 
     public
-    var value: T?
+    var value: I?
+
+    public
+    init() {}
+}
+
+//---
+
+/**
+ It considers as 'valid' any non-'nil' 'value'.
+ 'I' stands for 'Input'.
+ */
+public
+struct ValidatableMandatoryValue<I>: ValueWrapper,
+    Mandatory,
+    Validatable,
+    DisplayNamed
+    where
+    I: DisplayNamed,
+    I: Codable,
+    I: Equatable
+{
+    public
+    typealias Value = I
+
+    public
+    static
+    var displayName: String { return I.displayName }
+
+    public
+    var value: I?
 
     public
     init() {}

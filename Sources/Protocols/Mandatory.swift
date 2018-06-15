@@ -30,29 +30,14 @@
  so it's 'validValue()' function returns non-empty value.
  */
 public
-protocol MandatoryValueWrapper: ValueWrapper, Validatable {}
-
-//---
-
-// MARK: - Reporting
-
-public
-extension MandatoryValueWrapper
-{
-    func prepareEmptyValueReport(
-        ) -> (title: String, message: String)
-    {
-        return (
-            "\"\(self.displayName)\" is empty",
-            "\"\(self.displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-}
+protocol Mandatory {}
 
 // MARK: - unwrapValueOrThrow()
 
 private
-extension MandatoryValueWrapper
+extension Mandatory
+    where
+    Self: ValueWrapper
 {
     /**
      It returns non-empty (safely unwrapped) 'value',
@@ -67,7 +52,10 @@ extension MandatoryValueWrapper
             // 'value' is 'nil', which is NOT allowed
             throw ValidationError.mandatoryValueIsNotSet(
                 origin: displayName,
-                report: prepareEmptyValueReport()
+                report: (
+                    "\"\(displayName)\" is empty",
+                    "\"\(displayName)\" is empty, but expected to be non-empty."
+                )
             )
         }
 
@@ -80,7 +68,10 @@ extension MandatoryValueWrapper
 // MARK: - Validation
 
 public
-extension MandatoryValueWrapper
+extension Mandatory
+    where
+    Self: ValueWrapper,
+    Self: Validatable
 {
     func validate() throws
     {
@@ -142,8 +133,9 @@ extension MandatoryValueWrapper
 // MARK: - Validation + CustomValidatable
 
 public
-extension MandatoryValueWrapper
+extension Mandatory
     where
+    Self: ValueWrapper,
     Self: CustomValidatable,
     Self.Validator: ValueValidator,
     Self.Validator.Input == Self.Value

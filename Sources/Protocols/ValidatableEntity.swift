@@ -24,8 +24,16 @@
 
  */
 
+//---
+
+/**
+ Data model type that supposed to store all important data
+ in various validatable value properties. Such properties will be automatically
+ checked for validity each time when whole entity is being tested for validity.
+ Those property will be also automatically encoded and decoded.
+ */
 public
-protocol ValidatableEntity: Entity, Validatable
+protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
 {
     func prepareValidationFailureReport(
         with issues: [ValidationError]
@@ -34,12 +42,6 @@ protocol ValidatableEntity: Entity, Validatable
 
 //---
 
-/**
- Data model type that supposed to store all (dynamic) important data
- in various validatable value properties. Such properties will be automatically
- checked for validity each time when whole entity is being tested for validity.
- Those property will be also automatically encoded and decoded.
- */
 public
 extension ValidatableEntity
 {
@@ -101,7 +103,7 @@ extension ValidatableEntity
 public
 extension ValidatableEntity
     where
-    Self: ValidationFailureReportAuto
+    Self: AutoReporting
 {
     func prepareValidationFailureReport(
         with issues: [ValidationError]
