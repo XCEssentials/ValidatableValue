@@ -61,6 +61,15 @@ extension MainTests
 
 extension MainTests
 {
+    func testContextualEntityDisplayName()
+    {
+        XCTAssert(User<UnlistedFeature>.displayName == "User")
+        XCTAssert(User<PersonalProfile>.displayName == "Profile")
+        XCTAssert(User<SocialConnections>.displayName == "Follower")
+        XCTAssert(User<Publication>.displayName == "Author")
+        XCTAssert(User<PublicationComment>.displayName == "Author")
+    }
+
     func testEntityValidation()
     {
         Assert("User is NOT valid in the beginning").isFalse
