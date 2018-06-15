@@ -39,8 +39,6 @@ struct ConditionUnsatisfied: Error
 public
 enum ValidationError: Error
 {
-    // swiftlint:disable identifier_name //TODO: remove later!
-
     case mandatoryValueIsNotSet(
         origin: String,
         report: (title: String, message: String)
@@ -59,8 +57,6 @@ enum ValidationError: Error
         issues: [ValidationError],
         report: (title: String, message: String)
     )
-
-    // swiftlint:enable identifier_name //TODO: remove later!
 
     //---
 
@@ -101,7 +97,7 @@ enum ValidationError: Error
     {
         switch self
         {
-            case .entityIsNotValid(_, _, _):
+            case .entityIsNotValid:
                 return true
 
             default:
@@ -111,7 +107,9 @@ enum ValidationError: Error
 }
 
 public
-extension Array where Element == ValidationError
+extension Array
+    where
+    Element == ValidationError
 {
     func asValidationIssues<E: ValidatableEntity>(
         for entity: E

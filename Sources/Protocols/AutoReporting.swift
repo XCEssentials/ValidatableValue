@@ -24,17 +24,11 @@
 
  */
 
+/**
+ Protocol-marker that implies that error reporting
+ should be doen automatically/implicitly (if given
+ type supports that feature via one of the adapted
+ protocols).
+ */
 public
-protocol Entity: Codable, DisplayNamed {}
-
-// MARK: - Display name helpers
-
-public
-extension Entity
-{
-    static
-    var intrinsicDisplayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
-    }
-}
+protocol AutoReporting {}

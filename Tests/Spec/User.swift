@@ -28,28 +28,52 @@ import Foundation
 
 import XCEValidatableValue
 
+// MARK: - Contexts
+
+enum UnlistedFeature {}
+
+enum PersonalProfile {}
+enum SocialConnections {}
+enum Publication {}
+enum PublicationComment {}
+
 // MARK: - User
 
-struct User: ValidatableEntity, ValidationFailureReportAuto, DisplayNamed
+struct User<C>: ValidatableEntity,
+    ContextualEntity,
+    AutoReporting
 {
-    var displayName: String = User.intrinsicDisplayName
+    typealias Context = C
+
+    static
+    var displayNameFor: ContextualEntity.DisplayNameRegistry
+    {
+        return [
+            (self, "User"),
+            (PersonalProfile.self, "Profile"),
+            (SocialConnections.self, "Follower"),
+            (Publication.self, "Author"), // of the publication
+            (PublicationComment.self, "Author") // of the comment
+            ]
+    }
+
 
     //---
 
     static
-    let someConstantValue = 3
+    var someConstantValue: Int { return 3 }
 
     //---
 
-    let someConstant = someConstantValue.validatable().displayAs("Const")
+    let someConstant = someConstantValue.wrapped(as: SomeConst.self)
 
-    var firstName = FirstName.validatable().displayAs("First Name")
+    var firstName = FirstName.wrapped()
 
-    var lastName = String?.wrapped().displayAs("Last Name")
+    var lastName = String?.wrapped(as: FirstName.self)
 
-    var username = Email.validatable().displayAs("Username")
+    var username = Username.wrapped() // rely on implicit 'displayName'!
 
-    var password = Password.validatable() // rely on implicit 'displayName'!
+    var password = Password.wrapped() // rely on implicit 'displayName'!
 }
 
 // MARK: - User: Representations
@@ -109,43 +133,78 @@ extension User
 //    }
 }
 
-// MARK: - User: Validators
+// MARK: - User: Validators & Name Providers
 
 extension User
 {
-    enum Email: ValueValidator, ValidationFailureReportAuto
+    enum SomeConst: DisplayNameProvider
     {
         static
-        let conditions = [
-
-            String.checkNonEmpty,
-            Check("Valid email address", String.isValidEmail)
-        ]
+        var displayName: String { return "Some Const" }
     }
 
-    enum FirstName: ValueValidator, ValidationFailureReportAuto
+    enum Username: ValueValidator,
+        AutoReporting,
+        AutoDisplayNamed
     {
         static
-        let conditions = [
-
-            String.checkNonEmpty
-        ]
+        var conditions: Conditions<String>
+        {
+            return [
+                String.checkNonEmpty,
+                Check("Valid email address", String.isValidEmail)
+                ]
+        }
     }
 
-    enum Password: ValueValidator, ValidationFailureReportAuto
+    enum FirstName: ValueValidator,
+        AutoReporting,
+        DisplayNamed
     {
         static
-        let conditions: Conditions<String> = [
+        var displayName: String { return "First Name" }
 
-            Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
-            Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(at: $0) },
-            Check("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(at: $0) },
-            Check("Has at least 1 digit character"){ 1 <= Pwd.digits.count(at: $0) },
-            Check("Has at least 1 special character"){ 1 <= Pwd.specials.count(at: $0) },
-            Check("Consists of lowercase letters, decimal digits and following characters: ,.!?@#$%^&*()-_+="){
-                Pwd.allowed.isSuperset(of: CS(charactersIn: $0))
-            }
-        ]
+        static
+        var conditions: Conditions<String>
+        {
+            return [
+                String.checkNonEmpty
+                ]
+        }
+    }
+
+    enum LastName: DisplayNameProvider
+    {
+        static
+        var displayName: String { return "Last Name" }
+    }
+
+    enum Password: ValueValidator,
+        AutoReporting,
+        AutoDisplayNamed
+    {
+        static
+        var conditions: Conditions<String>
+        {
+            return [
+
+                Check("Lenght between 8 and 30 characters")
+                    { 8...30 ~= $0.count },
+                Check("Has at least 1 capital character")
+                    { 1 <= Pwd.caps.count(at: $0) },
+                Check("Has at least 4 lower characters")
+                    { 4 <= Pwd.lows.count(at: $0) },
+                Check("Has at least 1 digit character")
+                    { 1 <= Pwd.digits.count(at: $0) },
+                Check("Has at least 1 special character")
+                    { 1 <= Pwd.specials.count(at: $0) },
+                Check("""
+                    Consists of lowercase letters, decimal digits and
+                    following characters: ,.!?@#$%^&*()-_+=
+                    """)
+                    { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+                ]
+        }
     }
 }
 

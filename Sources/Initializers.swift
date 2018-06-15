@@ -24,91 +24,149 @@
 
  */
 
-// MARK: - MandatoryValueWrapper
+// MARK: - Mandatory + Validator
+
+public
+extension ValueValidator
+    where
+    Self: DisplayNamed,
+    Self.Input: Codable & Equatable
+{
+    typealias ValidatableWrapper =
+        CustomValidatableMandatoryValue<Self>
+
+    //---
+
+    static
+    func wrapped(
+        ) -> ValidatableWrapper
+    {
+        return ValidatableWrapper()
+    }
+
+    static
+    func wrapped(
+        initialValue value: Self.Input
+        ) -> ValidatableWrapper
+    {
+        return ValidatableWrapper(initialValue: value)
+    }
+
+    static
+    func wrapped(
+        const value: Self.Input
+        ) throws -> ValidatableWrapper
+    {
+        return try ValidatableWrapper(const: value)
+    }
+}
+
+// MARK: - Mandatory + Context
 
 public
 extension Equatable
     where
     Self: Codable
 {
-    typealias ValidatableWrapper = MandatoryWrapped<Self>
+    typealias ContextualValidatableWrapper<NP: DisplayNamed> =
+        ContextualValidatableMandatoryValue<NP, Self>
+
+    //---
+
+    //swiftlint:disable identifier_name
 
     static
-    func validatable() -> ValidatableWrapper
+    func wrapped<NP: DisplayNamed>(
+        as: NP.Type
+        ) -> ContextualValidatableWrapper<NP>
+    {
+        return ContextualValidatableWrapper<NP>()
+    }
+
+    static
+    func wrapped<NP: DisplayNamed>(
+        as: NP.Type,
+        initialValue value: Self
+        ) -> ContextualValidatableWrapper<NP>
+    {
+        return ContextualValidatableWrapper<NP>(initialValue: value)
+    }
+
+    static
+    func wrapped<NP: DisplayNamed>(
+        as: NP.Type,
+        const value: Self
+        ) throws -> ContextualValidatableWrapper<NP>
+    {
+        return try ContextualValidatableWrapper<NP>(const: value)
+    }
+
+    //---
+
+    func wrapped<NP: DisplayNamed>(
+        as: NP.Type
+        ) -> ContextualValidatableWrapper<NP>
+    {
+        return ContextualValidatableWrapper<NP>(initialValue: self)
+    }
+
+    func wrappedConst<NP: DisplayNamed>(
+        as: NP.Type
+        ) throws -> ContextualValidatableWrapper<NP>
+    {
+        return try ContextualValidatableWrapper<NP>(const: self)
+    }
+
+    //swiftlint:enable identifier_name
+}
+
+// MARK: - Mandatory
+
+public
+extension Equatable
+    where
+    Self: Codable,
+    Self: DisplayNamed
+{
+    typealias ValidatableWrapper = ValidatableMandatoryValue<Self>
+
+    //---
+
+    static
+    func wrapped(
+        ) -> ValidatableWrapper
     {
         return ValidatableWrapper()
     }
 
     static
-    func validatable(initialValue value: Self) -> ValidatableWrapper
+    func wrapped(
+        initialValue value: Self
+        ) -> ValidatableWrapper
     {
         return ValidatableWrapper(initialValue: value)
     }
 
     static
-    func validatable(const value: Self) throws -> ValidatableWrapper
+    func wrapped(
+        const value: Self
+        ) throws -> ValidatableWrapper
     {
         return try ValidatableWrapper(const: value)
     }
 
-    func validatable() -> ValidatableWrapper
+    //---
+
+    func wrapped(
+        ) -> ValidatableWrapper
     {
         return ValidatableWrapper(initialValue: self)
     }
 
-    func validatableConst() throws -> ValidatableWrapper
+    func wrappedConst(
+        ) throws -> ValidatableWrapper
     {
         return try ValidatableWrapper(const: self)
-    }
-}
-
-// MARK: - MandatoryValueWrapper + Validator
-
-public
-extension ValueValidator
-    where
-    Self.Input: Codable & Equatable
-{
-    typealias ValidatableWrapper = MandatoryValidatableWrapped<Self>
-
-    static
-    func validatable() -> ValidatableWrapper
-    {
-        return ValidatableWrapper()
-    }
-
-    static
-    func validatable(initialValue value: Self.Input) -> ValidatableWrapper
-    {
-        return ValidatableWrapper(initialValue: value)
-    }
-
-    static
-    func validatable(const value: Self.Input) throws -> ValidatableWrapper
-    {
-        return try ValidatableWrapper(const: value)
-    }
-}
-
-// MARK: - Optional
-
-public
-extension Swift.Optional
-    where
-    Wrapped: Codable & Equatable
-{
-    typealias Wrapper = OptionalWrapped<Wrapped>
-
-    static
-    func wrapped() -> Wrapper
-    {
-        return Wrapper()
-    }
-
-    static
-    func wrapped(initialValue value: Wrapped) -> Wrapper
-    {
-        return Wrapper(initialValue: value)
     }
 }
 
@@ -118,25 +176,127 @@ public
 extension Swift.Optional
     where
     Wrapped: ValueValidator,
+    Wrapped: DisplayNamed,
     Wrapped.Input: Codable & Equatable
 {
-    typealias ValidatableWrapper = OptionalValidatableWrapped<Wrapped>
+    typealias CustomValidatableWrapper =
+        CustomValidatableOptionalValue<Wrapped>
+
+    //---
 
     static
-    func validatable() -> ValidatableWrapper
+    func wrapped(
+        ) -> CustomValidatableWrapper
     {
-        return ValidatableWrapper()
+        return CustomValidatableWrapper()
     }
 
     static
-    func validatable(initialValue value: Wrapped.Input) -> ValidatableWrapper
+    func wrapped(
+        initialValue value: Wrapped.Input
+        ) -> CustomValidatableWrapper
     {
-        return ValidatableWrapper(initialValue: value)
+        return CustomValidatableWrapper(initialValue: value)
     }
 
     static
-    func validatable(const value: Wrapped.Input) throws -> ValidatableWrapper
+    func wrapped(
+        const value: Wrapped.Input
+        ) throws -> CustomValidatableWrapper
     {
-        return try ValidatableWrapper(const: value)
+        return try CustomValidatableWrapper(const: value)
+    }
+}
+
+// MARK: - Optional + Context
+
+public
+extension Swift.Optional
+    where
+    Wrapped: Codable & Equatable
+{
+    typealias ContextualWrapper<NP: DisplayNamed> =
+        ContextualOptionalValue<NP, Wrapped>
+
+    //---
+
+    //swiftlint:disable identifier_name
+
+    static
+    func wrapped<NP: DisplayNamed>(
+        as: NP.Type
+        ) -> ContextualWrapper<NP>
+    {
+        return ContextualWrapper<NP>()
+    }
+
+    static
+    func wrapped<NP: DisplayNamed>(
+        as: NP.Type,
+        initialValue value: Wrapped
+        ) -> ContextualWrapper<NP>
+    {
+        return ContextualWrapper<NP>(initialValue: value)
+    }
+
+    //---
+
+    func wrapped<NP: DisplayNamed>(
+        as: NP.Type
+        ) -> ContextualWrapper<NP>
+    {
+        switch self
+        {
+            case .none:
+                return ContextualWrapper<NP>()
+
+            case .some(let value):
+                return ContextualWrapper<NP>(initialValue: value)
+        }
+    }
+
+    //swiftlint:enable identifier_name
+}
+
+// MARK: - Optional
+
+public
+extension Swift.Optional
+    where
+    Wrapped: Codable & Equatable,
+    Wrapped: DisplayNamed
+{
+    typealias Wrapper = OptionalValue<Wrapped>
+
+    //---
+
+    static
+    func wrapped(
+        ) -> Wrapper
+    {
+        return Wrapper()
+    }
+
+    static
+    func wrapped(
+        initialValue value: Wrapped
+        ) -> Wrapper
+    {
+        return Wrapper(initialValue: value)
+    }
+
+    //---
+
+    func wrapped(
+        ) -> Wrapper
+    {
+        switch self
+        {
+            case .none:
+                return Wrapper()
+
+            case .some(let value):
+                return Wrapper(initialValue: value)
+        }
     }
 }

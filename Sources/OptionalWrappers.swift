@@ -24,31 +24,36 @@
 
  */
 
-// swiftlint:disable comma
-
 import Foundation
 
 /**
- It considers as 'valid' any non-'nil' 'value' that
+ It considers as 'valid' either 'nil' or non-'nil' 'value' that
  satisfies all conditions from custom provided Validator.
+ 'V' stands for 'Validator'.
  */
 public
-struct MandatoryValidatableWrapped<T: ValueValidator>: MandatoryValueWrapper
-    , CustomValidatable
-    , DisplayNamed
-    where T.Input: Codable, T.Input: Equatable
+struct CustomValidatableOptionalValue<V>: ValueWrapper,
+    Optional,
+    CustomValidatable,
+    DisplayNamed
+    where
+    V: ValueValidator,
+    V: DisplayNamed,
+    V.Input: Codable,
+    V.Input: Equatable
 {
     public
-    typealias Value = T.Input
+    typealias Value = V.Input
 
     public
-    typealias Validator = T
+    typealias Validator = V
 
     public
-    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
+    static
+    var displayName: String { return V.displayName }
 
     public
-    var value: T.Input?
+    var value: V.Input?
 
     public
     init() {}
@@ -57,21 +62,61 @@ struct MandatoryValidatableWrapped<T: ValueValidator>: MandatoryValueWrapper
 //---
 
 /**
- It considers as 'valid' any non-'nil' 'value'.
+ Analogue of jsut having 'Swift.Optional',
+ but allows to unify API for dealing with entities.
+ 'NP' stands for '(Display) Name Provider'.
+ 'I' stands for 'Input'.
  */
 public
-struct MandatoryWrapped<T>: MandatoryValueWrapper
-    , DisplayNamed
-    where T: Codable, T: Equatable
+struct ContextualOptionalValue<NP, I>: ValueWrapper,
+    Optional,
+    // nothing to validate!
+    DisplayNamed
+    where
+    NP: DisplayNamed,
+    I: Codable,
+    I: Equatable
 {
     public
-    typealias Value = T
+    typealias Value = I
 
     public
-    var displayName: String = Utils.intrinsicDisplayName(for: T.self)
+    static
+    var displayName: String { return NP.displayName }
 
     public
-    var value: T?
+    var value: I?
+
+    public
+    init() {}
+}
+
+//---
+
+/**
+ Analogue of jsut having 'Swift.Optional',
+ but allows to unify API for dealing with entities.
+ 'I' stands for 'Input'.
+ */
+public
+struct OptionalValue<I>: ValueWrapper,
+    Optional,
+    // nothing to validate!
+    DisplayNamed
+    where
+    I: DisplayNamed,
+    I: Codable,
+    I: Equatable
+{
+    public
+    typealias Value = I
+
+    public
+    static
+    var displayName: String { return I.displayName }
+
+    public
+    var value: I?
 
     public
     init() {}
