@@ -35,7 +35,7 @@ import XCETesting
 
 class MainTests: XCTestCase
 {
-    var user = User<UnlistedFeature>()
+    var user = User()
 }
 
 // MARK: - Overrides
@@ -49,7 +49,7 @@ extension MainTests
 
         //---
         
-        user = User<UnlistedFeature>()
+        user = User()
     }
 }
 
@@ -57,15 +57,6 @@ extension MainTests
 
 extension MainTests
 {
-    func testContextualEntityDisplayName()
-    {
-        XCTAssert(User<UnlistedFeature>.displayName == "User")
-        XCTAssert(User<PersonalProfile>.displayName == "Profile")
-        XCTAssert(User<SocialConnections>.displayName == "Follower")
-        XCTAssert(User<Publication>.displayName == "Author")
-        XCTAssert(User<PublicationComment>.displayName == "Author")
-    }
-
     func testEntityValidation()
     {
         Assert("User is NOT valid in the beginning").isFalse
@@ -242,7 +233,7 @@ extension MainTests
 
         Assert("Correct const email value is valid").isNotNil
         {
-            try? User<UnlistedFeature>.Username.wrapped(const: correctEmail)
+            try? User.Username.wrapped(const: correctEmail)
         }
 
         //---
@@ -251,35 +242,35 @@ extension MainTests
 
         Assert("Incorrect const email value is NOT valid").isNil
         {
-            try? User<UnlistedFeature>.Username.wrapped(const: incorrectEmail)
+            try? User.Username.wrapped(const: incorrectEmail)
         }
 
         //---
 
         Assert("Correct const email value is valid").isTrue
         {
-            User<UnlistedFeature>.Username?.wrapped(initialValue: correctEmail).isValid
+            User.Username?.wrapped(initialValue: correctEmail).isValid
         }
 
         //---
 
         Assert("Incorrect const email value is NOT valid").isFalse
         {
-            User<UnlistedFeature>.Username.wrapped(initialValue: incorrectEmail).isValid
+            User.Username.wrapped(initialValue: incorrectEmail).isValid
         }
 
         //---
 
         Assert("EMPTY optional email value is valid").isTrue
         {
-            User<UnlistedFeature>.Username?.wrapped().isValid
+            User.Username?.wrapped().isValid
         }
 
         //---
 
         do
         {
-            _ = try User<UnlistedFeature>.Username.wrapped(const: incorrectEmail)
+            _ = try User.Username.wrapped(const: incorrectEmail)
 
             XCTFail("Should not get here ever")
         }
@@ -345,7 +336,7 @@ extension MainTests
         
         Assert("Const vlaue is equal to pre-defined value").isTrue
         {
-            try user.someConstant.validValue() == User<UnlistedFeature>.someConstantValue
+            try user.someConstant.validValue() == User.someConstantValue
         }
     }
     
