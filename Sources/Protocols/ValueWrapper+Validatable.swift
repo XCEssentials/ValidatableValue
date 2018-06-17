@@ -66,39 +66,6 @@ extension ValueWrapper
 
 extension ValueWrapper
     where
-    Self: Mandatory
-{
-    func unwrapValue() throws -> Value
-    {
-        if
-            let result = value
-        {
-            return result
-        }
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: emptyValueReport
-            )
-        }
-    }
-
-    private
-    var emptyValueReport: (title: String, message: String)
-    {
-        return (
-            "\"\(displayName)\" is empty",
-            "\"\(displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-}
-
-//---
-
-extension ValueWrapper
-    where
     Self: WithCustomValue,
     Self.Specification.Value == Self.Value
 {
