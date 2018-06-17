@@ -97,7 +97,7 @@ extension MandatoryValueWrapper
 
         //---
 
-        return result!
+        return result
     }
 }
 
