@@ -31,7 +31,7 @@ import XCEValidatableValue
 // MARK: - User
 
 struct User: ValidatableEntity,
-    IntrinsicDisplayNamed,
+    AutoDisplayNamed,
     AutoReporting
 {
     static
@@ -112,11 +112,9 @@ extension User
 extension User
 {
     enum FirstName: ValueSpecification,
+        AutoDisplayNamed,
         AutoReporting
     {
-        static
-        let displayName = "First Name"
-
         static
         let conditions = [
 
@@ -125,12 +123,10 @@ extension User
     }
 
     enum LastName: ValueSpecification,
+        AutoDisplayNamed,
         NoConditions
     {
         typealias Value = String
-
-        static
-        let displayName = "Last Name"
     }
 
     enum Username: ValueSpecification,
