@@ -33,8 +33,7 @@ import Foundation
  satisfies all conditions from custom provided Specification.
  */
 public
-struct MandatoryCustom<T>: ValueWrapper,
-    Mandatory,
+struct MandatoryCustom<T>: MandatoryValueWrapper,
     WithCustomValue
     where
     T: ValueSpecification,
@@ -60,9 +59,7 @@ struct MandatoryCustom<T>: ValueWrapper,
  It considers as 'valid' any non-'nil' 'value'.
  */
 public
-struct MandatoryBasic<T>: ValueWrapper,
-    Mandatory,
-    Validatable
+struct MandatoryBasic<T>: MandatoryValueWrapper
     where
     T: Codable & Equatable
 {

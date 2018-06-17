@@ -58,15 +58,10 @@ extension DisplayNamed
 public
 protocol AutoDisplayNamed: DisplayNamed {}
 
-// MARK: - IntrinsicDisplayNamed
-
-public
-protocol IntrinsicDisplayNamed: DisplayNamed {}
-
 //---
 
 public
-extension IntrinsicDisplayNamed
+extension AutoDisplayNamed
 {
     static
     var displayName: String

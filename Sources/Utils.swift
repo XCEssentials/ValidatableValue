@@ -31,6 +31,69 @@ enum Utils
         for input: T.Type
         ) -> String
     {
-        return String(describing: input)
+        return String(
+            String(
+                describing: input
+                )
+                .splitBefore(
+                    separator: { $0.isUpperCase }
+                )
+                .joined(separator: " ")
+            )
+    }
+}
+
+//---
+
+fileprivate
+extension Sequence
+{
+    /**
+     Thanks to https://stackoverflow.com/a/39593723
+     */
+    func splitBefore(
+        separator isSeparator: (Iterator.Element) throws -> Bool
+        ) rethrows -> [AnySequence<Iterator.Element>]
+    {
+        var result: [AnySequence<Iterator.Element>] = []
+        var subSequence: [Iterator.Element] = []
+
+        var iterator = self.makeIterator()
+
+        while
+            let element = iterator.next()
+        {
+            if
+                try isSeparator(element)
+            {
+                if
+                    !subSequence.isEmpty
+                {
+                    result.append(AnySequence(subSequence))
+                }
+                subSequence = [element]
+            }
+            else
+            {
+                subSequence.append(element)
+            }
+        }
+
+        result.append(AnySequence(subSequence))
+
+        //---
+
+        return result
+    }
+}
+
+//---
+
+fileprivate
+extension Character
+{
+    var isUpperCase: Bool
+    {
+        return String(self) == String(self).uppercased()
     }
 }
