@@ -125,7 +125,9 @@ extension ValueWrapper
                 origin: displayName,
                 value: nonEmptyValue,
                 failedConditions: failedConditions,
-                report: wrapperReport(with: failedConditions)
+                report: Specification.validationFailureReport(
+                    with: failedConditions
+                )
             )
         }
     }
@@ -165,17 +167,6 @@ extension ValueWrapper
     }
 
     private
-    func wrapperReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
-    {
-        return Specification.prepareValidationFailureReport(
-            with: displayName,
-            failedConditions: failedConditions
-        )
-    }
-
-    private
     func reportNestedValidationFailed(
         value: Validatable,
         failedConditions: [String],
@@ -183,7 +174,9 @@ extension ValueWrapper
         builtInReport: (title: String, message: String)?
         ) -> ValidationError
     {
-        let baseReport = wrapperReport(with: failedConditions)
+        let baseReport = Specification.validationFailureReport(
+            with: failedConditions
+        )
 
         let finalReport = builtInReport
             .map{(

@@ -136,7 +136,7 @@ extension Array
         return .entityIsNotValid(
             origin: entity.displayName,
             issues: self,
-            report: entity.prepareValidationFailureReport(with: self)
+            report: entity.validationFailureReport(with: self)
         )
     }
 }
