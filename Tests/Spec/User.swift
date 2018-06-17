@@ -28,38 +28,12 @@ import Foundation
 
 import XCEValidatableValue
 
-// MARK: - Contexts
-
-enum UnlistedFeature {}
-
-enum PersonalProfile {}
-enum SocialConnections {}
-enum Publication {}
-enum PublicationComment {}
-
 // MARK: - User
 
-struct User<C>: ValidatableEntity,
-    ContextualEntity,
+struct User: ValidatableEntity,
+    IntrinsicDisplayNamed,
     AutoReporting
 {
-    typealias Context = C
-
-    static
-    var displayNameFor: ContextualEntity.DisplayNameRegistry
-    {
-        return [
-            (self, "User"),
-            (PersonalProfile.self, "Profile"),
-            (SocialConnections.self, "Follower"),
-            (Publication.self, "Author"), // of the publication
-            (PublicationComment.self, "Author") // of the comment
-            ]
-    }
-
-
-    //---
-
     static
     var someConstantValue: Int { return 3 }
 

@@ -25,7 +25,53 @@
  */
 
 public
-protocol ValueSpecification: ValueValidator, DisplayNamed {}
+protocol ValueSpecification: ValueValidator, DisplayNamed
+{
+    /**
+     Controls whatever the built-in validation should be performed
+     in case the 'Value' supports validation. 'true' by default,
+     add 'IgnoreBuiltInValidation' conformance to switch to 'false'.
+     */
+    static
+    var performBuiltInValidation: Bool { get }
+}
+
+//---
+
+public
+extension ValueSpecification
+{
+    static
+    var performBuiltInValidation: Bool
+    {
+        // by default, we do built-in validation
+        // in case the 'Value' supports validation
+        return true
+    }
+}
+
+//---
+
+/**
+ Protocol-marker for 'ValueSpecification' protocol that
+ implements 'performBuiltInValidation' requirement as 'false'.
+ */
+public
+protocol IgnoreBuiltInValidation: ValueSpecification {}
+
+//---
+
+public
+extension ValueSpecification
+    where
+    Self: IgnoreBuiltInValidation
+{
+    static
+    var performBuiltInValidation: Bool
+    {
+        return false
+    }
+}
 
 //---
 
@@ -49,7 +95,7 @@ extension ValueSpecification
     Self: AutoReporting
 {
     static
-        func prepareValidationFailureReport(
+    func prepareValidationFailureReport(
         with displayName: String,
         failedConditions: [String]
         ) -> (title: String, message: String)

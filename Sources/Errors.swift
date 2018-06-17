@@ -52,6 +52,15 @@ enum ValidationError: Error
     )
 
     indirect
+    case nestedValidationFailed(
+        origin: String,
+        value: Any,
+        failedConditions: [String],
+        builtInValidationIssues: [ValidationError],
+        report: (title: String, message: String) // from current level
+    )
+
+    indirect
     case entityIsNotValid(
         origin: String,
         issues: [ValidationError],
@@ -71,6 +80,9 @@ enum ValidationError: Error
             case .valueIsNotValid(let result, _, _, _):
                 return result
 
+            case .nestedValidationFailed(let result, _, _, _, _):
+                return result
+
             case .entityIsNotValid(let result, _, _):
                 return result
         }
@@ -87,6 +99,9 @@ enum ValidationError: Error
             case .valueIsNotValid(_, _, _, let result):
                 return result
 
+            case .nestedValidationFailed(_, _, _, _, let result):
+                return result
+
             case .entityIsNotValid(_, _, let result):
                 return result
         }
@@ -97,6 +112,9 @@ enum ValidationError: Error
     {
         switch self
         {
+            case .nestedValidationFailed:
+                return true
+
             case .entityIsNotValid:
                 return true
 

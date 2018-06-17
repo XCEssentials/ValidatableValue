@@ -32,39 +32,6 @@
 public
 protocol Mandatory {}
 
-// MARK: - unwrapValueOrThrow()
-
-private
-extension Mandatory
-    where
-    Self: ValueWrapper
-{
-    /**
-     It returns non-empty (safely unwrapped) 'value',
-     or throws 'ValueNotSet' error, if the 'value' is 'nil.
-     */
-    func unwrapValueOrThrow() throws -> Value
-    {
-        guard
-            let result = value
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: (
-                    "\"\(displayName)\" is empty",
-                    "\"\(displayName)\" is empty, but expected to be non-empty."
-                )
-            )
-        }
-
-        //---
-
-        return result
-    }
-}
-
 // MARK: - Validation
 
 public
@@ -126,7 +93,7 @@ extension Mandatory
      */
     func validValue() throws -> Value
     {
-        return try unwrapValueOrThrow()
+        return try unwrapValue()
     }
 }
 
@@ -194,46 +161,13 @@ extension Mandatory
      */
     func validValue() throws -> Value
     {
-        let result = try unwrapValueOrThrow()
+        let result = try unwrapValue()
 
         //---
 
         // non-'nil' value must be checked againts requirements
 
-        var failedConditions: [String] = []
-
-        Specification.conditions.forEach
-        {
-            do
-            {
-                try $0.validate(value: result)
-            }
-            catch
-            {
-                if
-                    let error = error as? ConditionUnsatisfied
-                {
-                    failedConditions.append(error.condition)
-                }
-            }
-        }
-
-        //---
-
-        guard
-            failedConditions.isEmpty
-        else
-        {
-            throw ValidationError.valueIsNotValid(
-                origin: displayName,
-                value: result,
-                failedConditions: failedConditions,
-                report: Specification.prepareValidationFailureReport(
-                    with: displayName,
-                    failedConditions: failedConditions
-                )
-            )
-        }
+        try checkNonEmptyValue(result)
 
         //---
 
