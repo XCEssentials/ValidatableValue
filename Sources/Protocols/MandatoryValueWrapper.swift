@@ -32,10 +32,23 @@
 public
 protocol MandatoryValueWrapper: ValueWrapper, Validatable
 {
+    /**
+     Returns whatever is stored in 'value', if it is non-empty,
+     or throws if value is empty. NOTE: this function does not check
+     against any custom conditions, if presented (in case of custom validation
+     spec availability).
+     */
+    func unwrapValue() throws -> Value
+
+    /**
+     Returns whatever is stored in 'value', if it is non-empty and 'valid'
+     (in case of custom validation spec availability), or throws a validation
+     error.
+     */
     func validValue() throws -> Value
 }
 
-// MARK: - Intrinsic functionality
+// MARK: - Common functionality
 
 public
 extension MandatoryValueWrapper
@@ -43,26 +56,6 @@ extension MandatoryValueWrapper
     func validate() throws
     {
         _ = try validValue()
-    }
-
-    func unwrapValue() throws -> Value
-    {
-        if
-            let result = value
-        {
-            return result
-        }
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: (
-                    "\"\(displayName)\" is empty",
-                    "\"\(displayName)\" is empty, but expected to be non-empty."
-                )
-            )
-        }
     }
 
     /**
@@ -106,6 +99,32 @@ extension MandatoryValueWrapper
 
         return result!
     }
+}
+
+// MARK: - 'unwrap' & 'validValue' - Default Impementation
+
+public
+extension MandatoryValueWrapper
+{
+    func unwrapValue() throws -> Value
+    {
+        if
+            let result = value
+        {
+            return result
+        }
+        else
+        {
+            // 'value' is 'nil', which is NOT allowed
+            throw ValidationError.mandatoryValueIsNotSet(
+                origin: displayName,
+                report: (
+                    "\"\(displayName)\" is empty",
+                    "\"\(displayName)\" is empty, but expected to be non-empty."
+                )
+            )
+        }
+    }
 
     /**
      It returns non-empty (safely unwrapped) 'value',
@@ -119,7 +138,7 @@ extension MandatoryValueWrapper
     }
 }
 
-// MARK: - Validation + WithCustomValue
+// MARK: - 'validValue' + ValueSpecification
 
 public
 extension MandatoryValueWrapper
@@ -146,5 +165,31 @@ extension MandatoryValueWrapper
         //---
 
         return result
+    }
+}
+
+// MARK: - 'unwrap' + ValueSpecification + CustomEmptyValueReport
+
+public
+extension MandatoryValueWrapper
+    where
+    Self: WithCustomValue,
+    Self.Specification: CustomEmptyValueReport
+{
+    func unwrapValue() throws -> Value
+    {
+        if
+            let result = value
+        {
+            return result
+        }
+        else
+        {
+            // 'value' is 'nil', which is NOT allowed
+            throw ValidationError.mandatoryValueIsNotSet(
+                origin: displayName,
+                report: Specification.emptyValueReport
+            )
+        }
     }
 }

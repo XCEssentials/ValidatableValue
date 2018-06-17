@@ -124,6 +124,21 @@ extension ValueSpecification
 //---
 
 /**
+ Special protocol that allows to customize
+ 'empty value report' for a mandatory value wrapper.
+ Mandatory value wrapper will use this report, if found,
+ or fallback to built-in default otherwise.
+ */
+public
+protocol CustomEmptyValueReport: ValueSpecification
+{
+    static
+    var emptyValueReport: (title: String, message: String) { get }
+}
+
+//---
+
+/**
  Special case of value spec for simple bool flag value.
  It automatically fulfills all requirements, except reporting.
  */
