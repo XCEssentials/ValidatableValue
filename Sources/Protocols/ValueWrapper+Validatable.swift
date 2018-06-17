@@ -61,3 +61,183 @@ extension ValueWrapper
         try tmp.set(value)
     }
 }
+
+// MARK: - Reporting
+
+extension ValueWrapper
+    where
+    Self: Mandatory
+{
+    func unwrapValue() throws -> Value
+    {
+        if
+            let result = value
+        {
+            return result
+        }
+        else
+        {
+            // 'value' is 'nil', which is NOT allowed
+            throw ValidationError.mandatoryValueIsNotSet(
+                origin: displayName,
+                report: emptyValueReport
+            )
+        }
+    }
+
+    private
+    var emptyValueReport: (title: String, message: String)
+    {
+        return (
+            "\"\(displayName)\" is empty",
+            "\"\(displayName)\" is empty, but expected to be non-empty."
+        )
+    }
+}
+
+//---
+
+extension ValueWrapper
+    where
+    Self: WithCustomValue,
+    Self.Specification.Value == Self.Value
+{
+    func checkNonEmptyValue(
+        _ nonEmptyValue: Value
+        ) throws
+    {
+        var failedConditions: [String] = []
+
+        try Specification.conditions.forEach
+        {
+            do
+            {
+                try $0.validate(value: nonEmptyValue)
+            }
+            catch let error as ConditionUnsatisfied
+            {
+                failedConditions.append(error.condition)
+            }
+            catch
+            {
+                // unexpected error, just throw it right away
+                throw error
+            }
+        }
+
+        //---
+
+        if
+            Specification.performBuiltInValidation,
+            let validatableValue = nonEmptyValue as? Validatable
+        {
+            try checkNestedValidatable(
+                value: validatableValue,
+                failedConditions: failedConditions
+            )
+        }
+        else
+        {
+            try justCheckFailedConditions(
+                failedConditions,
+                with: nonEmptyValue
+            )
+        }
+    }
+
+    private
+    func justCheckFailedConditions(
+        _ failedConditions: [String],
+        with nonEmptyValue: Value
+        ) throws
+    {
+        if
+            !failedConditions.isEmpty
+        {
+            throw ValidationError.valueIsNotValid(
+                origin: displayName,
+                value: nonEmptyValue,
+                failedConditions: failedConditions,
+                report: wrapperReport(with: failedConditions)
+            )
+        }
+    }
+
+    private
+    func checkNestedValidatable(
+        value validatableValue: Validatable,
+        failedConditions: [String]
+        ) throws
+    {
+        do
+        {
+            try validatableValue.validate()
+        }
+        catch ValidationError.entityIsNotValid(_, let issues, let report)
+        {
+            throw reportNestedValidationFailed(
+                value: validatableValue,
+                failedConditions: failedConditions,
+                builtInValidationIssues: issues,
+                builtInReport: report
+            )
+        }
+        catch let error as ValidationError
+        {
+            throw reportNestedValidationFailed(
+                value: validatableValue,
+                failedConditions: failedConditions,
+                builtInValidationIssues: [error],
+                builtInReport: nil
+            )
+        }
+        catch
+        {
+            throw error
+        }
+    }
+
+    private
+    func wrapperReport(
+        with failedConditions: [String]
+        ) -> (title: String, message: String)
+    {
+        return Specification.prepareValidationFailureReport(
+            with: displayName,
+            failedConditions: failedConditions
+        )
+    }
+
+    private
+    func reportNestedValidationFailed(
+        value: Validatable,
+        failedConditions: [String],
+        builtInValidationIssues: [ValidationError],
+        builtInReport: (title: String, message: String)?
+        ) -> ValidationError
+    {
+        let baseReport = wrapperReport(with: failedConditions)
+
+        let finalReport = builtInReport
+            .map{(
+                title: baseReport.title,
+                message: """
+                \(baseReport.message)
+                ———
+                \($0.message)
+                ———
+                """
+                )}
+            ?? baseReport
+
+        //---
+
+        return .nestedValidationFailed(
+            origin: displayName,
+            value: value,
+            failedConditions: failedConditions,
+            builtInValidationIssues: builtInValidationIssues,
+            report: finalReport
+        )
+    }
+}

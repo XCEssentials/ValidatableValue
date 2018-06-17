@@ -95,10 +95,9 @@ extension Optional
     }
 
     /**
-     It returns whatever is stored in 'value',
-     or throws 'ValidationFailed' error if
-     'value' is not 'nil' and at least one of
-     the custom conditions from Specification has failed.
+     It returns whatever is stored in 'value', or
+     throws 'ValidationError' if 'value' is not 'nil'
+     and failed to pass validation.
      */
     func validValue() throws -> Value?
     {
@@ -114,40 +113,7 @@ extension Optional
 
         // non-'nil' value must be checked againts requirements
 
-        var failedConditions: [String] = []
-
-        Specification.conditions.forEach
-        {
-            do
-            {
-                try $0.validate(value: result)
-            }
-            catch
-            {
-                if
-                    let error = error as? ConditionUnsatisfied
-                {
-                    failedConditions.append(error.condition)
-                }
-            }
-        }
-
-        //---
-
-        guard
-            failedConditions.isEmpty
-        else
-        {
-            throw ValidationError.valueIsNotValid(
-                origin: displayName,
-                value: result,
-                failedConditions: failedConditions,
-                report: Specification.prepareValidationFailureReport(
-                    with: displayName,
-                    failedConditions: failedConditions
-                )
-            )
-        }
+        try checkNonEmptyValue(result)
 
         //---
 

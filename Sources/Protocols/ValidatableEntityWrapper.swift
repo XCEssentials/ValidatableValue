@@ -25,43 +25,28 @@
  */
 
 public
-protocol ContextualEntity: DisplayNamed
+protocol ValidatableEntityWrapper: Validatable
 {
-    associatedtype Context
-
-    typealias DisplayNameRegistry = [(context: Any.Type, name: String)]
-
-    /**
-     Display name registry. If no explicit name found for the
-     'Context' - then explicit self-defined display name will be used
-     or intrinsic display name will be used.
-     NOTE: intrinsic name may look inappropriate for displaying in GUI,
-     because it will contain 'Context' generic type mentioned,
-     to specify 'default non-intrinsic' kind of display name —
-     put 'self' type into registry with desired display name.
-     */
-    static
-    var displayNameFor: DisplayNameRegistry { get }
+    associatedtype WrappedEntity: ValidatableEntity
 }
 
 //---
 
 public
-extension ContextualEntity
+protocol PassValidationToEntity: ValidatableEntityWrapper
 {
-    static
-    var displayName: String
+    var wrappedEntity: WrappedEntity { get }
+}
+
+//---
+
+public
+extension ValidatableEntityWrapper
+    where
+    Self: PassValidationToEntity
+{
+    func validate() throws
     {
-        return displayNameFor
-            .filter{ $0.context == Context.self }
-            .first?
-            .name
-            ??
-            displayNameFor
-            .filter{ $0.context == self }
-            .first?
-            .name
-            ??
-            Utils.intrinsicDisplayName(for: self)
+        return try wrappedEntity.validate()
     }
 }
