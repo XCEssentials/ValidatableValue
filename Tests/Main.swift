@@ -57,6 +57,18 @@ extension MainTests
 
 extension MainTests
 {
+    func testMultipleErrors()
+    {
+        do
+        {
+            let _ = try user.valid()
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+
     func testEntityValidation()
     {
         Assert("User is NOT valid in the beginning").isFalse

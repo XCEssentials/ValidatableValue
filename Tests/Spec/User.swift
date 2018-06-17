@@ -72,39 +72,43 @@ extension User
 //            password.value != nil
 //        )
 //    }
-//
-//    //---
-//
-//    typealias Valid = (
-//        someConstant: Int,
-//        firstName: String,
-//        lastName: String?,
-//        username: String
-//    )
-//
-//    func valid() throws -> Valid
-//    {
-//        var issues: [ValidationError] = []
-//
-//        let result: Valid = try (
-//            someConstant.validValue(&issues),
-//            firstName.validValue(&issues),
-//            lastName.value,
-//            username.validValue(&issues)
-//        )
-//
-//        //---
-//
-//        if
-//            issues.isEmpty
-//        {
-//            return result
-//        }
-//        else
-//        {
-//            throw issues.asValidationIssues(for: self)
-//        }
-//    }
+
+    //---
+
+    typealias Valid =
+    (
+        someConstant: Int,
+        firstName: String,
+        lastName: String?,
+        username: String
+    )
+
+    func valid() throws -> Valid
+    {
+        var issues: [ValidationError] = []
+
+        let someConstant = try self.someConstant.validValue(&issues)
+        let firstName = try self.firstName.validValue(&issues)
+        let lastName = self.lastName.value
+        let username = try self.username.validValue(&issues)
+
+        //---
+
+        if
+            issues.isEmpty
+        {
+            return (
+                someConstant!,
+                firstName!,
+                lastName,
+                username!
+            )
+        }
+        else
+        {
+            throw issues.asValidationIssues(for: self)
+        }
+    }
 }
 
 // MARK: - User: Validators & Name Providers
