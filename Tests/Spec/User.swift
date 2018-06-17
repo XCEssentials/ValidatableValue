@@ -127,8 +127,7 @@ extension User
     }
 
     enum LastName: ValueSpecification,
-        NoConditions,
-        AutoReporting
+        NoConditions
     {
         typealias Value = String
 

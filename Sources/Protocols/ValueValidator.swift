@@ -50,7 +50,7 @@ protocol ValueValidator
 //---
 
 public
-protocol NoConditions {}
+protocol NoConditions: AutoReporting {}
 
 //---
 
