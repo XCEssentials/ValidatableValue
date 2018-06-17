@@ -128,8 +128,8 @@ extension ValueWrapper
         //---
 
         if
-            Specification.performBuiltInValidation,
-            let validatableValue = nonEmptyValue as? Validatable
+            let validatableValue = nonEmptyValue as? Validatable,
+            Specification.performBuiltInValidation
         {
             try checkNestedValidatable(
                 value: validatableValue,
