@@ -35,7 +35,7 @@
 public
 protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
 {
-    func prepareValidationFailureReport(
+    func validationFailureReport(
         with issues: [ValidationError]
         ) -> (title: String, message: String)
 }
@@ -105,7 +105,7 @@ extension ValidatableEntity
     where
     Self: AutoReporting
 {
-    func prepareValidationFailureReport(
+    func validationFailureReport(
         with issues: [ValidationError]
         ) -> (title: String, message: String)
     {

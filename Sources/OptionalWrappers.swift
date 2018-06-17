@@ -31,8 +31,7 @@ import Foundation
  satisfies all conditions from custom provided Specification.
  */
 public
-struct OptionalCustom<T>: ValueWrapper,
-    Optional,
+struct OptionalCustom<T>: OptionalValueWrapper,
     WithCustomValue
     where
     T: ValueSpecification,
@@ -59,8 +58,7 @@ struct OptionalCustom<T>: ValueWrapper,
  but allows to unify API for dealing with entities.
  */
 public
-struct OptionalBasic<T>: ValueWrapper,
-    Optional
+struct OptionalBasic<T>: OptionalValueWrapper
     // nothing to validate!
     where
     T: Codable & Equatable

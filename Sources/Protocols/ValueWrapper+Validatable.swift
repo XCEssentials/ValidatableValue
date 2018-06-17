@@ -66,39 +66,6 @@ extension ValueWrapper
 
 extension ValueWrapper
     where
-    Self: Mandatory
-{
-    func unwrapValue() throws -> Value
-    {
-        if
-            let result = value
-        {
-            return result
-        }
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: emptyValueReport
-            )
-        }
-    }
-
-    private
-    var emptyValueReport: (title: String, message: String)
-    {
-        return (
-            "\"\(displayName)\" is empty",
-            "\"\(displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-}
-
-//---
-
-extension ValueWrapper
-    where
     Self: WithCustomValue,
     Self.Specification.Value == Self.Value
 {
@@ -128,8 +95,8 @@ extension ValueWrapper
         //---
 
         if
-            Specification.performBuiltInValidation,
-            let validatableValue = nonEmptyValue as? Validatable
+            let validatableValue = nonEmptyValue as? Validatable,
+            Specification.performBuiltInValidation
         {
             try checkNestedValidatable(
                 value: validatableValue,
@@ -158,7 +125,9 @@ extension ValueWrapper
                 origin: displayName,
                 value: nonEmptyValue,
                 failedConditions: failedConditions,
-                report: wrapperReport(with: failedConditions)
+                report: Specification.validationFailureReport(
+                    with: failedConditions
+                )
             )
         }
     }
@@ -198,17 +167,6 @@ extension ValueWrapper
     }
 
     private
-    func wrapperReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
-    {
-        return Specification.prepareValidationFailureReport(
-            with: displayName,
-            failedConditions: failedConditions
-        )
-    }
-
-    private
     func reportNestedValidationFailed(
         value: Validatable,
         failedConditions: [String],
@@ -216,7 +174,9 @@ extension ValueWrapper
         builtInReport: (title: String, message: String)?
         ) -> ValidationError
     {
-        let baseReport = wrapperReport(with: failedConditions)
+        let baseReport = Specification.validationFailureReport(
+            with: failedConditions
+        )
 
         let finalReport = builtInReport
             .map{(

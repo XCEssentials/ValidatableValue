@@ -24,9 +24,19 @@
 
  */
 
+//---
+
+/**
+ Describes custom value type for a wrapper.
+ */
 public
-protocol ValueSpecification: ValueValidator, DisplayNamed
+protocol ValueSpecification: DisplayNamed
 {
+    associatedtype Value
+
+    static
+    var conditions: [Condition<Value>] { get }
+
     /**
      Controls whatever the built-in validation should be performed
      in case the 'Value' supports validation. 'true' by default,
@@ -34,6 +44,25 @@ protocol ValueSpecification: ValueValidator, DisplayNamed
      */
     static
     var performBuiltInValidation: Bool { get }
+
+    static
+    func validationFailureReport(
+        with failedConditions: [String]
+        ) -> (title: String, message: String)
+}
+
+//---
+
+public
+protocol NoConditions: ValueSpecification, AutoReporting {}
+
+//---
+
+public
+extension NoConditions
+{
+    static
+    var conditions: [Condition<Self.Value>] { return [] }
 }
 
 //---
@@ -78,31 +107,55 @@ extension ValueSpecification
 public
 extension ValueSpecification
     where
-    Self: AutoDisplayNamed
-{
-    static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
-    }
-}
-
-//---
-
-public
-extension ValueSpecification
-    where
     Self: AutoReporting
 {
     static
-    func prepareValidationFailureReport(
-        with displayName: String,
-        failedConditions: [String]
+    func validationFailureReport(
+        with failedConditions: [String]
         ) -> (title: String, message: String)
     {
         return (
             "\"\(displayName)\" validation failed",
             "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
         )
+    }
+}
+
+//---
+
+/**
+ Special protocol that allows to customize
+ 'empty value report' for a mandatory value wrapper.
+ Mandatory value wrapper will use this report, if found,
+ or fallback to built-in default otherwise.
+ */
+public
+protocol CustomEmptyValueReport: ValueSpecification
+{
+    static
+    var emptyValueReport: (title: String, message: String) { get }
+}
+
+//---
+
+/**
+ Special case of value spec for simple bool flag value.
+ It automatically fulfills all requirements, except reporting.
+ */
+public
+protocol BoolFlag: ValueSpecification, AutoDisplayNamed {}
+
+//---
+
+public
+extension BoolFlag
+{
+    static
+    var conditions: Conditions<Bool>
+    {
+        return [
+
+            Check(displayName){ $0 }
+        ]
     }
 }

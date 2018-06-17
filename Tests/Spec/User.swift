@@ -31,7 +31,7 @@ import XCEValidatableValue
 // MARK: - User
 
 struct User: ValidatableEntity,
-    IntrinsicDisplayNamed,
+    AutoDisplayNamed,
     AutoReporting
 {
     static
@@ -112,28 +112,21 @@ extension User
 extension User
 {
     enum FirstName: ValueSpecification,
+        AutoDisplayNamed,
         AutoReporting
     {
         static
-        var displayName: String { return "First Name" }
+        let conditions = [
 
-        static
-        var conditions: Conditions<String>
-        {
-            return [
-                String.checkNonEmpty
-            ]
-        }
+            String.checkNonEmpty
+        ]
     }
 
     enum LastName: ValueSpecification,
-        NoConditions,
-        AutoReporting
+        AutoDisplayNamed,
+        NoConditions
     {
         typealias Value = String
-
-        static
-        var displayName: String { return "Last Name" }
     }
 
     enum Username: ValueSpecification,
@@ -141,13 +134,11 @@ extension User
         AutoReporting
     {
         static
-        var conditions: Conditions<String>
-        {
-            return [
-                String.checkNonEmpty,
-                Check("Valid email address", String.isValidEmail)
-                ]
-        }
+        let conditions = [
+
+            String.checkNonEmpty,
+            Check("Valid email address", String.isValidEmail)
+        ]
     }
 
     enum Password: ValueSpecification,
@@ -155,27 +146,24 @@ extension User
         AutoReporting
     {
         static
-        var conditions: Conditions<String>
-        {
-            return [
+        let conditions: Conditions<String> = [
 
-                Check("Lenght between 8 and 30 characters")
-                    { 8...30 ~= $0.count },
-                Check("Has at least 1 capital character")
-                    { 1 <= Pwd.caps.count(at: $0) },
-                Check("Has at least 4 lower characters")
-                    { 4 <= Pwd.lows.count(at: $0) },
-                Check("Has at least 1 digit character")
-                    { 1 <= Pwd.digits.count(at: $0) },
-                Check("Has at least 1 special character")
-                    { 1 <= Pwd.specials.count(at: $0) },
-                Check("""
+            Check("Lenght between 8 and 30 characters")
+            { 8...30 ~= $0.count },
+            Check("Has at least 1 capital character")
+            { 1 <= Pwd.caps.count(at: $0) },
+            Check("Has at least 4 lower characters")
+            { 4 <= Pwd.lows.count(at: $0) },
+            Check("Has at least 1 digit character")
+            { 1 <= Pwd.digits.count(at: $0) },
+            Check("Has at least 1 special character")
+            { 1 <= Pwd.specials.count(at: $0) },
+            Check("""
                     Consists of lowercase letters, decimal digits and
                     following characters: ,.!?@#$%^&*()-_+=
                     """)
-                    { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
-                ]
-        }
+            { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+        ]
     }
 }
 
