@@ -24,6 +24,7 @@
 		94E7EC1D20C0A55500132570 /* Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1C20C0A55500132570 /* Mandatory.swift */; };
 		94E7EC1F20C0A57F00132570 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1E20C0A57F00132570 /* Optional.swift */; };
 		94EC8C4320D477A9005D9A98 /* ValueSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EC8C4220D477A9005D9A98 /* ValueSpecification.swift */; };
+		94EC8C4520D64CE1005D9A98 /* ValidatableEntityWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EC8C4420D64CE1005D9A98 /* ValidatableEntityWrapper.swift */; };
 		94FF816F20C0079D00E69904 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF816E20C0079D00E69904 /* Operators.swift */; };
 		94FF817120C0106700E69904 /* MandatoryWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF817020C0106700E69904 /* MandatoryWrappers.swift */; };
 		94FF817420C0115100E69904 /* OptionalWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF817320C0115100E69904 /* OptionalWrappers.swift */; };
@@ -84,6 +85,7 @@
 		94E7EC1C20C0A55500132570 /* Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mandatory.swift; sourceTree = "<group>"; };
 		94E7EC1E20C0A57F00132570 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		94EC8C4220D477A9005D9A98 /* ValueSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSpecification.swift; sourceTree = "<group>"; };
+		94EC8C4420D64CE1005D9A98 /* ValidatableEntityWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableEntityWrapper.swift; sourceTree = "<group>"; };
 		94FF816E20C0079D00E69904 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		94FF817020C0106700E69904 /* MandatoryWrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryWrappers.swift; sourceTree = "<group>"; };
 		94FF817320C0115100E69904 /* OptionalWrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalWrappers.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				94E7EC1C20C0A55500132570 /* Mandatory.swift */,
 				94E7EC1E20C0A57F00132570 /* Optional.swift */,
 				94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */,
+				94EC8C4420D64CE1005D9A98 /* ValidatableEntityWrapper.swift */,
 				94DFF61420D14CD400B42863 /* AutoReporting.swift */,
 			);
 			path = Protocols;
@@ -399,6 +402,7 @@
 				949B409F20D466D40043CAB3 /* Utils.swift in Sources */,
 				9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
+				94EC8C4520D64CE1005D9A98 /* ValidatableEntityWrapper.swift in Sources */,
 				94E7EC1F20C0A57F00132570 /* Optional.swift in Sources */,
 				94FF817120C0106700E69904 /* MandatoryWrappers.swift in Sources */,
 				94FF817420C0115100E69904 /* OptionalWrappers.swift in Sources */,
