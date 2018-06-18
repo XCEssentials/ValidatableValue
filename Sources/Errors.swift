@@ -123,20 +123,3 @@ enum ValidationError: Error
         }
     }
 }
-
-public
-extension Array
-    where
-    Element == ValidationError
-{
-    func asValidationIssues<E: ValidatableEntity>(
-        for entity: E
-        ) -> ValidationError
-    {
-        return .entityIsNotValid(
-            origin: entity.displayName,
-            issues: self,
-            report: entity.validationFailureReport(with: self)
-        )
-    }
-}

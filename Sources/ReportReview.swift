@@ -24,44 +24,27 @@
 
  */
 
-// MARK: - DisplayNamed
+public
+typealias Report = (title: String, message: String)
+
+//---
 
 public
-protocol DisplayNamed
+struct ValueReportContext
 {
-    /**
-     End user friendly title of any instance of this type,
-     represents the recommended way to refer to instances
-     of this type in GUI. Implemented automatically if
-     the type conforms to 'AutoDisplayName' protocol.
-     */
-    static
-    var displayName: String { get }
+    let origin: String
+    let value: Any?
+    let failedConditions: [String]
+    let builtInValidationIssues: [ValidationError]
 }
 
 public
-extension DisplayNamed
-{
-    /**
-     Convenience helper to access 'displayName' from instance level.
-     */
-    var displayName: String
-    {
-        return type(of: self).displayName
-    }
-}
+typealias ValueReportReview = (ValueReportContext, inout Report) -> Void
 
-// MARK: - AutoDisplayNamed
+//---
 
 public
-protocol AutoDisplayNamed: DisplayNamed {}
+typealias EntityReportContext = [ValidationError]
 
 public
-extension AutoDisplayNamed
-{
-    static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
-    }
-}
+typealias EntityReportReview = (EntityReportContext, inout Report) -> Void

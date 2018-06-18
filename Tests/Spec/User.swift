@@ -91,6 +91,7 @@ extension User
         let firstName = try self.firstName.validValue(&issues)
         let lastName = self.lastName.value
         let username = try self.username.validValue(&issues)
+        // NOTE: we are skipping Password!
 
         //---
 
@@ -115,6 +116,26 @@ extension User
 
 extension User
 {
+    static
+    let someNewSpecReportMessage = "This is a static message for all errors"
+
+    enum SomeNewSpec: ValueSpecification,
+        AutoDisplayNamed
+    {
+        static
+        let conditions = [
+
+            String.checkNonEmpty
+        ]
+
+        static
+        let reportReview: ValueReportReview = {
+
+            $1.title = "Title"
+            $1.message = someNewSpecReportMessage
+        }
+    }
+
     enum FirstName: ValueSpecification,
         AutoDisplayNamed,
         AutoReporting
