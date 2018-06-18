@@ -99,8 +99,6 @@ extension ValueWrapper
     }
 }
 
-//---
-
 public
 extension ValueWrapper
     where

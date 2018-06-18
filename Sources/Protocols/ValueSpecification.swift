@@ -46,26 +46,8 @@ protocol ValueSpecification: DisplayNamed
     var performBuiltInValidation: Bool { get }
 
     static
-    func validationFailureReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
+    var reportReview: ValueReportReview { get }
 }
-
-//---
-
-public
-protocol NoConditions: ValueSpecification, AutoReporting {}
-
-//---
-
-public
-extension NoConditions
-{
-    static
-    var conditions: [Condition<Self.Value>] { return [] }
-}
-
-//---
 
 public
 extension ValueSpecification
@@ -79,6 +61,47 @@ extension ValueSpecification
     }
 }
 
+// internal
+extension ValueSpecification
+{
+    static
+    func defaultValidationReport(
+        with failedConditions: [String]
+        ) -> Report
+    {
+        return (
+            "\"\(displayName)\" validation failed",
+            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
+
+    static
+    func prepareReport(
+        value: Any?,
+        failedConditions: [String],
+        builtInValidationIssues: [ValidationError],
+        suggestedReport: Report
+        ) -> Report
+    {
+        var result = suggestedReport
+
+        let context = ValueReportContext(
+            origin: displayName,
+            value: value,
+            failedConditions: failedConditions,
+            builtInValidationIssues: builtInValidationIssues
+        )
+
+        //---
+
+        reportReview(context, &result)
+
+        //---
+
+        return result
+    }
+}
+
 //---
 
 /**
@@ -88,12 +111,8 @@ extension ValueSpecification
 public
 protocol IgnoreBuiltInValidation: ValueSpecification {}
 
-//---
-
 public
-extension ValueSpecification
-    where
-    Self: IgnoreBuiltInValidation
+extension IgnoreBuiltInValidation
 {
     static
     var performBuiltInValidation: Bool
@@ -105,57 +124,26 @@ extension ValueSpecification
 //---
 
 public
+protocol NoConditions: ValueSpecification, AutoReporting {}
+
+public
+extension NoConditions
+{
+    static
+    var conditions: [Condition<Self.Value>] { return [] }
+}
+
+//---
+
+public
 extension ValueSpecification
     where
     Self: AutoReporting
 {
     static
-    func validationFailureReport(
-        with failedConditions: [String]
-        ) -> (title: String, message: String)
+    var reportReview: ValueReportReview
     {
-        return (
-            "\"\(displayName)\" validation failed",
-            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
-        )
-    }
-}
-
-//---
-
-/**
- Special protocol that allows to customize
- 'empty value report' for a mandatory value wrapper.
- Mandatory value wrapper will use this report, if found,
- or fallback to built-in default otherwise.
- */
-public
-protocol CustomEmptyValueReport: ValueSpecification
-{
-    static
-    var emptyValueReport: (title: String, message: String) { get }
-}
-
-//---
-
-/**
- Special case of value spec for simple bool flag value.
- It automatically fulfills all requirements, except reporting.
- */
-public
-protocol BoolFlag: ValueSpecification, AutoDisplayNamed {}
-
-//---
-
-public
-extension BoolFlag
-{
-    static
-    var conditions: Conditions<Bool>
-    {
-        return [
-
-            Check(displayName){ $0 }
-        ]
+        // by default, we don't adjust anything in the report
+        return { _, _ in }
     }
 }

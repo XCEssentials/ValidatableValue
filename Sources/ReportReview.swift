@@ -25,28 +25,26 @@
  */
 
 public
-protocol ValidatableEntityWrapper: Validatable
-{
-    associatedtype WrappedEntity: ValidatableEntity
-}
+typealias Report = (title: String, message: String)
 
 //---
 
 public
-protocol PassValidationToEntity: ValidatableEntityWrapper
+struct ValueReportContext
 {
-    var wrappedEntity: WrappedEntity { get }
+    let origin: String
+    let value: Any?
+    let failedConditions: [String]
+    let builtInValidationIssues: [ValidationError]
 }
+
+public
+typealias ValueReportReview = (ValueReportContext, inout Report) -> Void
 
 //---
 
 public
-extension ValidatableEntityWrapper
-    where
-    Self: PassValidationToEntity
-{
-    func validate() throws
-    {
-        return try wrappedEntity.validate()
-    }
-}
+typealias EntityReportContext = [ValidationError]
+
+public
+typealias EntityReportReview = (EntityReportContext, inout Report) -> Void

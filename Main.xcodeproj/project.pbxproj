@@ -22,8 +22,9 @@
 		94E7EC1B20C09AE300132570 /* ValidatableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */; };
 		94E7EC1D20C0A55500132570 /* MandatoryValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1C20C0A55500132570 /* MandatoryValueWrapper.swift */; };
 		94E7EC1F20C0A57F00132570 /* OptionalValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1E20C0A57F00132570 /* OptionalValueWrapper.swift */; };
+		94E83BDB20D7B041001D3512 /* ReportReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E83BDA20D7B041001D3512 /* ReportReview.swift */; };
+		94E83BDD20D7B13F001D3512 /* BoolFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E83BDC20D7B13F001D3512 /* BoolFlag.swift */; };
 		94EC8C4320D477A9005D9A98 /* ValueSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EC8C4220D477A9005D9A98 /* ValueSpecification.swift */; };
-		94EC8C4520D64CE1005D9A98 /* ValidatableEntityWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EC8C4420D64CE1005D9A98 /* ValidatableEntityWrapper.swift */; };
 		94FF816F20C0079D00E69904 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF816E20C0079D00E69904 /* Operators.swift */; };
 		94FF817120C0106700E69904 /* MandatoryWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF817020C0106700E69904 /* MandatoryWrappers.swift */; };
 		94FF817420C0115100E69904 /* OptionalWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FF817320C0115100E69904 /* OptionalWrappers.swift */; };
@@ -82,8 +83,9 @@
 		94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatableEntity.swift; sourceTree = "<group>"; };
 		94E7EC1C20C0A55500132570 /* MandatoryValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryValueWrapper.swift; sourceTree = "<group>"; };
 		94E7EC1E20C0A57F00132570 /* OptionalValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValueWrapper.swift; sourceTree = "<group>"; };
+		94E83BDA20D7B041001D3512 /* ReportReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportReview.swift; sourceTree = "<group>"; };
+		94E83BDC20D7B13F001D3512 /* BoolFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolFlag.swift; sourceTree = "<group>"; };
 		94EC8C4220D477A9005D9A98 /* ValueSpecification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueSpecification.swift; sourceTree = "<group>"; };
-		94EC8C4420D64CE1005D9A98 /* ValidatableEntityWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatableEntityWrapper.swift; sourceTree = "<group>"; };
 		94FF816E20C0079D00E69904 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		94FF817020C0106700E69904 /* MandatoryWrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandatoryWrappers.swift; sourceTree = "<group>"; };
 		94FF817320C0115100E69904 /* OptionalWrappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalWrappers.swift; sourceTree = "<group>"; };
@@ -175,6 +177,15 @@
 			);
 			sourceTree = "<group>";
 		};
+		94E83BDE20D7B155001D3512 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				943EA2A120CF3CD0006CF016 /* Initializers.swift */,
+				94E83BDC20D7B13F001D3512 /* BoolFlag.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		94FF817220C0111000E69904 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,7 +198,6 @@
 				94E7EC1C20C0A55500132570 /* MandatoryValueWrapper.swift */,
 				94E7EC1E20C0A57F00132570 /* OptionalValueWrapper.swift */,
 				94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */,
-				94EC8C4420D64CE1005D9A98 /* ValidatableEntityWrapper.swift */,
 				94DFF61420D14CD400B42863 /* AutoReporting.swift */,
 			);
 			path = Protocols;
@@ -210,11 +220,12 @@
 				949B409E20D466D40043CAB3 /* Utils.swift */,
 				62F791557D101E81B3C45CAD /* Errors.swift */,
 				94E7EC1820C03A7A00132570 /* Condition.swift */,
+				94E83BDA20D7B041001D3512 /* ReportReview.swift */,
 				94FF817220C0111000E69904 /* Protocols */,
 				94FF817020C0106700E69904 /* MandatoryWrappers.swift */,
 				94FF817320C0115100E69904 /* OptionalWrappers.swift */,
 				94FF816E20C0079D00E69904 /* Operators.swift */,
-				943EA2A120CF3CD0006CF016 /* Initializers.swift */,
+				94E83BDE20D7B155001D3512 /* Helpers */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -395,10 +406,11 @@
 				94EC8C4320D477A9005D9A98 /* ValueSpecification.swift in Sources */,
 				94FF816F20C0079D00E69904 /* Operators.swift in Sources */,
 				943EA2A220CF3CD0006CF016 /* Initializers.swift in Sources */,
+				94E83BDD20D7B13F001D3512 /* BoolFlag.swift in Sources */,
 				949B409F20D466D40043CAB3 /* Utils.swift in Sources */,
+				94E83BDB20D7B041001D3512 /* ReportReview.swift in Sources */,
 				9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
-				94EC8C4520D64CE1005D9A98 /* ValidatableEntityWrapper.swift in Sources */,
 				94E7EC1F20C0A57F00132570 /* OptionalValueWrapper.swift in Sources */,
 				94FF817120C0106700E69904 /* MandatoryWrappers.swift in Sources */,
 				94FF817420C0115100E69904 /* OptionalWrappers.swift in Sources */,
@@ -450,7 +462,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -476,7 +488,7 @@
 			baseConfigurationReference = 343B09A0D2E9085C310918BD /* Pods-Fwk.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEFINES_MODULE = NO;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = Info/Fwk.plist;
@@ -527,7 +539,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -560,7 +572,7 @@
 			baseConfigurationReference = B8563FF7D888D8C7E2835F20 /* Pods-Fwk.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEFINES_MODULE = NO;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = Info/Fwk.plist;

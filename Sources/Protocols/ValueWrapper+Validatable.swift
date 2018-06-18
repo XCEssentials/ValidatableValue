@@ -125,8 +125,13 @@ extension ValueWrapper
                 origin: displayName,
                 value: nonEmptyValue,
                 failedConditions: failedConditions,
-                report: Specification.validationFailureReport(
-                    with: failedConditions
+                report: Specification.prepareReport(
+                    value: nonEmptyValue,
+                    failedConditions: failedConditions,
+                    builtInValidationIssues: [],
+                    suggestedReport: Specification.defaultValidationReport(
+                        with: failedConditions
+                    )
                 )
             )
         }
@@ -174,9 +179,8 @@ extension ValueWrapper
         builtInReport: (title: String, message: String)?
         ) -> ValidationError
     {
-        let baseReport = Specification.validationFailureReport(
-            with: failedConditions
-        )
+        let baseReport = Specification
+            .defaultValidationReport(with: failedConditions)
 
         let finalReport = builtInReport
             .map{(
@@ -197,7 +201,12 @@ extension ValueWrapper
             value: value,
             failedConditions: failedConditions,
             builtInValidationIssues: builtInValidationIssues,
-            report: finalReport
+            report: Specification.prepareReport(
+                value: value,
+                failedConditions: failedConditions,
+                builtInValidationIssues: builtInValidationIssues,
+                suggestedReport: finalReport
+            )
         )
     }
 }

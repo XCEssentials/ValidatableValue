@@ -24,44 +24,26 @@
 
  */
 
-// MARK: - DisplayNamed
+//---
+
+/**
+ Special case of value spec for simple bool flag value.
+ It automatically fulfills all requirements, except reporting.
+ */
+public
+protocol BoolFlag: ValueSpecification, AutoDisplayNamed {}
+
+//---
 
 public
-protocol DisplayNamed
-{
-    /**
-     End user friendly title of any instance of this type,
-     represents the recommended way to refer to instances
-     of this type in GUI. Implemented automatically if
-     the type conforms to 'AutoDisplayName' protocol.
-     */
-    static
-    var displayName: String { get }
-}
-
-public
-extension DisplayNamed
-{
-    /**
-     Convenience helper to access 'displayName' from instance level.
-     */
-    var displayName: String
-    {
-        return type(of: self).displayName
-    }
-}
-
-// MARK: - AutoDisplayNamed
-
-public
-protocol AutoDisplayNamed: DisplayNamed {}
-
-public
-extension AutoDisplayNamed
+extension BoolFlag
 {
     static
-    var displayName: String
+    var conditions: Conditions<Bool>
     {
-        return Utils.intrinsicDisplayName(for: self)
+        return [
+
+            Check(displayName){ $0 }
+        ]
     }
 }

@@ -35,9 +35,8 @@
 public
 protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
 {
-    func validationFailureReport(
-        with issues: [ValidationError]
-        ) -> (title: String, message: String)
+    static
+    var reportReview: EntityReportReview { get }
 }
 
 //---
@@ -72,7 +71,7 @@ extension ValidatableEntity
 
         //---
 
-        allValidatableMembers.forEach{
+        try allValidatableMembers.forEach{
 
             do
             {
@@ -84,7 +83,8 @@ extension ValidatableEntity
             }
             catch
             {
-                // ignore any unexpected erros
+                // throw any unexpected erros right away
+                throw error
             }
         }
 
@@ -98,16 +98,32 @@ extension ValidatableEntity
     }
 }
 
+public
+extension Array
+    where
+    Element == ValidationError
+{
+    func asValidationIssues<E: ValidatableEntity>(
+        for entity: E
+        ) -> ValidationError
+    {
+        return .entityIsNotValid(
+            origin: entity.displayName,
+            issues: self,
+            report: type(of: entity).prepareReport(with: self)
+        )
+    }
+}
+
 // MARK: - Reporting
 
-public
+// internal
 extension ValidatableEntity
-    where
-    Self: AutoReporting
 {
-    func validationFailureReport(
+    static
+    func prepareReport(
         with issues: [ValidationError]
-        ) -> (title: String, message: String)
+        ) -> Report
     {
         let messages = issues
             .map{
@@ -116,10 +132,10 @@ extension ValidatableEntity
                     $0.hasNestedIssues // report from a nested entity...
                 {
                     return """
-                        ———
-                        \($0.report.message)
-                        ———
-                        """
+                    ———
+                    \($0.report.message)
+                    ———
+                    """
                 }
                 else
                 {
@@ -130,12 +146,35 @@ extension ValidatableEntity
 
         //---
 
-        return (
-            title: "\"\(self.displayName)\" validation failed",
-            message: """
+        var result: Report = (
+
+            "\"\(self.displayName)\" validation failed",
+
+            """
             \"\(self.displayName)\" validation failed due to the issues listed below.
             \(messages)
             """
         )
+
+        //---
+
+        reportReview(issues, &result)
+
+        //---
+
+        return result
+    }
+}
+
+public
+extension ValidatableEntity
+    where
+    Self: AutoReporting
+{
+    static
+    var reportReview: EntityReportReview
+    {
+        // by default, we don't adjust anything in the report
+        return { _, _ in }
     }
 }

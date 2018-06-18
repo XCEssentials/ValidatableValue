@@ -33,14 +33,6 @@ public
 protocol MandatoryValueWrapper: ValueWrapper, Validatable
 {
     /**
-     Returns whatever is stored in 'value', if it is non-empty,
-     or throws if value is empty. NOTE: this function does not check
-     against any custom conditions, if presented (in case of custom validation
-     spec availability).
-     */
-    func unwrapValue() throws -> Value
-
-    /**
      Returns whatever is stored in 'value', if it is non-empty and 'valid'
      (in case of custom validation spec availability), or throws a validation
      error.
@@ -50,12 +42,42 @@ protocol MandatoryValueWrapper: ValueWrapper, Validatable
 
 // MARK: - Common functionality
 
+// internal
+extension MandatoryValueWrapper
+{
+    var defaultEmptyValueReport: Report
+    {
+        return (
+            "\"\(displayName)\" is empty",
+            "\"\(displayName)\" is empty, but expected to be non-empty."
+        )
+    }
+}
+
 public
 extension MandatoryValueWrapper
 {
-    func validate() throws
+    /**
+     It returns non-empty (safely unwrapped) 'value',
+     or throws 'ValueNotSet' error, if the 'value' is 'nil.
+     */
+    func validValue() throws -> Value
     {
-        _ = try validValue()
+        // just a non-'nil' value is considered as 'valid'
+
+        if
+            let result = value
+        {
+            return result
+        }
+        else
+        {
+            // 'value' is 'nil', which is NOT allowed
+            throw ValidationError.mandatoryValueIsNotSet(
+                origin: displayName,
+                report: defaultEmptyValueReport
+            )
+        }
     }
 
     /**
@@ -97,44 +119,12 @@ extension MandatoryValueWrapper
 
         //---
 
-        return result!
-    }
-}
-
-// MARK: - 'unwrap' & 'validValue' - Default Impementation
-
-public
-extension MandatoryValueWrapper
-{
-    func unwrapValue() throws -> Value
-    {
-        if
-            let result = value
-        {
-            return result
-        }
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: (
-                    "\"\(displayName)\" is empty",
-                    "\"\(displayName)\" is empty, but expected to be non-empty."
-                )
-            )
-        }
+        return result
     }
 
-    /**
-     It returns non-empty (safely unwrapped) 'value',
-     or throws 'ValueNotSet' error, if the 'value' is 'nil.
-     */
-    func validValue() throws -> Value
+    func validate() throws
     {
-        // just a non-'nil' value is considered as 'valid'
-
-        return try unwrapValue()
+        _ = try validValue()
     }
 }
 
@@ -154,7 +144,21 @@ extension MandatoryValueWrapper
      */
     func validValue() throws -> Value
     {
-        let result = try unwrapValue()
+        guard
+            let result = value
+        else
+        {
+            // 'value' is 'nil', which is NOT allowed
+            throw ValidationError.mandatoryValueIsNotSet(
+                origin: displayName,
+                report: Specification.prepareReport(
+                    value: value,
+                    failedConditions: [],
+                    builtInValidationIssues: [],
+                    suggestedReport: defaultEmptyValueReport
+                )
+            )
+        }
 
         //---
 
@@ -165,31 +169,5 @@ extension MandatoryValueWrapper
         //---
 
         return result
-    }
-}
-
-// MARK: - 'unwrap' + ValueSpecification + CustomEmptyValueReport
-
-public
-extension MandatoryValueWrapper
-    where
-    Self: WithCustomValue,
-    Self.Specification: CustomEmptyValueReport
-{
-    func unwrapValue() throws -> Value
-    {
-        if
-            let result = value
-        {
-            return result
-        }
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: Specification.emptyValueReport
-            )
-        }
     }
 }
