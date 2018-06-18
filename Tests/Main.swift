@@ -57,6 +57,59 @@ extension MainTests
 
 extension MainTests
 {
+    func testDifferentUnwrapValue()
+    {
+        do
+        {
+            _ = try Int.wrapped().validValue()
+        }
+        catch let error as ValidationError
+        {
+            print(error.report.message)
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        do
+        {
+            _ = try User.SomeNewSpec.wrapped().validValue()
+        }
+        catch let error as ValidationError
+        {
+            XCTAssert(error.report.message == User.someNewSpecReportMessage)
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+    }
+
+
+    func testIntrinsicName()
+    {
+        XCTAssert(User.SomeNewSpec.displayName == "Some New Spec")
+    }
+
+    func testMultipleErrors()
+    {
+        do
+        {
+            try user.validate()
+        }
+        catch ValidationError.entityIsNotValid(_, let issues, _)
+        {
+            XCTAssert(issues.count == 3)
+        }
+        catch
+        {
+            XCTFail("Should not get here ever")
+        }
+    }
+
     func testEntityValidation()
     {
         Assert("User is NOT valid in the beginning").isFalse
