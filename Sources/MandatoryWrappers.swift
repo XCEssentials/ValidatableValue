@@ -28,47 +28,47 @@ import Foundation
 
 //---
 
-/**
- It considers as 'valid' any non-'nil' 'value' that
- satisfies all conditions from custom provided Specification.
- */
-public
-struct MandatoryCustom<T>: MandatoryValueWrapper,
-    WithCustomValue
-    where
-    T: ValueSpecification,
-    T.Value: Codable & Equatable
-{
-    public
-    typealias Specification = T
-
-    public
-    static
-    var displayName: String { return Specification.displayName }
-
-    public
-    var value: Specification.Value?
-
-    public
-    init() {}
-}
-
-//---
-
-/**
- It considers as 'valid' any non-'nil' 'value'.
- */
-public
-struct MandatoryBasic<T>: MandatoryValueWrapper
-    where
-    T: Codable & Equatable
-{
-    public
-    typealias Value = T
-
-    public
-    var value: Value?
-
-    public
-    init() {}
-}
+///**
+// It considers as 'valid' any non-'nil' 'value' that
+// satisfies all conditions from custom provided Specification.
+// */
+//public
+//struct MandatoryCustom<T>: MandatoryValueWrapper,
+//    WithCustomValue
+//    where
+//    T: ValueSpecification,
+//    T.Value: Codable & Equatable
+//{
+//    public
+//    typealias Specification = T
+//
+//    public
+//    static
+//    var displayName: String { return Specification.displayName }
+//
+//    public
+//    var value: Specification.Value?
+//
+//    public
+//    init() {}
+//}
+//
+////---
+//
+///**
+// It considers as 'valid' any non-'nil' 'value'.
+// */
+//public
+//struct MandatoryBasic<T>: MandatoryValueWrapper
+//    where
+//    T: Codable & Equatable
+//{
+//    public
+//    typealias Value = T
+//
+//    public
+//    var value: Value?
+//
+//    public
+//    init() {}
+//}

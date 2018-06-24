@@ -24,150 +24,150 @@
 
  */
 
-/**
- Emphasizes the fact that the value stored inside
- can only be considered as 'valid' if it's non-empty,
- so it's 'validValue()' function returns non-empty value.
- */
-public
-protocol MandatoryValueWrapper: ValueWrapper, Validatable
-{
-    /**
-     Returns whatever is stored in 'value', if it is non-empty and 'valid'
-     (in case of custom validation spec availability), or throws a validation
-     error.
-     */
-    func validValue() throws -> Value
-}
-
-// MARK: - Common functionality
-
-// internal
-extension MandatoryValueWrapper
-{
-    var defaultEmptyValueReport: Report
-    {
-        return (
-            "\"\(displayName)\" is empty",
-            "\"\(displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-}
-
-public
-extension MandatoryValueWrapper
-{
-    /**
-     It returns non-empty (safely unwrapped) 'value',
-     or throws 'ValueNotSet' error, if the 'value' is 'nil.
-     */
-    func validValue() throws -> Value
-    {
-        // just a non-'nil' value is considered as 'valid'
-
-        if
-            let result = value
-        {
-            return result
-        }
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: defaultEmptyValueReport
-            )
-        }
-    }
-
-    /**
-     USE THIS CAREFULLY!
-     This is a special getter that allows to get non-optional valid value
-     OR collect an error, if stored value is  invalid,
-     while still returning a non-optional value. Notice, that result is
-     implicitly unwrapped, but may be actually 'nil'. If stored 'value'
-     is invalid - the function adds validation error into the
-     'collectError' array and returns implicitly unwrapped 'nil'.
-     This helper function allows to collect issues from multiple
-     validateable values wihtout throwing an error immediately,
-     but received value should ONLY be used/read if the 'collectError'
-     is empty in the end.
-     */
-    func validValue(
-        _ accumulateValidationError: inout [ValidationError]
-        ) throws -> Value!
-    {
-        let result: Value?
-
-        //---
-
-        do
-        {
-            result = try validValue()
-        }
-        catch let error as ValidationError
-        {
-            accumulateValidationError.append(error)
-            result = nil
-        }
-        catch
-        {
-            // anything except 'ValueValidationFailed'
-            // should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return result
-    }
-
-    func validate() throws
-    {
-        _ = try validValue()
-    }
-}
-
-// MARK: - 'validValue' + ValueSpecification
-
-public
-extension MandatoryValueWrapper
-    where
-    Self: WithCustomValue,
-    Self.Specification.Value == Self.Value
-{
-    /**
-     It returns non-empty (safely unwrapped) 'value',
-     or throws 'ValueNotSet' error if the 'value' is 'nil',
-     or throws 'ValidationFailed' error if at least one
-     of the custom conditions from Specification has failed.
-     */
-    func validValue() throws -> Value
-    {
-        guard
-            let result = value
-        else
-        {
-            // 'value' is 'nil', which is NOT allowed
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: displayName,
-                report: Specification.prepareReport(
-                    value: value,
-                    failedConditions: [],
-                    builtInValidationIssues: [],
-                    suggestedReport: defaultEmptyValueReport
-                )
-            )
-        }
-
-        //---
-
-        // non-'nil' value must be checked againts requirements
-
-        try checkNonEmptyValue(result)
-
-        //---
-
-        return result
-    }
-}
+///**
+// Emphasizes the fact that the value stored inside
+// can only be considered as 'valid' if it's non-empty,
+// so it's 'validValue()' function returns non-empty value.
+// */
+//public
+//protocol MandatoryValueWrapper: ValueWrapper, Validatable
+//{
+//    /**
+//     Returns whatever is stored in 'value', if it is non-empty and 'valid'
+//     (in case of custom validation spec availability), or throws a validation
+//     error.
+//     */
+//    func validValue() throws -> Value
+//}
+//
+//// MARK: - Common functionality
+//
+//// internal
+//extension MandatoryValueWrapper
+//{
+//    var defaultEmptyValueReport: Report
+//    {
+//        return (
+//            "\"\(displayName)\" is empty",
+//            "\"\(displayName)\" is empty, but expected to be non-empty."
+//        )
+//    }
+//}
+//
+//public
+//extension MandatoryValueWrapper
+//{
+//    /**
+//     It returns non-empty (safely unwrapped) 'value',
+//     or throws 'ValueNotSet' error, if the 'value' is 'nil.
+//     */
+//    func validValue() throws -> Value
+//    {
+//        // just a non-'nil' value is considered as 'valid'
+//
+//        if
+//            let result = value
+//        {
+//            return result
+//        }
+//        else
+//        {
+//            // 'value' is 'nil', which is NOT allowed
+//            throw ValidationError.mandatoryValueIsNotSet(
+//                origin: displayName,
+//                report: defaultEmptyValueReport
+//            )
+//        }
+//    }
+//
+//    /**
+//     USE THIS CAREFULLY!
+//     This is a special getter that allows to get non-optional valid value
+//     OR collect an error, if stored value is  invalid,
+//     while still returning a non-optional value. Notice, that result is
+//     implicitly unwrapped, but may be actually 'nil'. If stored 'value'
+//     is invalid - the function adds validation error into the
+//     'collectError' array and returns implicitly unwrapped 'nil'.
+//     This helper function allows to collect issues from multiple
+//     validateable values wihtout throwing an error immediately,
+//     but received value should ONLY be used/read if the 'collectError'
+//     is empty in the end.
+//     */
+//    func validValue(
+//        _ accumulateValidationError: inout [ValidationError]
+//        ) throws -> Value!
+//    {
+//        let result: Value?
+//
+//        //---
+//
+//        do
+//        {
+//            result = try validValue()
+//        }
+//        catch let error as ValidationError
+//        {
+//            accumulateValidationError.append(error)
+//            result = nil
+//        }
+//        catch
+//        {
+//            // anything except 'ValueValidationFailed'
+//            // should be thrown to the upper level
+//            throw error
+//        }
+//
+//        //---
+//
+//        return result
+//    }
+//
+//    func validate() throws
+//    {
+//        _ = try validValue()
+//    }
+//}
+//
+//// MARK: - 'validValue' + ValueSpecification
+//
+//public
+//extension MandatoryValueWrapper
+//    where
+//    Self: WithCustomValue,
+//    Self.Specification.Value == Self.Value
+//{
+//    /**
+//     It returns non-empty (safely unwrapped) 'value',
+//     or throws 'ValueNotSet' error if the 'value' is 'nil',
+//     or throws 'ValidationFailed' error if at least one
+//     of the custom conditions from Specification has failed.
+//     */
+//    func validValue() throws -> Value
+//    {
+//        guard
+//            let result = value
+//        else
+//        {
+//            // 'value' is 'nil', which is NOT allowed
+//            throw ValidationError.mandatoryValueIsNotSet(
+//                origin: displayName,
+//                report: Specification.prepareReport(
+//                    value: value,
+//                    failedConditions: [],
+//                    builtInValidationIssues: [],
+//                    suggestedReport: defaultEmptyValueReport
+//                )
+//            )
+//        }
+//
+//        //---
+//
+//        // non-'nil' value must be checked againts requirements
+//
+//        try checkNonEmptyValue(result)
+//
+//        //---
+//
+//        return result
+//    }
+//}

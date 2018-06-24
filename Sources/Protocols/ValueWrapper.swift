@@ -28,85 +28,85 @@
  General purpose value wrapper that can store any
  kind of value inside.
  */
-public
-protocol ValueWrapper: Codable, Equatable, DisplayNamed
-{
-    associatedtype Value: Codable, Equatable
-
-    //---
-
-    /**
-     Wrapper must be initializable without any parameters.
-     */
-    init()
-
-    /**
-     Teh value that this wrapper is storing.
-     */
-    var value: Value? { get set }
-}
-
-// MARK: - Convenience helpers
-
-public
-extension ValueWrapper
-{
-    /**
-     Convenience initializer that assigns provided value
-     as value, does NOT check its validity.
-     */
-    init(
-        initialValue: Value
-        )
-    {
-        self.init()
-        self.value = initialValue
-    }
-}
-
-// MARK: - Automatic 'Codable' conformance
-
-public
-extension ValueWrapper
-{
-    func encode(to encoder: Encoder) throws
-    {
-        var container = encoder.singleValueContainer()
-        try container.encode(value)
-    }
-
-    init(from decoder: Decoder) throws
-    {
-        let container = try decoder.singleValueContainer()
-        let value = try container.decode(Value.self)
-
-        //---
-
-        self.init()
-        self.value = value
-    }
-}
-
-// MARK: - Automatic DisplayNamed support
-
-public
-extension ValueWrapper
-{
-    static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: Self.Value.self)
-    }
-}
-
-public
-extension ValueWrapper
-    where
-    Self: WithCustomValue
-{
-    static
-    var displayName: String
-    {
-        return Self.Specification.displayName
-    }
-}
+//public
+//protocol ValueWrapper: Codable, Equatable, DisplayNamed
+//{
+//    associatedtype Value: Codable, Equatable
+//
+//    //---
+//
+//    /**
+//     Wrapper must be initializable without any parameters.
+//     */
+//    init()
+//
+//    /**
+//     Teh value that this wrapper is storing.
+//     */
+//    var value: Value? { get set }
+//}
+//
+//// MARK: - Convenience helpers
+//
+//public
+//extension ValueWrapper
+//{
+//    /**
+//     Convenience initializer that assigns provided value
+//     as value, does NOT check its validity.
+//     */
+//    init(
+//        initialValue: Value
+//        )
+//    {
+//        self.init()
+//        self.value = initialValue
+//    }
+//}
+//
+//// MARK: - Automatic 'Codable' conformance
+//
+//public
+//extension ValueWrapper
+//{
+//    func encode(to encoder: Encoder) throws
+//    {
+//        var container = encoder.singleValueContainer()
+//        try container.encode(value)
+//    }
+//
+//    init(from decoder: Decoder) throws
+//    {
+//        let container = try decoder.singleValueContainer()
+//        let value = try container.decode(Value.self)
+//
+//        //---
+//
+//        self.init()
+//        self.value = value
+//    }
+//}
+//
+//// MARK: - Automatic DisplayNamed support
+//
+//public
+//extension ValueWrapper
+//{
+//    static
+//    var displayName: String
+//    {
+//        return Utils.intrinsicDisplayName(for: Self.Value.self)
+//    }
+//}
+//
+//public
+//extension ValueWrapper
+//    where
+//    Self: WithCustomValue
+//{
+//    static
+//    var displayName: String
+//    {
+//        return Self.Specification.displayName
+//    }
+//}

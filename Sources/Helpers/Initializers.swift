@@ -24,122 +24,122 @@
 
  */
 
-// MARK: - Mandatory + Specification
-
-public
-extension ValueSpecification
-    where
-    Self.Value: Codable & Equatable
-{
-    typealias Wrapper = MandatoryCustom<Self>
-
-    //---
-
-    static
-    func wrapped(
-        ) -> Wrapper
-    {
-        return Wrapper()
-    }
-
-    static
-    func wrapped(
-        initialValue value: Self.Value
-        ) -> Wrapper
-    {
-        return Wrapper(initialValue: value)
-    }
-
-    static
-    func wrapped(
-        const value: Self.Value
-        ) throws -> Wrapper
-    {
-        return try Wrapper(const: value)
-    }
-}
-
-// MARK: - Mandatory
-
-public
-extension Equatable
-    where
-    Self: Codable
-{
-    typealias Wrapper = MandatoryBasic<Self>
-
-    //---
-
-    static
-    func wrapped(
-        ) -> Wrapper
-    {
-        return Wrapper()
-    }
-
-    static
-    func wrapped(
-        initialValue value: Self
-        ) -> Wrapper
-    {
-        return Wrapper(initialValue: value)
-    }
-
-    static
-    func wrapped(
-        const value: Self
-        ) throws -> Wrapper
-    {
-        return try Wrapper(const: value)
-    }
-
-    //---
-
-    func wrapped(
-        ) -> Wrapper
-    {
-        return Wrapper(initialValue: self)
-    }
-
-    func wrappedConst(
-        ) throws -> Wrapper
-    {
-        return try Wrapper(const: self)
-    }
-}
+//// MARK: - Mandatory + Specification
+//
+//public
+//extension ValueSpecification
+//    where
+//    Self.Value: Codable & Equatable
+//{
+//    typealias Wrapper = MandatoryCustom<Self>
+//
+//    //---
+//
+//    static
+//    func wrapped(
+//        ) -> Wrapper
+//    {
+//        return Wrapper()
+//    }
+//
+//    static
+//    func wrapped(
+//        initialValue value: Self.Value
+//        ) -> Wrapper
+//    {
+//        return Wrapper(initialValue: value)
+//    }
+//
+//    static
+//    func wrapped(
+//        const value: Self.Value
+//        ) throws -> Wrapper
+//    {
+//        return try Wrapper(const: value)
+//    }
+//}
+//
+//// MARK: - Mandatory
+//
+//public
+//extension Equatable
+//    where
+//    Self: Codable
+//{
+//    typealias Wrapper = MandatoryBasic<Self>
+//
+//    //---
+//
+//    static
+//    func wrapped(
+//        ) -> Wrapper
+//    {
+//        return Wrapper()
+//    }
+//
+//    static
+//    func wrapped(
+//        initialValue value: Self
+//        ) -> Wrapper
+//    {
+//        return Wrapper(initialValue: value)
+//    }
+//
+//    static
+//    func wrapped(
+//        const value: Self
+//        ) throws -> Wrapper
+//    {
+//        return try Wrapper(const: value)
+//    }
+//
+//    //---
+//
+//    func wrapped(
+//        ) -> Wrapper
+//    {
+//        return Wrapper(initialValue: self)
+//    }
+//
+//    func wrappedConst(
+//        ) throws -> Wrapper
+//    {
+//        return try Wrapper(const: self)
+//    }
+//}
 
 // MARK: - Optional + Specification
 
-public
-extension Swift.Optional
-    where
-    Wrapped: ValueSpecification,
-    Wrapped.Value: Codable & Equatable
-{
-    typealias Wrapper = OptionalCustom<Wrapped>
-
-    //---
-
-    static
-    func wrapped(
-        ) -> Wrapper
-    {
-        return Wrapper()
-    }
-
-    static
-    func wrapped(
-        initialValue value: Wrapped.Value
-        ) -> Wrapper
-    {
-        return Wrapper(initialValue: value)
-    }
-
-    static
-    func wrapped(
-        const value: Wrapped.Value
-        ) throws -> Wrapper
-    {
-        return try Wrapper(const: value)
-    }
-}
+//public
+//extension Swift.Optional
+//    where
+//    Wrapped: ValueSpecification,
+//    Wrapped.Value: Codable & Equatable
+//{
+//    typealias Wrapper = OptionalCustom<Wrapped>
+//
+//    //---
+//
+//    static
+//    func wrapped(
+//        ) -> Wrapper
+//    {
+//        return Wrapper()
+//    }
+//
+//    static
+//    func wrapped(
+//        initialValue value: Wrapped.Value
+//        ) -> Wrapper
+//    {
+//        return Wrapper(initialValue: value)
+//    }
+//
+//    static
+//    func wrapped(
+//        const value: Wrapped.Value
+//        ) throws -> Wrapper
+//    {
+//        return try Wrapper(const: value)
+//    }
+//}
