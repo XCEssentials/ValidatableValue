@@ -51,24 +51,16 @@ struct OptionalCustom<T>: OptionalValueWrapper,
     init() {}
 }
 
-//---
+// MARK: - Optional
 
-/**
- Analogue of jsut having 'Swift.Optional',
- but allows to unify API for dealing with entities.
- */
-public
-struct OptionalBasic<T>: OptionalValueWrapper
-    // nothing to validate!
+extension Swift.Optional: DisplayNamed
     where
-    T: Codable & Equatable
+    Wrapped: Codable & Equatable
 {
     public
-    typealias Value = T
-
-    public
-    var value: Value?
-
-    public
-    init() {}
+    static
+    var displayName: String
+    {
+        return Utils.intrinsicDisplayName(for: Wrapped.self)
+    }
 }

@@ -94,6 +94,8 @@ struct User: ValidatableEntity,
     var username = Username.wrapped() // rely on implicit 'displayName'!
 
     var password = Password.wrapped() // rely on implicit 'displayName'!
+
+    var phoneNumber: String?
 }
 
 // MARK: - User: Representations

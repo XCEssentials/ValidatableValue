@@ -57,6 +57,43 @@ extension MainTests
 
 extension MainTests
 {
+    func testUserDecodingWithMissingOptionalBasicKey()
+    {
+        // NOTE: we are missing the 'phoneNumber' key in the JSON below!
+
+        let encodedUser = """
+            {
+                "someConstant": "4",
+                "firstName": "John",
+                "lastName": "Doe",
+                "username": "John@google.com",
+                "password": "sdfewq234r2f2!"
+            }
+            """
+        let encodedUserData = encodedUser.data(using: .utf8)!
+
+        //---
+
+        do
+        {
+            let decodedUser = try JSONDecoder()
+                .decode(
+                    User.self,
+                    from: encodedUserData
+            )
+
+            XCTAssert(decodedUser.isValid == false)
+        }
+        catch
+        {
+            print("")
+            print("ERROR: ==>>> \(error)")
+            print("")
+
+            XCTFail("Should not get here ever")
+        }
+    }
+
     func testDifferentUnwrapValue()
     {
         do
