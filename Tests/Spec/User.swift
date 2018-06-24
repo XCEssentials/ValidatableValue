@@ -39,6 +39,52 @@ struct User: ValidatableEntity,
 
     //---
 
+    /**
+
+     We need to leverage default Codable auto-generated funcs.
+
+     We need to allow to ignore any individual key to be not found
+     in the JSON when loading/decoding - corresponding value will be
+     just left empty/nil, which might be okay, or might make the value
+     to be 'invalid' - depending on the type of wrapper.
+
+     To make it work - and since we moved all the logic to the type,
+     away from instance - we have to remove the instance initializers,
+     only keep the typealiases available in contexts.
+
+     All the typealiases in contexts (see 'Initializers.swift') should be
+     wrapped in Optional type. This will make the default auto-generated
+     decoder safely skip any individual value if its key is not found
+     in the input JSON - so when you add a new value wrapper to the model
+     it won't prevent from loading older records, but when you'll be saving
+     new ones - it will contribute to the validation process according to
+     the type of wrapper.
+
+     Making the value wrappers to be wrapped in 'Optional' as standard/recommended
+     technique of using VV requires from us to reconsider whole codebase and,
+     probably, simplify implementation in many ways. We can implement conditional
+     extensions for 'Optional' when 'Wrapped' type is confiorming to VV-related
+     protocols, making the 'Optional' itself conforming to them, making the
+     optional 'value' useless - we could use the 'none' case of the 'Optional'
+     itself to represent empty value, and only need wrapper to store actual value
+     when it's non-empty. Isn't it?
+
+     */
+
+    // let someConstant: MandatoryBasic<Int>? = someConstantValue.wrapped()
+    //
+    // var firstName: MandatoryCustom<FirstName>? = FirstName.wrapped()
+    //
+    // var lastName: OptionalCustom<LastName>? = LastName?.wrapped()
+    //
+    // var phoneNum: OptionalBasic<String>? = String?.wrapped()
+    //
+    // var username: MandatoryCustom<Username>? = Username.wrapped() //
+    //
+    // var password: MandatoryCustom<Password>? = Password.wrapped() //
+
+    //---
+
     let someConstant = someConstantValue.wrapped()
 
     var firstName = FirstName.wrapped()
