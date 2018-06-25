@@ -29,7 +29,7 @@
 public
 extension ValueWrapper
     where
-    Self: WithCustomValue,
+    Self: WithCustomValue, // implicitly 'Validatable'
     Self.Specification.Value == Self.Value
 {
     func validate() throws
@@ -43,7 +43,7 @@ extension ValueWrapper
 private
 extension ValueWrapper
     where
-    Self: WithCustomValue,
+    Self: WithCustomValue, // implicitly 'Validatable'
     Self.Specification.Value == Self.Value
 {
     static

@@ -37,8 +37,8 @@
  LastName.Wrapper   --- MandatoryCustom<LastName>   // like 'MandatoryBase'
  LastName.Wrapper?  --- MandatoryCustom<LastName>?  // like 'MandatoryBase?'
 
- FirstName?.Wrapper --- OptionalCustom<FirstName>    ????
- FirstName?.Wrapper? -- OptionalCustom<FirstName>?  ???? optional inside optional?
+ FirstName?.Wrapper --- Custom<FirstName>
+ FirstName?.Wrapper? -- Custom<FirstName>?
 
  What if we don't use 'OptionalCustom', just 'Custom' instead. 'Custom' gives us 'DisplayNamed' implementation, 'conditions' to check againts non-empty value, and non-optional 'value' itself when 'Custom' is present.
  'MandatoryCustom' would be exactly the same as 'Custom', but also has conformance to one more protocol 'Mandatory', so it indicates to the wrapping 'Optional' (when that's the case) that in case the value is missing - it must be considered as 'invalid', versus just 'Custom' does not control the missing value state and 'Optional' validates empty value with no issues, asking wrapper to validate value only when it's presented.
@@ -66,7 +66,7 @@ var password: MandatoryCustom<Password>? = Password.wrapped() //
 
 //public
 //struct Custom<T>: ValueWrapper,
-//    WithCustomValue,
+//    WithCustomValue, // Validatable
 //    AutoCodable
 //    where
 //    T: ValueSpecification,

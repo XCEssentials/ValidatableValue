@@ -25,71 +25,24 @@
  */
 
 public
-extension ValueWrapper
-    where
-    Self: Validatable
+protocol ValidatableValueWrapper: Validatable & ValueWrapper
 {
-    func validate() throws
-    {
-        // without more context,
-        // it's good enough that the value is just set
-    }
+    associatedtype ValidValue: Codable & Equatable
+    associatedtype EnforcedValidValue: Codable & Equatable
 
-    /**
-     Returns whatever is stored in 'value', if it is 'valid',
-     or throws a validation error.
-     */
     func validValue(
-        ) throws -> Value
-    {
-        try validate()
+        ) throws -> ValidValue
 
-        //---
-
-        return value
-    }
-
-    /**
-     USE THIS CAREFULLY!
-     This is a special getter that allows to get non-optional valid value
-     OR collect an error, if stored value is invalid,
-     while still returning a non-optional value. Notice, that result is
-     implicitly unwrapped, but may be actually 'nil'. If stored 'value'
-     is invalid - the function adds validation error into the
-     'collectError' array and returns implicitly unwrapped 'nil'.
-     This helper function allows to collect issues from multiple
-     validateable values wihtout throwing an error immediately,
-     but received value should ONLY be used/read if the 'collectError'
-     is empty in the end.
-     */
     func validValue(
         _ collectError: inout [ValidationError]
-        ) throws -> Value!
-    {
-        let result: Value?
+        ) throws -> EnforcedValidValue
+}
 
-        //---
+// MARK: - Convenience helpers
 
-        do
-        {
-            result = try validValue()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-            result = nil
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return result
-    }
-
+public
+extension ValidatableValueWrapper
+{
     /**
      Convenience initializer useful for setting a 'let' value,
      that only should be set once during initialization. Assigns
