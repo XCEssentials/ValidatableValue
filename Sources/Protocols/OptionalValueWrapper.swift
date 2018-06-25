@@ -24,38 +24,13 @@
 
  */
 
-///**
-// Emphasizes the fact that the value stored inside
-// can be considered as 'valid' even if it's empty,
-// so it's 'validValue()' function returns optional value.
-// */
-//public
-//protocol OptionalValueWrapper: ValueWrapper {}
-//
-////---
-//
-///*
-//
-// NOTE: there is nothing to validate (if it would be 'Validatable')
-// unless it's 'WithCustomValue' - because 'value' is allowed
-// to be either 'nil' or non-'nil', there is nothing we can
-// validate automatically, so only 'WithCustomValue' makes sense.
-//
-// */
-//
-//// MARK: - Validation + WithCustomValue
-//
+// TODO: Finish this - move to 'Optional' extension!
 //public
 //extension OptionalValueWrapper
 //    where
 //    Self: WithCustomValue,
 //    Self.Specification.Value == Self.Value
 //{
-//    func validate() throws
-//    {
-//        _ = try validValue()
-//    }
-//
 //    /**
 //     This is a special getter that allows to get an optional valid value
 //     OR collect an error, if stored value is invalid.

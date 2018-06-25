@@ -24,8 +24,17 @@
 
  */
 
-public
-protocol WithCustomValue: Validatable
+// internal
+extension ValueWrapper
+    where
+    Self: Mandatory
 {
-    associatedtype Specification: ValueSpecification
+    static
+    var defaultEmptyValueReport: Report
+    {
+        return (
+            "\"\(displayName)\" is empty",
+            "\"\(displayName)\" is empty, but expected to be non-empty."
+        )
+    }
 }

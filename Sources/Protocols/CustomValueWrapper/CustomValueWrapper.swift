@@ -25,31 +25,29 @@
  */
 
 public
-protocol ValidatableValueWrapper: ValueWrapper & Validatable {}
+protocol CustomValueWrapper: ValueWrapper & Validatable
+    where
+    Self.Value == Self.Specification.Value
+{
+    associatedtype Specification: ValueSpecification
 
-// MARK: - Signature members
+}
+
+// MARK: - Automatic Validatable support
 
 public
-extension ValidatableValueWrapper
+extension CustomValueWrapper
 {
-    /**
-     Returns whatever is stored in 'value', if it is 'valid',
-     or throws a validation error.
-     */
-    func validValue() throws -> Value
+    func validate() throws
     {
-        try validate()
-
-        //---
-
-        return value
+        try type(of: self).check(self.value)
     }
 }
 
 // MARK: - Helpers
 
 public
-extension ValidatableValueWrapper
+extension CustomValueWrapper
 {
     /**
      Convenience initializer useful for setting a 'let' value,
@@ -86,10 +84,8 @@ extension ValidatableValueWrapper
 
 // MARK: - Reporting
 
-extension ValidatableValueWrapper
-    where
-    Self: WithCustomValue,
-    Self.Specification.Value == Self.Value
+private
+extension CustomValueWrapper
 {
     static
     func check(_ valueToCheck: Value) throws
@@ -133,7 +129,6 @@ extension ValidatableValueWrapper
         }
     }
 
-    private
     static
     func justCheckFailedConditions(
         _ failedConditions: [String],
@@ -159,7 +154,6 @@ extension ValidatableValueWrapper
         }
     }
 
-    private
     static
     func checkNestedValidatable(
         value validatableValueToCheck: Validatable,
@@ -195,7 +189,6 @@ extension ValidatableValueWrapper
         }
     }
 
-    private
     static
     func reportNestedValidationFailed(
         checkedValue: Validatable,

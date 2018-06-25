@@ -24,14 +24,13 @@
 
  */
 
-// MARK: - Automatic DisplayNamed support
-
-public
+// internal
 extension ValueWrapper
+    where
+    Self: Validatable & Mandatory
 {
-    static
-    var displayName: String
+    func validate() throws
     {
-        return Utils.intrinsicDisplayName(for: Self.Value.self)
+        // is good enough that the value is just set
     }
 }

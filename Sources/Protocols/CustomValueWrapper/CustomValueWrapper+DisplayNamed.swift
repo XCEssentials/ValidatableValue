@@ -24,14 +24,12 @@
 
  */
 
-// MARK: - Automatic DisplayNamed support
-
 public
-extension ValueWrapper
+extension CustomValueWrapper
 {
     static
     var displayName: String
     {
-        return Utils.intrinsicDisplayName(for: Self.Value.self)
+        return Self.Specification.displayName
     }
 }

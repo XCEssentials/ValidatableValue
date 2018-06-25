@@ -19,7 +19,7 @@
  struct MandatoryCustom<T: Spec>: ValueWrapper, Mandatory, Validatable { ... }
         MandatoryCustom<T: Spec>?: ValueWrapper, Validatable
 
- NOTE: it's a good idea to wrap a 'ValidatableValueWrapper' type in 'Swift.Optional'
+ NOTE: it's a good idea to wrap a 'CustomValueWrapper' type in 'Swift.Optional'
  to be able to leverage default Swift 'Decodable' protocol implementaion
  and skip safely any values that are missing from given raw representation
  for the entity.

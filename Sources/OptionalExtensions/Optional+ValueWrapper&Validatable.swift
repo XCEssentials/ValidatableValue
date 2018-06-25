@@ -24,6 +24,9 @@
 
  */
 
+// MARK: - Validatable support
+
+// public
 extension Swift.Optional: Validatable
     where
     Wrapped: Validatable
@@ -39,60 +42,156 @@ extension Swift.Optional: Validatable
     }
 }
 
-//---
+// MARK: - Validatable support - when wrap Mandatory & ValueWrapper
 
-// TODO: complete helpers for Mandatory wrapper!
+public
+extension Swift.Optional // : Validatable
+    where
+    Wrapped: Mandatory & Validatable & ValueWrapper
+{
+    public
+    func validate() throws
+    {
+        // throw if no value!
+        // or pass validation to the non-empty value
+        switch self
+        {
+            case .none:
+                throw ValidationError.mandatoryValueIsNotSet(
+                    origin: displayName,
+                    report: Wrapped.defaultEmptyValueReport
+                )
 
-//extension Swift.Optional
-//    where
-//    Wrapped: Validatable & Mandatory
-//{
-//    public
-//    func validate() throws
-//    {
-//        // throw if no value!
-//        // or pass validation to the non-empty value
-//    }
-//}
+            case .some(let validatable):
+                try validatable.validate()
+        }
+    }
+}
 
-//---
+// MARK: - Validatable support - when wrap Mandatory & CustomValueWrapper
 
-extension Swift.Optional
+public
+extension Swift.Optional // : Validatable
+    where
+    Wrapped: Mandatory & CustomValueWrapper
+{
+    public
+    func validate() throws
+    {
+        // throw if no value!
+        // or pass validation to the non-empty value
+        switch self
+        {
+            case .none:
+                throw Wrapped.reportEmptyValue()
+
+            case .some(let validatable):
+                try validatable.validate()
+        }
+    }
+}
+
+// MARK: - Convenient helpers
+
+public
+extension Optional
     where
     Wrapped: Validatable & ValueWrapper
 {
-    /**
-     Convenience initializer useful for setting a 'let' value,
-     that only should be set once during initialization. Assigns
-     provided value and validates it right away.
-     */
-    init(
-        withValidatable value: Wrapped.Value?
-        ) throws
+    func validValue() throws -> Wrapped.Value?
     {
-        self = value.map{ .some(.init($0)) } ?? .none
+        switch self
+        {
+            case .none:
+                return nil
 
-        //---
-
-        try self.validate()
-    }
-
-    /**
-     Set new value and validate it in single operation.
-     */
-    mutating
-    func set(_ newValue: Wrapped.Value?) throws
-    {
-        value = newValue
-        try validate()
-    }
-
-    /**
-     Validate a given value without actually setting it as current value.
-     */
-    func validate(value: Wrapped.Value?) throws
-    {
-        var tmp = self
-        try tmp.set(value)
+            case .some(let wrapper):
+                return try wrapper.validValue()
+        }
     }
 }
+
+// MARK: - Convenient helpers + Mandatory
+
+public
+extension Optional
+    where
+    Wrapped: Mandatory & Validatable & ValueWrapper
+{
+    func validValue() throws -> Wrapped.Value?
+    {
+        switch self
+        {
+            case .none:
+                throw ValidationError.mandatoryValueIsNotSet(
+                    origin: displayName,
+                    report: Wrapped.defaultEmptyValueReport
+                )
+
+            case .some(let wrapper):
+                return try wrapper.validValue()
+        }
+    }
+}
+
+// MARK: - Convenient helpers + Mandatory + Custom
+
+public
+extension Optional
+    where
+    Wrapped: Mandatory & CustomValueWrapper
+{
+    func validValue() throws -> Wrapped.Value?
+    {
+        switch self
+        {
+            case .none:
+                throw Wrapped.reportEmptyValue()
+
+            case .some(let wrapper):
+                return try wrapper.validValue()
+        }
+    }
+}
+
+//---
+
+//extension Swift.Optional
+//    where
+//    Wrapped: Validatable & ValueWrapper
+//{
+//    /**
+//     Convenience initializer useful for setting a 'let' value,
+//     that only should be set once during initialization. Assigns
+//     provided value and validates it right away.
+//     */
+//    init(
+//        withValidatable value: Wrapped.Value?
+//        ) throws
+//    {
+//        self = value.map{ .some(.init($0)) } ?? .none
+//
+//        //---
+//
+//        try self.validate()
+//    }
+//
+//    /**
+//     Set new value and validate it in single operation.
+//     */
+//    mutating
+//    func set(_ newValue: Wrapped.Value?) throws
+//    {
+//        value = newValue
+//        try validate()
+//    }
+//
+//    /**
+//     Validate a given value without actually setting it as current value.
+//     */
+//    func validate(value: Wrapped.Value?) throws
+//    {
+//        var tmp = self
+//        try tmp.set(value)
+//    }
+//}

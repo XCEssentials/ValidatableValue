@@ -24,14 +24,22 @@
 
  */
 
-// MARK: - Automatic DisplayNamed support
-
-public
-extension ValueWrapper
+// internal
+extension CustomValueWrapper
+    where
+    Self: Mandatory
 {
     static
-    var displayName: String
+    func reportEmptyValue() -> ValidationError
     {
-        return Utils.intrinsicDisplayName(for: Self.Value.self)
+        return ValidationError.mandatoryValueIsNotSet(
+            origin: displayName,
+            report: Self.Specification.prepareReport(
+                value: nil,
+                failedConditions: [],
+                builtInValidationIssues: [],
+                suggestedReport: Self.defaultEmptyValueReport
+            )
+        )
     }
 }
