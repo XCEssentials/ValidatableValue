@@ -45,7 +45,7 @@ extension Swift.Optional: Validatable
 
 //extension Swift.Optional
 //    where
-//    Wrapped: Validatable & MandatoryValueWrapper
+//    Wrapped: Validatable & Mandatory
 //{
 //    public
 //    func validate() throws
