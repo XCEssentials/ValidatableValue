@@ -24,13 +24,15 @@
 
  */
 
-// internal
+public
 extension ValueWrapper
     where
-    Self: Validatable & Mandatory
+    Self: WithCustomValue,
+    Self.Specification.Value == Self.Value
 {
-    func validate() throws
+    static
+    var displayName: String
     {
-        // is good enough that the value is just set
+        return Self.Specification.displayName
     }
 }

@@ -30,7 +30,7 @@
 //    newValue: T?
 //    ) throws
 //    where
-//    VV: ValueWrapper & Validatable,
+//    VV: ValidatableValueWrapper,
 //    VV.Value == T
 //{
 //    try container.set(newValue)

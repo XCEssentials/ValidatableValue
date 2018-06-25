@@ -24,12 +24,23 @@
 
  */
 
-public
-extension CustomValueWrapper
+// internal
+extension ValueWrapper
+    where
+    Self: Mandatory & WithCustomValue,
+    Self.Specification.Value == Self.Value
 {
     static
-    var displayName: String
+    func reportEmptyValue() -> ValidationError
     {
-        return Self.Specification.displayName
+        return ValidationError.mandatoryValueIsNotSet(
+            origin: displayName,
+            report: Self.Specification.prepareReport(
+                value: nil,
+                failedConditions: [],
+                builtInValidationIssues: [],
+                suggestedReport: Self.defaultEmptyValueReport
+            )
+        )
     }
 }

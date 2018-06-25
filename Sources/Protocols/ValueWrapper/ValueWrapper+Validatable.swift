@@ -25,15 +25,27 @@
  */
 
 public
+typealias ValidatableValueWrapper = Validatable & ValueWrapper
+
+//---
+
+public
 extension ValueWrapper
     where
     Self: Validatable
 {
+    func validate() throws
+    {
+        // without more context,
+        // it's good enough that the value is just set
+    }
+
     /**
      Returns whatever is stored in 'value', if it is 'valid',
      or throws a validation error.
      */
-    func validValue() throws -> Value
+    func validValue(
+        ) throws -> Value
     {
         try validate()
 
@@ -79,7 +91,43 @@ extension ValueWrapper
         }
 
         //---
-        
+
         return result
+    }
+
+    /**
+     Convenience initializer useful for setting a 'let' value,
+     that only should be set once during initialization. Assigns
+     provided value and validates it right away.
+     */
+    init(
+        const value: Value
+        ) throws
+    {
+        self.init(value)
+        try self.validate()
+    }
+
+    /**
+     Set new value and validate it in single operation.
+     */
+    mutating
+    func set(
+        _ newValue: Value
+        ) throws
+    {
+        value = newValue
+        try validate()
+    }
+
+    /**
+     Validate a given value without actually setting it to current value.
+     */
+    func validate(
+        value: Value
+        ) throws
+    {
+        var tmp = self
+        try tmp.set(value)
     }
 }

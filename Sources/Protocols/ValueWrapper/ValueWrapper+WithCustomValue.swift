@@ -24,19 +24,13 @@
 
  */
 
-public
-protocol CustomValueWrapper: ValueWrapper & Validatable
-    where
-    Self.Value == Self.Specification.Value
-{
-    associatedtype Specification: ValueSpecification
-
-}
-
 // MARK: - Automatic Validatable support
 
 public
-extension CustomValueWrapper
+extension ValueWrapper
+    where
+    Self: WithCustomValue,
+    Self.Specification.Value == Self.Value
 {
     func validate() throws
     {
@@ -44,48 +38,13 @@ extension CustomValueWrapper
     }
 }
 
-// MARK: - Helpers
-
-public
-extension CustomValueWrapper
-{
-    /**
-     Convenience initializer useful for setting a 'let' value,
-     that only should be set once during initialization. Assigns
-     provided value and validates it right away.
-     */
-    init(
-        const value: Value
-        ) throws
-    {
-        self.init(value)
-        try self.validate()
-    }
-
-    /**
-     Set new value and validate it in single operation.
-     */
-    mutating
-    func set(_ newValue: Value) throws
-    {
-        value = newValue
-        try validate()
-    }
-
-    /**
-     Validate a given value without actually setting it to current value.
-     */
-    func validate(value: Value) throws
-    {
-        var tmp = self
-        try tmp.set(value)
-    }
-}
-
 // MARK: - Reporting
 
 private
-extension CustomValueWrapper
+extension ValueWrapper
+    where
+    Self: WithCustomValue,
+    Self.Specification.Value == Self.Value
 {
     static
     func check(_ valueToCheck: Value) throws

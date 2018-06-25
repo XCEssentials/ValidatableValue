@@ -16,9 +16,9 @@
 		942AFDA020E17D720028E84B /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFD9F20E17D720028E84B /* AutoCodable.swift */; };
 		942AFDA220E186800028E84B /* ValueWrapper+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDA120E186800028E84B /* ValueWrapper+Validatable.swift */; };
 		942AFDA520E18F940028E84B /* ValueWrapper+Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDA420E18F940028E84B /* ValueWrapper+Mandatory.swift */; };
-		942AFDA820E18FBA0028E84B /* CustomValueWrapper+Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDA720E18FBA0028E84B /* CustomValueWrapper+Mandatory.swift */; };
-		942AFDAA20E1900C0028E84B /* ValueWrapper+Validatable&Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDA920E1900C0028E84B /* ValueWrapper+Validatable&Mandatory.swift */; };
-		942AFDAC20E19A970028E84B /* CustomValueWrapper+DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDAB20E19A970028E84B /* CustomValueWrapper+DisplayNamed.swift */; };
+		942AFDA820E18FBA0028E84B /* ValueWrapper+WithCustomValue&Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDA720E18FBA0028E84B /* ValueWrapper+WithCustomValue&Mandatory.swift */; };
+		942AFDAC20E19A970028E84B /* ValueWrapper+WithCustomValue&DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDAB20E19A970028E84B /* ValueWrapper+WithCustomValue&DisplayNamed.swift */; };
+		942AFDAF20E19EFC0028E84B /* WithCustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFDAE20E19EFC0028E84B /* WithCustomValue.swift */; };
 		943EA2A220CF3CD0006CF016 /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943EA2A120CF3CD0006CF016 /* Initializers.swift */; };
 		9449F43420D03D2D00C9C635 /* DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9449F43320D03D2D00C9C635 /* DisplayNamed.swift */; };
 		9459A04620CF006900D4F644 /* ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04520CF006900D4F644 /* ValueWrapper.swift */; };
@@ -31,9 +31,9 @@
 		94ABCC4320E138CE007187DC /* ValueWrapper+AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC4220E138CE007187DC /* ValueWrapper+AutoCodable.swift */; };
 		94ABCC4520E139F4007187DC /* ValueWrapper+DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC4420E139F3007187DC /* ValueWrapper+DisplayNamed.swift */; };
 		94ABCC4720E13A7C007187DC /* Optional+ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */; };
-		94C712B820E1526900A737E3 /* Optional+ValueWrapper&Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C712B720E1526900A737E3 /* Optional+ValueWrapper&Validatable.swift */; };
+		94C712B820E1526900A737E3 /* Optional+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C712B720E1526900A737E3 /* Optional+Validatable.swift */; };
 		94DFF61520D14CD400B42863 /* AutoReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DFF61420D14CD400B42863 /* AutoReporting.swift */; };
-		94E7EC1720C0358700132570 /* CustomValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1620C0358700132570 /* CustomValueWrapper.swift */; };
+		94E7EC1720C0358700132570 /* ValueWrapper+WithCustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1620C0358700132570 /* ValueWrapper+WithCustomValue.swift */; };
 		94E7EC1920C03A7A00132570 /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1820C03A7A00132570 /* Condition.swift */; };
 		94E7EC1B20C09AE300132570 /* ValidatableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */; };
 		94E7EC1F20C0A57F00132570 /* OptionalValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E7EC1E20C0A57F00132570 /* OptionalValueWrapper.swift */; };
@@ -92,9 +92,9 @@
 		942AFD9F20E17D720028E84B /* AutoCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCodable.swift; sourceTree = "<group>"; };
 		942AFDA120E186800028E84B /* ValueWrapper+Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+Validatable.swift"; sourceTree = "<group>"; };
 		942AFDA420E18F940028E84B /* ValueWrapper+Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+Mandatory.swift"; sourceTree = "<group>"; };
-		942AFDA720E18FBA0028E84B /* CustomValueWrapper+Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomValueWrapper+Mandatory.swift"; sourceTree = "<group>"; };
-		942AFDA920E1900C0028E84B /* ValueWrapper+Validatable&Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+Validatable&Mandatory.swift"; sourceTree = "<group>"; };
-		942AFDAB20E19A970028E84B /* CustomValueWrapper+DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomValueWrapper+DisplayNamed.swift"; sourceTree = "<group>"; };
+		942AFDA720E18FBA0028E84B /* ValueWrapper+WithCustomValue&Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+WithCustomValue&Mandatory.swift"; sourceTree = "<group>"; };
+		942AFDAB20E19A970028E84B /* ValueWrapper+WithCustomValue&DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+WithCustomValue&DisplayNamed.swift"; sourceTree = "<group>"; };
+		942AFDAE20E19EFC0028E84B /* WithCustomValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithCustomValue.swift; sourceTree = "<group>"; };
 		943EA2A120CF3CD0006CF016 /* Initializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
 		9449F43320D03D2D00C9C635 /* DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayNamed.swift; sourceTree = "<group>"; };
 		9459A04520CF006900D4F644 /* ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueWrapper.swift; sourceTree = "<group>"; };
@@ -107,9 +107,9 @@
 		94ABCC4220E138CE007187DC /* ValueWrapper+AutoCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+AutoCodable.swift"; sourceTree = "<group>"; };
 		94ABCC4420E139F3007187DC /* ValueWrapper+DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+DisplayNamed.swift"; sourceTree = "<group>"; };
 		94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+ValueWrapper.swift"; sourceTree = "<group>"; };
-		94C712B720E1526900A737E3 /* Optional+ValueWrapper&Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+ValueWrapper&Validatable.swift"; sourceTree = "<group>"; };
+		94C712B720E1526900A737E3 /* Optional+Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Validatable.swift"; sourceTree = "<group>"; };
 		94DFF61420D14CD400B42863 /* AutoReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoReporting.swift; sourceTree = "<group>"; };
-		94E7EC1620C0358700132570 /* CustomValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomValueWrapper.swift; sourceTree = "<group>"; };
+		94E7EC1620C0358700132570 /* ValueWrapper+WithCustomValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+WithCustomValue.swift"; sourceTree = "<group>"; };
 		94E7EC1820C03A7A00132570 /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
 		94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatableEntity.swift; sourceTree = "<group>"; };
 		94E7EC1E20C0A57F00132570 /* OptionalValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalValueWrapper.swift; sourceTree = "<group>"; };
@@ -219,11 +219,19 @@
 		942AFDA620E18FA80028E84B /* CustomValueWrapper */ = {
 			isa = PBXGroup;
 			children = (
-				94E7EC1620C0358700132570 /* CustomValueWrapper.swift */,
-				942AFDAB20E19A970028E84B /* CustomValueWrapper+DisplayNamed.swift */,
-				942AFDA720E18FBA0028E84B /* CustomValueWrapper+Mandatory.swift */,
+				942AFDA720E18FBA0028E84B /* ValueWrapper+WithCustomValue&Mandatory.swift */,
 			);
 			path = CustomValueWrapper;
+			sourceTree = "<group>";
+		};
+		942AFDAD20E19E520028E84B /* Markers */ = {
+			isa = PBXGroup;
+			children = (
+				94DFF61420D14CD400B42863 /* AutoReporting.swift */,
+				942AFD9F20E17D720028E84B /* AutoCodable.swift */,
+				942AFD9A20E17AF40028E84B /* Mandatory.swift */,
+			);
+			path = Markers;
 			sourceTree = "<group>";
 		};
 		94ABCC3320E132C1007187DC /* Spec */ = {
@@ -246,7 +254,8 @@
 				94ABCC4220E138CE007187DC /* ValueWrapper+AutoCodable.swift */,
 				942AFDA120E186800028E84B /* ValueWrapper+Validatable.swift */,
 				942AFDA420E18F940028E84B /* ValueWrapper+Mandatory.swift */,
-				942AFDA920E1900C0028E84B /* ValueWrapper+Validatable&Mandatory.swift */,
+				94E7EC1620C0358700132570 /* ValueWrapper+WithCustomValue.swift */,
+				942AFDAB20E19A970028E84B /* ValueWrapper+WithCustomValue&DisplayNamed.swift */,
 			);
 			path = ValueWrapper;
 			sourceTree = "<group>";
@@ -255,7 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */,
-				94C712B720E1526900A737E3 /* Optional+ValueWrapper&Validatable.swift */,
+				94C712B720E1526900A737E3 /* Optional+Validatable.swift */,
 			);
 			path = OptionalExtensions;
 			sourceTree = "<group>";
@@ -272,12 +281,11 @@
 		94FF817220C0111000E69904 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				94DFF61420D14CD400B42863 /* AutoReporting.swift */,
-				942AFD9F20E17D720028E84B /* AutoCodable.swift */,
-				942AFD9A20E17AF40028E84B /* Mandatory.swift */,
+				942AFDAD20E19E520028E84B /* Markers */,
 				9415FE371F4A27FC0077E798 /* Validatable.swift */,
 				942AFD9C20E17C5E0028E84B /* DisplayName */,
 				94ABCC3320E132C1007187DC /* Spec */,
+				942AFDAE20E19EFC0028E84B /* WithCustomValue.swift */,
 				94ABCC3C20E1354E007187DC /* ValueWrapper */,
 				942AFDA620E18FA80028E84B /* CustomValueWrapper */,
 				94E7EC1E20C0A57F00132570 /* OptionalValueWrapper.swift */,
@@ -483,10 +491,11 @@
 				94DFF61520D14CD400B42863 /* AutoReporting.swift in Sources */,
 				94E7EC1B20C09AE300132570 /* ValidatableEntity.swift in Sources */,
 				94ABCC3220E05978007187DC /* NEW.swift in Sources */,
+				942AFDAF20E19EFC0028E84B /* WithCustomValue.swift in Sources */,
 				94ABCC3720E1330A007187DC /* Spec+NoConditions.swift in Sources */,
 				942AFD9E20E17C6C0028E84B /* AutoDisplayNamed.swift in Sources */,
 				94ABCC3B20E133B6007187DC /* Spec+IgnoreBuiltInValidation.swift in Sources */,
-				94E7EC1720C0358700132570 /* CustomValueWrapper.swift in Sources */,
+				94E7EC1720C0358700132570 /* ValueWrapper+WithCustomValue.swift in Sources */,
 				9459A04620CF006900D4F644 /* ValueWrapper.swift in Sources */,
 				94ABCC4520E139F4007187DC /* ValueWrapper+DisplayNamed.swift in Sources */,
 				94E7EC1920C03A7A00132570 /* Condition.swift in Sources */,
@@ -499,18 +508,17 @@
 				949B409F20D466D40043CAB3 /* Utils.swift in Sources */,
 				94E83BDB20D7B041001D3512 /* ReportReview.swift in Sources */,
 				9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */,
-				942AFDAC20E19A970028E84B /* CustomValueWrapper+DisplayNamed.swift in Sources */,
+				942AFDAC20E19A970028E84B /* ValueWrapper+WithCustomValue&DisplayNamed.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
 				94E7EC1F20C0A57F00132570 /* OptionalValueWrapper.swift in Sources */,
 				94ABCC4720E13A7C007187DC /* Optional+ValueWrapper.swift in Sources */,
 				94ABCC3520E132DE007187DC /* Spec+AutoReporting.swift in Sources */,
 				94ABCC3920E13379007187DC /* Spec_InternalHelpers.swift in Sources */,
-				942AFDA820E18FBA0028E84B /* CustomValueWrapper+Mandatory.swift in Sources */,
+				942AFDA820E18FBA0028E84B /* ValueWrapper+WithCustomValue&Mandatory.swift in Sources */,
 				942AFD9B20E17AF40028E84B /* Mandatory.swift in Sources */,
 				94FF817120C0106700E69904 /* MandatoryWrappers.swift in Sources */,
 				942AFDA220E186800028E84B /* ValueWrapper+Validatable.swift in Sources */,
-				94C712B820E1526900A737E3 /* Optional+ValueWrapper&Validatable.swift in Sources */,
-				942AFDAA20E1900C0028E84B /* ValueWrapper+Validatable&Mandatory.swift in Sources */,
+				94C712B820E1526900A737E3 /* Optional+Validatable.swift in Sources */,
 				94ABCC4320E138CE007187DC /* ValueWrapper+AutoCodable.swift in Sources */,
 				94FF817420C0115100E69904 /* OptionalWrappers.swift in Sources */,
 				942AFDA020E17D720028E84B /* AutoCodable.swift in Sources */,

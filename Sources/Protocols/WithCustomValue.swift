@@ -24,22 +24,8 @@
 
  */
 
-// internal
-extension CustomValueWrapper
-    where
-    Self: Mandatory
+public
+protocol WithCustomValue: Validatable
 {
-    static
-    func reportEmptyValue() -> ValidationError
-    {
-        return ValidationError.mandatoryValueIsNotSet(
-            origin: displayName,
-            report: Self.Specification.prepareReport(
-                value: nil,
-                failedConditions: [],
-                builtInValidationIssues: [],
-                suggestedReport: Self.defaultEmptyValueReport
-            )
-        )
-    }
+    associatedtype Specification: ValueSpecification
 }
