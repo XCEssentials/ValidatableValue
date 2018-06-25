@@ -13,6 +13,7 @@
 		9415FE381F4A27FC0077E798 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9415FE371F4A27FC0077E798 /* Validatable.swift */; };
 		942AFD9B20E17AF40028E84B /* Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFD9A20E17AF40028E84B /* Mandatory.swift */; };
 		942AFD9E20E17C6C0028E84B /* AutoDisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFD9D20E17C6C0028E84B /* AutoDisplayNamed.swift */; };
+		942AFDA020E17D720028E84B /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942AFD9F20E17D720028E84B /* AutoCodable.swift */; };
 		943EA2A220CF3CD0006CF016 /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943EA2A120CF3CD0006CF016 /* Initializers.swift */; };
 		9449F43420D03D2D00C9C635 /* DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9449F43320D03D2D00C9C635 /* DisplayNamed.swift */; };
 		9459A04620CF006900D4F644 /* ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04520CF006900D4F644 /* ValueWrapper.swift */; };
@@ -85,6 +86,7 @@
 		9415FE371F4A27FC0077E798 /* Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		942AFD9A20E17AF40028E84B /* Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mandatory.swift; sourceTree = "<group>"; };
 		942AFD9D20E17C6C0028E84B /* AutoDisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoDisplayNamed.swift; sourceTree = "<group>"; };
+		942AFD9F20E17D720028E84B /* AutoCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCodable.swift; sourceTree = "<group>"; };
 		943EA2A120CF3CD0006CF016 /* Initializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
 		9449F43320D03D2D00C9C635 /* DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayNamed.swift; sourceTree = "<group>"; };
 		9459A04520CF006900D4F644 /* ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueWrapper.swift; sourceTree = "<group>"; };
@@ -251,6 +253,8 @@
 		94FF817220C0111000E69904 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				94DFF61420D14CD400B42863 /* AutoReporting.swift */,
+				942AFD9F20E17D720028E84B /* AutoCodable.swift */,
 				942AFD9A20E17AF40028E84B /* Mandatory.swift */,
 				9415FE371F4A27FC0077E798 /* Validatable.swift */,
 				9459A04720CF0C5300D4F644 /* WithCustomValue.swift */,
@@ -261,7 +265,6 @@
 				94E7EC1C20C0A55500132570 /* MandatoryValueWrapper.swift */,
 				94E7EC1E20C0A57F00132570 /* OptionalValueWrapper.swift */,
 				94E7EC1A20C09AE300132570 /* ValidatableEntity.swift */,
-				94DFF61420D14CD400B42863 /* AutoReporting.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				94C712B820E1526900A737E3 /* Optional+ValueWrapper&Validatable.swift in Sources */,
 				94ABCC4320E138CE007187DC /* ValueWrapper+AutoCodable.swift in Sources */,
 				94FF817420C0115100E69904 /* OptionalWrappers.swift in Sources */,
+				942AFDA020E17D720028E84B /* AutoCodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

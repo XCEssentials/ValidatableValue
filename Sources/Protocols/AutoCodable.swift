@@ -25,10 +25,10 @@
  */
 
 /**
- Protocol-marker that implies that error reporting
+ Protocol-marker that implies that Codable support
  should be done automatically/implicitly (if given
  type supports that feature via one of the adapted
  protocols).
  */
 public
-protocol AutoReporting {}
+protocol AutoCodable {}

@@ -24,9 +24,6 @@
 
  */
 
-public
-protocol AutoCodable {}
-
 // MARK: - Automatic 'Codable' conformance
 
 public
