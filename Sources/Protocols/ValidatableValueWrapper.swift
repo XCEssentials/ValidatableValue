@@ -27,7 +27,7 @@
 public
 protocol ValidatableValueWrapper: ValueWrapper & Validatable {}
 
-//---
+// MARK: - Signature members
 
 public
 extension ValidatableValueWrapper
@@ -46,7 +46,7 @@ extension ValidatableValueWrapper
     }
 }
 
-//---
+// MARK: - Helpers
 
 public
 extension ValidatableValueWrapper
