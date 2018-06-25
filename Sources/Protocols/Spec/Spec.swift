@@ -49,6 +49,8 @@ protocol ValueSpecification: DisplayNamed
     var reportReview: ValueReportReview { get }
 }
 
+//---
+
 public
 extension ValueSpecification
 {
@@ -58,93 +60,5 @@ extension ValueSpecification
         // by default, we do built-in validation
         // in case the 'Value' supports validation
         return true
-    }
-}
-
-// internal
-extension ValueSpecification
-{
-    static
-    func defaultValidationReport(
-        with failedConditions: [String]
-        ) -> Report
-    {
-        return (
-            "\"\(displayName)\" validation failed",
-            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
-        )
-    }
-
-    static
-    func prepareReport(
-        value: Any?,
-        failedConditions: [String],
-        builtInValidationIssues: [ValidationError],
-        suggestedReport: Report
-        ) -> Report
-    {
-        var result = suggestedReport
-
-        let context = ValueReportContext(
-            origin: displayName,
-            value: value,
-            failedConditions: failedConditions,
-            builtInValidationIssues: builtInValidationIssues
-        )
-
-        //---
-
-        reportReview(context, &result)
-
-        //---
-
-        return result
-    }
-}
-
-//---
-
-/**
- Protocol-marker for 'ValueSpecification' protocol that
- implements 'performBuiltInValidation' requirement as 'false'.
- */
-public
-protocol IgnoreBuiltInValidation: ValueSpecification {}
-
-public
-extension IgnoreBuiltInValidation
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        // TODO: test this to ensure it overrides default!
-        return false
-    }
-}
-
-//---
-
-public
-protocol NoConditions: ValueSpecification, AutoReporting {}
-
-public
-extension NoConditions
-{
-    static
-    var conditions: [Condition<Self.Value>] { return [] }
-}
-
-//---
-
-public
-extension ValueSpecification
-    where
-    Self: AutoReporting
-{
-    static
-    var reportReview: ValueReportReview
-    {
-        // by default, we don't adjust anything in the report
-        return { _, _ in }
     }
 }
