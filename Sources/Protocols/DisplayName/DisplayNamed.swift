@@ -39,6 +39,8 @@ protocol DisplayNamed
     var displayName: String { get }
 }
 
+// MARK: - Convenience helpers
+
 public
 extension DisplayNamed
 {
@@ -48,20 +50,5 @@ extension DisplayNamed
     var displayName: String
     {
         return type(of: self).displayName
-    }
-}
-
-// MARK: - AutoDisplayNamed
-
-public
-protocol AutoDisplayNamed: DisplayNamed {}
-
-public
-extension AutoDisplayNamed
-{
-    static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
     }
 }
