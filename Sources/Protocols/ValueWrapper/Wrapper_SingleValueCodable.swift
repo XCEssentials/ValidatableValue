@@ -24,11 +24,29 @@
 
  */
 
-/**
- Protocol-marker that implies that Codable support
- should be done automatically/implicitly (if given
- type supports that feature via one of the adapted
- protocols).
- */
-//public
-//protocol SingleValueCodable: ValueWrapper {} // + default implementation for value wrapper!
+public
+protocol SingleValueCodable: ValueWrapper {}
+
+//---
+
+public
+extension SingleValueCodable
+{
+    func encode(to encoder: Encoder) throws
+    {
+        var container = encoder.singleValueContainer()
+
+        //---
+        
+        try container.encode(value)
+    }
+
+    init(from decoder: Decoder) throws
+    {
+        let container = try decoder.singleValueContainer()
+
+        //---
+
+        self.init(try container.decode(Value.self))
+    }
+}

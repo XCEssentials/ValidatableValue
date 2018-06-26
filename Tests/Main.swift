@@ -266,6 +266,82 @@ extension MainTests
         XCTAssert(CustomNamedWrapperWithSpec.displayName == CustomNamedWrapperWithSpec.customDisplayName)
     }
 
+    func testWrapperSingleValueCodable()
+    {
+        struct ImplicitlyCodableWrapper: ValueWrapper
+        {
+            typealias Value = String
+
+            var value: String
+
+            init(_ value: String) { self.value = value }
+        }
+
+        //---
+
+        do
+        {
+            let wrapper = ImplicitlyCodableWrapper("Test")
+
+            let encodedWrapper = try JSONEncoder().encode(wrapper)
+
+            let encodedWrapperStr = String(data: encodedWrapper, encoding: .utf8)
+
+            XCTAssert(encodedWrapperStr! == "{\"value\":\"Test\"}")
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        struct ExplicitlyCodableWrapper: ValueWrapper,
+            SingleValueCodable
+        {
+            typealias Value = String
+
+            var value: String
+
+            init(_ value: String) { self.value = value }
+        }
+
+        struct Entity: Codable
+        {
+            let wrapper: ExplicitlyCodableWrapper
+        }
+
+        //---
+
+        do
+        {
+            let testValue = "SingleValueCodable"
+
+            let entity = Entity(
+                wrapper: ExplicitlyCodableWrapper(testValue)
+            )
+
+            let encodedEntity = try JSONEncoder().encode(entity)
+
+            let encodedEntityStr = String(data: encodedEntity, encoding: .utf8)
+
+            XCTAssert(encodedEntityStr! == "{\"wrapper\":\"\(testValue)\"}")
+
+            //---
+
+            let decodedEntity = try JSONDecoder().decode(Entity.self, from: encodedEntity)
+
+            XCTAssert(decodedEntity.wrapper.value == testValue)
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+    }
+
+
 //    func testDecoding()
 //    {
 //        struct SomeEntity: Codable
@@ -339,7 +415,7 @@ extension MainTests
 //            XCTFail("Should not get here ever")
 //        }
 //    }
-//
+
 //    func testDifferentUnwrapValue()
 //    {
 //        do
