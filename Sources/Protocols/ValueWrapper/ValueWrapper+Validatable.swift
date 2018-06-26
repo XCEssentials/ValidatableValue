@@ -24,105 +24,105 @@
 
  */
 
-public
-extension ValueWrapper
-    where
-    Self: Validatable
-{
-    func validate() throws
-    {
-        // without more context,
-        // it's good enough that the value is just set
-    }
-
-    /**
-     Returns whatever is stored in 'value', if it is 'valid',
-     or throws a validation error.
-     */
-    func validValue(
-        ) throws -> Value
-    {
-        try validate()
-
-        //---
-
-        return value
-    }
-
-    /**
-     USE THIS CAREFULLY!
-     This is a special getter that allows to get non-optional valid value
-     OR collect an error, if stored value is invalid,
-     while still returning a non-optional value. Notice, that result is
-     implicitly unwrapped, but may be actually 'nil'. If stored 'value'
-     is invalid - the function adds validation error into the
-     'collectError' array and returns implicitly unwrapped 'nil'.
-     This helper function allows to collect issues from multiple
-     validateable values wihtout throwing an error immediately,
-     but received value should ONLY be used/read if the 'collectError'
-     is empty in the end.
-     */
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Value!
-    {
-        let result: Value?
-
-        //---
-
-        do
-        {
-            result = try validValue()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-            result = nil
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return result
-    }
-
-    /**
-     Convenience initializer useful for setting a 'let' value,
-     that only should be set once during initialization. Assigns
-     provided value and validates it right away.
-     */
-    init(
-        const value: Value
-        ) throws
-    {
-        self.init(value)
-        try self.validate()
-    }
-
-    /**
-     Set new value and validate it in single operation.
-     */
-    mutating
-    func set(
-        _ newValue: Value
-        ) throws
-    {
-        value = newValue
-        try validate()
-    }
-
-    /**
-     Validate a given value without actually setting it to current value.
-     */
-    func validate(
-        value: Value
-        ) throws
-    {
-        var tmp = self
-        try tmp.set(value)
-    }
-}
+//public
+//extension ValueWrapper
+//    where
+//    Self: Validatable
+//{
+//    func validate() throws
+//    {
+//        // without more context,
+//        // it's good enough that the value is just set
+//    }
+//
+//    /**
+//     Returns whatever is stored in 'value', if it is 'valid',
+//     or throws a validation error.
+//     */
+//    func validValue(
+//        ) throws -> Value
+//    {
+//        try validate()
+//
+//        //---
+//
+//        return value
+//    }
+//
+//    /**
+//     USE THIS CAREFULLY!
+//     This is a special getter that allows to get non-optional valid value
+//     OR collect an error, if stored value is invalid,
+//     while still returning a non-optional value. Notice, that result is
+//     implicitly unwrapped, but may be actually 'nil'. If stored 'value'
+//     is invalid - the function adds validation error into the
+//     'collectError' array and returns implicitly unwrapped 'nil'.
+//     This helper function allows to collect issues from multiple
+//     validateable values wihtout throwing an error immediately,
+//     but received value should ONLY be used/read if the 'collectError'
+//     is empty in the end.
+//     */
+//    func validValue(
+//        _ collectError: inout [ValidationError]
+//        ) throws -> Value!
+//    {
+//        let result: Value?
+//
+//        //---
+//
+//        do
+//        {
+//            result = try validValue()
+//        }
+//        catch let error as ValidationError
+//        {
+//            collectError.append(error)
+//            result = nil
+//        }
+//        catch
+//        {
+//            // an unexpected error should be thrown to the upper level
+//            throw error
+//        }
+//
+//        //---
+//
+//        return result
+//    }
+//
+//    /**
+//     Convenience initializer useful for setting a 'let' value,
+//     that only should be set once during initialization. Assigns
+//     provided value and validates it right away.
+//     */
+//    init(
+//        const value: Value
+//        ) throws
+//    {
+//        self.init(value)
+//        try self.validate()
+//    }
+//
+//    /**
+//     Set new value and validate it in single operation.
+//     */
+//    mutating
+//    func set(
+//        _ newValue: Value
+//        ) throws
+//    {
+//        value = newValue
+//        try validate()
+//    }
+//
+//    /**
+//     Validate a given value without actually setting it to current value.
+//     */
+//    func validate(
+//        value: Value
+//        ) throws
+//    {
+//        var tmp = self
+//        try tmp.set(value)
+//    }
+//}

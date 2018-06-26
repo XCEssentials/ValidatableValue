@@ -24,201 +24,201 @@
 
  */
 
-// public
-extension Swift.Optional: Validatable
-    where
-    Wrapped: ValidatableValueWrapper
-{
-    // see implementations below
-}
-
-// MARK: - Validatable support
-
-public
-extension Swift.Optional
-    where
-    Wrapped: ValidatableValueWrapper
-{
-    func validate() throws
-    {
-        if
-            case .some(let validatable) = self
-        {
-            try validatable.validate()
-        }
-    }
-
-    func validValue() throws -> Wrapped.Value? // NON-Mandatory!
-    {
-        switch self
-        {
-            case .none:
-                return nil // 'nil' is allowed
-
-            case .some(let wrapper):
-                return try wrapper.validValue()
-        }
-    }
-
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Wrapped.Value? // NON-Mandatory!
-    {
-        let result: Wrapped.Value?
-
-        //---
-
-        do
-        {
-            result = try validValue()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-            result = nil
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return result
-    }
-}
-
-// MARK: - Validatable support - when wrap Mandatory & ValueWrapper
-
-public
-extension Swift.Optional
-    where
-    Wrapped: Mandatory & ValidatableValueWrapper
-{
-    func validate() throws
-    {
-        // throw if no value!
-        // or pass validation to the non-empty value
-        switch self
-        {
-            case .none:
-                throw ValidationError.mandatoryValueIsNotSet(
-                    origin: displayName,
-                    report: Wrapped.defaultEmptyValueReport
-                )
-
-            case .some(let validatable):
-                try validatable.validate()
-        }
-    }
-
-    func validValue() throws -> Wrapped.Value // Mandatory!
-    {
-        switch self
-        {
-            case .none:
-                throw ValidationError.mandatoryValueIsNotSet(
-                    origin: displayName,
-                    report: Wrapped.defaultEmptyValueReport
-                )
-
-            case .some(let wrapper):
-                return try wrapper.validValue()
-        }
-    }
-
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Wrapped.Value! // Mandatory!
-    {
-        let result: Wrapped.Value?
-
-        //---
-
-        do
-        {
-            result = try validValue()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-            result = nil
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return result
-    }
-}
-
-// MARK: - Validatable support - when wrap Mandatory & CustomValueWrapper
-
-public
-extension Swift.Optional
-    where
-    Wrapped: Mandatory & WithCustomValue & ValueWrapper,
-    Wrapped.Specification.Value == Wrapped.Value
-{
-    func validate() throws
-    {
-        // throw if no value!
-        // or pass validation to the non-empty value
-        switch self
-        {
-            case .none:
-                throw Wrapped.reportEmptyValue()
-
-            case .some(let validatable):
-                try validatable.validate()
-        }
-    }
-
-    func validValue() throws -> Wrapped.Value // Mandatory!
-    {
-        switch self
-        {
-            case .none:
-                throw Wrapped.reportEmptyValue()
-
-            case .some(let wrapper):
-                return try wrapper.validValue()
-        }
-    }
-
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Wrapped.Value! // Mandatory!
-    {
-        let result: Wrapped.Value?
-
-        //---
-
-        do
-        {
-            result = try validValue()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-            result = nil
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return result
-    }
-}
+//// public
+//extension Swift.Optional: Validatable
+//    where
+//    Wrapped: ValidatableValueWrapper
+//{
+//    // see implementations below
+//}
+//
+//// MARK: - Validatable support
+//
+//public
+//extension Swift.Optional
+//    where
+//    Wrapped: ValidatableValueWrapper
+//{
+//    func validate() throws
+//    {
+//        if
+//            case .some(let validatable) = self
+//        {
+//            try validatable.validate()
+//        }
+//    }
+//
+//    func validValue() throws -> Wrapped.Value? // NON-Mandatory!
+//    {
+//        switch self
+//        {
+//            case .none:
+//                return nil // 'nil' is allowed
+//
+//            case .some(let wrapper):
+//                return try wrapper.validValue()
+//        }
+//    }
+//
+//    func validValue(
+//        _ collectError: inout [ValidationError]
+//        ) throws -> Wrapped.Value? // NON-Mandatory!
+//    {
+//        let result: Wrapped.Value?
+//
+//        //---
+//
+//        do
+//        {
+//            result = try validValue()
+//        }
+//        catch let error as ValidationError
+//        {
+//            collectError.append(error)
+//            result = nil
+//        }
+//        catch
+//        {
+//            // an unexpected error should be thrown to the upper level
+//            throw error
+//        }
+//
+//        //---
+//
+//        return result
+//    }
+//}
+//
+//// MARK: - Validatable support - when wrap Mandatory & ValueWrapper
+//
+//public
+//extension Swift.Optional
+//    where
+//    Wrapped: Mandatory & ValidatableValueWrapper
+//{
+//    func validate() throws
+//    {
+//        // throw if no value!
+//        // or pass validation to the non-empty value
+//        switch self
+//        {
+//            case .none:
+//                throw ValidationError.mandatoryValueIsNotSet(
+//                    origin: displayName,
+//                    report: Wrapped.defaultEmptyValueReport
+//                )
+//
+//            case .some(let validatable):
+//                try validatable.validate()
+//        }
+//    }
+//
+//    func validValue() throws -> Wrapped.Value // Mandatory!
+//    {
+//        switch self
+//        {
+//            case .none:
+//                throw ValidationError.mandatoryValueIsNotSet(
+//                    origin: displayName,
+//                    report: Wrapped.defaultEmptyValueReport
+//                )
+//
+//            case .some(let wrapper):
+//                return try wrapper.validValue()
+//        }
+//    }
+//
+//    func validValue(
+//        _ collectError: inout [ValidationError]
+//        ) throws -> Wrapped.Value! // Mandatory!
+//    {
+//        let result: Wrapped.Value?
+//
+//        //---
+//
+//        do
+//        {
+//            result = try validValue()
+//        }
+//        catch let error as ValidationError
+//        {
+//            collectError.append(error)
+//            result = nil
+//        }
+//        catch
+//        {
+//            // an unexpected error should be thrown to the upper level
+//            throw error
+//        }
+//
+//        //---
+//
+//        return result
+//    }
+//}
+//
+//// MARK: - Validatable support - when wrap Mandatory & CustomValueWrapper
+//
+//public
+//extension Swift.Optional
+//    where
+//    Wrapped: Mandatory & WithCustomValue & ValueWrapper,
+//    Wrapped.Specification.Value == Wrapped.Value
+//{
+//    func validate() throws
+//    {
+//        // throw if no value!
+//        // or pass validation to the non-empty value
+//        switch self
+//        {
+//            case .none:
+//                throw Wrapped.reportEmptyValue()
+//
+//            case .some(let validatable):
+//                try validatable.validate()
+//        }
+//    }
+//
+//    func validValue() throws -> Wrapped.Value // Mandatory!
+//    {
+//        switch self
+//        {
+//            case .none:
+//                throw Wrapped.reportEmptyValue()
+//
+//            case .some(let wrapper):
+//                return try wrapper.validValue()
+//        }
+//    }
+//
+//    func validValue(
+//        _ collectError: inout [ValidationError]
+//        ) throws -> Wrapped.Value! // Mandatory!
+//    {
+//        let result: Wrapped.Value?
+//
+//        //---
+//
+//        do
+//        {
+//            result = try validValue()
+//        }
+//        catch let error as ValidationError
+//        {
+//            collectError.append(error)
+//            result = nil
+//        }
+//        catch
+//        {
+//            // an unexpected error should be thrown to the upper level
+//            throw error
+//        }
+//
+//        //---
+//
+//        return result
+//    }
+//}
 
 // MARK: - Convenience helpers
 

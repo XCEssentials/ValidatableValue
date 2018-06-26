@@ -24,15 +24,15 @@
 
  */
 
-public
-extension ValueWrapper
-    where
-    Self: WithCustomValue,
-    Self.Specification.Value == Self.Value
-{
-    static
-    var displayName: String
-    {
-        return Self.Specification.displayName
-    }
-}
+//public
+//extension ValueWrapper
+//    where
+//    Self: WithCustomValue,
+//    Self.Specification.Value == Self.Value
+//{
+//    static
+//    var displayName: String
+//    {
+//        return Self.Specification.displayName
+//    }
+//}

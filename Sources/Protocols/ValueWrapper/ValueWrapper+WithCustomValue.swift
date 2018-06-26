@@ -26,164 +26,164 @@
 
 // MARK: - Automatic Validatable support
 
-public
-extension ValueWrapper
-    where
-    Self: WithCustomValue, // implicitly 'Validatable'
-    Self.Specification.Value == Self.Value
-{
-    func validate() throws
-    {
-        try type(of: self).check(self.value)
-    }
-}
-
-// MARK: - Reporting
-
-private
-extension ValueWrapper
-    where
-    Self: WithCustomValue, // implicitly 'Validatable'
-    Self.Specification.Value == Self.Value
-{
-    static
-    func check(_ valueToCheck: Value) throws
-    {
-        var failedConditions: [String] = []
-
-        try Specification.conditions.forEach
-        {
-            do
-            {
-                try $0.validate(value: valueToCheck)
-            }
-            catch let error as ConditionUnsatisfied
-            {
-                failedConditions.append(error.condition)
-            }
-            catch
-            {
-                // an unexpected error, just throw it right away
-                throw error
-            }
-        }
-
-        //---
-
-        if
-            let validatableValue = valueToCheck as? Validatable,
-            Specification.performBuiltInValidation
-        {
-            try checkNestedValidatable(
-                value: validatableValue,
-                failedConditions: failedConditions
-            )
-        }
-        else
-        {
-            try justCheckFailedConditions(
-                failedConditions,
-                with: valueToCheck
-            )
-        }
-    }
-
-    static
-    func justCheckFailedConditions(
-        _ failedConditions: [String],
-        with checkedValue: Value
-        ) throws
-    {
-        if
-            !failedConditions.isEmpty
-        {
-            throw ValidationError.valueIsNotValid(
-                origin: displayName,
-                value: checkedValue,
-                failedConditions: failedConditions,
-                report: Specification.prepareReport(
-                    value: checkedValue,
-                    failedConditions: failedConditions,
-                    builtInValidationIssues: [],
-                    suggestedReport: Specification.defaultValidationReport(
-                        with: failedConditions
-                    )
-                )
-            )
-        }
-    }
-
-    static
-    func checkNestedValidatable(
-        value validatableValueToCheck: Validatable,
-        failedConditions: [String]
-        ) throws
-    {
-        do
-        {
-            try validatableValueToCheck.validate()
-        }
-        catch ValidationError.entityIsNotValid(_, let issues, let report)
-        {
-            throw reportNestedValidationFailed(
-                checkedValue: validatableValueToCheck,
-                failedConditions: failedConditions,
-                builtInValidationIssues: issues,
-                builtInReport: report
-            )
-        }
-        catch let error as ValidationError
-        {
-            throw reportNestedValidationFailed(
-                checkedValue: validatableValueToCheck,
-                failedConditions: failedConditions,
-                builtInValidationIssues: [error],
-                builtInReport: nil
-            )
-        }
-        catch
-        {
-            // an unexpected error, just throw it right away
-            throw error
-        }
-    }
-
-    static
-    func reportNestedValidationFailed(
-        checkedValue: Validatable,
-        failedConditions: [String],
-        builtInValidationIssues: [ValidationError],
-        builtInReport: (title: String, message: String)?
-        ) -> ValidationError
-    {
-        let baseReport = Specification
-            .defaultValidationReport(with: failedConditions)
-
-        let finalReport = builtInReport
-            .map{(
-                title: baseReport.title,
-                message: """
-                \(baseReport.message)
-                ———
-                \($0.message)
-                ———
-                """
-                )}
-            ?? baseReport
-
-        //---
-
-        return .nestedValidationFailed(
-            origin: displayName,
-            value: checkedValue,
-            failedConditions: failedConditions,
-            builtInValidationIssues: builtInValidationIssues,
-            report: Specification.prepareReport(
-                value: checkedValue,
-                failedConditions: failedConditions,
-                builtInValidationIssues: builtInValidationIssues,
-                suggestedReport: finalReport
-            )
-        )
-    }
-}
+//public
+//extension ValueWrapper
+//    where
+//    Self: WithCustomValue, // implicitly 'Validatable'
+//    Self.Specification.Value == Self.Value
+//{
+//    func validate() throws
+//    {
+//        try type(of: self).check(self.value)
+//    }
+//}
+//
+//// MARK: - Reporting
+//
+//private
+//extension ValueWrapper
+//    where
+//    Self: WithCustomValue, // implicitly 'Validatable'
+//    Self.Specification.Value == Self.Value
+//{
+//    static
+//    func check(_ valueToCheck: Value) throws
+//    {
+//        var failedConditions: [String] = []
+//
+//        try Specification.conditions.forEach
+//        {
+//            do
+//            {
+//                try $0.validate(value: valueToCheck)
+//            }
+//            catch let error as ConditionUnsatisfied
+//            {
+//                failedConditions.append(error.condition)
+//            }
+//            catch
+//            {
+//                // an unexpected error, just throw it right away
+//                throw error
+//            }
+//        }
+//
+//        //---
+//
+//        if
+//            let validatableValue = valueToCheck as? Validatable,
+//            Specification.performBuiltInValidation
+//        {
+//            try checkNestedValidatable(
+//                value: validatableValue,
+//                failedConditions: failedConditions
+//            )
+//        }
+//        else
+//        {
+//            try justCheckFailedConditions(
+//                failedConditions,
+//                with: valueToCheck
+//            )
+//        }
+//    }
+//
+//    static
+//    func justCheckFailedConditions(
+//        _ failedConditions: [String],
+//        with checkedValue: Value
+//        ) throws
+//    {
+//        if
+//            !failedConditions.isEmpty
+//        {
+//            throw ValidationError.valueIsNotValid(
+//                origin: displayName,
+//                value: checkedValue,
+//                failedConditions: failedConditions,
+//                report: Specification.prepareReport(
+//                    value: checkedValue,
+//                    failedConditions: failedConditions,
+//                    builtInValidationIssues: [],
+//                    suggestedReport: Specification.defaultValidationReport(
+//                        with: failedConditions
+//                    )
+//                )
+//            )
+//        }
+//    }
+//
+//    static
+//    func checkNestedValidatable(
+//        value validatableValueToCheck: Validatable,
+//        failedConditions: [String]
+//        ) throws
+//    {
+//        do
+//        {
+//            try validatableValueToCheck.validate()
+//        }
+//        catch ValidationError.entityIsNotValid(_, let issues, let report)
+//        {
+//            throw reportNestedValidationFailed(
+//                checkedValue: validatableValueToCheck,
+//                failedConditions: failedConditions,
+//                builtInValidationIssues: issues,
+//                builtInReport: report
+//            )
+//        }
+//        catch let error as ValidationError
+//        {
+//            throw reportNestedValidationFailed(
+//                checkedValue: validatableValueToCheck,
+//                failedConditions: failedConditions,
+//                builtInValidationIssues: [error],
+//                builtInReport: nil
+//            )
+//        }
+//        catch
+//        {
+//            // an unexpected error, just throw it right away
+//            throw error
+//        }
+//    }
+//
+//    static
+//    func reportNestedValidationFailed(
+//        checkedValue: Validatable,
+//        failedConditions: [String],
+//        builtInValidationIssues: [ValidationError],
+//        builtInReport: (title: String, message: String)?
+//        ) -> ValidationError
+//    {
+//        let baseReport = Specification
+//            .defaultValidationReport(with: failedConditions)
+//
+//        let finalReport = builtInReport
+//            .map{(
+//                title: baseReport.title,
+//                message: """
+//                \(baseReport.message)
+//                ———
+//                \($0.message)
+//                ———
+//                """
+//                )}
+//            ?? baseReport
+//
+//        //---
+//
+//        return .nestedValidationFailed(
+//            origin: displayName,
+//            value: checkedValue,
+//            failedConditions: failedConditions,
+//            builtInValidationIssues: builtInValidationIssues,
+//            report: Specification.prepareReport(
+//                value: checkedValue,
+//                failedConditions: failedConditions,
+//                builtInValidationIssues: builtInValidationIssues,
+//                suggestedReport: finalReport
+//            )
+//        )
+//    }
+//}

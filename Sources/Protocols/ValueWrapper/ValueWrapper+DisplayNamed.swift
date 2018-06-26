@@ -26,12 +26,12 @@
 
 // MARK: - Automatic DisplayNamed support
 
-public
-extension ValueWrapper
-{
-    static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: Self.Value.self)
-    }
-}
+//public
+//extension ValueWrapper
+//{
+//    static
+//    var displayName: String
+//    {
+//        return Utils.intrinsicDisplayName(for: Self.Value.self)
+//    }
+//}

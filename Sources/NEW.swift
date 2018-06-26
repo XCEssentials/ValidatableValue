@@ -65,8 +65,34 @@ var password: MandatoryCustom<Password>? = Password.wrapped() //
  */
 
 //public
-//struct Custom<T>: ValueWrapper,
-//    WithCustomValue, // Validatable
+//struct MandatoryCustom<T>:
+//    Mandatory,
+//    ValueWrapper,
+//    Validatable,
+//    WithCustomValue,
+//    AutoCodable
+//    where
+//    T: ValueSpecification,
+//    T.Value: Codable & Equatable
+//{
+//    public
+//    typealias Specification = T
+//
+//    public
+//    typealias Value = Specification.Value
+//
+//    public
+//    var value: Value
+//
+//    public
+//    init(_ value: Value) { self.value = value }
+//}
+
+//public
+//struct Custom<T>:
+//    ValueWrapper,
+//    Validatable,
+//    WithCustomValue,
 //    AutoCodable
 //    where
 //    T: ValueSpecification,
