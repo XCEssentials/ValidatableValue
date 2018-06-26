@@ -34,10 +34,7 @@
  */
 public
 protocol ValidatableEntity: Codable, Equatable // , Validatable
-{
-//    static
-//    var reportReview: EntityReportReview { get }
-}
+{}
 
 //---
 
@@ -112,69 +109,5 @@ protocol ValidatableEntity: Codable, Equatable // , Validatable
 //            issues: self,
 //            report: type(of: entity).prepareReport(with: self)
 //        )
-//    }
-//}
-//
-//// MARK: - Reporting
-//
-//// internal
-//extension ValidatableEntity
-//{
-//    static
-//    func prepareReport(
-//        with issues: [ValidationError]
-//        ) -> Report
-//    {
-//        let messages = issues
-//            .map{
-//
-//                if
-//                    $0.hasNestedIssues // report from a nested entity...
-//                {
-//                    return """
-//                    ———
-//                    \($0.report.message)
-//                    ———
-//                    """
-//                }
-//                else
-//                {
-//                    return "- \($0.report.message)"
-//                }
-//            }
-//            .joined(separator: "\n")
-//
-//        //---
-//
-//        var result: Report = (
-//
-//            "\"\(self.displayName)\" validation failed",
-//
-//            """
-//            \"\(self.displayName)\" validation failed due to the issues listed below.
-//            \(messages)
-//            """
-//        )
-//
-//        //---
-//
-//        reportReview(issues, &result)
-//
-//        //---
-//
-//        return result
-//    }
-//}
-//
-//public
-//extension ValidatableEntity
-//    where
-//    Self: AutoReporting
-//{
-//    static
-//    var reportReview: EntityReportReview
-//    {
-//        // by default, we don't adjust anything in the report
-//        return { _, _ in }
 //    }
 //}

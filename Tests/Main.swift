@@ -360,6 +360,50 @@ extension MainTests
         XCTAssert(CustomNamedEntity.displayName == CustomNamedEntity.customDisplayName)
     }
 
+    func testEntityDefaultValueReport()
+    {
+        struct BasicEntity: ValidatableEntity {}
+
+        let defaultReport = BasicEntity.defaultReport(with: [])
+
+        let report = BasicEntity.prepareReport(with: [])
+
+        XCTAssert(report == defaultReport)
+    }
+
+    func testEntityCustomValueReport()
+    {
+        struct CustomReportEntity: ValidatableEntity,
+            CustomEntityReport
+        {
+            static
+            let customReport = ("This is", "it!")
+
+            //---
+
+            static
+            var reportReview: EntityReportReview
+            {
+                // by default, we don't adjust anything in the report
+                return {
+
+                    _, report in
+
+                    //---
+
+                    report = customReport
+                }
+            }
+        }
+
+        let defaultReport = CustomReportEntity.defaultReport(with: [])
+
+        let report = CustomReportEntity.prepareReport(with: [])
+
+        XCTAssert(report != defaultReport)
+        XCTAssert(report == CustomReportEntity.customReport)
+    }
+
 //    func testDecoding()
 //    {
 //        struct SomeEntity: Codable
