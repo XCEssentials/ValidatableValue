@@ -343,10 +343,7 @@ extension MainTests
 
     func testEntityDisplayName()
     {
-        struct BasicEntity: ValidatableEntity
-        {
-            func validate() throws {}
-        }
+        struct BasicEntity: ValidatableEntity {}
 
         XCTAssert(BasicEntity.displayName == "Basic Entity")
 
@@ -357,8 +354,6 @@ extension MainTests
         {
             static
             let customDisplayName = "This is a custom named Entity"
-
-            func validate() throws {}
         }
 
         XCTAssert(CustomNamedEntity.displayName != "Custom Named Entity")
