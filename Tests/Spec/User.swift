@@ -239,79 +239,78 @@ import XCEValidatableValue
 //        ]
 //    }
 //}
-//
-//// MARK: - Password helpers
-//
-//fileprivate
-//enum Pwd
-//{
-//    static
-//    let caps = CS.uppercaseLetters
-//
-//    static
-//    let lows = CS.lowercaseLetters
-//
-//    static
-//    let digits = CS.decimalDigits
-//
-//    static
-//    let specials = CS(charactersIn: " ,.!?@#$%^&*()-_+=")
-//
-//    static
-//    var allowed = caps.union(lows).union(digits).union(specials)
-//}
-//
-//// MARK: - String helpers
-//
-//fileprivate
-//extension String
-//{
-//    static
-//    let checkNonEmpty = Check<String>("Non-empty"){ !$0.isEmpty }
-//
-//    //---
-//
-//    static
-//    func isValidEmail(_ value: String) -> Bool
-//    {
-//        let emailRegex =
-//            "(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
-//                + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
-//                + "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
-//                + "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
-//                + "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
-//                + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
-//                + "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
-//
-//        let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
-//
-//        return emailTest.evaluate(with: value)
-//    }
-//}
-//
-//// MARK: - CharacterSet helpers
-//
-//fileprivate
-//typealias CS = CharacterSet // swiftlint:disable:this type_name
-//
-//fileprivate
-//extension CS
-//{
-//    func count(at str: String) -> UInt
-//    {
-//        var result: UInt = 0
-//
-//        //---
-//
-//        //swiftlint:disable:next identifier_name
-//        for c in str
-//            where String(c).rangeOfCharacter(from: self) != nil
-//        {
-//            result += 1
-//        }
-//
-//        //---
-//
-//        return result
-//    }
-//}
+
+// MARK: - Password helpers
+
+fileprivate
+enum Pwd
+{
+    static
+    let caps = CS.uppercaseLetters
+
+    static
+    let lows = CS.lowercaseLetters
+
+    static
+    let digits = CS.decimalDigits
+
+    static
+    let specials = CS(charactersIn: " ,.!?@#$%^&*()-_+=")
+
+    static
+    var allowed = caps.union(lows).union(digits).union(specials)
+}
+
+// MARK: - String helpers
+
+extension String
+{
+    static
+    let checkNonEmpty = Check<String>("Non-empty"){ !$0.isEmpty }
+
+    //---
+
+    static
+    func isValidEmail(_ value: String) -> Bool
+    {
+        let emailRegex =
+            "(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
+                + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
+                + "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
+                + "z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
+                + "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
+                + "9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
+                + "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+
+        let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+
+        return emailTest.evaluate(with: value)
+    }
+}
+
+// MARK: - CharacterSet helpers
+
+fileprivate
+typealias CS = CharacterSet // swiftlint:disable:this type_name
+
+fileprivate
+extension CS
+{
+    func count(at str: String) -> UInt
+    {
+        var result: UInt = 0
+
+        //---
+
+        //swiftlint:disable:next identifier_name
+        for c in str
+            where String(c).rangeOfCharacter(from: self) != nil
+        {
+            result += 1
+        }
+
+        //---
+
+        return result
+    }
+}

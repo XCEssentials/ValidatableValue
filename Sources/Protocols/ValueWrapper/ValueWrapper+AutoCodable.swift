@@ -26,23 +26,23 @@
 
 // MARK: - Automatic 'Codable' conformance
 
-public
-extension ValueWrapper
-    where
-    Self: AutoCodable
-{
-    func encode(to encoder: Encoder) throws
-    {
-        var container = encoder.singleValueContainer()
-        try container.encode(value)
-    }
-
-    init(from decoder: Decoder) throws
-    {
-        let container = try decoder.singleValueContainer()
-
-        //---
-
-        self.init(try container.decode(Value.self))
-    }
-}
+//public
+//extension ValueWrapper
+//    where
+//    Self: AutoCodable
+//{
+//    func encode(to encoder: Encoder) throws
+//    {
+//        var container = encoder.singleValueContainer()
+//        try container.encode(value)
+//    }
+//
+//    init(from decoder: Decoder) throws
+//    {
+//        let container = try decoder.singleValueContainer()
+//
+//        //---
+//
+//        self.init(try container.decode(Value.self))
+//    }
+//}

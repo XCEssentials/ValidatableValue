@@ -30,5 +30,5 @@
  type supports that feature via one of the adapted
  protocols).
  */
-public
-protocol AutoCodable {}
+//public
+//protocol AutoCodable {}

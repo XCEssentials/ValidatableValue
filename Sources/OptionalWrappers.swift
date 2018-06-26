@@ -53,14 +53,14 @@ import Foundation
 
 // MARK: - Optional
 
-extension Swift.Optional: DisplayNamed
-    where
-    Wrapped: Codable & Equatable
-{
-    public
-    static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: Wrapped.self)
-    }
-}
+//extension Swift.Optional: DisplayNamed
+//    where
+//    Wrapped: Codable & Equatable
+//{
+//    public
+//    static
+//    var displayName: String
+//    {
+//        return Utils.intrinsicDisplayName(for: Wrapped.self)
+//    }
+//}

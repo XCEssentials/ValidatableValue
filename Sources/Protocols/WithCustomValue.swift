@@ -24,8 +24,8 @@
 
  */
 
-public
-protocol WithCustomValue: Validatable
-{
-    associatedtype Specification: ValueSpecification
-}
+//public
+//protocol WithCustomValue: Validatable
+//{
+//    associatedtype Specification: ValueSpecification
+//}

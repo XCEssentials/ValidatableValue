@@ -28,16 +28,16 @@
  General purpose value wrapper that can store any
  kind of value inside.
  */
-public
-protocol ValueWrapper: DisplayNamed,
-    Codable,
-    Equatable
-{
-    associatedtype Value: Codable & Equatable
-
-    //---
-
-    init(_ value: Value)
-
-    var value: Value { get set }
-}
+//public
+//protocol ValueWrapper: DisplayNamed,
+//    Codable,
+//    Equatable
+//{
+//    associatedtype Value: Codable & Equatable
+//
+//    //---
+//
+//    init(_ value: Value)
+//
+//    var value: Value { get set }
+//}

@@ -26,7 +26,7 @@
 
 import XCTest
 
-//@testable
+@testable
 import XCEValidatableValue
 
 import XCETesting
@@ -57,42 +57,96 @@ class MainTests: XCTestCase
 
 extension MainTests
 {
-    func testDecoding()
+    func testSpecSkipBuiltInValidation()
     {
-        struct SomeEntity: Codable
+        enum LastName: ValueSpecification,
+            AutoDisplayNamed,
+            AutoReporting
         {
-            let name: String?
-            let age: Int?
+            typealias Value = String
         }
 
-        let encodedUser = """
-            {
-                "age": 4
-            }
-            """
-
-        let encodedUserData = encodedUser.data(using: .utf8)!
+        XCTAssert(LastName.performBuiltInValidation)
 
         //---
 
-        do
+        enum LastName2: ValueSpecification,
+            AutoDisplayNamed,
+            AutoReporting,
+            SkipBuiltInValidation
         {
-            let decodedEntity = try JSONDecoder()
-                .decode(
-                    SomeEntity.self,
-                    from: encodedUserData
-            )
+            typealias Value = String
+        }
 
-            XCTAssert(decodedEntity.name == nil)
-        }
-        catch
-        {
-            print("")
-            print("ERROR: ==>>> \(error)")
-            print("")
-            XCTFail("Should not get here ever")
-        }
+        XCTAssert(!LastName2.performBuiltInValidation)
     }
+
+    func testSpecSpecialConditions()
+    {
+        enum FirstName: ValueSpecification,
+            AutoDisplayNamed,
+            AutoReporting,
+            SpecialConditions
+        {
+            typealias Value = String
+
+            static
+            let conditions = [
+
+                String.checkNonEmpty
+            ]
+        }
+
+        XCTAssert(FirstName.conditions.count == 1)
+
+        //---
+
+        enum LastName: ValueSpecification,
+            AutoDisplayNamed,
+            AutoReporting
+        {
+            typealias Value = String
+        }
+
+        XCTAssert(LastName.conditions.count == 0)
+    }
+
+//    func testDecoding()
+//    {
+//        struct SomeEntity: Codable
+//        {
+//            let name: String?
+//            let age: Int?
+//        }
+//
+//        let encodedUser = """
+//            {
+//                "age": 4
+//            }
+//            """
+//
+//        let encodedUserData = encodedUser.data(using: .utf8)!
+//
+//        //---
+//
+//        do
+//        {
+//            let decodedEntity = try JSONDecoder()
+//                .decode(
+//                    SomeEntity.self,
+//                    from: encodedUserData
+//            )
+//
+//            XCTAssert(decodedEntity.name == nil)
+//        }
+//        catch
+//        {
+//            print("")
+//            print("ERROR: ==>>> \(error)")
+//            print("")
+//            XCTFail("Should not get here ever")
+//        }
+//    }
 
 //    func testUserDecodingWithMissingOptionalBasicKey()
 //    {

@@ -25,16 +25,16 @@
  */
 
 // internal
-extension ValueWrapper
-    where
-    Self: Mandatory
-{
-    static
-    var defaultEmptyValueReport: Report
-    {
-        return (
-            "\"\(displayName)\" is empty",
-            "\"\(displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-}
+//extension ValueWrapper
+//    where
+//    Self: Mandatory
+//{
+//    static
+//    var defaultEmptyValueReport: Report
+//    {
+//        return (
+//            "\"\(displayName)\" is empty",
+//            "\"\(displayName)\" is empty, but expected to be non-empty."
+//        )
+//    }
+//}

@@ -25,22 +25,22 @@
  */
 
 // internal
-extension ValueWrapper
-    where
-    Self: Mandatory & WithCustomValue,
-    Self.Specification.Value == Self.Value
-{
-    static
-    func reportEmptyValue() -> ValidationError
-    {
-        return ValidationError.mandatoryValueIsNotSet(
-            origin: displayName,
-            report: Self.Specification.prepareReport(
-                value: nil,
-                failedConditions: [],
-                builtInValidationIssues: [],
-                suggestedReport: Self.defaultEmptyValueReport
-            )
-        )
-    }
-}
+//extension ValueWrapper
+//    where
+//    Self: Mandatory & WithCustomValue,
+//    Self.Specification.Value == Self.Value
+//{
+//    static
+//    func reportEmptyValue() -> ValidationError
+//    {
+//        return ValidationError.mandatoryValueIsNotSet(
+//            origin: displayName,
+//            report: Self.Specification.prepareReport(
+//                value: nil,
+//                failedConditions: [],
+//                builtInValidationIssues: [],
+//                suggestedReport: Self.defaultEmptyValueReport
+//            )
+//        )
+//    }
+//}

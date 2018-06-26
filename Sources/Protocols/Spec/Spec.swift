@@ -24,41 +24,14 @@
 
  */
 
-//---
-
 /**
  Describes custom value type for a wrapper.
  */
 public
 protocol ValueSpecification: DisplayNamed
 {
-    associatedtype Value
-
-    static
-    var conditions: [Condition<Value>] { get }
-
-    /**
-     Controls whatever the built-in validation should be performed
-     in case the 'Value' supports validation. 'true' by default,
-     add 'IgnoreBuiltInValidation' conformance to switch to 'false'.
-     */
-    static
-    var performBuiltInValidation: Bool { get }
+    associatedtype Value: Equatable
 
     static
     var reportReview: ValueReportReview { get }
-}
-
-//---
-
-public
-extension ValueSpecification
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        // by default, we do built-in validation
-        // in case the 'Value' supports validation
-        return true
-    }
 }

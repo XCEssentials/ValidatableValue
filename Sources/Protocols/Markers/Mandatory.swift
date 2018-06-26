@@ -32,5 +32,5 @@
  need to make sure that empty values ('nil') do not pass
  validation.
  */
-public
-protocol Mandatory {}
+//public
+//protocol Mandatory {}

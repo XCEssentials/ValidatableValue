@@ -24,24 +24,29 @@
 
  */
 
-/**
- Protocol-marker for 'ValueSpecification' protocol that
- implements 'performBuiltInValidation' requirement as 'false'.
- */
 public
-protocol IgnoreBuiltInValidation {}
+protocol SkipBuiltInValidation: ValueSpecification {}
 
 //---
 
-public
-extension ValueSpecification
-    where
-    Self: IgnoreBuiltInValidation
+// internal
+extension SkipBuiltInValidation
 {
     static
     var performBuiltInValidation: Bool
     {
-        // TODO: test this to ensure it overrides default!
         return false
+    }
+}
+
+//---
+
+// internal
+extension ValueSpecification
+{
+    static
+    var performBuiltInValidation: Bool
+    {
+        return true
     }
 }

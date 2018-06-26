@@ -25,15 +25,20 @@
  */
 
 public
-protocol NoConditions {}
+protocol SpecialConditions: ValueSpecification
+{
+    static
+    var conditions: [Condition<Self.Value>] { get }
+}
 
 //---
 
 public
 extension ValueSpecification
-    where
-    Self: NoConditions
 {
     static
-    var conditions: [Condition<Self.Value>] { return [] }
+    var conditions: [Condition<Self.Value>]
+    {
+        return []
+    }
 }

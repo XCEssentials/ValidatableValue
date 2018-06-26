@@ -32,149 +32,149 @@
  checked for validity each time when whole entity is being tested for validity.
  Those property will be also automatically encoded and decoded.
  */
-public
-protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
-{
-    static
-    var reportReview: EntityReportReview { get }
-}
-
-//---
-
-public
-extension ValidatableEntity
-{
-    var allValidatableMembers: [Validatable]
-    {
-        return Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
-            .compactMap{ $0 as? Validatable }
-    }
-
-    /**
-     Validates all validateable values conteined inside the entity,
-     throws 'EntityValidationFailed' if any issues found.
-
-     Note, that validate does NOT rely on 'valid()' function,
-     because 'valid()' function supposed to return a custom
-     representation of the entity in case it's fully valid,
-     but we should make NO assumption about what it is and
-     which properties will be evaluated for validity during
-     preparation of this representation. That means there is no
-     guarantee that all presented validatable values of the entity
-     will be validated during this process.
-     */
-    func validate() throws
-    {
-        var issues: [ValidationError] = []
-
-        //---
-
-        try allValidatableMembers.forEach{
-
-            do
-            {
-                try $0.validate()
-            }
-            catch let error as ValidationError
-            {
-                issues.append(error)
-            }
-            catch
-            {
-                // throw any unexpected erros right away
-                throw error
-            }
-        }
-
-        //---
-
-        if
-            !issues.isEmpty
-        {
-            throw issues.asValidationIssues(for: self)
-        }
-    }
-}
-
-public
-extension Array
-    where
-    Element == ValidationError
-{
-    func asValidationIssues<E: ValidatableEntity>(
-        for entity: E
-        ) -> ValidationError
-    {
-        return .entityIsNotValid(
-            origin: entity.displayName,
-            issues: self,
-            report: type(of: entity).prepareReport(with: self)
-        )
-    }
-}
-
-// MARK: - Reporting
-
-// internal
-extension ValidatableEntity
-{
-    static
-    func prepareReport(
-        with issues: [ValidationError]
-        ) -> Report
-    {
-        let messages = issues
-            .map{
-
-                if
-                    $0.hasNestedIssues // report from a nested entity...
-                {
-                    return """
-                    ———
-                    \($0.report.message)
-                    ———
-                    """
-                }
-                else
-                {
-                    return "- \($0.report.message)"
-                }
-            }
-            .joined(separator: "\n")
-
-        //---
-
-        var result: Report = (
-
-            "\"\(self.displayName)\" validation failed",
-
-            """
-            \"\(self.displayName)\" validation failed due to the issues listed below.
-            \(messages)
-            """
-        )
-
-        //---
-
-        reportReview(issues, &result)
-
-        //---
-
-        return result
-    }
-}
-
-public
-extension ValidatableEntity
-    where
-    Self: AutoReporting
-{
-    static
-    var reportReview: EntityReportReview
-    {
-        // by default, we don't adjust anything in the report
-        return { _, _ in }
-    }
-}
+//public
+//protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
+//{
+//    static
+//    var reportReview: EntityReportReview { get }
+//}
+//
+////---
+//
+//public
+//extension ValidatableEntity
+//{
+//    var allValidatableMembers: [Validatable]
+//    {
+//        return Mirror(reflecting: self)
+//            .children
+//            .map{ $0.value }
+//            .compactMap{ $0 as? Validatable }
+//    }
+//
+//    /**
+//     Validates all validateable values conteined inside the entity,
+//     throws 'EntityValidationFailed' if any issues found.
+//
+//     Note, that validate does NOT rely on 'valid()' function,
+//     because 'valid()' function supposed to return a custom
+//     representation of the entity in case it's fully valid,
+//     but we should make NO assumption about what it is and
+//     which properties will be evaluated for validity during
+//     preparation of this representation. That means there is no
+//     guarantee that all presented validatable values of the entity
+//     will be validated during this process.
+//     */
+//    func validate() throws
+//    {
+//        var issues: [ValidationError] = []
+//
+//        //---
+//
+//        try allValidatableMembers.forEach{
+//
+//            do
+//            {
+//                try $0.validate()
+//            }
+//            catch let error as ValidationError
+//            {
+//                issues.append(error)
+//            }
+//            catch
+//            {
+//                // throw any unexpected erros right away
+//                throw error
+//            }
+//        }
+//
+//        //---
+//
+//        if
+//            !issues.isEmpty
+//        {
+//            throw issues.asValidationIssues(for: self)
+//        }
+//    }
+//}
+//
+//public
+//extension Array
+//    where
+//    Element == ValidationError
+//{
+//    func asValidationIssues<E: ValidatableEntity>(
+//        for entity: E
+//        ) -> ValidationError
+//    {
+//        return .entityIsNotValid(
+//            origin: entity.displayName,
+//            issues: self,
+//            report: type(of: entity).prepareReport(with: self)
+//        )
+//    }
+//}
+//
+//// MARK: - Reporting
+//
+//// internal
+//extension ValidatableEntity
+//{
+//    static
+//    func prepareReport(
+//        with issues: [ValidationError]
+//        ) -> Report
+//    {
+//        let messages = issues
+//            .map{
+//
+//                if
+//                    $0.hasNestedIssues // report from a nested entity...
+//                {
+//                    return """
+//                    ———
+//                    \($0.report.message)
+//                    ———
+//                    """
+//                }
+//                else
+//                {
+//                    return "- \($0.report.message)"
+//                }
+//            }
+//            .joined(separator: "\n")
+//
+//        //---
+//
+//        var result: Report = (
+//
+//            "\"\(self.displayName)\" validation failed",
+//
+//            """
+//            \"\(self.displayName)\" validation failed due to the issues listed below.
+//            \(messages)
+//            """
+//        )
+//
+//        //---
+//
+//        reportReview(issues, &result)
+//
+//        //---
+//
+//        return result
+//    }
+//}
+//
+//public
+//extension ValidatableEntity
+//    where
+//    Self: AutoReporting
+//{
+//    static
+//    var reportReview: EntityReportReview
+//    {
+//        // by default, we don't adjust anything in the report
+//        return { _, _ in }
+//    }
+//}

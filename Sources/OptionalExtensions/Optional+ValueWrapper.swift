@@ -24,39 +24,39 @@
 
  */
 
-extension Swift.Optional: ValueWrapper
-    where
-    Wrapped: ValueWrapper
-{
-    public
-    typealias Value = Wrapped.Value?
-
-    //---
-
-    public
-    init(_ value: Value)
-    {
-        self = value.map{ .some(.init($0)) } ?? .none
-    }
-
-    public
-    var value: Value
-    {
-        get
-        {
-            switch self
-            {
-                case .none:
-                    return nil
-
-                case .some(let wrapper):
-                    return wrapper.value
-            }
-        }
-
-        set
-        {
-            self = newValue.map{ .some(.init($0)) } ?? .none
-        }
-    }
-}
+//extension Swift.Optional: ValueWrapper
+//    where
+//    Wrapped: ValueWrapper
+//{
+//    public
+//    typealias Value = Wrapped.Value?
+//
+//    //---
+//
+//    public
+//    init(_ value: Value)
+//    {
+//        self = value.map{ .some(.init($0)) } ?? .none
+//    }
+//
+//    public
+//    var value: Value
+//    {
+//        get
+//        {
+//            switch self
+//            {
+//                case .none:
+//                    return nil
+//
+//                case .some(let wrapper):
+//                    return wrapper.value
+//            }
+//        }
+//
+//        set
+//        {
+//            self = newValue.map{ .some(.init($0)) } ?? .none
+//        }
+//    }
+//}
