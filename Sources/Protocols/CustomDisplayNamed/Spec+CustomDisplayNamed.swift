@@ -24,31 +24,26 @@
 
  */
 
-// MARK: - DisplayNamed
-
 public
-protocol DisplayNamed
+extension ValueSpecification
 {
-    /**
-     End user friendly title of any instance of this type,
-     represents the recommended way to refer to instances
-     of this type in GUI. Implemented automatically if
-     the type conforms to 'AutoDisplayName' protocol.
-     */
     static
-    var displayName: String { get }
-}
-
-// MARK: - Convenience helpers
-
-public
-extension DisplayNamed
-{
-    /**
-     Convenience helper to access 'displayName' from instance level.
-     */
     var displayName: String
     {
-        return type(of: self).displayName
+        return Utils.intrinsicDisplayName(for: self)
+    }
+}
+
+//---
+
+public
+extension ValueSpecification
+    where
+    Self: CustomDisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return customDisplayName
     }
 }

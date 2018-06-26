@@ -25,16 +25,8 @@
  */
 
 public
-protocol AutoDisplayNamed: DisplayNamed {}
-
-//---
-
-public
-extension AutoDisplayNamed
+protocol CustomDisplayNamed
 {
     static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
-    }
+    var customDisplayName: String { get }
 }

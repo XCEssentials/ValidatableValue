@@ -59,8 +59,7 @@ extension MainTests
 {
     func testSpecSkipBuiltInValidation()
     {
-        enum LastName: ValueSpecification,
-            AutoDisplayNamed
+        enum LastName: ValueSpecification
         {
             typealias Value = String
         }
@@ -70,7 +69,6 @@ extension MainTests
         //---
 
         enum LastName2: ValueSpecification,
-            AutoDisplayNamed,
             SkipBuiltInValidation
         {
             typealias Value = String
@@ -82,7 +80,6 @@ extension MainTests
     func testSpecSpecialConditions()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             SpecialConditions
         {
             typealias Value = String
@@ -100,8 +97,7 @@ extension MainTests
 
         //---
 
-        enum LastName: ValueSpecification,
-            AutoDisplayNamed
+        enum LastName: ValueSpecification
         {
             typealias Value = String
         }
@@ -113,8 +109,7 @@ extension MainTests
 
     func testSpecDefaultValueReport()
     {
-        enum FirstName: ValueSpecification,
-            AutoDisplayNamed
+        enum FirstName: ValueSpecification
         {
             typealias Value = String
         }
@@ -134,7 +129,6 @@ extension MainTests
     func testSpecCustomValueReport()
     {
         enum LastName: ValueSpecification,
-            AutoDisplayNamed,
             CustomValueReport
         {
             static
@@ -170,6 +164,30 @@ extension MainTests
 
         XCTAssert(report != defaultReport)
         XCTAssert(report == LastName.customReport)
+    }
+
+    func testSpecDisplayName()
+    {
+        enum FirstName: ValueSpecification
+        {
+            typealias Value = String
+        }
+
+        XCTAssert(FirstName.displayName == "First Name")
+
+        //---
+
+        enum LastName: ValueSpecification,
+            CustomDisplayNamed
+        {
+            typealias Value = String
+
+            static
+            let customDisplayName = "This is custom name for the Value"
+        }
+
+        XCTAssert(LastName.displayName != "Last Name")
+        XCTAssert(LastName.displayName == LastName.customDisplayName)
     }
 
 //    func testDecoding()
