@@ -24,9 +24,61 @@
 
  */
 
+public
+protocol CustomValueReport: ValueSpecification
+{
+    static
+    var reportReview: ValueReportReview { get }
+}
+
+//---
+
+// internal
+extension CustomValueReport
+{
+    static
+    func prepareReport(
+        value: Any?,
+        failedConditions: [String],
+        builtInValidationIssues: [ValidationError],
+        suggestedReport: Report
+        ) -> Report
+    {
+        var result = suggestedReport
+
+        //---
+
+        let context = ValueReportContext(
+            origin: displayName,
+            value: value,
+            failedConditions: failedConditions,
+            builtInValidationIssues: builtInValidationIssues
+        )
+
+        reportReview(context, &result)
+
+        //---
+
+        return result
+    }
+}
+
+//---
+
 // internal
 extension ValueSpecification
 {
+    static
+    func prepareReport(
+        value: Any?,
+        failedConditions: [String],
+        builtInValidationIssues: [ValidationError],
+        suggestedReport: Report
+        ) -> Report
+    {
+        return suggestedReport
+    }
+
     static
     func defaultValidationReport(
         with failedConditions: [String]
@@ -38,29 +90,4 @@ extension ValueSpecification
         )
     }
 
-    static
-    func prepareReport(
-        value: Any?,
-        failedConditions: [String],
-        builtInValidationIssues: [ValidationError],
-        suggestedReport: Report
-        ) -> Report
-    {
-        var result = suggestedReport
-
-        let context = ValueReportContext(
-            origin: displayName,
-            value: value,
-            failedConditions: failedConditions,
-            builtInValidationIssues: builtInValidationIssues
-        )
-
-        //---
-
-        reportReview(context, &result)
-
-        //---
-
-        return result
-    }
 }

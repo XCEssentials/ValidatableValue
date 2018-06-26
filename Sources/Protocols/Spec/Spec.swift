@@ -31,7 +31,4 @@ public
 protocol ValueSpecification: DisplayNamed
 {
     associatedtype Value: Equatable
-
-    static
-    var reportReview: ValueReportReview { get }
 }

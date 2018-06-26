@@ -24,9 +24,8 @@
 		9459A04620CF006900D4F644 /* ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04520CF006900D4F644 /* ValueWrapper.swift */; };
 		949B409F20D466D40043CAB3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B409E20D466D40043CAB3 /* Utils.swift */; };
 		94ABCC3220E05978007187DC /* NEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3120E05978007187DC /* NEW.swift */; };
-		94ABCC3520E132DE007187DC /* Spec+AutoReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */; };
+		94ABCC3520E132DE007187DC /* Spec+CustomValueReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3420E132DE007187DC /* Spec+CustomValueReport.swift */; };
 		94ABCC3720E1330A007187DC /* Spec_SpecialConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3620E1330A007187DC /* Spec_SpecialConditions.swift */; };
-		94ABCC3920E13379007187DC /* Spec_reporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3820E13379007187DC /* Spec_reporting.swift */; };
 		94ABCC4320E138CE007187DC /* ValueWrapper+AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC4220E138CE007187DC /* ValueWrapper+AutoCodable.swift */; };
 		94ABCC4520E139F4007187DC /* ValueWrapper+DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC4420E139F3007187DC /* ValueWrapper+DisplayNamed.swift */; };
 		94ABCC4720E13A7C007187DC /* Optional+ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */; };
@@ -101,9 +100,8 @@
 		9459A04520CF006900D4F644 /* ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueWrapper.swift; sourceTree = "<group>"; };
 		949B409E20D466D40043CAB3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		94ABCC3120E05978007187DC /* NEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEW.swift; sourceTree = "<group>"; };
-		94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spec+AutoReporting.swift"; sourceTree = "<group>"; };
+		94ABCC3420E132DE007187DC /* Spec+CustomValueReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spec+CustomValueReport.swift"; sourceTree = "<group>"; };
 		94ABCC3620E1330A007187DC /* Spec_SpecialConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spec_SpecialConditions.swift; sourceTree = "<group>"; };
-		94ABCC3820E13379007187DC /* Spec_reporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spec_reporting.swift; sourceTree = "<group>"; };
 		94ABCC4220E138CE007187DC /* ValueWrapper+AutoCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+AutoCodable.swift"; sourceTree = "<group>"; };
 		94ABCC4420E139F3007187DC /* ValueWrapper+DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ValueWrapper+DisplayNamed.swift"; sourceTree = "<group>"; };
 		94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+ValueWrapper.swift"; sourceTree = "<group>"; };
@@ -234,8 +232,7 @@
 				94EC8C4220D477A9005D9A98 /* Spec.swift */,
 				94EB1E3920E27A90007369BA /* Spec_SkipBuiltInValidation.swift */,
 				94ABCC3620E1330A007187DC /* Spec_SpecialConditions.swift */,
-				94ABCC3820E13379007187DC /* Spec_reporting.swift */,
-				94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */,
+				94ABCC3420E132DE007187DC /* Spec+CustomValueReport.swift */,
 			);
 			path = Spec;
 			sourceTree = "<group>";
@@ -508,8 +505,7 @@
 				942AFDAC20E19A970028E84B /* ValueWrapper+WithCustomValue&DisplayNamed.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
 				94ABCC4720E13A7C007187DC /* Optional+ValueWrapper.swift in Sources */,
-				94ABCC3520E132DE007187DC /* Spec+AutoReporting.swift in Sources */,
-				94ABCC3920E13379007187DC /* Spec_reporting.swift in Sources */,
+				94ABCC3520E132DE007187DC /* Spec+CustomValueReport.swift in Sources */,
 				942AFDA820E18FBA0028E84B /* ValueWrapper+WithCustomValue&Mandatory.swift in Sources */,
 				942AFD9B20E17AF40028E84B /* Mandatory.swift in Sources */,
 				94FF817120C0106700E69904 /* MandatoryWrappers.swift in Sources */,

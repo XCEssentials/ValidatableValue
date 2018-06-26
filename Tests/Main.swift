@@ -60,8 +60,7 @@ extension MainTests
     func testSpecSkipBuiltInValidation()
     {
         enum LastName: ValueSpecification,
-            AutoDisplayNamed,
-            AutoReporting
+            AutoDisplayNamed
         {
             typealias Value = String
         }
@@ -72,7 +71,6 @@ extension MainTests
 
         enum LastName2: ValueSpecification,
             AutoDisplayNamed,
-            AutoReporting,
             SkipBuiltInValidation
         {
             typealias Value = String
@@ -85,7 +83,6 @@ extension MainTests
     {
         enum FirstName: ValueSpecification,
             AutoDisplayNamed,
-            AutoReporting,
             SpecialConditions
         {
             typealias Value = String
@@ -102,13 +99,73 @@ extension MainTests
         //---
 
         enum LastName: ValueSpecification,
-            AutoDisplayNamed,
-            AutoReporting
+            AutoDisplayNamed
         {
             typealias Value = String
         }
 
         XCTAssert(LastName.conditions.count == 0)
+    }
+
+    func testSpecDefaultValueReport()
+    {
+        enum FirstName: ValueSpecification,
+            AutoDisplayNamed
+        {
+            typealias Value = String
+        }
+
+        let defaultReport = FirstName.defaultValidationReport(with: [])
+
+        let report = FirstName.prepareReport(
+            value: nil,
+            failedConditions: [],
+            builtInValidationIssues: [],
+            suggestedReport: defaultReport
+        )
+
+        XCTAssert(report == defaultReport)
+    }
+
+    func testSpecCustomValueReport()
+    {
+        enum LastName: ValueSpecification,
+            AutoDisplayNamed,
+            CustomValueReport
+        {
+            static
+            let customReport = ("This is", "it!")
+
+            //---
+
+            typealias Value = String
+
+            static
+            var reportReview: ValueReportReview
+            {
+                // by default, we don't adjust anything in the report
+                return {
+
+                    _, report in
+
+                    //---
+
+                    report = customReport
+                }
+            }
+        }
+
+        let defaultReport = LastName.defaultValidationReport(with: [])
+
+        let report = LastName.prepareReport(
+            value: nil,
+            failedConditions: [],
+            builtInValidationIssues: [],
+            suggestedReport: defaultReport
+        )
+
+        XCTAssert(report != defaultReport)
+        XCTAssert(report == LastName.customReport)
     }
 
 //    func testDecoding()
