@@ -24,8 +24,18 @@
 
  */
 
-//public
-//protocol WithCustomValue: Validatable
-//{
-//    associatedtype Specification: ValueSpecification
-//}
+/**
+ General purpose value wrapper that can store any
+ kind of value inside.
+ */
+public
+protocol ValueWrapper: Codable & Equatable
+{
+    associatedtype Value: Codable & Equatable
+
+    //---
+
+    init(_ value: Value)
+
+    var value: Value { get set }
+}

@@ -24,20 +24,54 @@
 
  */
 
-/**
- General purpose value wrapper that can store any
- kind of value inside.
- */
-//public
-//protocol ValueWrapper: DisplayNamed,
-//    Codable,
-//    Equatable
-//{
-//    associatedtype Value: Codable & Equatable
-//
-//    //---
-//
-//    init(_ value: Value)
-//
-//    var value: Value { get set }
-//}
+public
+extension ValueWrapper
+{
+    static
+    var displayName: String
+    {
+        return Utils.intrinsicDisplayName(for: self)
+    }
+}
+
+//---
+
+public
+extension ValueWrapper
+    where
+    Self: CustomDisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return customDisplayName
+    }
+}
+
+//---
+
+public
+extension ValueWrapper
+    where
+    Self: WithSpecification
+{
+    static
+    var displayName: String
+    {
+        return Specification.displayName
+    }
+}
+
+//---
+
+public
+extension ValueWrapper
+    where
+    Self: CustomDisplayNamed & WithSpecification
+{
+    static
+    var displayName: String
+    {
+        return customDisplayName // it overrides name from Spec!
+    }
+}

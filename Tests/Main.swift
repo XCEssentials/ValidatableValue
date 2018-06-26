@@ -190,6 +190,82 @@ extension MainTests
         XCTAssert(LastName.displayName == LastName.customDisplayName)
     }
 
+    func testWrapperDisplayName()
+    {
+        struct BasicWrapper: ValueWrapper
+        {
+            typealias Value = String
+
+            var value: String
+
+            init(_ value: String) { self.value = value }
+        }
+
+        XCTAssert(BasicWrapper.displayName == "Basic Wrapper")
+
+        //---
+
+        struct CustomNamedWrapper: ValueWrapper,
+            CustomDisplayNamed
+        {
+            typealias Value = String
+
+            var value: String
+
+            init(_ value: String) { self.value = value }
+
+            static
+            let customDisplayName = "This is a custom named wrapper"
+        }
+
+        XCTAssert(CustomNamedWrapper.displayName != "Custom Named Wrapper")
+        XCTAssert(CustomNamedWrapper.displayName == CustomNamedWrapper.customDisplayName)
+
+        //---
+
+        enum LastName: ValueSpecification
+        {
+            typealias Value = String
+        }
+
+        struct WrapperWithSpec: ValueWrapper,
+            WithSpecification
+        {
+            typealias Specification = LastName
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(_ value: Value) { self.value = value }
+        }
+
+        XCTAssert(WrapperWithSpec.displayName != "Wrapper With Spec")
+        XCTAssert(WrapperWithSpec.displayName == LastName.displayName)
+
+        //---
+
+        struct CustomNamedWrapperWithSpec: ValueWrapper,
+            WithSpecification,
+            CustomDisplayNamed
+        {
+            typealias Specification = LastName
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(_ value: Value) { self.value = value }
+
+            static
+            let customDisplayName = "This is a custom named wrapper"
+        }
+
+        XCTAssert(CustomNamedWrapperWithSpec.displayName != "Custom Named Wrapper")
+        XCTAssert(CustomNamedWrapperWithSpec.displayName != LastName.displayName)
+        XCTAssert(CustomNamedWrapperWithSpec.displayName == CustomNamedWrapperWithSpec.customDisplayName)
+    }
+
 //    func testDecoding()
 //    {
 //        struct SomeEntity: Codable

@@ -24,11 +24,10 @@
 
  */
 
-/**
- Protocol-marker that implies that error reporting
- should be done automatically/implicitly (if given
- type supports that feature via one of the adapted
- protocols).
- */
 public
-protocol AutoReporting {}
+protocol WithSpecification: ValueWrapper
+    where
+    Specification.Value == Self.Value
+{
+    associatedtype Specification: ValueSpecification
+}
