@@ -31,4 +31,4 @@
  protocols).
  */
 //public
-//protocol AutoCodable {}
+//protocol SingleValueCodable: ValueWrapper {} // + default implementation for value wrapper!
