@@ -32,15 +32,15 @@
  checked for validity each time when whole entity is being tested for validity.
  Those property will be also automatically encoded and decoded.
  */
-//public
-//protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed
-//{
+public
+protocol ValidatableEntity: Codable, Equatable, Validatable
+{
 //    static
 //    var reportReview: EntityReportReview { get }
-//}
-//
-////---
-//
+}
+
+//---
+
 //public
 //extension ValidatableEntity
 //{

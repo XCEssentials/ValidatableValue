@@ -341,6 +341,29 @@ extension MainTests
         }
     }
 
+    func testEntityDisplayName()
+    {
+        struct BasicEntity: ValidatableEntity
+        {
+            func validate() throws {}
+        }
+
+        XCTAssert(BasicEntity.displayName == "Basic Entity")
+
+        //---
+
+        struct CustomNamedEntity: ValidatableEntity,
+            CustomDisplayNamed
+        {
+            static
+            let customDisplayName = "This is a custom named Entity"
+
+            func validate() throws {}
+        }
+
+        XCTAssert(CustomNamedEntity.displayName != "Custom Named Entity")
+        XCTAssert(CustomNamedEntity.displayName == CustomNamedEntity.customDisplayName)
+    }
 
 //    func testDecoding()
 //    {
