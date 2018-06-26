@@ -95,6 +95,8 @@ extension MainTests
         }
 
         XCTAssert(FirstName.conditions.count == 1)
+        XCTAssert(try FirstName.collectFailedConditions("").count == 1)
+        XCTAssert(try FirstName.collectFailedConditions("asdasdq").count == 0)
 
         //---
 
@@ -104,7 +106,9 @@ extension MainTests
             typealias Value = String
         }
 
-        XCTAssert(LastName.conditions.count == 0)
+        // XCTAssert(LastName.conditions.count == 0) // should NOT even compile!
+        XCTAssert(try LastName.collectFailedConditions("").count == 0) // 0!
+        XCTAssert(try LastName.collectFailedConditions("asdasdq").count == 0)
     }
 
     func testSpecDefaultValueReport()

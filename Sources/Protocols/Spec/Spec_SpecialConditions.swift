@@ -33,11 +33,50 @@ protocol SpecialConditions: ValueSpecification
 
 //---
 
-public
+// internal
+extension SpecialConditions
+{
+    static
+    func collectFailedConditions(
+        _ valueToCheck: Self.Value
+        ) throws -> [String]
+    {
+        var result: [String] = []
+
+        //---
+
+        try conditions.forEach
+        {
+            do
+            {
+                try $0.validate(value: valueToCheck)
+            }
+            catch let error as ConditionUnsatisfied
+            {
+                result.append(error.condition)
+            }
+            catch
+            {
+                // an unexpected error, just throw it right away
+                throw error
+            }
+        }
+
+        //---
+
+        return result
+    }
+}
+
+//---
+
+// internal
 extension ValueSpecification
 {
     static
-    var conditions: [Condition<Self.Value>]
+    func collectFailedConditions(
+        _ valueToCheck: Self.Value
+        ) throws -> [String]
     {
         return []
     }

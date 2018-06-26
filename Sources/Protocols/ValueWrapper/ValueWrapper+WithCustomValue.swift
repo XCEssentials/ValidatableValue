@@ -49,24 +49,8 @@
 //    static
 //    func check(_ valueToCheck: Value) throws
 //    {
-//        var failedConditions: [String] = []
-//
-//        try Specification.conditions.forEach
-//        {
-//            do
-//            {
-//                try $0.validate(value: valueToCheck)
-//            }
-//            catch let error as ConditionUnsatisfied
-//            {
-//                failedConditions.append(error.condition)
-//            }
-//            catch
-//            {
-//                // an unexpected error, just throw it right away
-//                throw error
-//            }
-//        }
+//        let failedConditions = try Specification
+//            .collectFailedConditions(valueToCheck)
 //
 //        //---
 //
