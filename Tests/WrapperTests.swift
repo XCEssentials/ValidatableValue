@@ -329,7 +329,7 @@ extension WrapperTests
         {
             XCTAssert(origin == WrapperWithSpec.displayName)
             XCTAssert(value is String)
-            XCTAssert((value as! String) == invalidValue)// swiftlint:disable:this force_cast
+            XCTAssert((value as! String) == invalidValue)
             XCTAssert(failedConditions.count == 1)
             XCTAssert(failedConditions[0] == LastName.conditions[0].description)
             XCTAssert(report == LastName.defaultValidationReport(with: failedConditions))
@@ -356,7 +356,7 @@ extension WrapperTests
         {
             XCTAssert(origin == WrapperWithSpec.displayName)
             XCTAssert(value is String)
-            XCTAssert((value as! String) == invalidValue) // swiftlint:disable:this force_cast
+            XCTAssert((value as! String) == invalidValue)
             XCTAssert(failedConditions.count == 1)
             XCTAssert(failedConditions[0] == LastName.conditions[0].description)
             XCTAssert(report == LastName.defaultValidationReport(with: failedConditions))
@@ -371,7 +371,6 @@ extension WrapperTests
 
         do
         {
-            // swiftlint:disable:next force_try
             var wrapper = try! WrapperWithSpec(validate: validValue)
 
             try wrapper.set(invalidValue)
@@ -387,7 +386,7 @@ extension WrapperTests
         {
             XCTAssert(origin == WrapperWithSpec.displayName)
             XCTAssert(value is String)
-            XCTAssert((value as! String) == invalidValue)// swiftlint:disable:this force_cast
+            XCTAssert((value as! String) == invalidValue)
             XCTAssert(failedConditions.count == 1)
             XCTAssert(failedConditions[0] == LastName.conditions[0].description)
             XCTAssert(report == LastName.defaultValidationReport(with: failedConditions))
