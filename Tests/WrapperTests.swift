@@ -264,6 +264,141 @@ extension WrapperTests
         XCTAssert(valueNotSetError.report == LastName.customReport)
     }
 
+    func testConvenienceHelpers()
+    {
+        enum LastName: ValueSpecification,
+            AutoDisplayNamed,
+            AutoReporting
+        {
+            typealias Value = String
+
+            static
+            let conditions = [
+
+                String.checkNonEmpty
+            ]
+        }
+
+        struct WrapperWithSpec: ValueWrapper,
+            AutoDisplayNamed,
+            WithSpecification,
+            AutoValidatable
+        {
+            typealias Specification = LastName
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(_ value: Value) { self.value = value }
+        }
+
+        //---
+
+        let validValue = "John"
+
+        do
+        {
+            try WrapperWithSpec.validate(value: validValue)
+
+            var wrapper = try WrapperWithSpec(validate: validValue)
+
+            try wrapper.set(validValue)
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        let invalidValue = ""
+
+        do
+        {
+            try WrapperWithSpec.validate(value: invalidValue)
+            XCTFail("Should not get here ever")
+        }
+        catch ValidationError.valueIsNotValid(
+            let origin,
+            let value,
+            let failedConditions,
+            let report
+            )
+        {
+            XCTAssert(origin == WrapperWithSpec.displayName)
+            XCTAssert(value is String)
+            XCTAssert((value as! String) == invalidValue)// swiftlint:disable:this force_cast
+            XCTAssert(failedConditions.count == 1)
+            XCTAssert(failedConditions[0] == LastName.conditions[0].description)
+            XCTAssert(report == LastName.defaultValidationReport(with: failedConditions))
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        do
+        {
+            _ = try WrapperWithSpec(validate: invalidValue)
+            XCTFail("Should not get here ever")
+        }
+        catch ValidationError.valueIsNotValid(
+            let origin,
+            let value,
+            let failedConditions,
+            let report
+            )
+        {
+            XCTAssert(origin == WrapperWithSpec.displayName)
+            XCTAssert(value is String)
+            XCTAssert((value as! String) == invalidValue) // swiftlint:disable:this force_cast
+            XCTAssert(failedConditions.count == 1)
+            XCTAssert(failedConditions[0] == LastName.conditions[0].description)
+            XCTAssert(report == LastName.defaultValidationReport(with: failedConditions))
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        do
+        {
+            // swiftlint:disable:next force_try
+            var wrapper = try! WrapperWithSpec(validate: validValue)
+
+            try wrapper.set(invalidValue)
+
+            XCTFail("Should not get here ever")
+        }
+        catch ValidationError.valueIsNotValid(
+            let origin,
+            let value,
+            let failedConditions,
+            let report
+            )
+        {
+            XCTAssert(origin == WrapperWithSpec.displayName)
+            XCTAssert(value is String)
+            XCTAssert((value as! String) == invalidValue)// swiftlint:disable:this force_cast
+            XCTAssert(failedConditions.count == 1)
+            XCTAssert(failedConditions[0] == LastName.conditions[0].description)
+            XCTAssert(report == LastName.defaultValidationReport(with: failedConditions))
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+    }
+
 //    func testAutoValidatable()
 //    {
 //        enum Firstname: ValueSpecification, SpecialConditions
