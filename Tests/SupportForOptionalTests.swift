@@ -24,39 +24,54 @@
 
  */
 
-extension Swift.Optional: ValueWrapper
-    where
-    Wrapped: ValueWrapper
+import XCTest
+
+@testable
+import XCEValidatableValue
+
+//---
+
+class SupportForOptionalTests: XCTestCase {}
+
+//---
+
+extension SupportForOptionalTests
 {
-    public
-    typealias Value = Wrapped.Value?
-
-    //---
-
-    public
-    init(_ value: Value)
+    func testDisplayName()
     {
-        self = value.map{ .some(.init($0)) } ?? .none
+        struct SomeObj: DisplayNamed
+        {
+            static
+            let displayName = "This is the name"
+        }
+
+        let obj: SomeObj? = SomeObj()
+
+        XCTAssert(type(of: obj).displayName == SomeObj.displayName)
     }
 
-    public
-    var value: Value
+    func testBasicValueWrapper()
     {
-        get
+        struct SomeWrapper: ValueWrapper,
+            AutoDisplayNamed
         {
-            switch self
-            {
-                case .none:
-                    return nil
+            typealias Value = String
 
-                case .some(let wrapper):
-                    return wrapper.value
-            }
+            var value: Value
+
+            init(_ value: String) { self.value = value }
         }
 
-        set
-        {
-            self = newValue.map{ .some(.init($0)) } ?? .none
-        }
+        //---
+
+        let someValue = "sdkjiw"
+
+        let wrapper = SomeWrapper(someValue)
+        let optionalWrapper: SomeWrapper? = SomeWrapper(someValue)
+
+        XCTAssert(type(of: wrapper).displayName == SomeWrapper.displayName)
+        XCTAssert(type(of: optionalWrapper).displayName == type(of: wrapper).displayName)
+
+        XCTAssert(wrapper.value == optionalWrapper.value)
     }
 }

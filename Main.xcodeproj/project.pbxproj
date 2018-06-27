@@ -24,6 +24,8 @@
 		943EA2A220CF3CD0006CF016 /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943EA2A120CF3CD0006CF016 /* Initializers.swift */; };
 		9459A04620CF006900D4F644 /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04520CF006900D4F644 /* Wrapper.swift */; };
 		9478827E20E42C970071D4CB /* Optional+DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9478827D20E42C970071D4CB /* Optional+DisplayNamed.swift */; };
+		9478828020E42DAE0071D4CB /* Optional+Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9478827F20E42DAE0071D4CB /* Optional+Wrapper.swift */; };
+		9478828220E42EAE0071D4CB /* SupportForOptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9478828120E42EAE0071D4CB /* SupportForOptionalTests.swift */; };
 		949B409F20D466D40043CAB3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B409E20D466D40043CAB3 /* Utils.swift */; };
 		94ABCC3520E132DE007187DC /* Spec+AutoReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */; };
 		94ABCC3720E1330A007187DC /* Spec_NoConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3620E1330A007187DC /* Spec_NoConditions.swift */; };
@@ -106,6 +108,8 @@
 		943EA2A120CF3CD0006CF016 /* Initializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
 		9459A04520CF006900D4F644 /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
 		9478827D20E42C970071D4CB /* Optional+DisplayNamed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+DisplayNamed.swift"; sourceTree = "<group>"; };
+		9478827F20E42DAE0071D4CB /* Optional+Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Wrapper.swift"; sourceTree = "<group>"; };
+		9478828120E42EAE0071D4CB /* SupportForOptionalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportForOptionalTests.swift; sourceTree = "<group>"; };
 		949B409E20D466D40043CAB3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spec+AutoReporting.swift"; sourceTree = "<group>"; };
 		94ABCC3620E1330A007187DC /* Spec_NoConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spec_NoConditions.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 				941FD25C20E2F22C00F96493 /* SpecTests.swift */,
 				941FD25A20E2F1D600F96493 /* WrapperTests.swift */,
 				941FD25820E2F14400F96493 /* EntityTests.swift */,
+				9478828120E42EAE0071D4CB /* SupportForOptionalTests.swift */,
 				FC4EC50B733BBE8B1004027E /* OLD */,
 			);
 			path = Tests;
@@ -263,6 +268,7 @@
 			children = (
 				9478827D20E42C970071D4CB /* Optional+DisplayNamed.swift */,
 				94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */,
+				9478827F20E42DAE0071D4CB /* Optional+Wrapper.swift */,
 				94C712B720E1526900A737E3 /* Optional+Validatable.swift */,
 			);
 			path = OptionalExtensions;
@@ -502,6 +508,7 @@
 				941FD25B20E2F1D600F96493 /* WrapperTests.swift in Sources */,
 				941FD25920E2F14400F96493 /* EntityTests.swift in Sources */,
 				E4A9D7B238786669E01E3312 /* User.swift in Sources */,
+				9478828220E42EAE0071D4CB /* SupportForOptionalTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +545,7 @@
 				94BAA99820E40AD700BA6C6F /* ValidatableWrapper.swift in Sources */,
 				94ABCC3520E132DE007187DC /* Spec+AutoReporting.swift in Sources */,
 				94FE64D420E4277F0097F80D /* Entity_BasicEntity.swift in Sources */,
+				9478828020E42DAE0071D4CB /* Optional+Wrapper.swift in Sources */,
 				94DFD07020E2F35700DDFC1A /* Entity+AutoValidatable.swift in Sources */,
 				943D83B420E2D94800479C33 /* Wrapper+AutoDisplayNamed.swift in Sources */,
 				942AFD9B20E17AF40028E84B /* Wrapper_Mandatory.swift in Sources */,
