@@ -39,19 +39,15 @@ extension EntityTests
 {
     func testDisplayName()
     {
-        struct BasicEntity: ValidatableEntity,
-            AutoDisplayNamed,
-            AutoValidatable
-        {
-            //
-        }
+        struct SomeEntity: BasicEntity {}
 
-        XCTAssert(BasicEntity.displayName == "Basic Entity")
+        XCTAssert(SomeEntity.displayName == "Basic Entity")
 
         //---
 
         struct CustomNamedEntity: ValidatableEntity,
-            AutoValidatable
+            AutoValidatable,
+            AutoReporting
         {
             static
             let customDisplayName = "This is a custom named Entity"
@@ -66,16 +62,11 @@ extension EntityTests
 
     func testDefaultValueReport()
     {
-        struct BasicEntity: ValidatableEntity,
-            AutoDisplayNamed,
-            AutoValidatable
-        {
-            //
-        }
+        struct SomeEntity: BasicEntity {}
 
-        let defaultReport = BasicEntity.defaultReport(with: [])
+        let defaultReport = SomeEntity.defaultReport(with: [])
 
-        let report = BasicEntity.prepareReport(with: [])
+        let report = SomeEntity.prepareReport(with: [])
 
         XCTAssert(report == defaultReport)
     }
@@ -84,8 +75,7 @@ extension EntityTests
     {
         struct CustomReportEntity: ValidatableEntity,
             AutoDisplayNamed,
-            AutoValidatable,
-            CustomEntityReport
+            AutoValidatable
         {
             static
             let customReport = ("This is", "it!")
@@ -118,7 +108,8 @@ extension EntityTests
     func testManualValidation()
     {
         struct ManualValidationEntity: ValidatableEntity,
-            AutoDisplayNamed
+            AutoDisplayNamed,
+            AutoReporting
         {
             func validate() throws
             {
@@ -187,9 +178,7 @@ extension EntityTests
             }
         }
 
-        struct AutoValidationEntity: ValidatableEntity,
-            AutoDisplayNamed,
-            AutoValidatable
+        struct AutoValidationEntity: BasicEntity
         {
             let stringWrapper: SimpleWrapper
         }

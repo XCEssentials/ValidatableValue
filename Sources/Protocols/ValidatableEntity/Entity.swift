@@ -31,7 +31,18 @@
  Those property will be also automatically encoded and decoded.
  */
 public
-protocol ValidatableEntity: Codable, Equatable, Validatable, DisplayNamed {}
+protocol ValidatableEntity: Codable & Equatable,
+    Validatable,
+    DisplayNamed
+{
+    /**
+     This closure allows to customize/override default validation
+     failure reports. This is helpful to add/set some custom copy
+     to the report, including for localization purposes.
+     */
+    static
+    var reportReview: EntityReportReview { get }
+}
 
 //---
 
@@ -44,5 +55,64 @@ extension ValidatableEntity
             .children
             .map{ $0.value }
             .compactMap{ $0 as? Validatable }
+    }
+}
+
+//---
+
+// internal
+extension ValidatableEntity
+{
+    static
+        func prepareReport(
+        with issues: [ValidationError]
+        ) -> Report
+    {
+        var result = defaultReport(with: issues)
+
+        //---
+
+        reportReview(issues, &result)
+
+        //---
+
+        return result
+    }
+
+    static
+    func defaultReport(
+        with issues: [ValidationError]
+        ) -> Report
+    {
+        let messages = issues
+            .map{
+
+                if
+                    $0.hasNestedIssues // report from a nested entity...
+                {
+                    return """
+                    ———
+                    \($0.report.message)
+                    ———
+                    """
+                }
+                else
+                {
+                    return "- \($0.report.message)"
+                }
+            }
+            .joined(separator: "\n")
+
+        //---
+
+        return (
+
+            "\"\(displayName)\" validation failed",
+
+            """
+            \"\(displayName)\" validation failed due to the issues listed below.
+            \(messages)
+            """
+        )
     }
 }

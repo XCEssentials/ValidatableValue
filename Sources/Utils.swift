@@ -24,6 +24,10 @@
 
  */
 
+import Foundation
+
+//---
+
 enum Utils
 {
     static
@@ -33,10 +37,6 @@ enum Utils
     {
         let selfScopeTypeName = String
             .init(describing: input)
-
-            // got 'FirstName #1' when declared within a func
-            // instead of expected jsut 'FirstName', so
-            // here is a workaround
             .components(
                 separatedBy: .whitespacesAndNewlines
             )
