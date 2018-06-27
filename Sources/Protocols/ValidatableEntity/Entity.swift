@@ -32,8 +32,8 @@
  */
 public
 protocol ValidatableEntity: Codable & Equatable,
-    Validatable,
-    DisplayNamed
+    DisplayNamed,
+    Validatable
 {
     /**
      This closure allows to customize/override default validation
@@ -64,7 +64,7 @@ extension ValidatableEntity
 extension ValidatableEntity
 {
     static
-        func prepareReport(
+    func prepareReport(
         with issues: [ValidationError]
         ) -> Report
     {

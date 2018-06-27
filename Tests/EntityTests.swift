@@ -41,7 +41,7 @@ extension EntityTests
     {
         struct SomeEntity: BasicEntity {}
 
-        XCTAssert(SomeEntity.displayName == "Basic Entity")
+        XCTAssert(SomeEntity.displayName == "Some Entity")
 
         //---
 
