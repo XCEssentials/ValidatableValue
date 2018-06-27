@@ -6,6 +6,7 @@ disabled_rules: # rule identifiers to exclude from running
 
 included: # paths to include during linting. `--path` is ignored if present.
   - Sources
+  - Tests
 
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Resources
