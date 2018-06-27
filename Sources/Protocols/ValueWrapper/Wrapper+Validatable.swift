@@ -30,15 +30,14 @@ extension ValueWrapper
     Self: Validatable
 {
     /**
-     Convenience initializer useful for setting a 'let' value,
-     that only should be set once during initialization. Assigns
-     provided value and validates it right away.
+     Convenience initializer initializes wrapper and validates it
+     right away.
      */
     init(
         validate value: Value
         ) throws
     {
-        self.init(value)
+        self.init(wrappedValue: value)
         try self.validate()
     }
 

@@ -24,18 +24,43 @@
 
  */
 
-/**
- General purpose value wrapper that can store any
- kind of value inside.
- */
 public
-protocol ValueWrapper: Codable & Equatable, DisplayNamed
+extension Swift.Optional
+    where
+    Wrapped: Validatable & ValueWrapper
 {
-    associatedtype Value: Codable & Equatable
+    /**
+     Convenience initializer initializes wrapper and validates it
+     right away.
+     */
+    init(
+        validate value: Value
+        ) throws
+    {
+        self = value.map{ .some(.init(wrappedValue: $0)) } ?? .none
+        try self.validate()
+    }
 
-    //---
+    /**
+     Validate a given value without saving it.
+     */
+    static
+    func validate(
+        value: Value
+        ) throws
+    {
+        _ = try self.init(validate: value)
+    }
 
-    init(wrappedValue: Value)
-
-    var value: Value { get set }
+    /**
+     Set new value and validate it in single operation.
+     */
+    mutating
+    func set(
+        _ newValue: Value
+        ) throws
+    {
+        value = newValue
+        try validate()
+    }
 }

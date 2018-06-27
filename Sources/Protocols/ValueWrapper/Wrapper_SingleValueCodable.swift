@@ -56,6 +56,6 @@ extension SingleValueCodable
 
         //---
 
-        self.init(try container.decode(Value.self))
+        self.init(wrappedValue: try container.decode(Value.self))
     }
 }

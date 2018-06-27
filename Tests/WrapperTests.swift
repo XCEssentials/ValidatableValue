@@ -46,7 +46,7 @@ extension WrapperTests
 
             var value: String
 
-            init(_ value: String) { self.value = value }
+            init(wrappedValue: String) { self.value = wrappedValue }
         }
 
         XCTAssert(BasicWrapper.displayName == "Basic Wrapper")
@@ -59,7 +59,7 @@ extension WrapperTests
 
             var value: String
 
-            init(_ value: String) { self.value = value }
+            init(wrappedValue: String) { self.value = wrappedValue }
 
             static
             let customDisplayName = "This is a custom named wrapper"
@@ -91,7 +91,7 @@ extension WrapperTests
 
             var value: Value
 
-            init(_ value: Value) { self.value = value }
+            init(wrappedValue: Value) { self.value = wrappedValue }
         }
 
         XCTAssert(WrapperWithSpec.displayName != "Wrapper With Spec")
@@ -108,7 +108,7 @@ extension WrapperTests
 
             var value: Value
 
-            init(_ value: Value) { self.value = value }
+            init(wrappedValue: Value) { self.value = wrappedValue }
 
             static
             let customDisplayName = "This is a custom named wrapper"
@@ -131,14 +131,14 @@ extension WrapperTests
 
             var value: String
 
-            init(_ value: String) { self.value = value }
+            init(wrappedValue: String) { self.value = wrappedValue }
         }
 
         //---
 
         do
         {
-            let wrapper = ImplicitlyCodableWrapper("Test")
+            let wrapper = ImplicitlyCodableWrapper(wrappedValue: "Test")
 
             let encodedWrapper = try JSONEncoder().encode(wrapper)
 
@@ -162,7 +162,7 @@ extension WrapperTests
 
             var value: String
 
-            init(_ value: String) { self.value = value }
+            init(wrappedValue: String) { self.value = wrappedValue }
         }
 
         struct Entity: Codable
@@ -177,7 +177,7 @@ extension WrapperTests
             let testValue = "SingleValueCodable"
 
             let entity = Entity(
-                wrapper: ExplicitlyCodableWrapper(testValue)
+                wrapper: ExplicitlyCodableWrapper(wrappedValue: testValue)
             )
 
             let encodedEntity = try JSONEncoder().encode(entity)
@@ -209,7 +209,7 @@ extension WrapperTests
 
             var value: Value
 
-            init(_ value: Value) { self.value = value }
+            init(wrappedValue: Value) { self.value = wrappedValue }
         }
 
         let defaultReport = BasicWrapper.defaultEmptyValueReport
@@ -252,7 +252,7 @@ extension WrapperTests
 
             var value: Value
 
-            init(_ value: Value) { self.value = value }
+            init(wrappedValue: Value) { self.value = wrappedValue }
         }
 
         let defaultReport = WrapperWithSpec.defaultEmptyValueReport
@@ -290,7 +290,7 @@ extension WrapperTests
 
             var value: Value
 
-            init(_ value: Value) { self.value = value }
+            init(wrappedValue: Value) { self.value = wrappedValue }
         }
 
         //---

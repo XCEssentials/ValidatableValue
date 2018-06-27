@@ -42,7 +42,7 @@ struct WrapperOf<T: ValueSpecification>: ValidatableValueWrapper,
     var value: Value
 
     public
-    init(_ value: Value) { self.value = value }
+    init(wrappedValue: Value) { self.value = wrappedValue }
 }
 
 //---
@@ -66,5 +66,5 @@ struct WrapperOfMandatory<T: ValueSpecification>: ValidatableValueWrapper,
     var value: Value
 
     public
-    init(_ value: Value) { self.value = value }
+    init(wrappedValue: Value) { self.value = wrappedValue }
 }

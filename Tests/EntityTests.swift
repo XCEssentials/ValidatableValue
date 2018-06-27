@@ -160,7 +160,7 @@ extension EntityTests
 
             var value: Value
 
-            init(_ value: Value) { self.value = value }
+            init(wrappedValue: Value) { self.value = wrappedValue }
 
             func validate() throws
             {
@@ -188,7 +188,7 @@ extension EntityTests
         do
         {
             try AutoValidationEntity
-                .init(stringWrapper: SimpleWrapper(nil))
+                .init(stringWrapper: SimpleWrapper(wrappedValue: nil))
                 .validate()
 
             XCTFail("Should not get here ever")
@@ -213,7 +213,7 @@ extension EntityTests
         do
         {
             try AutoValidationEntity
-                .init(stringWrapper: SimpleWrapper("Some valid value"))
+                .init(stringWrapper: SimpleWrapper(wrappedValue: "Some valid value"))
                 .validate()
         }
         catch

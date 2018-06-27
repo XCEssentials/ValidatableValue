@@ -48,13 +48,13 @@ extension Swift.Optional: ValueWrapper
 
         set
         {
-            self = newValue.map{ .some(.init($0)) } ?? .none
+            self = newValue.map{ .some(.init(wrappedValue: $0)) } ?? .none
         }
     }
 
     public
-    init(_ value: Value)
+    init(wrappedValue: Value)
     {
-        self = value.map{ .some(.init($0)) } ?? .none
+        self = wrappedValue.map{ .some(.init(wrappedValue: $0)) } ?? .none
     }
 }

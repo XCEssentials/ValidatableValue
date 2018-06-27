@@ -59,15 +59,15 @@ extension SupportForOptionalTests
 
             var value: Value
 
-            init(_ value: String) { self.value = value }
+            init(wrappedValue: String) { self.value = wrappedValue }
         }
 
         //---
 
         let someValue = "sdkjiw"
 
-        let wrapper = SomeWrapper(someValue)
-        let optionalWrapper: SomeWrapper? = SomeWrapper(someValue)
+        let wrapper = SomeWrapper(wrappedValue: someValue)
+        let optionalWrapper: SomeWrapper? = SomeWrapper(wrappedValue: someValue)
 
         XCTAssert(type(of: wrapper).displayName == SomeWrapper.displayName)
         XCTAssert(type(of: optionalWrapper).displayName == type(of: wrapper).displayName)
