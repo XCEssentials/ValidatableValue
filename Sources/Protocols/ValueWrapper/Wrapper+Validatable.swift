@@ -24,13 +24,44 @@
 
  */
 
-/**
- Protocol-marker that indicates that empty value should be
- considered as invalid. Intended to be used for altering
- validation behaviour of the 'Optional' type when its
- 'Wrapped' type is a validateable value wrapper and we
- need to make sure that empty values ('nil') do not pass
- validation.
- */
-//public
-//protocol Mandatory {}
+public
+extension ValueWrapper
+    where
+    Self: Validatable
+{
+    /**
+     Convenience initializer useful for setting a 'let' value,
+     that only should be set once during initialization. Assigns
+     provided value and validates it right away.
+     */
+    init(
+        validate value: Value
+        ) throws
+    {
+        self.init(value)
+        try self.validate()
+    }
+
+    /**
+     Validate a given value without saving it.
+     */
+    static
+    func validate(
+        value: Value
+        ) throws
+    {
+        _ = try Self.init(validate: value)
+    }
+
+    /**
+     Set new value and validate it in single operation.
+     */
+    mutating
+    func set(
+        _ newValue: Value
+        ) throws
+    {
+        value = newValue
+        try validate()
+    }
+}

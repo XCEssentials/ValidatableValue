@@ -25,7 +25,7 @@
  */
 
 /**
- Special trait for 'ValueWrapper' and 'ValidatableEntity'
+ Special trait for 'ValueWrapper:WithSpecification' and 'ValidatableEntity'
  protocols that implies that given type should use automatic
  validation provided by the protocols.
  */
