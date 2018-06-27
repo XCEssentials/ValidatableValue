@@ -24,8 +24,14 @@
 
  */
 
+/**
+ Special trait for 'ValidatableEntity' protocol that allows to define custom
+ validation failure report review logic to customize/override default validation
+ failure reports. This is helpful to add/set some custom copy to the report,
+ including localization purposes.
+ */
 public
-protocol CustomEntityReport: ValidatableEntity
+protocol CustomEntityReport: ValidatableEntity, Trait
 {
     static
     var reportReview: EntityReportReview { get }

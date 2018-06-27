@@ -25,33 +25,16 @@
  */
 
 /**
- Special trait for 'ValueSpecification' protocol that alters default
- policy (according to its name) on performing built-in validation
- for values that support validation on their own.
+ Provides user friendly 'display name' suitable for showing in GUI.
  */
 public
-protocol SkipBuiltInValidation: ValueSpecification, Trait {}
-
-//---
-
-// internal
-extension SkipBuiltInValidation
+protocol DisplayNamed
 {
+    /**
+     End user friendly title of any instance of this type,
+     represents the recommended way to refer to instances
+     of this type in GUI.
+     */
     static
-    var performBuiltInValidation: Bool
-    {
-        return false
-    }
-}
-
-//---
-
-// internal
-extension ValueSpecification
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        return true
-    }
+    var displayName: String { get }
 }

@@ -25,33 +25,9 @@
  */
 
 /**
- Special trait for 'ValueSpecification' protocol that alters default
- policy (according to its name) on performing built-in validation
- for values that support validation on their own.
+ Protocols that conform to this protocol should never be used independently,
+ only in conjunction with other protocols to which the 'trait' protocol
+ adds some functionality or special characteristics.
  */
 public
-protocol SkipBuiltInValidation: ValueSpecification, Trait {}
-
-//---
-
-// internal
-extension SkipBuiltInValidation
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        return false
-    }
-}
-
-//---
-
-// internal
-extension ValueSpecification
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        return true
-    }
-}
+protocol Trait {}

@@ -25,33 +25,9 @@
  */
 
 /**
- Special trait for 'ValueSpecification' protocol that alters default
- policy (according to its name) on performing built-in validation
- for values that support validation on their own.
+ Special trait for 'ValueWrapper' and 'ValidatableEntity'
+ protocols that implies that given type should use automatic
+ validation provided by the protocols.
  */
 public
-protocol SkipBuiltInValidation: ValueSpecification, Trait {}
-
-//---
-
-// internal
-extension SkipBuiltInValidation
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        return false
-    }
-}
-
-//---
-
-// internal
-extension ValueSpecification
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        return true
-    }
-}
+protocol AutoValidatable: Validatable, Trait {}

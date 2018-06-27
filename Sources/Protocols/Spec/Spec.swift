@@ -28,7 +28,7 @@
  Describes custom value type for a wrapper.
  */
 public
-protocol ValueSpecification
+protocol ValueSpecification: DisplayNamed
 {
     associatedtype Value: Equatable
 }

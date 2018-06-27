@@ -24,8 +24,13 @@
 
  */
 
+/**
+ Special trait for 'ValueSpecification', 'ValueWrapper' and 'ValidatableEntity'
+ protocols that allows to set arbitrary display name instead of the defaul
+ (intrinsic) one.
+ */
 public
-protocol CustomDisplayNamed
+protocol CustomDisplayNamed: DisplayNamed, Trait
 {
     static
     var customDisplayName: String { get }

@@ -24,8 +24,17 @@
 
  */
 
+/**
+ Special trait for 'ValueWrapper' protocol that allows to customize
+ 'Codable' protocol support and make the wrapper encode and decode itself
+ as a single value (because the only important thing stored inside wrapper
+ is teh value anyway, everything else belongs to type leve, not instance level).
+ Without this trait wrapper will rely on implicit 'Codable' support
+ provided by Swift itself and will be encoded as object/dictionary
+ with single entry (which is unnecessary complication): "{\"value\": \"XXX\"}"
+ */
 public
-protocol SingleValueCodable: ValueWrapper {}
+protocol SingleValueCodable: ValueWrapper, Trait {}
 
 //---
 

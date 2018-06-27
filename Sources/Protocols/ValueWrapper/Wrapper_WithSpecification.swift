@@ -24,8 +24,14 @@
 
  */
 
+/**
+ Special trait for 'ValueWrapper' protocol that allows to define specification
+ for the value stored in the wrapper. This technique allows to re-use same
+ (generic) wrapper type for various values, altering wrapper characteristics
+ and behaviour by providing diffrent value specifications in different contexts.
+ */
 public
-protocol WithSpecification: ValueWrapper
+protocol WithSpecification: ValueWrapper, Trait
     where
     Specification.Value == Self.Value
 {

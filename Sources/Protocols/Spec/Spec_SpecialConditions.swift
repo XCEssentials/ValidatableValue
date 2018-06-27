@@ -24,8 +24,15 @@
 
  */
 
+/**
+ Special trait for 'ValueSpecification' protocol that allows to specify
+ explicitly arbitrary set of conditions for the 'Value' which gonna be used
+ for value validation. Without this trait specification won't apply any conditions
+ to the value at all, hence won't indicate any validation issues no matter what
+ is the 'value'.
+ */
 public
-protocol SpecialConditions: ValueSpecification
+protocol SpecialConditions: ValueSpecification, Trait
 {
     static
     var conditions: [Condition<Self.Value>] { get }
