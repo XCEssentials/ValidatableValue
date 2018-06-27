@@ -26,12 +26,8 @@
 
 /**
  Special trait for 'ValueSpecification', 'ValueWrapper' and 'ValidatableEntity'
- protocols that allows to set arbitrary display name instead of the defaul
- (intrinsic) one.
+ protocols that implies that 'DisplayNamed' protocol conformance should be
+ implemented automatically.
  */
 public
-protocol CustomDisplayNamed: DisplayNamed, Trait
-{
-    static
-    var customDisplayName: String { get }
-}
+protocol AutoDisplayNamed: DisplayNamed, Trait {}

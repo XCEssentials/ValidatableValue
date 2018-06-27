@@ -43,10 +43,6 @@ import Foundation
 //    typealias Specification = T
 //
 //    public
-//    static
-//    var displayName: String { return Specification.displayName }
-//
-//    public
 //    var value: Specification.Value?
 //
 //    public

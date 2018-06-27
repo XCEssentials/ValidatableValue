@@ -26,6 +26,8 @@
 
 public
 extension ValueWrapper
+    where
+    Self: AutoDisplayNamed
 {
     static
     var displayName: String
@@ -39,39 +41,11 @@ extension ValueWrapper
 public
 extension ValueWrapper
     where
-    Self: CustomDisplayNamed
-{
-    static
-    var displayName: String
-    {
-        return customDisplayName
-    }
-}
-
-//---
-
-public
-extension ValueWrapper
-    where
-    Self: WithSpecification
+    Self: AutoDisplayNamed & WithSpecification
 {
     static
     var displayName: String
     {
         return Specification.displayName
-    }
-}
-
-//---
-
-public
-extension ValueWrapper
-    where
-    Self: CustomDisplayNamed & WithSpecification
-{
-    static
-    var displayName: String
-    {
-        return customDisplayName // it overrides name from Spec!
     }
 }

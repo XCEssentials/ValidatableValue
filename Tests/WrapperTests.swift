@@ -39,7 +39,8 @@ extension WrapperTests
 {
     func testDisplayName()
     {
-        struct BasicWrapper: ValueWrapper
+        struct BasicWrapper: ValueWrapper,
+            AutoDisplayNamed
         {
             typealias Value = String
 
@@ -52,8 +53,7 @@ extension WrapperTests
 
         //---
 
-        struct CustomNamedWrapper: ValueWrapper,
-            CustomDisplayNamed
+        struct CustomNamedWrapper: ValueWrapper
         {
             typealias Value = String
 
@@ -63,6 +63,9 @@ extension WrapperTests
 
             static
             let customDisplayName = "This is a custom named wrapper"
+
+            static
+            let displayName = customDisplayName
         }
 
         XCTAssert(CustomNamedWrapper.displayName != "Custom Named Wrapper")
@@ -70,12 +73,15 @@ extension WrapperTests
 
         //---
 
-        enum LastName: ValueSpecification, AutoReporting
+        enum LastName: ValueSpecification,
+            AutoDisplayNamed,
+            AutoReporting
         {
             typealias Value = String
         }
 
         struct WrapperWithSpec: ValueWrapper,
+            AutoDisplayNamed,
             WithSpecification
         {
             typealias Specification = LastName
@@ -93,8 +99,7 @@ extension WrapperTests
         //---
 
         struct CustomNamedWrapperWithSpec: ValueWrapper,
-            WithSpecification,
-            CustomDisplayNamed
+            WithSpecification
         {
             typealias Specification = LastName
 
@@ -106,6 +111,9 @@ extension WrapperTests
 
             static
             let customDisplayName = "This is a custom named wrapper"
+
+            static
+            let displayName = customDisplayName
         }
 
         XCTAssert(CustomNamedWrapperWithSpec.displayName != "Custom Named Wrapper")
@@ -115,7 +123,8 @@ extension WrapperTests
 
     func testSingleValueCodable()
     {
-        struct ImplicitlyCodableWrapper: ValueWrapper
+        struct ImplicitlyCodableWrapper: ValueWrapper,
+            AutoDisplayNamed
         {
             typealias Value = String
 
@@ -144,7 +153,9 @@ extension WrapperTests
 
         //---
 
-        struct ExplicitlyCodableWrapper: ValueWrapper, SingleValueCodable
+        struct ExplicitlyCodableWrapper: ValueWrapper,
+            SingleValueCodable,
+            AutoDisplayNamed
         {
             typealias Value = String
 
@@ -189,7 +200,9 @@ extension WrapperTests
 
     func testMandatoryBasic()
     {
-        struct BasicWrapper: ValueWrapper, Mandatory
+        struct BasicWrapper: ValueWrapper,
+            AutoDisplayNamed,
+            Mandatory
         {
             typealias Value = Int
 

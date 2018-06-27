@@ -40,6 +40,7 @@ extension SpecTests
     func testSkipBuiltInValidation()
     {
         enum LastName: ValueSpecification,
+            AutoDisplayNamed,
             AutoReporting
         {
             typealias Value = String
@@ -50,6 +51,7 @@ extension SpecTests
         //---
 
         enum LastName2: ValueSpecification,
+            AutoDisplayNamed,
             SkipBuiltInValidation,
             AutoReporting
         {
@@ -62,6 +64,7 @@ extension SpecTests
     func testSpecialConditions()
     {
         enum FirstName: ValueSpecification,
+            AutoDisplayNamed,
             SpecialConditions,
             AutoReporting
         {
@@ -81,6 +84,7 @@ extension SpecTests
         //---
 
         enum LastName: ValueSpecification,
+            AutoDisplayNamed,
             AutoReporting
         {
             typealias Value = String
@@ -94,6 +98,7 @@ extension SpecTests
     func testDefaultValueReport()
     {
         enum FirstName: ValueSpecification,
+            AutoDisplayNamed,
             AutoReporting
         {
             typealias Value = String
@@ -113,7 +118,8 @@ extension SpecTests
 
     func testCustomValueReport()
     {
-        enum LastName: ValueSpecification
+        enum LastName: ValueSpecification,
+            AutoDisplayNamed
         {
             static
             let customReport = ("This is", "it!")
@@ -153,6 +159,7 @@ extension SpecTests
     func testDisplayName()
     {
         enum FirstName: ValueSpecification,
+            AutoDisplayNamed,
             AutoReporting
         {
             typealias Value = String
@@ -163,13 +170,15 @@ extension SpecTests
         //---
 
         enum LastName: ValueSpecification,
-            CustomDisplayNamed,
             AutoReporting
         {
             typealias Value = String
 
             static
             let customDisplayName = "This is custom name for the Value"
+
+            static
+            let displayName = customDisplayName
         }
 
         XCTAssert(LastName.displayName != "Last Name")

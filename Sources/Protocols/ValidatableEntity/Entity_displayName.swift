@@ -26,24 +26,12 @@
 
 public
 extension ValidatableEntity
+    where
+    Self: AutoDisplayNamed
 {
     static
     var displayName: String
     {
         return Utils.intrinsicDisplayName(for: self)
-    }
-}
-
-//---
-
-public
-extension ValidatableEntity
-    where
-    Self: CustomDisplayNamed
-{
-    static
-    var displayName: String
-    {
-        return customDisplayName
     }
 }

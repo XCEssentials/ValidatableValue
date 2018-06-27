@@ -39,18 +39,25 @@ extension EntityTests
 {
     func testDisplayName()
     {
-        struct BasicEntity: ValidatableEntity, AutoValidatable {}
+        struct BasicEntity: ValidatableEntity,
+            AutoDisplayNamed,
+            AutoValidatable
+        {
+            //
+        }
 
         XCTAssert(BasicEntity.displayName == "Basic Entity")
 
         //---
 
         struct CustomNamedEntity: ValidatableEntity,
-            AutoValidatable,
-            CustomDisplayNamed
+            AutoValidatable
         {
             static
             let customDisplayName = "This is a custom named Entity"
+
+            static
+            let displayName = customDisplayName
         }
 
         XCTAssert(CustomNamedEntity.displayName != "Custom Named Entity")
@@ -59,7 +66,12 @@ extension EntityTests
 
     func testDefaultValueReport()
     {
-        struct BasicEntity: ValidatableEntity, AutoValidatable {}
+        struct BasicEntity: ValidatableEntity,
+            AutoDisplayNamed,
+            AutoValidatable
+        {
+            //
+        }
 
         let defaultReport = BasicEntity.defaultReport(with: [])
 
@@ -71,6 +83,7 @@ extension EntityTests
     func testCustomValueReport()
     {
         struct CustomReportEntity: ValidatableEntity,
+            AutoDisplayNamed,
             AutoValidatable,
             CustomEntityReport
         {
@@ -104,7 +117,8 @@ extension EntityTests
 
     func testManualValidation()
     {
-        struct ManualValidationEntity: ValidatableEntity
+        struct ManualValidationEntity: ValidatableEntity,
+            AutoDisplayNamed
         {
             func validate() throws
             {
@@ -147,7 +161,9 @@ extension EntityTests
 
     func testAutoValidatable()
     {
-        struct SimpleWrapper: ValueWrapper, Validatable
+        struct SimpleWrapper: ValueWrapper,
+            AutoDisplayNamed,
+            Validatable
         {
             typealias Value = String?
 
@@ -171,7 +187,9 @@ extension EntityTests
             }
         }
 
-        struct AutoValidationEntity: ValidatableEntity, AutoValidatable
+        struct AutoValidationEntity: ValidatableEntity,
+            AutoDisplayNamed,
+            AutoValidatable
         {
             let stringWrapper: SimpleWrapper
         }
