@@ -30,20 +30,20 @@
  Special case of value spec for simple bool flag value.
  It automatically fulfills all requirements, except reporting.
  */
-//public
-//protocol BoolFlag: ValueSpecification, AutoDisplayNamed {}
-//
-////---
-//
-//public
-//extension BoolFlag
-//{
-//    static
-//    var conditions: Conditions<Bool>
-//    {
-//        return [
-//
-//            Check(displayName){ $0 }
-//        ]
-//    }
-//}
+public
+protocol BoolFlag: ValueSpecification, AutoDisplayNamed {}
+
+//---
+
+public
+extension BoolFlag
+{
+    static
+    var conditions: Conditions<Bool>
+    {
+        return [
+
+            Check(displayName){ $0 }
+        ]
+    }
+}
