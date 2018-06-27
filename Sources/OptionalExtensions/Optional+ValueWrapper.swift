@@ -31,14 +31,6 @@ extension Swift.Optional: ValueWrapper
     public
     typealias Value = Wrapped.Value?
 
-    //---
-
-    public
-    init(_ value: Value)
-    {
-        self = value.map{ .some(.init($0)) } ?? .none
-    }
-
     public
     var value: Value
     {
@@ -58,5 +50,11 @@ extension Swift.Optional: ValueWrapper
         {
             self = newValue.map{ .some(.init($0)) } ?? .none
         }
+    }
+
+    public
+    init(_ value: Value)
+    {
+        self = value.map{ .some(.init($0)) } ?? .none
     }
 }
