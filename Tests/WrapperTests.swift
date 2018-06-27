@@ -264,7 +264,7 @@ extension WrapperTests
         XCTAssert(valueNotSetError.report == LastName.customReport)
     }
 
-    func testConvenienceHelpers()
+    func testConvenienceHelpersAndAutoValidatable()
     {
         enum LastName: ValueSpecification,
             AutoDisplayNamed,
@@ -397,39 +397,4 @@ extension WrapperTests
             XCTFail("Should not get here ever")
         }
     }
-
-//    func testAutoValidatable()
-//    {
-//        enum Firstname: ValueSpecification, SpecialConditions
-//        {
-//            typealias Value = String
-//
-//            static
-//            let conditions = [
-//
-//                String.checkNonEmpty
-//            ]
-//        }
-//
-//        enum Lastname: ValueSpecification
-//        {
-//            typealias Value = String
-//        }
-//
-//        struct Wrapper<T: ValueSpecification>: ValueWrapper,
-//            WithSpecification,
-//            AutoValidatable
-//        {
-//            typealias Specification = T
-//            typealias Value = T.Value
-//
-//            var value: Value
-//
-//            init(_ value: Value) { self.value = value }
-//        }
-//
-//        //---
-//
-//
-//    }
 }
