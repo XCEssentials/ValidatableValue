@@ -39,13 +39,14 @@ extension EntityTests
 {
     func testDisplayName()
     {
-        struct BasicEntity: ValidatableEntity {}
+        struct BasicEntity: ValidatableEntity, AutoValidatable {}
 
         XCTAssert(BasicEntity.displayName == "Basic Entity")
 
         //---
 
         struct CustomNamedEntity: ValidatableEntity,
+            AutoValidatable,
             CustomDisplayNamed
         {
             static
@@ -58,7 +59,7 @@ extension EntityTests
 
     func testDefaultValueReport()
     {
-        struct BasicEntity: ValidatableEntity {}
+        struct BasicEntity: ValidatableEntity, AutoValidatable {}
 
         let defaultReport = BasicEntity.defaultReport(with: [])
 
@@ -70,6 +71,7 @@ extension EntityTests
     func testCustomValueReport()
     {
         struct CustomReportEntity: ValidatableEntity,
+            AutoValidatable,
             CustomEntityReport
         {
             static
@@ -98,5 +100,119 @@ extension EntityTests
 
         XCTAssert(report != defaultReport)
         XCTAssert(report == CustomReportEntity.customReport)
+    }
+
+    func testManualValidation()
+    {
+        struct ManualValidationEntity: ValidatableEntity
+        {
+            func validate() throws
+            {
+                let issues: [ValidationError] = [
+                    .valueIsNotValid(
+                        origin: "Some wrapper",
+                        value: "Some value",
+                        failedConditions: ["Test condition"],
+                        report: (title: "Some test value", message: "Is invalid")
+                    )
+                ]
+
+                throw issues.asValidationIssues(for: self)
+            }
+        }
+
+        //---
+
+        do
+        {
+            try ManualValidationEntity().validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch ValidationError.entityIsNotValid(let origin, let issues, _)
+        {
+            XCTAssert(origin == ManualValidationEntity.displayName)
+            XCTAssert(issues.count == 1) // exactly as we've sent
+
+            let report = issues[0].report
+
+            XCTAssert(report.title == "Some test value")
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+    }
+
+    func testAutoValidatable()
+    {
+        struct SimpleWrapper: ValueWrapper, Validatable
+        {
+            typealias Value = String?
+
+            var value: Value
+
+            init(_ value: Value) { self.value = value }
+
+            func validate() throws
+            {
+                if
+                    value == nil
+                {
+                    throw ValidationError.mandatoryValueIsNotSet(
+                        origin: type(of: self).displayName,
+                        report: (
+                            title: "Mandatory value is missing",
+                            message: "Can't be nil"
+                        )
+                    )
+                }
+            }
+        }
+
+        struct AutoValidationEntity: ValidatableEntity, AutoValidatable
+        {
+            let stringWrapper: SimpleWrapper
+        }
+
+        //---
+
+        do
+        {
+            try AutoValidationEntity
+                .init(stringWrapper: SimpleWrapper(nil))
+                .validate()
+
+            XCTFail("Should not get here ever")
+        }
+        catch ValidationError.entityIsNotValid(let origin, let issues, _)
+        {
+            XCTAssert(origin == AutoValidationEntity.displayName)
+            XCTAssert(issues.count == 1)
+
+            let report = issues[0].report
+
+            XCTAssert(report.message == "Can't be nil")
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
+
+        //---
+
+        do
+        {
+            try AutoValidationEntity
+                .init(stringWrapper: SimpleWrapper("Some valid value"))
+                .validate()
+        }
+        catch
+        {
+            print(error)
+            XCTFail("Should not get here ever")
+        }
     }
 }

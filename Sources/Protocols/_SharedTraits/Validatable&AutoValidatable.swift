@@ -56,3 +56,12 @@ extension Validatable
         }
     }
 }
+
+//---
+
+/**
+ Protocol-marker that implies that validation should be implemented
+ automatically (implicitly).
+ */
+public
+protocol AutoValidatable {}

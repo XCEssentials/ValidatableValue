@@ -24,27 +24,61 @@
 
  */
 
-/**
- Data model type that supposed to store all important data
- in various validatable value properties. Such properties will be automatically
- checked for validity each time when whole entity is being tested for validity.
- Those property will be also automatically encoded and decoded.
- */
-public
-protocol ValidatableEntity: Codable, Equatable, Validatable {}
-
-//---
-
 public
 extension ValidatableEntity
+    where
+    Self: AutoValidatable
 {
-    var allValidatableMembers: [Validatable]
+    /**
+     Validates all validateable values contained inside the entity,
+     throws a validation error if any issues found.
+     */
+    func validate() throws
     {
-        return Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
-            .compactMap{ $0 as? Validatable }
+        var issues: [ValidationError] = []
+
+        //---
+
+        try allValidatableMembers.forEach{
+
+            do
+            {
+                try $0.validate()
+            }
+            catch let error as ValidationError
+            {
+                issues.append(error)
+            }
+            catch
+            {
+                // throw any unexpected erros right away
+                throw error
+            }
+        }
+
+        //---
+
+        if
+            !issues.isEmpty
+        {
+            throw issues.asValidationIssues(for: self)
+        }
     }
 }
 
-// TODO: add 'AutoValidatable' support for 'ValueWrapper'!!!!
+public
+extension Array
+    where
+    Element == ValidationError
+{
+    func asValidationIssues<E: ValidatableEntity>(
+        for entity: E
+        ) -> ValidationError
+    {
+        return .entityIsNotValid(
+            origin: type(of: entity).displayName,
+            issues: self,
+            report: type(of: entity).prepareReport(with: self)
+        )
+    }
+}
