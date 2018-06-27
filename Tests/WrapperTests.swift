@@ -220,45 +220,49 @@ extension WrapperTests
         XCTAssert(valueNotSetError.report == defaultReport)
     }
 
+    func testMandatoryWithSpec()
+    {
+        enum LastName: ValueSpecification,
+            AutoDisplayNamed,
+            NoConditions
+        {
+            typealias Value = String
 
-//    func testMandatoryWithSpec()
-//    {
-//        enum LastName: ValueSpecification, CustomValueReport
-//        {
-//            typealias Value = String
-//
-//            static
-//            let customReport = ("Custom report", "about Last Name")
-//
-//            static
-//            let reportReview: ValueReportReview =
-//            {
-//                _, report in
-//
-//                //---
-//
-//                report = customReport
-//            }
-//        }
-//
-//        struct SpecWrapper: ValueWrapper, Mandatory, WithSpecification
-//        {
-//            typealias Specification = LastName
-//            typealias Value = LastName.Value
-//
-//            var value: Value
-//
-//            init(_ value: Value) { self.value = value }
-//        }
-//
-//        let defaultReport = SpecWrapper.defaultEmptyValueReport
-//
-//        let valueNotSetError = SpecWrapper.reportEmptyValue()
-//
-//        XCTAssert(valueNotSetError.origin == SpecWrapper.displayName)
-//        XCTAssert(valueNotSetError.report != defaultReport)
-//        XCTAssert(valueNotSetError.report == LastName.customReport)
-//    }
+            static
+            let customReport = ("Custom report", "about Last Name")
+
+            static
+            let reportReview: ValueReportReview =
+            {
+                _, report in
+
+                //---
+
+                report = customReport
+            }
+        }
+
+        struct WrapperWithSpec: ValueWrapper,
+            AutoDisplayNamed,
+            Mandatory,
+            WithSpecification
+        {
+            typealias Specification = LastName
+            typealias Value = LastName.Value
+
+            var value: Value
+
+            init(_ value: Value) { self.value = value }
+        }
+
+        let defaultReport = WrapperWithSpec.defaultEmptyValueReport
+
+        let valueNotSetError = WrapperWithSpec.reportEmptyValue()
+
+        XCTAssert(valueNotSetError.origin == WrapperWithSpec.displayName)
+        XCTAssert(valueNotSetError.report != defaultReport)
+        XCTAssert(valueNotSetError.report == LastName.customReport)
+    }
 
 //    func testAutoValidatable()
 //    {
