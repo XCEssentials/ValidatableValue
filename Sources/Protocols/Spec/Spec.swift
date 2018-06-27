@@ -33,15 +33,27 @@ protocol ValueSpecification: DisplayNamed
     associatedtype Value: Codable & Equatable
 
     /**
+     Set of conditions for the 'Value' which gonna be used
+     for value validation.
+     */
+    static
+    var conditions: [Condition<Value>] { get }
+
+    /**
+     In case the 'Value' itself conforms to 'Validatable' protocol,
+     should we validate it during validation process, in addition to
+     check againts this specification conditions (if presented)?
+     */
+    static
+    var performBuiltInValidation: Bool { get }
+
+    /**
      This closure allows to customize/override default validation
      failure reports. This is helpful to add/set some custom copy
      to the report, including for localization purposes.
      */
     static
     var reportReview: ValueReportReview { get }
-
-    static
-    var performBuiltInValidation: Bool { get }
 }
 
 //---
@@ -49,6 +61,37 @@ protocol ValueSpecification: DisplayNamed
 // internal
 extension ValueSpecification
 {
+    static
+    func collectFailedConditions(
+        _ valueToCheck: Self.Value
+        ) throws -> [String]
+    {
+        var result: [String] = []
+
+        //---
+
+        try conditions.forEach
+        {
+            do
+            {
+                try $0.validate(value: valueToCheck)
+            }
+            catch let error as ConditionUnsatisfied
+            {
+                result.append(error.condition)
+            }
+            catch
+            {
+                // an unexpected error, just throw it right away
+                throw error
+            }
+        }
+
+        //---
+
+        return result
+    }
+
     static
     func prepareReport(
         value: Any?,

@@ -26,64 +26,23 @@
 
 /**
  Special trait for 'ValueSpecification' protocol that allows to specify
- explicitly arbitrary set of conditions for the 'Value' which gonna be used
- for value validation. Without this trait specification won't apply any conditions
- to the value at all, hence won't indicate any validation issues no matter what
- is the 'value'.
+ explicitly arbitrary
+
+
+ Special trait for 'ValueSpecification' protocol that automatically defines
+ 'conditions' as an empty list, hence the spec won't indicate any validation
+ issues no matter what is the 'value'.
  */
 public
-protocol SpecialConditions: ValueSpecification, Trait
-{
-    static
-    var conditions: [Condition<Self.Value>] { get }
-}
+protocol NoConditions: ValueSpecification, Trait {}
 
 //---
 
-// internal
-extension SpecialConditions
+public
+extension NoConditions
 {
     static
-    func collectFailedConditions(
-        _ valueToCheck: Self.Value
-        ) throws -> [String]
-    {
-        var result: [String] = []
-
-        //---
-
-        try conditions.forEach
-        {
-            do
-            {
-                try $0.validate(value: valueToCheck)
-            }
-            catch let error as ConditionUnsatisfied
-            {
-                result.append(error.condition)
-            }
-            catch
-            {
-                // an unexpected error, just throw it right away
-                throw error
-            }
-        }
-
-        //---
-
-        return result
-    }
-}
-
-//---
-
-// internal
-extension ValueSpecification
-{
-    static
-    func collectFailedConditions(
-        _ valueToCheck: Self.Value
-        ) throws -> [String]
+    var conditions: [Condition<Value>]
     {
         return []
     }

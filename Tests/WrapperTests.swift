@@ -75,6 +75,7 @@ extension WrapperTests
 
         enum LastName: ValueSpecification,
             AutoDisplayNamed,
+            NoConditions,
             AutoReporting
         {
             typealias Value = String

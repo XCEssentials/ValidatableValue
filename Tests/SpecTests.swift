@@ -41,6 +41,7 @@ extension SpecTests
     {
         enum LastName: ValueSpecification,
             AutoDisplayNamed,
+            NoConditions,
             AutoReporting
         {
             typealias Value = String
@@ -52,6 +53,7 @@ extension SpecTests
 
         enum LastName2: ValueSpecification,
             AutoDisplayNamed,
+            NoConditions,
             SkipBuiltInValidation,
             AutoReporting
         {
@@ -65,7 +67,6 @@ extension SpecTests
     {
         enum FirstName: ValueSpecification,
             AutoDisplayNamed,
-            SpecialConditions,
             AutoReporting
         {
             typealias Value = String
@@ -85,6 +86,7 @@ extension SpecTests
 
         enum LastName: ValueSpecification,
             AutoDisplayNamed,
+            NoConditions,
             AutoReporting
         {
             typealias Value = String
@@ -99,6 +101,7 @@ extension SpecTests
     {
         enum FirstName: ValueSpecification,
             AutoDisplayNamed,
+            NoConditions,
             AutoReporting
         {
             typealias Value = String
@@ -119,7 +122,8 @@ extension SpecTests
     func testCustomValueReport()
     {
         enum LastName: ValueSpecification,
-            AutoDisplayNamed
+            AutoDisplayNamed,
+            NoConditions
         {
             static
             let customReport = ("This is", "it!")
@@ -160,6 +164,7 @@ extension SpecTests
     {
         enum FirstName: ValueSpecification,
             AutoDisplayNamed,
+            NoConditions,
             AutoReporting
         {
             typealias Value = String
@@ -170,6 +175,7 @@ extension SpecTests
         //---
 
         enum LastName: ValueSpecification,
+            NoConditions,
             AutoReporting
         {
             typealias Value = String

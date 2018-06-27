@@ -24,12 +24,14 @@
 
  */
 
-
 public
 extension ValueSpecification
     where
     Self: AutoReporting
 {
     static
-    var reportReview: ValueReportReview { return { _, _ in } }
+    var reportReview: ValueReportReview
+    {
+        return { _, _ in }
+    }
 }
