@@ -30,5 +30,5 @@
 public
 protocol ValueSpecification: DisplayNamed
 {
-    associatedtype Value: Equatable
+    associatedtype Value: Codable & Equatable
 }
