@@ -39,6 +39,9 @@ protocol ValueSpecification: DisplayNamed
      */
     static
     var reportReview: ValueReportReview { get }
+
+    static
+    var performBuiltInValidation: Bool { get }
 }
 
 //---

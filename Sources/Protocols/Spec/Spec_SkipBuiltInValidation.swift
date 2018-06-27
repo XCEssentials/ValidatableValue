@@ -34,7 +34,7 @@ protocol SkipBuiltInValidation: ValueSpecification, Trait {}
 
 //---
 
-// internal
+public
 extension SkipBuiltInValidation
 {
     static
@@ -46,7 +46,7 @@ extension SkipBuiltInValidation
 
 //---
 
-// internal
+public
 extension ValueSpecification
 {
     static
