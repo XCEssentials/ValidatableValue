@@ -25,19 +25,7 @@
  */
 
 /**
- Special protocol that unites in one protocol 'Wrapper' and 'Validatable'
- plus adds few more very useful requirements.
+ Special protocol that unites in one protocol 'Wrapper' and 'Validatable'.
  */
 public
-protocol ValidatableValueWrapper: ValueWrapper & Validatable
-{
-    associatedtype ValidValue: Codable & Equatable
-    associatedtype EnforcedValidValue: Codable & Equatable
-
-    func validValue(
-        ) throws -> ValidValue
-
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> EnforcedValidValue
-}
+protocol ValidatableValueWrapper: ValueWrapper & Validatable {}

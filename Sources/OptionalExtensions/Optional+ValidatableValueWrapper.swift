@@ -24,148 +24,118 @@
 
  */
 
-//public
-//extension Swift.Optional
-//    where
-//    Wrapped: ValidatableValueWrapper
-//{
-//    func validValue() throws -> Wrapped.Value? // NON-Mandatory!
-//    {
-//        switch self
-//        {
-//            case .none:
-//                return nil // 'nil' is allowed
-//
-//            case .some(let wrapper):
-//                return try wrapper.validValue()
-//        }
-//    }
-//
-//    func validValue(
-//        _ collectError: inout [ValidationError]
-//        ) throws -> Wrapped.Value? // NON-Mandatory!
-//    {
-//        let result: Wrapped.Value?
-//
-//        //---
-//
-//        do
-//        {
-//            result = try validValue()
-//        }
-//        catch let error as ValidationError
-//        {
-//            collectError.append(error)
-//            result = nil
-//        }
-//        catch
-//        {
-//            // an unexpected error should be thrown to the upper level
-//            throw error
-//        }
-//
-//        //---
-//
-//        return result
-//    }
-//}
+// public
+extension Swift.Optional: ValidatableValueWrapper
+    where
+    Wrapped: AutoValidValue,
+    Wrapped.ValidValue == Wrapped.Value,
+    Wrapped.EnforcedValidValue == Wrapped.Value
+{
+    // see various implementations below
+}
 
-// MARK: - Validatable support - when wrap Mandatory & ValueWrapper
+//---
 
-//public
-//extension Swift.Optional
-//    where
-//    Wrapped: Mandatory & ValidatableValueWrapper
-//{
-//    func validValue() throws -> Wrapped.Value // Mandatory!
-//    {
-//        switch self
-//        {
-//            case .none:
-//                throw ValidationError.mandatoryValueIsNotSet(
-//                    origin: displayName,
-//                    report: Wrapped.defaultEmptyValueReport
-//                )
-//
-//            case .some(let wrapper):
-//                return try wrapper.validValue()
-//        }
-//    }
-//
-//    func validValue(
-//        _ collectError: inout [ValidationError]
-//        ) throws -> Wrapped.Value! // Mandatory!
-//    {
-//        let result: Wrapped.Value?
-//
-//        //---
-//
-//        do
-//        {
-//            result = try validValue()
-//        }
-//        catch let error as ValidationError
-//        {
-//            collectError.append(error)
-//            result = nil
-//        }
-//        catch
-//        {
-//            // an unexpected error should be thrown to the upper level
-//            throw error
-//        }
-//
-//        //---
-//
-//        return result
-//    }
-//}
+public
+extension Swift.Optional
+    where
+    Wrapped: AutoValidValue,
+    Wrapped.ValidValue == Wrapped.Value,
+    Wrapped.EnforcedValidValue == Wrapped.Value
+{
+    public
+    func validValue() throws -> Value // NON-Mandatory!
+    {
+        switch self
+        {
+            case .none:
+                return nil // 'nil' is allowed
 
-// MARK: - Validatable support - when wrap Mandatory & CustomValueWrapper
+            case .some(let wrapper):
+                return try wrapper.validValue()
+        }
+    }
 
-//public
-//extension Swift.Optional
-//    where
-//    Wrapped: Mandatory & WithCustomValue & ValueWrapper,
-//    Wrapped.Specification.Value == Wrapped.Value
-//{
-//    func validValue() throws -> Wrapped.Value // Mandatory!
-//    {
-//        switch self
-//        {
-//            case .none:
-//                throw Wrapped.reportEmptyValue()
-//
-//            case .some(let wrapper):
-//                return try wrapper.validValue()
-//        }
-//    }
-//
-//    func validValue(
-//        _ collectError: inout [ValidationError]
-//        ) throws -> Wrapped.Value! // Mandatory!
-//    {
-//        let result: Wrapped.Value?
-//
-//        //---
-//
-//        do
-//        {
-//            result = try validValue()
-//        }
-//        catch let error as ValidationError
-//        {
-//            collectError.append(error)
-//            result = nil
-//        }
-//        catch
-//        {
-//            // an unexpected error should be thrown to the upper level
-//            throw error
-//        }
-//
-//        //---
-//
-//        return result
-//    }
-//}
+    public
+    func validValue(
+        _ collectError: inout [ValidationError]
+        ) throws -> Value // NON-Mandatory!
+    {
+        do
+        {
+            try validate()
+        }
+        catch let error as ValidationError
+        {
+            collectError.append(error)
+        }
+        catch
+        {
+            // an unexpected error should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return value // just return value regardless of its validity!
+    }
+}
+
+//---
+
+public
+extension Swift.Optional
+    where
+    Wrapped: Mandatory, // <<<---
+    Wrapped: AutoValidValue,
+    Wrapped.ValidValue == Wrapped.Value,
+    Wrapped.EnforcedValidValue == Wrapped.Value
+{
+    func validValue() throws -> Wrapped.Value // Mandatory!
+    {
+        switch self
+        {
+            case .none:
+                throw Wrapped.reportEmptyValue()
+
+            case .some(let wrapper):
+                return try wrapper.validValue()
+        }
+    }
+
+    /**
+     This is a special getter that allows to get an optional valid value
+     OR collect an error, if stored value is invalid.
+     This helper function allows to collect issues from multiple
+     validateable values wihtout throwing an error immediately,
+     but received value should ONLY be used/read if the 'collectError'
+     is empty in the end.
+     */
+    func validValue(
+        _ collectError: inout [ValidationError]
+        ) throws -> Wrapped.Value! // Mandatory, implicitly unwrapped!
+    {
+        let result: Wrapped.Value?
+
+        //---
+
+        do
+        {
+            result = try validValue()
+        }
+        catch let error as ValidationError
+        {
+            collectError.append(error)
+            result = nil
+        }
+        catch
+        {
+            // an unexpected error should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return result
+    }
+}

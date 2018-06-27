@@ -32,8 +32,16 @@ protocol AutoValidValue: ValidatableValueWrapper, Trait {}
 public
 extension AutoValidValue
 {
+    public
+    typealias ValidValue = Self.Value
+
+    public
+    typealias EnforcedValidValue = Self.Value
+
+    //---
+
     func validValue(
-        ) throws -> Self.Value
+        ) throws -> ValidValue
     {
         try validate()
 
@@ -50,7 +58,7 @@ extension AutoValidValue
      */
     func validValue(
         _ collectError: inout [ValidationError]
-        ) throws -> Self.Value
+        ) throws -> EnforcedValidValue
     {
         do
         {
