@@ -24,20 +24,47 @@
 
  */
 
-/**
- Custom value wrapper.
- */
 public
-struct CustomBase<T>
-    where
-    T: Codable & Equatable
+struct WrapperOf<T: ValueSpecification>: ValidatableValueWrapper,
+    SingleValueCodable,
+    AutoDisplayNamed,
+    WithSpecification,
+    AutoValidatable,
+    AutoValidValue
 {
     public
-    typealias Value = T
+    typealias Specification = T
 
     public
-    init(_ value: Value) { self.value = value }
+    typealias Value = Specification.Value
 
     public
     var value: Value
+
+    public
+    init(_ value: Value) { self.value = value }
+}
+
+//---
+
+public
+struct WrapperOfMandatory<T: ValueSpecification>: ValidatableValueWrapper,
+    SingleValueCodable,
+    AutoDisplayNamed,
+    WithSpecification,
+    AutoValidatable,
+    AutoValidValue,
+    Mandatory
+{
+    public
+    typealias Specification = T
+
+    public
+    typealias Value = Specification.Value
+
+    public
+    var value: Value
+
+    public
+    init(_ value: Value) { self.value = value }
 }
