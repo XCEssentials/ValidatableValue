@@ -24,29 +24,6 @@
 
  */
 
-import Foundation
-
-///**
-// It considers as 'valid' either 'nil' or non-'nil' 'value' that
-// satisfies all conditions from custom provided Specification.
-// */
-//public
-//struct OptionalCustom<T>: OptionalValueWrapper,
-//    WithCustomValue
-//    where
-//    T: ValueSpecification,
-//    T.Value: Codable & Equatable
-//{
-//    public
-//    typealias Specification = T
-//
-//    public
-//    var value: Specification.Value?
-//
-//    public
-//    init() {}
-//}
-
 // MARK: - Optional
 
 //extension Swift.Optional: DisplayNamed

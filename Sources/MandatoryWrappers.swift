@@ -24,14 +24,6 @@
 
  */
 
-import Foundation
-
-//---
-
-///**
-// It considers as 'valid' any non-'nil' 'value' that
-// satisfies all conditions from custom provided Specification.
-// */
 //public
 //struct MandatoryCustom<T>: MandatoryValueWrapper,
 //    WithCustomValue
@@ -44,26 +36,6 @@ import Foundation
 //
 //    public
 //    var value: Specification.Value?
-//
-//    public
-//    init() {}
-//}
-//
-////---
-//
-///**
-// It considers as 'valid' any non-'nil' 'value'.
-// */
-//public
-//struct MandatoryBasic<T>: MandatoryValueWrapper
-//    where
-//    T: Codable & Equatable
-//{
-//    public
-//    typealias Value = T
-//
-//    public
-//    var value: Value?
 //
 //    public
 //    init() {}
