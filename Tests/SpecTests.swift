@@ -39,7 +39,8 @@ extension SpecTests
 {
     func testSkipBuiltInValidation()
     {
-        enum LastName: ValueSpecification
+        enum LastName: ValueSpecification,
+            AutoReporting
         {
             typealias Value = String
         }
@@ -49,7 +50,8 @@ extension SpecTests
         //---
 
         enum LastName2: ValueSpecification,
-            SkipBuiltInValidation
+            SkipBuiltInValidation,
+            AutoReporting
         {
             typealias Value = String
         }
@@ -60,7 +62,8 @@ extension SpecTests
     func testSpecialConditions()
     {
         enum FirstName: ValueSpecification,
-            SpecialConditions
+            SpecialConditions,
+            AutoReporting
         {
             typealias Value = String
 
@@ -77,7 +80,8 @@ extension SpecTests
 
         //---
 
-        enum LastName: ValueSpecification
+        enum LastName: ValueSpecification,
+            AutoReporting
         {
             typealias Value = String
         }
@@ -89,7 +93,8 @@ extension SpecTests
 
     func testDefaultValueReport()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: ValueSpecification,
+            AutoReporting
         {
             typealias Value = String
         }
@@ -108,8 +113,7 @@ extension SpecTests
 
     func testCustomValueReport()
     {
-        enum LastName: ValueSpecification,
-            CustomValueReport
+        enum LastName: ValueSpecification
         {
             static
             let customReport = ("This is", "it!")
@@ -148,7 +152,8 @@ extension SpecTests
 
     func testDisplayName()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: ValueSpecification,
+            AutoReporting
         {
             typealias Value = String
         }
@@ -158,7 +163,8 @@ extension SpecTests
         //---
 
         enum LastName: ValueSpecification,
-            CustomDisplayNamed
+            CustomDisplayNamed,
+            AutoReporting
         {
             typealias Value = String
 

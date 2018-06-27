@@ -31,4 +31,55 @@ public
 protocol ValueSpecification: DisplayNamed
 {
     associatedtype Value: Codable & Equatable
+
+    /**
+     This closure allows to customize/override default validation
+     failure reports. This is helpful to add/set some custom copy
+     to the report, including for localization purposes.
+     */
+    static
+    var reportReview: ValueReportReview { get }
+}
+
+//---
+
+// internal
+extension ValueSpecification
+{
+    static
+    func prepareReport(
+        value: Any?,
+        failedConditions: [String],
+        builtInValidationIssues: [ValidationError],
+        suggestedReport: Report
+        ) -> Report
+    {
+        var result = suggestedReport
+
+        //---
+
+        let context = ValueReportContext(
+            origin: displayName,
+            value: value,
+            failedConditions: failedConditions,
+            builtInValidationIssues: builtInValidationIssues
+        )
+
+        reportReview(context, &result)
+
+        //---
+
+        return result
+    }
+
+    static
+    func defaultValidationReport(
+        with failedConditions: [String]
+        ) -> Report
+    {
+        return (
+            "\"\(displayName)\" validation failed",
+            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
+        )
+    }
 }

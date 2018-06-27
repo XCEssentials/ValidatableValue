@@ -70,7 +70,7 @@ extension WrapperTests
 
         //---
 
-        enum LastName: ValueSpecification
+        enum LastName: ValueSpecification, AutoReporting
         {
             typealias Value = String
         }
@@ -207,77 +207,77 @@ extension WrapperTests
     }
 
 
-    func testMandatoryWithSpec()
-    {
-        enum LastName: ValueSpecification, CustomValueReport
-        {
-            typealias Value = String
+//    func testMandatoryWithSpec()
+//    {
+//        enum LastName: ValueSpecification, CustomValueReport
+//        {
+//            typealias Value = String
+//
+//            static
+//            let customReport = ("Custom report", "about Last Name")
+//
+//            static
+//            let reportReview: ValueReportReview =
+//            {
+//                _, report in
+//
+//                //---
+//
+//                report = customReport
+//            }
+//        }
+//
+//        struct SpecWrapper: ValueWrapper, Mandatory, WithSpecification
+//        {
+//            typealias Specification = LastName
+//            typealias Value = LastName.Value
+//
+//            var value: Value
+//
+//            init(_ value: Value) { self.value = value }
+//        }
+//
+//        let defaultReport = SpecWrapper.defaultEmptyValueReport
+//
+//        let valueNotSetError = SpecWrapper.reportEmptyValue()
+//
+//        XCTAssert(valueNotSetError.origin == SpecWrapper.displayName)
+//        XCTAssert(valueNotSetError.report != defaultReport)
+//        XCTAssert(valueNotSetError.report == LastName.customReport)
+//    }
 
-            static
-            let customReport = ("Custom report", "about Last Name")
-
-            static
-            let reportReview: ValueReportReview =
-            {
-                _, report in
-
-                //---
-
-                report = customReport
-            }
-        }
-
-        struct SpecWrapper: ValueWrapper, Mandatory, WithSpecification
-        {
-            typealias Specification = LastName
-            typealias Value = LastName.Value
-
-            var value: Value
-
-            init(_ value: Value) { self.value = value }
-        }
-
-        let defaultReport = SpecWrapper.defaultEmptyValueReport
-
-        let valueNotSetError = SpecWrapper.reportEmptyValue()
-
-        XCTAssert(valueNotSetError.origin == SpecWrapper.displayName)
-        XCTAssert(valueNotSetError.report != defaultReport)
-        XCTAssert(valueNotSetError.report == LastName.customReport)
-    }
-
-    func testAutoValidatable()
-    {
-        enum Firstname: ValueSpecification, SpecialConditions
-        {
-            typealias Value = String
-
-            static
-            let conditions = [
-
-                String.checkNonEmpty
-            ]
-        }
-
-        enum Lastname: ValueSpecification
-        {
-            typealias Value = String
-        }
-
-        struct Wrapper<T: ValueSpecification>: ValueWrapper,
-            WithSpecification,
-            AutoValidatable
-        {
-            typealias Specification = T
-            typealias Value = T.Value
-
-            var value: Value
-
-            init(_ value: Value) { self.value = value }
-        }
-
-        //---
-
-
-    }
+//    func testAutoValidatable()
+//    {
+//        enum Firstname: ValueSpecification, SpecialConditions
+//        {
+//            typealias Value = String
+//
+//            static
+//            let conditions = [
+//
+//                String.checkNonEmpty
+//            ]
+//        }
+//
+//        enum Lastname: ValueSpecification
+//        {
+//            typealias Value = String
+//        }
+//
+//        struct Wrapper<T: ValueSpecification>: ValueWrapper,
+//            WithSpecification,
+//            AutoValidatable
+//        {
+//            typealias Specification = T
+//            typealias Value = T.Value
+//
+//            var value: Value
+//
+//            init(_ value: Value) { self.value = value }
+//        }
+//
+//        //---
+//
+//
+//    }
 }

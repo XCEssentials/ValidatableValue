@@ -25,10 +25,11 @@
 		9459A04620CF006900D4F644 /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9459A04520CF006900D4F644 /* Wrapper.swift */; };
 		949B409F20D466D40043CAB3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B409E20D466D40043CAB3 /* Utils.swift */; };
 		94ABCC3220E05978007187DC /* NEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3120E05978007187DC /* NEW.swift */; };
-		94ABCC3520E132DE007187DC /* Spec_CustomValueReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3420E132DE007187DC /* Spec_CustomValueReport.swift */; };
+		94ABCC3520E132DE007187DC /* Spec+AutoReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */; };
 		94ABCC3720E1330A007187DC /* Spec_SpecialConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC3620E1330A007187DC /* Spec_SpecialConditions.swift */; };
 		94ABCC4720E13A7C007187DC /* Optional+ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */; };
 		94BAA99320E3DE9F00BA6C6F /* Wrapper+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BAA99220E3DE9F00BA6C6F /* Wrapper+Validatable.swift */; };
+		94BAA99520E3FF6400BA6C6F /* AutoReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BAA99420E3FF6400BA6C6F /* AutoReporting.swift */; };
 		94C712B820E1526900A737E3 /* Optional+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C712B720E1526900A737E3 /* Optional+Validatable.swift */; };
 		94DFD07020E2F35700DDFC1A /* Entity+AutoValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DFD06F20E2F35700DDFC1A /* Entity+AutoValidatable.swift */; };
 		94DFD07420E3993B00DDFC1A /* Trait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DFD07320E3993B00DDFC1A /* Trait.swift */; };
@@ -104,10 +105,11 @@
 		9459A04520CF006900D4F644 /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
 		949B409E20D466D40043CAB3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		94ABCC3120E05978007187DC /* NEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEW.swift; sourceTree = "<group>"; };
-		94ABCC3420E132DE007187DC /* Spec_CustomValueReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spec_CustomValueReport.swift; sourceTree = "<group>"; };
+		94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spec+AutoReporting.swift"; sourceTree = "<group>"; };
 		94ABCC3620E1330A007187DC /* Spec_SpecialConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spec_SpecialConditions.swift; sourceTree = "<group>"; };
 		94ABCC4620E13A7C007187DC /* Optional+ValueWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+ValueWrapper.swift"; sourceTree = "<group>"; };
 		94BAA99220E3DE9F00BA6C6F /* Wrapper+Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wrapper+Validatable.swift"; sourceTree = "<group>"; };
+		94BAA99420E3FF6400BA6C6F /* AutoReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoReporting.swift; sourceTree = "<group>"; };
 		94C712B720E1526900A737E3 /* Optional+Validatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Validatable.swift"; sourceTree = "<group>"; };
 		94DFD06F20E2F35700DDFC1A /* Entity+AutoValidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+AutoValidatable.swift"; sourceTree = "<group>"; };
 		94DFD07320E3993B00DDFC1A /* Trait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trait.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				9423BA4E20E2CE24001B8AB5 /* CustomDisplayNamed.swift */,
 				9415FE371F4A27FC0077E798 /* AutoValidatable.swift */,
+				94BAA99420E3FF6400BA6C6F /* AutoReporting.swift */,
 			);
 			path = _SharedTraits;
 			sourceTree = "<group>";
@@ -231,7 +234,7 @@
 				9423BA5020E2CF6F001B8AB5 /* Spec_displayName.swift */,
 				94EB1E3920E27A90007369BA /* Spec_SkipBuiltInValidation.swift */,
 				94ABCC3620E1330A007187DC /* Spec_SpecialConditions.swift */,
-				94ABCC3420E132DE007187DC /* Spec_CustomValueReport.swift */,
+				94ABCC3420E132DE007187DC /* Spec+AutoReporting.swift */,
 			);
 			path = Spec;
 			sourceTree = "<group>";
@@ -517,7 +520,7 @@
 				941FD25720E2ECCE00F96493 /* Entity_CustomEntityReport.swift in Sources */,
 				927C14C6143FA2B19E366D09 /* Errors.swift in Sources */,
 				94ABCC4720E13A7C007187DC /* Optional+ValueWrapper.swift in Sources */,
-				94ABCC3520E132DE007187DC /* Spec_CustomValueReport.swift in Sources */,
+				94ABCC3520E132DE007187DC /* Spec+AutoReporting.swift in Sources */,
 				94DFD07020E2F35700DDFC1A /* Entity+AutoValidatable.swift in Sources */,
 				943D83B420E2D94800479C33 /* Wrapper_displayName.swift in Sources */,
 				942AFD9B20E17AF40028E84B /* Wrapper_Mandatory.swift in Sources */,
@@ -525,6 +528,7 @@
 				94C712B820E1526900A737E3 /* Optional+Validatable.swift in Sources */,
 				94DFD07820E3A26200DDFC1A /* DisplayNamed.swift in Sources */,
 				94FF817420C0115100E69904 /* OptionalWrappers.swift in Sources */,
+				94BAA99520E3FF6400BA6C6F /* AutoReporting.swift in Sources */,
 				942AFDA020E17D720028E84B /* Wrapper_SingleValueCodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
