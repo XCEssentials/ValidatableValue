@@ -30,7 +30,7 @@ extension ValidatableEntity
     Self: AutoReporting
 {
     static
-    var reportReview: EntityReportReview
+    var reviewReport: EntityReportReview
     {
         return { _, _ in }
     }

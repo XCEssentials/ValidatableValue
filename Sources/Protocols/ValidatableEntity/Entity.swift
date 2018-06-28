@@ -41,7 +41,7 @@ protocol ValidatableEntity: Codable & Equatable,
      to the report, including for localization purposes.
      */
     static
-    var reportReview: EntityReportReview { get }
+    var reviewReport: EntityReportReview { get }
 }
 
 //---
@@ -72,7 +72,7 @@ extension ValidatableEntity
 
         //---
 
-        reportReview(issues, &result)
+        reviewReport(issues, &result)
 
         //---
 

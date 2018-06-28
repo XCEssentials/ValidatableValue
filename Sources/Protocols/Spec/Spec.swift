@@ -53,7 +53,7 @@ protocol ValueSpecification: DisplayNamed
      to the report, including for localization purposes.
      */
     static
-    var reportReview: ValueReportReview { get }
+    var reviewReport: ValueReportReview { get }
 }
 
 //---
@@ -111,7 +111,7 @@ extension ValueSpecification
             builtInValidationIssues: builtInValidationIssues
         )
 
-        reportReview(context, &result)
+        reviewReport(context, &result)
 
         //---
 

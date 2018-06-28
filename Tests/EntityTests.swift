@@ -83,7 +83,7 @@ extension EntityTests
             //---
 
             static
-            var reportReview: EntityReportReview
+            var reviewReport: EntityReportReview
             {
                 // by default, we don't adjust anything in the report
                 return {

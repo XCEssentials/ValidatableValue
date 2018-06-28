@@ -232,7 +232,7 @@ extension WrapperTests
             let customReport = ("Custom report", "about Last Name")
 
             static
-            let reportReview: ValueReportReview =
+            let reviewReport: ValueReportReview =
             {
                 _, report in
 

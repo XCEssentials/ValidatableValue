@@ -133,7 +133,7 @@ extension SpecTests
             typealias Value = String
 
             static
-            var reportReview: ValueReportReview
+            var reviewReport: ValueReportReview
             {
                 // by default, we don't adjust anything in the report
                 return {

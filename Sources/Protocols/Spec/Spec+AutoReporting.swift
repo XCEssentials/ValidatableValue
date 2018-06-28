@@ -30,7 +30,7 @@ extension ValueSpecification
     Self: AutoReporting
 {
     static
-    var reportReview: ValueReportReview
+    var reviewReport: ValueReportReview
     {
         return { _, _ in }
     }
