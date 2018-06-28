@@ -1,20 +1,11 @@
-projName = 'ValidatableValue'
-projSummary = 'Generic value wrapper with built-in validation.'
-companyPrefix = 'XCE'
-companyName = 'XCEssentials'
-companyGitHubAccount = 'https://github.com/' + companyName
-companyGitHubPage = 'https://' + companyName + '.github.io'
-
-#===
-
 Pod::Spec.new do |s|
 
-  s.name                      = companyPrefix + projName
-  s.summary                   = projSummary
+  s.name                      = 'XCEValidatableValue'
+  s.summary                   = 'Generic value wrapper with built-in validation.'
   s.version                   = '3.10.0'
-  s.homepage                  = companyGitHubPage + '/' + projName
+  s.homepage                  = 'https://XCEssentials.github.io/ValidatableValue'
 
-  s.source                    = { :git => companyGitHubAccount + '/' + projName + '.git', :tag => s.version }
+  s.source                    = { :git => 'https://github.com/XCEssentials/ValidatableValue.git', :tag => s.version }
 
   s.requires_arc              = true
 
@@ -23,14 +14,8 @@ Pod::Spec.new do |s|
 
   s.swift_version             = '4.1'
 
-  # === All platforms
+  s.ios.deployment_target     = '9.0'
 
-  #
-
-  # === iOS
-
-  s.ios.deployment_target     = '8.0'
-
-  s.ios.source_files          = 'Sources/**/*.swift'
+  s.source_files              = 'Sources/ValidatableValue/**/*.swift'
 
 end
