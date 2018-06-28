@@ -7,7 +7,7 @@ import XCEProjectGenerator
 
 // MARK: - Global parameters
 
-let swiftVersion = "4.0"
+let swiftVersion = "4.1"
 let tstSuffix = "Tests"
 
 let company = (

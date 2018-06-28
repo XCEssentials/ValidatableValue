@@ -18,8 +18,6 @@ abstract_target 'Common' do
         project 'ValidatableValue'
         platform :ios, '9.0'
 
-        pod 'XCETesting', '~> 1.2'
-
     end
 
 end
