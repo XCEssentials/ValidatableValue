@@ -115,27 +115,26 @@ extension Swift.Optional
         _ collectError: inout [ValidationError]
         ) throws -> Wrapped.Value! // Mandatory, implicitly unwrapped!
     {
-        let result: Wrapped.Value?
-
-        //---
-
         do
         {
-            result = try validValue()
+            // NOTE: withing explicit result type
+            // it goes to a wrong version of the 'validValue()' func!
+            let result: Wrapped.Value = try validValue()
+
+            return result
         }
         catch let error as ValidationError
         {
             collectError.append(error)
-            result = nil
+
+            //---
+
+            return nil
         }
         catch
         {
             // an unexpected error should be thrown to the upper level
             throw error
         }
-
-        //---
-
-        return result
     }
 }
