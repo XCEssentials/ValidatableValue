@@ -46,7 +46,6 @@ extension EntityTests
 
         struct SomeWrapper: ValueWrapper,
             AutoDisplayNamed,
-            WithSpecification,
             AutoValidatable,
             AutoReporting
         {
@@ -233,7 +232,7 @@ extension EntityTests
 
     func testAutoValidatable()
     {
-        struct SimpleWrapper: ValueWrapper,
+        struct SimpleWrapper: BasicValueWrapper,
             AutoDisplayNamed,
             Validatable
         {

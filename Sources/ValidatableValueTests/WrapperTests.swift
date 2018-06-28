@@ -39,7 +39,7 @@ extension WrapperTests
 {
     func testDisplayName()
     {
-        struct BasicWrapper: ValueWrapper,
+        struct BasicWrapper: BasicValueWrapper,
             AutoDisplayNamed
         {
             typealias Value = String
@@ -49,11 +49,11 @@ extension WrapperTests
             init(wrappedValue: String) { self.value = wrappedValue }
         }
 
-        XCTAssert(BasicWrapper.displayName == "Basic Wrapper")
+        XCTAssert(BasicWrapper.displayName == "String")
 
         //---
 
-        struct CustomNamedWrapper: ValueWrapper
+        struct CustomNamedWrapper: BasicValueWrapper
         {
             typealias Value = String
 
@@ -82,8 +82,7 @@ extension WrapperTests
         }
 
         struct WrapperWithSpec: ValueWrapper,
-            AutoDisplayNamed,
-            WithSpecification
+            AutoDisplayNamed
         {
             typealias Specification = LastName
 
@@ -99,8 +98,7 @@ extension WrapperTests
 
         //---
 
-        struct CustomNamedWrapperWithSpec: ValueWrapper,
-            WithSpecification
+        struct CustomNamedWrapperWithSpec: ValueWrapper
         {
             typealias Specification = LastName
 
@@ -124,7 +122,7 @@ extension WrapperTests
 
     func testSingleValueCodable()
     {
-        struct ImplicitlyCodableWrapper: ValueWrapper,
+        struct ImplicitlyCodableWrapper: BasicValueWrapper,
             AutoDisplayNamed
         {
             typealias Value = String
@@ -154,7 +152,7 @@ extension WrapperTests
 
         //---
 
-        struct ExplicitlyCodableWrapper: ValueWrapper,
+        struct ExplicitlyCodableWrapper: BasicValueWrapper,
             SingleValueCodable,
             AutoDisplayNamed
         {
@@ -201,7 +199,7 @@ extension WrapperTests
 
     func testMandatoryBasic()
     {
-        struct BasicWrapper: ValueWrapper,
+        struct BasicWrapper: BasicValueWrapper,
             AutoDisplayNamed,
             AutoValidatable,
             Mandatory
@@ -215,9 +213,9 @@ extension WrapperTests
             func validate() throws {}
         }
 
-        let defaultReport = BasicWrapper.defaultEmptyValueReport
+        let defaultReport = Utils.defaultEmptyValueReport(for: BasicWrapper.self)
 
-        let valueNotSetError = BasicWrapper.reportEmptyValue()
+        let valueNotSetError = Utils.emptyValueError(for: BasicWrapper.self)
 
         XCTAssert(valueNotSetError.origin == BasicWrapper.displayName)
         XCTAssert(valueNotSetError.report == defaultReport)
@@ -247,8 +245,7 @@ extension WrapperTests
 
         struct WrapperWithSpec: ValueWrapper,
             AutoDisplayNamed,
-            Mandatory,
-            WithSpecification
+            Mandatory
         {
             typealias Specification = LastName
             typealias Value = LastName.Value
@@ -258,9 +255,9 @@ extension WrapperTests
             init(wrappedValue: Value) { self.value = wrappedValue }
         }
 
-        let defaultReport = WrapperWithSpec.defaultEmptyValueReport
+        let defaultReport = Utils.defaultEmptyValueReport(for: WrapperWithSpec.self)
 
-        let valueNotSetError = WrapperWithSpec.reportEmptyValue()
+        let valueNotSetError = Utils.emptyValueErrorWithSpec(for: WrapperWithSpec.self)
 
         XCTAssert(valueNotSetError.origin == WrapperWithSpec.displayName)
         XCTAssert(valueNotSetError.report != defaultReport)
@@ -284,7 +281,6 @@ extension WrapperTests
 
         struct WrapperWithSpec: ValueWrapper,
             AutoDisplayNamed,
-            WithSpecification,
             AutoValidatable
         {
             typealias Specification = LastName

@@ -24,43 +24,38 @@
 
  */
 
+/**
+ Special trait for 'BasicValueWrapper' protocol that allows to customize
+ 'Codable' protocol support and make the wrapper encode and decode itself
+ as a single value (because the only important thing stored inside wrapper
+ is teh value anyway, everything else belongs to type leve, not instance level).
+ Without this trait wrapper will rely on implicit 'Codable' support
+ provided by Swift itself and will be encoded as object/dictionary
+ with single entry (which is unnecessary complication): "{\"value\": \"XXX\"}"
+ */
 public
-extension ValueWrapper
-    where
-    Self: Validatable
+protocol SingleValueCodable: BasicValueWrapper, Trait {}
+
+//---
+
+public
+extension SingleValueCodable
 {
-    /**
-     Convenience initializer initializes wrapper and validates it
-     right away.
-     */
-    init(
-        validate value: Value
-        ) throws
+    func encode(to encoder: Encoder) throws
     {
-        self.init(wrappedValue: value)
-        try self.validate()
+        var container = encoder.singleValueContainer()
+
+        //---
+        
+        try container.encode(value)
     }
 
-    /**
-     Validate a given value without saving it.
-     */
-    static
-    func validate(
-        value: Value
-        ) throws
+    init(from decoder: Decoder) throws
     {
-        _ = try Self.init(validate: value)
-    }
+        let container = try decoder.singleValueContainer()
 
-    /**
-     Set new value and validate it in single operation.
-     */
-    mutating
-    func set(
-        _ newValue: Value
-        ) throws
-    {
-        value = newValue
-        try validate()
+        //---
+
+        self.init(wrappedValue: try container.decode(Value.self))
     }
 }

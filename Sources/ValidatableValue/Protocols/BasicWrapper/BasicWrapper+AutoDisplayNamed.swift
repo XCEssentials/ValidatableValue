@@ -24,37 +24,14 @@
 
  */
 
-extension Swift.Optional: BasicValueWrapper
+public
+extension BasicValueWrapper
     where
-    Wrapped: BasicValueWrapper
+    Self: AutoDisplayNamed
 {
-    public
-    typealias Value = Wrapped.Value?
-
-    public
-    var value: Value
+    static
+    var displayName: String
     {
-        get
-        {
-            switch self
-            {
-                case .none:
-                    return nil
-
-                case .some(let wrapper):
-                    return wrapper.value
-            }
-        }
-
-        set
-        {
-            self = newValue.map{ .some(.init(wrappedValue: $0)) } ?? .none
-        }
-    }
-
-    public
-    init(wrappedValue: Value)
-    {
-        self = wrappedValue.map{ .some(.init(wrappedValue: $0)) } ?? .none
+        return Utils.intrinsicDisplayName(for: Self.Value.self)
     }
 }

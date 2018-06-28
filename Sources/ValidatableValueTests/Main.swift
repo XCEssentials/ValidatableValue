@@ -466,7 +466,7 @@ extension MainTests
 //        }
 //    }
 //
-//    func testSomeConstantValueWrapper()
+//    func testSomeConstantBasicValueWrapper()
 //    {
 //        Assert("Constant value is valid").isTrue
 //        {
@@ -481,7 +481,7 @@ extension MainTests
 //        }
 //    }
 //
-//    func testFirstNameValueWrapper()
+//    func testFirstNameBasicValueWrapper()
 //    {
 //        Assert("Initially 'firstName' is NOT valid").isTrue
 //        {

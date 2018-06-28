@@ -28,7 +28,7 @@ import Foundation
 
 //---
 
-enum Utils
+extension Utils
 {
     static
     func intrinsicDisplayName<T>(

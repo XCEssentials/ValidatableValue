@@ -24,58 +24,58 @@
 
  */
 
-public
-func << <VV, T>(
-    container: inout VV,
-    newValue: T
-    ) throws
-    where
-    VV: Validatable & ValueWrapper,
-    VV.Value == T
-{
-    try container.set(newValue)
-}
-
-//---
-
-infix operator <?
-
-//---
-
-public
-func <? <VV, T>(
-    container: inout VV,
-    newValue: T
-    )
-    where
-    VV: ValueWrapper,
-    VV.Value == T
-{
-    container.value = newValue
-}
-
-//---
-
-public
-func == <VV, T>(
-    container: VV,
-    value: T?
-    ) -> Bool
-    where
-    VV: ValueWrapper,
-    VV.Value == T
-{
-    return container.value == value
-}
-
-public
-func == <VV, T>(
-    value: T?,
-    container: VV
-    ) -> Bool
-    where
-    VV: ValueWrapper,
-    VV.Value == T
-{
-    return container.value == value
-}
+//public
+//func << <VV, T>(
+//    container: inout VV,
+//    newValue: T
+//    ) throws
+//    where
+//    VV: Validatable & ValueWrapper,
+//    VV.Value == T
+//{
+//    try container.set(newValue)
+//}
+//
+////---
+//
+//infix operator <?
+//
+////---
+//
+//public
+//func <? <VV, T>(
+//    container: inout VV,
+//    newValue: T
+//    )
+//    where
+//    VV: ValueWrapper,
+//    VV.Value == T
+//{
+//    container.value = newValue
+//}
+//
+////---
+//
+//public
+//func == <VV, T>(
+//    container: VV,
+//    value: T?
+//    ) -> Bool
+//    where
+//    VV: ValueWrapper,
+//    VV.Value == T
+//{
+//    return container.value == value
+//}
+//
+//public
+//func == <VV, T>(
+//    value: T?,
+//    container: VV
+//    ) -> Bool
+//    where
+//    VV: ValueWrapper,
+//    VV.Value == T
+//{
+//    return container.value == value
+//}

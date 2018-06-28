@@ -90,7 +90,7 @@ extension Swift.Optional
         switch self
         {
             case .none:
-                throw Wrapped.reportEmptyValue()
+                throw Utils.emptyValueErrorWithSpec(for: Wrapped.self)
 
             case .some(let wrapper):
                 return try wrapper.validValue()

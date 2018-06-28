@@ -33,7 +33,6 @@ public
 struct WrapperOf<T: ValueSpecification>: ValueWrapper,
     SingleValueCodable,
     AutoDisplayNamed,
-    WithSpecification,
     AutoValidatable,
     AutoValidValue
 {
@@ -64,7 +63,6 @@ public
 struct WrapperOfMandatory<T: ValueSpecification>: ValueWrapper,
     SingleValueCodable,
     AutoDisplayNamed,
-    WithSpecification,
     AutoValidatable,
     AutoValidValue,
     Mandatory

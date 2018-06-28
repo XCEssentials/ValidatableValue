@@ -32,20 +32,6 @@ extension ValueWrapper
     static
     var displayName: String
     {
-        return Utils.intrinsicDisplayName(for: self)
-    }
-}
-
-//---
-
-public
-extension ValueWrapper
-    where
-    Self: AutoDisplayNamed & WithSpecification
-{
-    static
-    var displayName: String
-    {
         return Specification.displayName
     }
 }

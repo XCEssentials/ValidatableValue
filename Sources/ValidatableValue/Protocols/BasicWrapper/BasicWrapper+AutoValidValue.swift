@@ -24,18 +24,52 @@
 
  */
 
-/**
- General purpose value wrapper that can store any
- kind of value inside.
- */
 public
-protocol ValueWrapper: Codable & Equatable, DisplayNamed
+protocol AutoValidValue: Trait {}
+
+//---
+
+public
+extension BasicValueWrapper
+    where
+    Self: Validatable & AutoValidValue
 {
-    associatedtype Value: Codable & Equatable
+    func validValue(
+        ) throws -> Self.Value
+    {
+        try validate()
 
-    //---
+        //---
 
-    init(wrappedValue: Value)
+        return value
+    }
 
-    var value: Value { get set }
+    /**
+     Validates and returns 'value' regardless of its validity,
+     puts any encountered validation errors in the 'collectError'
+     array. Any unexpected occured error (except 'ValidationError')
+     will be thrown immediately.
+     */
+    func validValue(
+        _ collectError: inout [ValidationError]
+        ) throws -> Self.Value
+    {
+        do
+        {
+            try validate()
+        }
+        catch let error as ValidationError
+        {
+            collectError.append(error)
+        }
+        catch
+        {
+            // an unexpected error should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return value // return value regardless of its validity!
+    }
 }

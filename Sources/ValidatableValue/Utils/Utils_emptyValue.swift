@@ -24,60 +24,50 @@
 
  */
 
-public
-protocol AutoValidValue: Trait {}
+extension Utils
+{
+    static
+    func emptyValueError<T: BasicValueWrapper>(
+        for _: T.Type
+        ) -> ValidationError
+    {
+        return ValidationError.mandatoryValueIsNotSet(
+            origin: T.displayName,
+            report: defaultEmptyValueReport(for: T.self)
+        )
+    }
+
+    static
+    func emptyValueErrorWithSpec<T: ValueWrapper>(
+        for _: T.Type
+        ) -> ValidationError
+    {
+        return ValidationError.mandatoryValueIsNotSet(
+            origin: T.displayName,
+            report: T.Specification.prepareReport(
+                value: nil,
+                failedConditions: [],
+                builtInValidationIssues: [],
+                suggestedReport: defaultEmptyValueReport(for: T.self)
+            )
+        )
+    }
+}
 
 //---
 
-public
-extension AutoValidValue
-    where
-    Self: Validatable & ValueWrapper
+//private
+extension Utils
 {
-    public
-    typealias ValidValue = Self.Value
-
-    public
-    typealias EnforcedValidValue = Self.Value
-
-    //---
-
-    func validValue(
-        ) throws -> ValidValue
+    static
+    func defaultEmptyValueReport<T: DisplayNamed>(
+        for _: T.Type
+        ) -> Report
     {
-        try validate()
-
-        //---
-
-        return value
-    }
-
-    /**
-     Validates and returns 'value' regardless of its validity,
-     puts any encountered validation errors in the 'collectError'
-     array. Any unexpected occured error (except 'ValidationError')
-     will be thrown immediately.
-     */
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> EnforcedValidValue
-    {
-        do
-        {
-            try validate()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return value // return value regardless of its validity!
+        return (
+            "\"\(T.displayName)\" is empty",
+            "\"\(T.displayName)\" is empty, but expected to be non-empty."
+        )
     }
 }
+

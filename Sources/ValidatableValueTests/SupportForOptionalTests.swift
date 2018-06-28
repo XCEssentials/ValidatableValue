@@ -50,9 +50,9 @@ extension SupportForOptionalTests
         XCTAssert(type(of: obj).displayName == SomeObj.displayName)
     }
 
-    func testBasicValueWrapper()
+    func testBasicBasicValueWrapper()
     {
-        struct SomeWrapper: ValueWrapper,
+        struct SomeWrapper: BasicValueWrapper,
             AutoDisplayNamed
         {
             typealias Value = String
@@ -90,7 +90,6 @@ extension SupportForOptionalTests
 
         struct SomeWrapper: ValueWrapper,
             AutoDisplayNamed,
-            WithSpecification,
             AutoValidatable,
             AutoReporting
         {
@@ -179,7 +178,6 @@ extension SupportForOptionalTests
 
         struct MandatoryWrapper: ValueWrapper,
             AutoDisplayNamed,
-            WithSpecification,
             AutoValidatable,
             AutoReporting,
             Mandatory // <<<<------
@@ -255,7 +253,7 @@ extension SupportForOptionalTests
             )
         {
             XCTAssert(origin == MandatoryWrapper.displayName)
-            XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
+            XCTAssert(report == Utils.defaultEmptyValueReport(for: MandatoryWrapper.self))
         }
         catch
         {
@@ -281,7 +279,6 @@ extension SupportForOptionalTests
 
         struct WrapperWithSpec: ValueWrapper,
             AutoDisplayNamed,
-            WithSpecification,
             AutoValidatable
         {
             typealias Specification = FirstName
@@ -400,7 +397,7 @@ extension SupportForOptionalTests
         }
     }
 
-    func testOptionalValidatableValueWrapper()
+    func testOptionalValidatableBasicValueWrapper()
     {
         enum FirstName: ValueSpecification,
             AutoDisplayNamed,
@@ -415,7 +412,6 @@ extension SupportForOptionalTests
 
         struct SomeWrapper: ValueWrapper,
             AutoDisplayNamed,
-            WithSpecification,
             AutoValidatable,
             AutoReporting,
             AutoValidValue
@@ -598,7 +594,7 @@ extension SupportForOptionalTests
         }
     }
 
-    func testMandatoryValidatableValueWrapper()
+    func testMandatoryValidatableBasicValueWrapper()
     {
         enum FirstName: ValueSpecification,
             AutoDisplayNamed,
@@ -613,7 +609,6 @@ extension SupportForOptionalTests
 
         struct MandatoryWrapper: ValueWrapper,
             AutoDisplayNamed,
-            WithSpecification,
             AutoValidatable,
             AutoReporting,
             AutoValidValue,
@@ -758,7 +753,7 @@ extension SupportForOptionalTests
             )
         {
             XCTAssert(origin == MandatoryWrapper.displayName)
-            XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
+            XCTAssert(report == Utils.defaultEmptyValueReport(for: MandatoryWrapper.self))
         }
         catch
         {
@@ -788,7 +783,7 @@ extension SupportForOptionalTests
                 ) = issues[0]
             {
                 XCTAssert(origin == MandatoryWrapper.displayName)
-                XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
+                XCTAssert(report == Utils.defaultEmptyValueReport(for: MandatoryWrapper.self))
             }
             else
             {

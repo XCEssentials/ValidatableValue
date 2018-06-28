@@ -27,7 +27,7 @@
 public
 extension ValueWrapper
     where
-    Self: WithSpecification & AutoValidatable
+    Self: AutoValidatable
 {
     func validate() throws
     {
@@ -40,7 +40,7 @@ extension ValueWrapper
 private
 extension ValueWrapper
     where
-    Self: WithSpecification & AutoValidatable
+    Self: AutoValidatable
 {
     static
     func check(_ valueToCheck: Value) throws

@@ -25,15 +25,17 @@
  */
 
 /**
- Special trait for 'ValueWrapper' protocol that allows to define specification
- for the value stored in the wrapper. This technique allows to re-use same
- (generic) wrapper type for various values, altering wrapper characteristics
- and behaviour by providing diffrent value specifications in different contexts.
+ General purpose value wrapper that can store any
+ kind of value inside.
  */
 public
-protocol WithSpecification: ValueWrapper, Trait
-    where
-    Specification.Value == Self.Value
+protocol BasicValueWrapper: Codable & Equatable, DisplayNamed
 {
-    associatedtype Specification: ValueSpecification
+    associatedtype Value: Codable & Equatable
+
+    //---
+
+    init(wrappedValue: Value)
+
+    var value: Value { get set }
 }
