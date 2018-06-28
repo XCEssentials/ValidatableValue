@@ -25,116 +25,93 @@
  */
 
 // public
-extension Swift.Optional: ValidatableValueWrapper
+extension Swift.Optional: Validatable
     where
-    Wrapped: AutoValidValue,
-    Wrapped.ValidValue == Wrapped.Value,
-    Wrapped.EnforcedValidValue == Wrapped.Value
-{
-    // see various implementations below
-}
-
-//---
-
-public
-extension Swift.Optional
-    where
-    Wrapped: AutoValidValue,
-    Wrapped.ValidValue == Wrapped.Value,
-    Wrapped.EnforcedValidValue == Wrapped.Value
+    Wrapped: Validatable
 {
     public
-    func validValue() throws -> Value // NON-Mandatory!
+    func validate() throws
     {
-        switch self
-        {
-            case .none:
-                return nil // 'nil' is allowed
-
-            case .some(let wrapper):
-                return try wrapper.validValue()
-        }
-    }
-
-    public
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Value // NON-Mandatory!
-    {
-        do
-        {
-            try validate()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
-
-        //---
-
-        return value // just return value regardless of its validity!
+        // do nothing
     }
 }
 
 //---
 
-public
 extension Swift.Optional
     where
-    Wrapped: Mandatory, // <<<---
-    Wrapped: AutoValidValue,
-    Wrapped.ValidValue == Wrapped.Value,
-    Wrapped.EnforcedValidValue == Wrapped.Value
+    Wrapped: NonMandatoryValueWrapper
 {
-    func validValue() throws -> Wrapped.Value // Mandatory!
+    public
+    func validate() throws
+    {
+        if
+            case .some(let validatable) = self
+        {
+            try validatable.validate()
+        }
+    }
+}
+
+//---
+
+extension Swift.Optional //: Validatable
+    where
+    Wrapped: MandatoryValueWrapper
+{
+    public
+    func validate() throws
     {
         switch self
         {
             case .none:
                 throw Wrapped.reportEmptyValue()
 
-            case .some(let wrapper):
-                return try wrapper.validValue()
+            case .some(let validatable):
+                try validatable.validate()
         }
+    }
+}
+
+// MARK: - Convenience helpers
+
+public
+extension Swift.Optional
+    where
+    Wrapped: ValidatableValueWrapper
+{
+    /**
+     Convenience initializer initializes wrapper and validates it
+     right away.
+     */
+    init(
+        validate value: Value
+        ) throws
+    {
+        self = value.map{ .some(.init(wrappedValue: $0)) } ?? .none
+        try self.validate()
     }
 
     /**
-     This is a special getter that allows to get an optional valid value
-     OR collect an error, if stored value is invalid.
-     This helper function allows to collect issues from multiple
-     validateable values wihtout throwing an error immediately,
-     but received value should ONLY be used/read if the 'collectError'
-     is empty in the end.
+     Validate a given value without saving it.
      */
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Wrapped.Value! // Mandatory, implicitly unwrapped!
+    static
+        func validate(
+        value: Value
+        ) throws
     {
-        do
-        {
-            // NOTE: withing explicit result type
-            // it goes to a wrong version of the 'validValue()' func!
-            let result: Wrapped.Value = try validValue()
+        _ = try self.init(validate: value)
+    }
 
-            return result
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-
-            //---
-
-            return nil
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
+    /**
+     Set new value and validate it in single operation.
+     */
+    mutating
+    func set(
+        _ newValue: Value
+        ) throws
+    {
+        value = newValue
+        try validate()
     }
 }

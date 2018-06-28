@@ -34,7 +34,7 @@ struct ConditionUnsatisfied: Error
     let condition: String
 }
 
-//---
+//--- // swiftlint:disable identifier_name
 
 public
 enum ValidationError: Error

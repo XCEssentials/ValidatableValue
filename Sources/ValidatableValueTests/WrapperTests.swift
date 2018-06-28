@@ -201,9 +201,9 @@ extension WrapperTests
 
     func testMandatoryBasic()
     {
-        struct BasicWrapper: ValueWrapper,
+        struct BasicWrapper: MandatoryValueWrapper,
             AutoDisplayNamed,
-            Mandatory
+            AutoValidatable
         {
             typealias Value = Int
 

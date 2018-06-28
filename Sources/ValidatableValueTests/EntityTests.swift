@@ -37,6 +37,87 @@ class EntityTests: XCTestCase {}
 
 extension EntityTests
 {
+    func testConditionalConformance()
+    {
+        enum FirstName: BasicValueSpecification
+        {
+            typealias Value = String
+        }
+
+        struct SomeWrapper: ValueWrapper,
+            AutoDisplayNamed,
+            WithSpecification,
+            AutoValidatable,
+            AutoReporting
+        {
+            typealias Specification = FirstName
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(wrappedValue: Value)
+            {
+                self.value = wrappedValue
+            }
+        }
+
+        //---
+
+        let array: [Any] = [
+
+            "Sam",
+            SomeWrapper(wrappedValue: "John"),
+            Optional<SomeWrapper>(wrappedValue: "David") as Any
+        ]
+
+        let valElements = array.compactMap{ $0 as? Validatable }
+
+        print("Number of val members found: ---->>>>> \(valElements.count)")
+        XCTAssert(valElements.count == 2) // only works in Swift 4.2+
+    }
+
+    func testAllValidatableMembers()
+    {
+        enum FirstName: BasicValueSpecification
+        {
+            typealias Value = String
+        }
+
+        struct TheEntity: BasicEntity
+        {
+            var wrap1: WrapperOf<FirstName>
+            var wrap1Opt: WrapperOf<FirstName>?
+            var wrap2: WrapperOfMandatory<FirstName>
+            var wrap2Opt: WrapperOfMandatory<FirstName>?
+        }
+
+        let entity = TheEntity(
+            wrap1: .init(wrappedValue: ""),
+            wrap1Opt: .init(wrappedValue: ""),
+            wrap2: .init(wrappedValue: ""),
+            wrap2Opt: .init(wrappedValue: "")
+        )
+
+        //---
+
+        let allMembers = Mirror(reflecting: entity).children
+
+        allMembers.forEach
+        {
+            print("\n")
+
+            print($0.label!)
+            print(type(of: $0.value))
+            print($0.value is Validatable)
+        }
+
+        let valMembers = entity.allValidatableMembers
+
+        print("Number of val members found: ---->>>>> \(valMembers.count)")
+        XCTAssert(valMembers.count == allMembers.count)
+    }
+
     func testDisplayName()
     {
         struct SomeEntity: BasicEntity {}

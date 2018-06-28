@@ -24,17 +24,22 @@
 
  */
 
+public
+protocol NonMandatoryValueWrapper: ValidatableValueWrapper, Trait {}
+
+//---
+
 /**
  Special trait for 'ValueWrapper' protocol that indicates that
  empty value should be considered as invalid.
  */
 public
-protocol Mandatory: ValueWrapper, Trait {}
+protocol MandatoryValueWrapper: ValidatableValueWrapper, Trait {}
 
 //---
 
 // internal
-extension Mandatory
+extension MandatoryValueWrapper
 {
     static
     var defaultEmptyValueReport: Report
@@ -56,9 +61,9 @@ extension Mandatory
 }
 
 // internal
-extension Mandatory
+extension MandatoryValueWrapper
     where
-    Self: WithSpecification
+    Self: WithSpecification // ValueWrapper
 {
     static
     func reportEmptyValue() -> ValidationError

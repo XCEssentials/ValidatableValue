@@ -26,7 +26,7 @@
 
 import XCTest
 
-@testable
+//@testable
 import XCEValidatableValue
 
 //---
@@ -55,79 +55,95 @@ extension MainTests
 
 extension MainTests
 {
-//    func testDecoding()
-//    {
-//        struct SomeEntity: Codable
-//        {
-//            let name: String?
-//            let age: Int?
-//        }
-//
-//        let encodedUser = """
-//            {
-//                "age": 4
-//            }
-//            """
-//
-//        let encodedUserData = encodedUser.data(using: .utf8)!
-//
-//        //---
-//
-//        do
-//        {
-//            let decodedEntity = try JSONDecoder()
-//                .decode(
-//                    SomeEntity.self,
-//                    from: encodedUserData
-//            )
-//
-//            XCTAssert(decodedEntity.name == nil)
-//        }
-//        catch
-//        {
-//            print("")
-//            print("ERROR: ==>>> \(error)")
-//            print("")
-//            XCTFail("Should not get here ever")
-//        }
-//    }
+    func testAllValidatableMembers()
+    {
+        let allMembers = Mirror(reflecting: user).children
+        let valMembers = user.allValidatableMembers
 
-//    func testUserDecodingWithMissingOptionalBasicKey()
-//    {
-//        // NOTE: we are missing the 'phoneNumber' key in the JSON below!
-//
-//        let encodedUser = """
-//            {
-//                "someConstant": "4",
-//                "firstName": "John",
-//                "lastName": "Doe",
-//                "username": "John@google.com",
-//                "password": "sdfewq234r2f2!"
-//            }
-//            """
-//        let encodedUserData = encodedUser.data(using: .utf8)!
-//
-//        //---
-//
-//        do
-//        {
-//            let decodedUser = try JSONDecoder()
-//                .decode(
-//                    User.self,
-//                    from: encodedUserData
-//            )
-//
-//            XCTAssert(decodedUser.isValid == false)
-//        }
-//        catch
-//        {
-//            print("")
-//            print("ERROR: ==>>> \(error)")
-//            print("")
-//
-//            XCTFail("Should not get here ever")
-//        }
-//    }
+        print("Number of val members found: ---->>>>> \(valMembers.count)")
+        XCTAssert(valMembers.count == allMembers.count)
+    }
+
+    func testDecoding()
+    {
+        struct SomeEntity: Codable
+        {
+            let name: String?
+            let age: Int?
+        }
+
+        let encodedUser = """
+            {
+                "age": 4
+            }
+            """
+
+        let encodedUserData = encodedUser.data(using: .utf8)!
+
+        //---
+
+        do
+        {
+            let decodedEntity = try JSONDecoder()
+                .decode(
+                    SomeEntity.self,
+                    from: encodedUserData
+            )
+
+            XCTAssert(decodedEntity.name == nil)
+        }
+        catch
+        {
+            print("")
+            print("ERROR: ==>>> \(error)")
+            print("")
+            XCTFail("Should not get here ever")
+        }
+    }
+
+    func testUserDecodingWithMissingOptionalBasicKey()
+    {
+        // NOTE: we are missing the few
+        // keys in the JSON below!
+
+        let encodedUser = """
+            {
+                "username": "John@google.com",
+                "password": "sdfewq234r2f2!"
+            }
+            """
+        let encodedUserData = encodedUser.data(using: .utf8)!
+
+        //---
+
+        do
+        {
+            let decodedUser = try JSONDecoder()
+                .decode(
+                    User.self,
+                    from: encodedUserData
+            )
+
+            // 'firstName' is a required field,
+            // so when it's missing - it's invalid
+            XCTAssert(!decodedUser.firstName.isValid)
+
+            // 'lastName' is a NON-required field,
+            // so when it's missing - it's okay
+            XCTAssert(decodedUser.lastName.isValid)
+
+            // ovrall user us not supposed to be valid
+            XCTAssert(!decodedUser.isValid)
+        }
+        catch
+        {
+            print("")
+            print("ERROR: ==>>> \(error)")
+            print("")
+
+            XCTFail("Should not get here ever")
+        }
+    }
 
 //    func testDifferentUnwrapValue()
 //    {

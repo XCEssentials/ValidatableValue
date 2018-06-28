@@ -15,7 +15,7 @@
 		1CFBBF1C4C07F705FCE2F6D8 /* Trait.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87C3F56A0C3EFD08F3D6F4E /* Trait.swift */; };
 		2163E6E07A769F9096357319 /* Wrapper_SingleValueCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B20780C7FD7BEC3667673D9 /* Wrapper_SingleValueCodable.swift */; };
 		33EE7B1919E2DD69E5A04F13 /* Entity+AutoValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03454CAB2263329A0E36CA4 /* Entity+AutoValidatable.swift */; };
-		343453DCF50CEF3E716CCF80 /* Optional+ValidatableValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7AD933366DC54473BB4991 /* Optional+ValidatableValueWrapper.swift */; };
+		343453DCF50CEF3E716CCF80 /* Optional+AutoValidValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7AD933366DC54473BB4991 /* Optional+AutoValidValue.swift */; };
 		3876C86FCA9D279CFA81862E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68265D8F8ECD9F8ED2D9622C /* User.swift */; };
 		3AD581DB981A1215FE987386 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0DE94DB9E3AAACF0393AA /* Validatable.swift */; };
 		3E1C01949F3FD8DC50385F5A /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300CAF1E28F0FBEBC6730B01 /* Main.swift */; };
@@ -27,12 +27,11 @@
 		5DB317F7B86F55EAF9B1B0AD /* DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EC13225694BE2427FFD447 /* DisplayNamed.swift */; };
 		63D4C0D0DAD35CF4AD468426 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E5F4EFAFB2A99E43FE4A3F /* Errors.swift */; };
 		645C11E24C358C6932FF18C6 /* Spec_SkipBuiltInValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4813AAB3C75560475FBFD671 /* Spec_SkipBuiltInValidation.swift */; };
-		66D821985AC656B5A3671AF2 /* Optional+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C394091C16ED29574E4EF1C6 /* Optional+Validatable.swift */; };
+		66D821985AC656B5A3671AF2 /* Optional+ValidatableValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C394091C16ED29574E4EF1C6 /* Optional+ValidatableValueWrapper.swift */; };
 		672B708BAF37BED1D8E4AAB8 /* Spec+AutoDisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F1C493FC204E2E60D585CC /* Spec+AutoDisplayNamed.swift */; };
 		67668922A16DB79C90262F14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD94D9F8533549367BC031D5 /* Foundation.framework */; };
 		6A95C869D294EE52909F5E82 /* Pods_Common_ValidatableValueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3079DC809DB8184B97AD190 /* Pods_Common_ValidatableValueTests.framework */; };
 		6AA9673207596830E0C9E2AA /* Pods_Common_ValidatableValue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B28CC64698A454E0096DCD /* Pods_Common_ValidatableValue.framework */; };
-		76351B604A5FC7C98C3FDF0D /* Optional+Validatable&ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE95148322F25B3E14AD924 /* Optional+Validatable&ValueWrapper.swift */; };
 		76FAB3C25A3DD256578245D6 /* SpecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D33540CC98DF2642BE1945 /* SpecTests.swift */; };
 		781B9EC3C1974693FE451404 /* Entity_BasicEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB00235B93710575CAB08309 /* Entity_BasicEntity.swift */; };
 		78B937CBEA26BA38A9D11F06 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD94D9F8533549367BC031D5 /* Foundation.framework */; };
@@ -41,6 +40,7 @@
 		7B517B963382B333123A2CF7 /* Entity+AutoReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BBFECC7E2B18F32920301 /* Entity+AutoReporting.swift */; };
 		87F3EC35335ED647DCF99A41 /* ReportReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5B212DEAF2277242064967 /* ReportReview.swift */; };
 		8F8D53588226F4AA8D6A136D /* Spec_BasicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A1A0AEC99F40137CF37346 /* Spec_BasicValue.swift */; };
+		94AFEFF220E52CB70031C118 /* Optional+Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AFEFF120E52CB70031C118 /* Optional+Wrapper.swift */; };
 		9DF83E6AC7B174DFEBDCBFE4 /* BoolFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */; };
 		9ECE53D448ABDEC8E7099A7F /* Wrapper_WithSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8EEA67FAA1B9F30D67771 /* Wrapper_WithSpecification.swift */; };
 		A06EE71B4E1AFE9431FB9AEA /* Wrapper+Spec&AutoValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B35ED89C15946F5914CB01 /* Wrapper+Spec&AutoValidatable.swift */; };
@@ -48,7 +48,7 @@
 		AE2DF798E6906D794BE7BA38 /* WrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76553EB3EE47043C4618064 /* WrapperTests.swift */; };
 		B33754FE3C9AE217597B2588 /* SupportForOptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F355EB3E1C89E57DDF0CE7 /* SupportForOptionalTests.swift */; };
 		B87702475B204DC284ED1FC1 /* ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E9A7351173D5382DC8B0B /* ValueWrapper.swift */; };
-		BDA9D6EFCCE72B3AF0103B17 /* Wrapper_Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */; };
+		BDA9D6EFCCE72B3AF0103B17 /* ValidatableWrapper_Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05720A4067400E1FB730EE26 /* ValidatableWrapper_Mandatory.swift */; };
 		C39E0540651731D5CB462B7A /* AutoDisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8E005CD0822A86A7D58581 /* AutoDisplayNamed.swift */; };
 		D035C561425F180B370870E9 /* ValidatableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3A5E9AD6F22EA93F69608 /* ValidatableWrapper.swift */; };
 		DE8014809B4D5C3E9A5A03FD /* Wrapper+AutoDisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588EB75313C187FFB02A0DAA /* Wrapper+AutoDisplayNamed.swift */; };
@@ -94,7 +94,7 @@
 /* Begin PBXFileReference section */
 		0349DBD228CE7D96B6C92F07 /* Pods-Common-ValidatableValue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Common-ValidatableValue.release.xcconfig"; path = "Pods/Target Support Files/Pods-Common-ValidatableValue/Pods-Common-ValidatableValue.release.xcconfig"; sourceTree = "<group>"; };
 		0427A861E0251B925598C2FE /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Wrapper_Mandatory.swift; sourceTree = "<group>"; };
+		05720A4067400E1FB730EE26 /* ValidatableWrapper_Mandatory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValidatableWrapper_Mandatory.swift; sourceTree = "<group>"; };
 		16029DFCCD9DA4C60F0069BD /* EntityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EntityTests.swift; sourceTree = "<group>"; };
 		19071020C9FF0E0CBB38736F /* Pods-Common-ValidatableValueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Common-ValidatableValueTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Common-ValidatableValueTests/Pods-Common-ValidatableValueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1B20780C7FD7BEC3667673D9 /* Wrapper_SingleValueCodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Wrapper_SingleValueCodable.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		3F2B0AAA034AD406EE714DE6 /* Entity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		46EC13225694BE2427FFD447 /* DisplayNamed.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DisplayNamed.swift; sourceTree = "<group>"; };
 		4813AAB3C75560475FBFD671 /* Spec_SkipBuiltInValidation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Spec_SkipBuiltInValidation.swift; sourceTree = "<group>"; };
-		4E7AD933366DC54473BB4991 /* Optional+ValidatableValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+ValidatableValueWrapper.swift"; sourceTree = "<group>"; };
+		4E7AD933366DC54473BB4991 /* Optional+AutoValidValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+AutoValidValue.swift"; sourceTree = "<group>"; };
 		50318270D48C94067B9E1D60 /* ValidatableWrapper_AutoValidValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValidatableWrapper_AutoValidValue.swift; sourceTree = "<group>"; };
 		5170A30FBACFFB704A0B3C67 /* AutoValidatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AutoValidatable.swift; sourceTree = "<group>"; };
 		576A5C1B8ADBDB9036DFF2F8 /* Condition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
@@ -118,9 +118,9 @@
 		75B35ED89C15946F5914CB01 /* Wrapper+Spec&AutoValidatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Wrapper+Spec&AutoValidatable.swift"; sourceTree = "<group>"; };
 		7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BoolFlag.swift; sourceTree = "<group>"; };
 		82D3A5E9AD6F22EA93F69608 /* ValidatableWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValidatableWrapper.swift; sourceTree = "<group>"; };
-		8AE95148322F25B3E14AD924 /* Optional+Validatable&ValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+Validatable&ValueWrapper.swift"; sourceTree = "<group>"; };
 		8B77D2EF65C0CF3712DCE3FE /* XCEValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = XCEValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE4FB8EB51C5B41883B628F /* ValidatableValueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ValidatableValueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94AFEFF120E52CB70031C118 /* Optional+Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Wrapper.swift"; sourceTree = "<group>"; };
 		9B6E9A7351173D5382DC8B0B /* ValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValueWrapper.swift; sourceTree = "<group>"; };
 		9E0BBFECC7E2B18F32920301 /* Entity+AutoReporting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Entity+AutoReporting.swift"; sourceTree = "<group>"; };
 		9FF0DE94DB9E3AAACF0393AA /* Validatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 		A5848C7EDC2C2E1F20F5C209 /* Optional+ValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+ValueWrapper.swift"; sourceTree = "<group>"; };
 		AAFEA98D2F6C88CEFB12334F /* AutoReporting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AutoReporting.swift; sourceTree = "<group>"; };
 		C0F355EB3E1C89E57DDF0CE7 /* SupportForOptionalTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SupportForOptionalTests.swift; sourceTree = "<group>"; };
-		C394091C16ED29574E4EF1C6 /* Optional+Validatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+Validatable.swift"; sourceTree = "<group>"; };
+		C394091C16ED29574E4EF1C6 /* Optional+ValidatableValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+ValidatableValueWrapper.swift"; sourceTree = "<group>"; };
 		C3B28CC64698A454E0096DCD /* Pods_Common_ValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common_ValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6F8EEA67FAA1B9F30D67771 /* Wrapper_WithSpecification.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Wrapper_WithSpecification.swift; sourceTree = "<group>"; };
 		CB00235B93710575CAB08309 /* Entity_BasicEntity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Entity_BasicEntity.swift; sourceTree = "<group>"; };
@@ -182,10 +182,10 @@
 		0F39A3BA577FE1A0F36406AD /* OptionalExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				94AFEFF120E52CB70031C118 /* Optional+Wrapper.swift */,
 				E0D2AA7FAC11C2366821F306 /* Optional+DisplayNamed.swift */,
-				C394091C16ED29574E4EF1C6 /* Optional+Validatable.swift */,
-				8AE95148322F25B3E14AD924 /* Optional+Validatable&ValueWrapper.swift */,
-				4E7AD933366DC54473BB4991 /* Optional+ValidatableValueWrapper.swift */,
+				C394091C16ED29574E4EF1C6 /* Optional+ValidatableValueWrapper.swift */,
+				4E7AD933366DC54473BB4991 /* Optional+AutoValidValue.swift */,
 				A5848C7EDC2C2E1F20F5C209 /* Optional+ValueWrapper.swift */,
 			);
 			path = OptionalExtensions;
@@ -242,7 +242,6 @@
 				588EB75313C187FFB02A0DAA /* Wrapper+AutoDisplayNamed.swift */,
 				75B35ED89C15946F5914CB01 /* Wrapper+Spec&AutoValidatable.swift */,
 				5BD7108CB869301E48473A09 /* Wrapper+Validatable.swift */,
-				05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */,
 				1B20780C7FD7BEC3667673D9 /* Wrapper_SingleValueCodable.swift */,
 				C6F8EEA67FAA1B9F30D67771 /* Wrapper_WithSpecification.swift */,
 			);
@@ -292,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				82D3A5E9AD6F22EA93F69608 /* ValidatableWrapper.swift */,
+				05720A4067400E1FB730EE26 /* ValidatableWrapper_Mandatory.swift */,
 				50318270D48C94067B9E1D60 /* ValidatableWrapper_AutoValidValue.swift */,
 			);
 			path = ValidatableValueWrapper;
@@ -314,15 +314,15 @@
 		79B7C62BD00A0123EF91B78D /* ValidatableValue */ = {
 			isa = PBXGroup;
 			children = (
-				373C76B791DAA779A4C1EB96 /* BuiltInWrappers.swift */,
+				A0B695DB864152114BA0C0C5 /* Utils.swift */,
+				EC5B212DEAF2277242064967 /* ReportReview.swift */,
 				576A5C1B8ADBDB9036DFF2F8 /* Condition.swift */,
 				A0E5F4EFAFB2A99E43FE4A3F /* Errors.swift */,
+				AD98AA106EED8BBBC5395D56 /* Protocols */,
+				0F39A3BA577FE1A0F36406AD /* OptionalExtensions */,
 				EE507207F5DD1C956A5AE282 /* Helpers */,
 				0427A861E0251B925598C2FE /* Operators.swift */,
-				0F39A3BA577FE1A0F36406AD /* OptionalExtensions */,
-				AD98AA106EED8BBBC5395D56 /* Protocols */,
-				EC5B212DEAF2277242064967 /* ReportReview.swift */,
-				A0B695DB864152114BA0C0C5 /* Utils.swift */,
+				373C76B791DAA779A4C1EB96 /* BuiltInWrappers.swift */,
 			);
 			path = ValidatableValue;
 			sourceTree = "<group>";
@@ -330,14 +330,14 @@
 		AD98AA106EED8BBBC5395D56 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				4A112AF2031ECECB1C1A5211 /* _SharedTraits */,
 				46EC13225694BE2427FFD447 /* DisplayNamed.swift */,
-				1343680109615B4FDF41D987 /* Spec */,
 				E87C3F56A0C3EFD08F3D6F4E /* Trait.swift */,
 				9FF0DE94DB9E3AAACF0393AA /* Validatable.swift */,
-				6CA89EE727A176963DA779B2 /* ValidatableEntity */,
-				6CBA28C65F64B91CBC86EA6A /* ValidatableValueWrapper */,
+				4A112AF2031ECECB1C1A5211 /* _SharedTraits */,
+				1343680109615B4FDF41D987 /* Spec */,
 				2D3F7F3D016F3C175D618448 /* ValueWrapper */,
+				6CBA28C65F64B91CBC86EA6A /* ValidatableValueWrapper */,
+				6CA89EE727A176963DA779B2 /* ValidatableEntity */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -366,7 +366,6 @@
 			buildConfigurationList = F321F23CEE941E6633A7A3D9 /* Build configuration list for PBXNativeTarget "ValidatableValue" */;
 			buildPhases = (
 				9241F04AA49D9877CCD67B98 /* [CP] Check Pods Manifest.lock */,
-				3B060858380EBD9713E1F86B /* SwiftLint */,
 				C2979A1DA56992C977002F07 /* Sources */,
 				4C6FE3C4983D6E10282B6CBA /* Frameworks */,
 				B8123065BD4D0A89C46898BF /* Embed Frameworks */,
@@ -385,7 +384,6 @@
 			buildConfigurationList = 48CCBF66CEF49D7CD68C4910 /* Build configuration list for PBXNativeTarget "ValidatableValueTests" */;
 			buildPhases = (
 				51F131A1DC9581C56FE73129 /* [CP] Check Pods Manifest.lock */,
-				3A234DB518EF194102489F88 /* SwiftLint */,
 				0E1A7FB6E5C99C4A00753135 /* Sources */,
 				398C194DF8CFD981CBCBB2A8 /* Frameworks */,
 				DCE286785D8C3C961249CF68 /* Embed Frameworks */,
@@ -409,6 +407,14 @@
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0940;
 				Struct.Version = 2.1.0;
+				TargetAttributes = {
+					E45DEEB4D86BD2998D12AB7F = {
+						LastSwiftMigration = 1000;
+					};
+					F24F84C51A0C6F9347C01FF0 = {
+						LastSwiftMigration = 1000;
+					};
+				};
 			};
 			buildConfigurationList = C2310FB0570443331452B78F /* Build configuration list for PBXProject "ValidatableValue" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -429,34 +435,6 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3A234DB518EF194102489F88 /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi";
-		};
-		3B060858380EBD9713E1F86B /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi";
-		};
 		51F131A1DC9581C56FE73129 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -518,6 +496,7 @@
 				47CEF0884DA2C054366EC0D0 /* AutoReporting.swift in Sources */,
 				02368C5947E245A78273FF01 /* AutoValidatable.swift in Sources */,
 				9DF83E6AC7B174DFEBDCBFE4 /* BoolFlag.swift in Sources */,
+				94AFEFF220E52CB70031C118 /* Optional+Wrapper.swift in Sources */,
 				E29146193C431356A3D2FDA9 /* BuiltInWrappers.swift in Sources */,
 				5CCE5F28A988731C5479BD27 /* Condition.swift in Sources */,
 				5DB317F7B86F55EAF9B1B0AD /* DisplayNamed.swift in Sources */,
@@ -529,9 +508,8 @@
 				63D4C0D0DAD35CF4AD468426 /* Errors.swift in Sources */,
 				58F029B90F0FE1D90DF65961 /* Operators.swift in Sources */,
 				79052C1E3D8C753FA3877DDF /* Optional+DisplayNamed.swift in Sources */,
-				76351B604A5FC7C98C3FDF0D /* Optional+Validatable&ValueWrapper.swift in Sources */,
-				66D821985AC656B5A3671AF2 /* Optional+Validatable.swift in Sources */,
-				343453DCF50CEF3E716CCF80 /* Optional+ValidatableValueWrapper.swift in Sources */,
+				66D821985AC656B5A3671AF2 /* Optional+ValidatableValueWrapper.swift in Sources */,
+				343453DCF50CEF3E716CCF80 /* Optional+AutoValidValue.swift in Sources */,
 				E2021D6F57612ED7359B6D07 /* Optional+ValueWrapper.swift in Sources */,
 				87F3EC35335ED647DCF99A41 /* ReportReview.swift in Sources */,
 				672B708BAF37BED1D8E4AAB8 /* Spec+AutoDisplayNamed.swift in Sources */,
@@ -549,7 +527,7 @@
 				DE8014809B4D5C3E9A5A03FD /* Wrapper+AutoDisplayNamed.swift in Sources */,
 				A06EE71B4E1AFE9431FB9AEA /* Wrapper+Spec&AutoValidatable.swift in Sources */,
 				F3234AF4FA7863B19C82EF49 /* Wrapper+Validatable.swift in Sources */,
-				BDA9D6EFCCE72B3AF0103B17 /* Wrapper_Mandatory.swift in Sources */,
+				BDA9D6EFCCE72B3AF0103B17 /* ValidatableWrapper_Mandatory.swift in Sources */,
 				2163E6E07A769F9096357319 /* Wrapper_SingleValueCodable.swift in Sources */,
 				9ECE53D448ABDEC8E7099A7F /* Wrapper_WithSpecification.swift in Sources */,
 			);
