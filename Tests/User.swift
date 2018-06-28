@@ -26,18 +26,13 @@
 
 import Foundation
 
+// only publically available members!
 import XCEValidatableValue
 
 // MARK: - User
 
-//struct User: ValidatableEntity,
-//    AutoDisplayNamed,
-//    AutoReporting
-//{
-//    static
-//    var someConstantValue: Int { return 3 }
-//
-//    //---
+struct User: BasicEntity
+{
 //    // let someConstant: MandatoryBasic<Int>? = someConstantValue.wrapped()
 //    //
 //    // var firstName: MandatoryCustom<FirstName>? = FirstName.wrapped()
@@ -50,10 +45,8 @@ import XCEValidatableValue
 //    //
 //    // var password: MandatoryCustom<Password>? = Password.wrapped() //
 //
-//    //---
-//
-//    let someConstant = someConstantValue.wrapped()
-//
+    //---
+
 //    var firstName = FirstName.wrapped()
 //
 //    var lastName = LastName?.wrapped()
@@ -61,12 +54,78 @@ import XCEValidatableValue
 //    var username = Username.wrapped() // rely on implicit 'displayName'!
 //
 //    var password = Password.wrapped() // rely on implicit 'displayName'!
-//
+
+//    var experience: WrapperOf<Experience>?
+//    var experience: Experience.Wrapper?
+
 //    var phoneNumber: String?
-//}
-//
-//// MARK: - User: Representations
-//
+}
+
+// MARK: - User: Value Specs
+
+extension User
+{
+    enum Experience: BasicValueSpecification //yrs
+    {
+        typealias Value = UInt
+    }
+
+    enum FirstName: ValueSpecification,
+        AutoDisplayNamed,
+        AutoReporting
+    {
+        static
+        let conditions = [
+
+            String.checkNonEmpty
+        ]
+    }
+
+    enum LastName: BasicValueSpecification
+    {
+        typealias Value = String
+    }
+
+    enum Username: ValueSpecification,
+        AutoDisplayNamed,
+        AutoReporting
+    {
+        static
+        let conditions = [
+
+            String.checkNonEmpty,
+            Check("Valid email address", String.isValidEmail)
+        ]
+    }
+
+    enum Password: ValueSpecification,
+        AutoDisplayNamed,
+        AutoReporting
+    {
+        static
+        let conditions: Conditions<String> = [
+
+            Check("Lenght between 8 and 30 characters")
+            { 8...30 ~= $0.count },
+            Check("Has at least 1 capital character")
+            { 1 <= Pwd.caps.count(at: $0) },
+            Check("Has at least 4 lower characters")
+            { 4 <= Pwd.lows.count(at: $0) },
+            Check("Has at least 1 digit character")
+            { 1 <= Pwd.digits.count(at: $0) },
+            Check("Has at least 1 special character")
+            { 1 <= Pwd.specials.count(at: $0) },
+            Check("""
+                    Consists of lowercase letters, decimal digits and
+                    following characters: ,.!?@#$%^&*()-_+=
+                    """)
+            { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+        ]
+    }
+}
+
+// MARK: - User: Representations
+
 //extension User
 //{
 ////    typealias Draft = (
@@ -124,86 +183,6 @@ import XCEValidatableValue
 //        {
 //            throw issues.asValidationIssues(for: self)
 //        }
-//    }
-//}
-//
-//// MARK: - User: Validators & Name Providers
-//
-//extension User
-//{
-//    static
-//    let someNewSpecReportMessage = "This is a static message for all errors"
-//
-//    enum SomeNewSpec: ValueSpecification,
-//        AutoDisplayNamed
-//    {
-//        static
-//        let conditions = [
-//
-//            String.checkNonEmpty
-//        ]
-//
-//        static
-//        let reportReview: ValueReportReview = {
-//
-//            $1.title = "Title"
-//            $1.message = someNewSpecReportMessage
-//        }
-//    }
-//
-//    enum FirstName: ValueSpecification,
-//        AutoDisplayNamed,
-//        AutoReporting
-//    {
-//        static
-//        let conditions = [
-//
-//            String.checkNonEmpty
-//        ]
-//    }
-//
-//    enum LastName: ValueSpecification,
-//        AutoDisplayNamed,
-//        NoConditions
-//    {
-//        typealias Value = String
-//    }
-//
-//    enum Username: ValueSpecification,
-//        AutoDisplayNamed,
-//        AutoReporting
-//    {
-//        static
-//        let conditions = [
-//
-//            String.checkNonEmpty,
-//            Check("Valid email address", String.isValidEmail)
-//        ]
-//    }
-//
-//    enum Password: ValueSpecification,
-//        AutoDisplayNamed,
-//        AutoReporting
-//    {
-//        static
-//        let conditions: Conditions<String> = [
-//
-//            Check("Lenght between 8 and 30 characters")
-//            { 8...30 ~= $0.count },
-//            Check("Has at least 1 capital character")
-//            { 1 <= Pwd.caps.count(at: $0) },
-//            Check("Has at least 4 lower characters")
-//            { 4 <= Pwd.lows.count(at: $0) },
-//            Check("Has at least 1 digit character")
-//            { 1 <= Pwd.digits.count(at: $0) },
-//            Check("Has at least 1 special character")
-//            { 1 <= Pwd.specials.count(at: $0) },
-//            Check("""
-//                    Consists of lowercase letters, decimal digits and
-//                    following characters: ,.!?@#$%^&*()-_+=
-//                    """)
-//            { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
-//        ]
 //    }
 //}
 

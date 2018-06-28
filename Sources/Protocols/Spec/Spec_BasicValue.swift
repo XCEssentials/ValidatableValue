@@ -25,7 +25,7 @@
  */
 
 public
-protocol BasicValue: // ValueSpecification,
+protocol BasicValueSpecification: // ValueSpecification,
     AutoDisplayNamed,
     NoConditions,
     AutoReporting

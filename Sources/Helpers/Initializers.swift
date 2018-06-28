@@ -24,22 +24,9 @@
 
  */
 
-// MARK: - Optional + Specification
-
-public
-extension Swift.Optional
-    where
-    Wrapped: ValueSpecification
-{
-    typealias Wrapper = WrapperOf<Wrapped>
-}
-
-// MARK: - Mandatory + Specification
-
 public
 extension ValueSpecification
-    where
-    Self.Value: Codable & Equatable
 {
-    typealias Wrapper = WrapperOfMandatory<Self>
+    typealias Wrapper = WrapperOf<Self>
+    typealias MandatoryWrapper = WrapperOfMandatory<Self>
 }

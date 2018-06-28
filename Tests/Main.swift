@@ -33,28 +33,52 @@ import XCEValidatableValue
 
 class MainTests: XCTestCase
 {
-//    var user = User()
+    var user = User()
 }
 
 // MARK: - Overrides
 
-//extension MainTests
-//{
-//    override
-//    func setUp()
-//    {
-//        super.setUp()
-//
-//        //---
-//
+extension MainTests
+{
+    override
+    func setUp()
+    {
+        super.setUp()
+
+        //---
+
 //        user = User()
-//    }
-//}
+    }
+}
 
 // MARK: - Tests
 
 extension MainTests
 {
+//    func testSpecCustomreport()
+//    {
+//        // TODO: move to the 'SpecTests' file!
+//        static
+//        let someNewSpecReportMessage = "This is a static message for all errors"
+//
+//        enum SomeNewSpec: ValueSpecification,
+//            AutoDisplayNamed
+//        {
+//            static
+//            let conditions = [
+//
+//                String.checkNonEmpty
+//            ]
+//
+//            static
+//            let reviewReport: ValueReportReview = {
+//
+//                $1.title = "Title"
+//                $1.message = someNewSpecReportMessage
+//            }
+//        }
+//    }
+//
 //    func testDecoding()
 //    {
 //        struct SomeEntity: Codable
