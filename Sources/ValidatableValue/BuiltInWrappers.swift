@@ -30,7 +30,7 @@
  value ('nil') is considered to be valid.
  */
 public
-struct WrapperOf<T: ValueSpecification>: NonMandatoryValueWrapper,
+struct WrapperOf<T: ValueSpecification>: ValueWrapper,
     SingleValueCodable,
     AutoDisplayNamed,
     WithSpecification,
@@ -61,12 +61,13 @@ typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
  value ('nil') is considered to be NOT valid.
  */
 public
-struct WrapperOfMandatory<T: ValueSpecification>: MandatoryValueWrapper,
+struct WrapperOfMandatory<T: ValueSpecification>: ValueWrapper,
     SingleValueCodable,
     AutoDisplayNamed,
     WithSpecification,
     AutoValidatable,
-    AutoValidValue
+    AutoValidValue,
+    Mandatory
 {
     public
     typealias Specification = T

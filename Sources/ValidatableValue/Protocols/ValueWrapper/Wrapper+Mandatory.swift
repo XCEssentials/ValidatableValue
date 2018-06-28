@@ -24,58 +24,55 @@
 
  */
 
+/**
+ Special trait for 'ValueWrapper' protocol that indicates that
+ empty value should be considered as invalid.
+ */
 public
-protocol AutoValidValue: ValidatableValueWrapper, Trait {}
+protocol Mandatory: Trait {}
 
 //---
 
-public
-extension AutoValidValue
+// internal
+extension Mandatory
+    where
+    Self: ValueWrapper
 {
-    public
-    typealias ValidValue = Self.Value
-
-    public
-    typealias EnforcedValidValue = Self.Value
-
-    //---
-
-    func validValue(
-        ) throws -> ValidValue
+    static
+    var defaultEmptyValueReport: Report
     {
-        try validate()
-
-        //---
-
-        return value
+        return (
+            "\"\(displayName)\" is empty",
+            "\"\(displayName)\" is empty, but expected to be non-empty."
+        )
     }
 
-    /**
-     Validates and returns 'value' regardless of its validity,
-     puts any encountered validation errors in the 'collectError'
-     array. Any unexpected occured error (except 'ValidationError')
-     will be thrown immediately.
-     */
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> EnforcedValidValue
+    static
+    func reportEmptyValue() -> ValidationError
     {
-        do
-        {
-            try validate()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
+        return ValidationError.mandatoryValueIsNotSet(
+            origin: displayName,
+            report: Self.defaultEmptyValueReport
+        )
+    }
+}
 
-        //---
-
-        return value // return value regardless of its validity!
+// internal
+extension Mandatory
+    where
+    Self: WithSpecification // ValueWrapper
+{
+    static
+    func reportEmptyValue() -> ValidationError
+    {
+        return ValidationError.mandatoryValueIsNotSet(
+            origin: displayName,
+            report: Self.Specification.prepareReport(
+                value: nil,
+                failedConditions: [],
+                builtInValidationIssues: [],
+                suggestedReport: Self.defaultEmptyValueReport
+            )
+        )
     }
 }

@@ -24,8 +24,60 @@
 
  */
 
-/**
- Special protocol that unites in one protocol 'Wrapper' and 'Validatable'.
- */
 public
-protocol ValidatableValueWrapper: ValueWrapper & Validatable {}
+protocol AutoValidValue: Trait {}
+
+//---
+
+public
+extension AutoValidValue
+    where
+    Self: Validatable & ValueWrapper
+{
+    public
+    typealias ValidValue = Self.Value
+
+    public
+    typealias EnforcedValidValue = Self.Value
+
+    //---
+
+    func validValue(
+        ) throws -> ValidValue
+    {
+        try validate()
+
+        //---
+
+        return value
+    }
+
+    /**
+     Validates and returns 'value' regardless of its validity,
+     puts any encountered validation errors in the 'collectError'
+     array. Any unexpected occured error (except 'ValidationError')
+     will be thrown immediately.
+     */
+    func validValue(
+        _ collectError: inout [ValidationError]
+        ) throws -> EnforcedValidValue
+    {
+        do
+        {
+            try validate()
+        }
+        catch let error as ValidationError
+        {
+            collectError.append(error)
+        }
+        catch
+        {
+            // an unexpected error should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return value // return value regardless of its validity!
+    }
+}

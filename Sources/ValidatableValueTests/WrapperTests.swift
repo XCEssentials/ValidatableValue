@@ -201,15 +201,18 @@ extension WrapperTests
 
     func testMandatoryBasic()
     {
-        struct BasicWrapper: MandatoryValueWrapper,
+        struct BasicWrapper: ValueWrapper,
             AutoDisplayNamed,
-            AutoValidatable
+            AutoValidatable,
+            Mandatory
         {
             typealias Value = Int
 
             var value: Value
 
             init(wrappedValue: Value) { self.value = wrappedValue }
+
+            func validate() throws {}
         }
 
         let defaultReport = BasicWrapper.defaultEmptyValueReport

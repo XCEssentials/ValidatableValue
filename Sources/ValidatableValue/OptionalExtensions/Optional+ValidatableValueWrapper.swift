@@ -24,23 +24,44 @@
 
  */
 
+protocol Mark {}
+
+protocol Mark1: Mark {}
+protocol Mark2: Mark {}
+
+struct Wrap11: Mark1 {}
+struct Wrap12: Mark1 {}
+
+struct Wrap21: Mark2 {}
+struct Wrap22: Mark2 {}
+
+struct Final<T: Mark> {}
+
+typealias First<T: Mark1> = Final<T>
+typealias Second<T: Mark2> = Final<T>
+
+struct SomeStr
+{
+    let prop1: First<Wrap12>
+}
+
+// EXPLORE non-generic protocols, they allow to type cast in run-time!
+
+//---
+
 // public
 extension Swift.Optional: Validatable
     where
-    Wrapped: Validatable
+    Wrapped: Validatable & ValueWrapper
 {
-    public
-    func validate() throws
-    {
-        // do nothing
-    }
+    //
 }
 
 //---
 
 extension Swift.Optional
     where
-    Wrapped: NonMandatoryValueWrapper
+    Wrapped: Validatable & ValueWrapper
 {
     public
     func validate() throws
@@ -57,7 +78,7 @@ extension Swift.Optional
 
 extension Swift.Optional //: Validatable
     where
-    Wrapped: MandatoryValueWrapper
+    Wrapped: Validatable & ValueWrapper & Mandatory
 {
     public
     func validate() throws
@@ -78,7 +99,7 @@ extension Swift.Optional //: Validatable
 public
 extension Swift.Optional
     where
-    Wrapped: ValidatableValueWrapper
+    Wrapped: Validatable & ValueWrapper
 {
     /**
      Convenience initializer initializes wrapper and validates it

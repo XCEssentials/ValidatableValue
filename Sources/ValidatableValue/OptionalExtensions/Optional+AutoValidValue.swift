@@ -25,11 +25,9 @@
  */
 
 // public
-extension Swift.Optional: ValidatableValueWrapper
+extension Swift.Optional
     where
-    Wrapped: AutoValidValue,
-    Wrapped.ValidValue == Wrapped.Value,
-    Wrapped.EnforcedValidValue == Wrapped.Value
+    Wrapped: Validatable & ValueWrapper & AutoValidValue
 {
     // see various implementations below
 }
@@ -39,9 +37,7 @@ extension Swift.Optional: ValidatableValueWrapper
 public
 extension Swift.Optional
     where
-    Wrapped: AutoValidValue,
-    Wrapped.ValidValue == Wrapped.Value,
-    Wrapped.EnforcedValidValue == Wrapped.Value
+    Wrapped: Validatable & ValueWrapper & AutoValidValue
 {
     public
     func validValue() throws -> Value // NON-Mandatory!
@@ -86,10 +82,8 @@ extension Swift.Optional
 public
 extension Swift.Optional
     where
-    Wrapped: MandatoryValueWrapper, // <<<---
-    Wrapped: AutoValidValue,
-    Wrapped.ValidValue == Wrapped.Value,
-    Wrapped.EnforcedValidValue == Wrapped.Value
+    Wrapped: Mandatory, // <<<---
+    Wrapped: Validatable & ValueWrapper & AutoValidValue
 {
     func validValue() throws -> Wrapped.Value // Mandatory!
     {

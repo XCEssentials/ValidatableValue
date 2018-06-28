@@ -88,7 +88,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: ValidatableValueWrapper,
+        struct SomeWrapper: ValueWrapper,
             AutoDisplayNamed,
             WithSpecification,
             AutoValidatable,
@@ -177,7 +177,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: ValidatableValueWrapper,
+        struct MandatoryWrapper: ValueWrapper,
             AutoDisplayNamed,
             WithSpecification,
             AutoValidatable,
@@ -279,7 +279,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct WrapperWithSpec: ValidatableValueWrapper,
+        struct WrapperWithSpec: ValueWrapper,
             AutoDisplayNamed,
             WithSpecification,
             AutoValidatable
@@ -413,7 +413,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: ValidatableValueWrapper,
+        struct SomeWrapper: ValueWrapper,
             AutoDisplayNamed,
             WithSpecification,
             AutoValidatable,
@@ -611,7 +611,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: ValidatableValueWrapper,
+        struct MandatoryWrapper: ValueWrapper,
             AutoDisplayNamed,
             WithSpecification,
             AutoValidatable,
