@@ -44,7 +44,6 @@
 		9DF83E6AC7B174DFEBDCBFE4 /* BoolFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */; };
 		9ECE53D448ABDEC8E7099A7F /* Wrapper_WithSpecification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F8EEA67FAA1B9F30D67771 /* Wrapper_WithSpecification.swift */; };
 		A06EE71B4E1AFE9431FB9AEA /* Wrapper+Spec&AutoValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B35ED89C15946F5914CB01 /* Wrapper+Spec&AutoValidatable.swift */; };
-		A91414E8C9A77018D2BFA23B /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF60F198DB276B332B98D47 /* Initializers.swift */; };
 		AB713226C1890CEB05826325 /* ValidatableWrapper_AutoValidValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50318270D48C94067B9E1D60 /* ValidatableWrapper_AutoValidValue.swift */; };
 		AE2DF798E6906D794BE7BA38 /* WrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76553EB3EE47043C4618064 /* WrapperTests.swift */; };
 		B33754FE3C9AE217597B2588 /* SupportForOptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F355EB3E1C89E57DDF0CE7 /* SupportForOptionalTests.swift */; };
@@ -107,7 +106,6 @@
 		3F2B0AAA034AD406EE714DE6 /* Entity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		46EC13225694BE2427FFD447 /* DisplayNamed.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DisplayNamed.swift; sourceTree = "<group>"; };
 		4813AAB3C75560475FBFD671 /* Spec_SkipBuiltInValidation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Spec_SkipBuiltInValidation.swift; sourceTree = "<group>"; };
-		4AF60F198DB276B332B98D47 /* Initializers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
 		4E7AD933366DC54473BB4991 /* Optional+ValidatableValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+ValidatableValueWrapper.swift"; sourceTree = "<group>"; };
 		50318270D48C94067B9E1D60 /* ValidatableWrapper_AutoValidValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ValidatableWrapper_AutoValidValue.swift; sourceTree = "<group>"; };
 		5170A30FBACFFB704A0B3C67 /* AutoValidatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AutoValidatable.swift; sourceTree = "<group>"; };
@@ -275,7 +273,7 @@
 			isa = PBXGroup;
 			children = (
 			);
-			name = "$local";
+			name = $local;
 			sourceTree = "<group>";
 		};
 		6CA89EE727A176963DA779B2 /* ValidatableEntity */ = {
@@ -356,7 +354,6 @@
 			isa = PBXGroup;
 			children = (
 				7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */,
-				4AF60F198DB276B332B98D47 /* Initializers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -530,7 +527,6 @@
 				7946EA64C09C2BA6CD25D67C /* Entity.swift in Sources */,
 				781B9EC3C1974693FE451404 /* Entity_BasicEntity.swift in Sources */,
 				63D4C0D0DAD35CF4AD468426 /* Errors.swift in Sources */,
-				A91414E8C9A77018D2BFA23B /* Initializers.swift in Sources */,
 				58F029B90F0FE1D90DF65961 /* Operators.swift in Sources */,
 				79052C1E3D8C753FA3877DDF /* Optional+DisplayNamed.swift in Sources */,
 				76351B604A5FC7C98C3FDF0D /* Optional+Validatable&ValueWrapper.swift in Sources */,

@@ -33,43 +33,21 @@ import XCEValidatableValue
 
 struct User: BasicEntity
 {
-//    // let someConstant: MandatoryBasic<Int>? = someConstantValue.wrapped()
-//    //
-//    // var firstName: MandatoryCustom<FirstName>? = FirstName.wrapped()
-//    //
-//    // var lastName: OptionalCustom<LastName>? = LastName?.wrapped()
-//    //
-//    // var phoneNum: OptionalBasic<String>? = String?.wrapped()
-//    //
-//    // var username: MandatoryCustom<Username>? = Username.wrapped() //
-//    //
-//    // var password: MandatoryCustom<Password>? = Password.wrapped() //
-//
-    //---
+    var firstName: Required<FirstName>?
 
-//    var firstName = FirstName.wrapped()
-//
-//    var lastName = LastName?.wrapped()
-//
-//    var username = Username.wrapped() // rely on implicit 'displayName'!
-//
-//    var password = Password.wrapped() // rely on implicit 'displayName'!
+    var lastName: NonRequired<LastName>?
 
-//    var experience: WrapperOf<Experience>?
-//    var experience: Experience.Wrapper?
+    var username: Required<Username>?
 
-//    var phoneNumber: String?
+    var password: Required<Password>?
+
+    var experience: NonRequired<Experience>?
 }
 
 // MARK: - User: Value Specs
 
 extension User
 {
-    enum Experience: BasicValueSpecification //yrs
-    {
-        typealias Value = UInt
-    }
-
     enum FirstName: ValueSpecification,
         AutoDisplayNamed,
         AutoReporting
@@ -121,6 +99,11 @@ extension User
                     """)
             { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
         ]
+    }
+
+    enum Experience: BasicValueSpecification //yrs
+    {
+        typealias Value = UInt
     }
 }
 

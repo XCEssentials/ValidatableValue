@@ -24,6 +24,11 @@
 
  */
 
+/**
+ Value stored in this wrapper will be validated acording to the
+ provided specification. When this wrapper is optional - the empty
+ value ('nil') is considered to be valid.
+ */
 public
 struct WrapperOf<T: ValueSpecification>: ValidatableValueWrapper,
     SingleValueCodable,
@@ -45,8 +50,16 @@ struct WrapperOf<T: ValueSpecification>: ValidatableValueWrapper,
     init(wrappedValue: Value) { self.value = wrappedValue }
 }
 
+public
+typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
+
 //---
 
+/**
+ Value stored in this wrapper will be validated acording to the
+ provided specification. When this wrapper is optional - the empty
+ value ('nil') is considered to be NOT valid.
+ */
 public
 struct WrapperOfMandatory<T: ValueSpecification>: ValidatableValueWrapper,
     SingleValueCodable,
@@ -68,3 +81,6 @@ struct WrapperOfMandatory<T: ValueSpecification>: ValidatableValueWrapper,
     public
     init(wrappedValue: Value) { self.value = wrappedValue }
 }
+
+public
+typealias Required<T: ValueSpecification> = WrapperOfMandatory<T>
