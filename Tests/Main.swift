@@ -29,11 +29,9 @@ import XCTest
 @testable
 import XCEValidatableValue
 
-import XCETesting
-
 //---
 
-class OLDTests: XCTestCase
+class MainTests: XCTestCase
 {
 //    var user = User()
 }
@@ -55,7 +53,7 @@ class OLDTests: XCTestCase
 
 // MARK: - Tests
 
-extension OLDTests
+extension MainTests
 {
 //    func testDecoding()
 //    {
