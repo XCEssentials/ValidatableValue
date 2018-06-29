@@ -117,7 +117,8 @@ extension SpecTests
     func testCustomValueReport()
     {
         enum LastName: ValueSpecification,
-            NoConditions
+            NoConditions,
+            CustomValueReport
         {
             static
             let customReport = ("This is", "it!")

@@ -25,13 +25,13 @@
  */
 
 public
-extension ValueSpecification
-    where
-    Self: AutoReporting
+protocol CustomValueReport: Trait
 {
+    /**
+     This closure allows to customize/override default validation
+     failure reports. This is helpful to add/set some custom copy
+     to the report, including for localization purposes.
+     */
     static
-    var reviewReport: ValueReportReview
-    {
-        return { _, _ in }
-    }
+    var reviewReport: ValueReportReview { get }
 }

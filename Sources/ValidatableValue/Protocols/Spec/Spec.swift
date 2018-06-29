@@ -47,13 +47,7 @@ protocol ValueSpecification: DisplayNamed
     static
     var performBuiltInValidation: Bool { get }
 
-    /**
-     This closure allows to customize/override default validation
-     failure reports. This is helpful to add/set some custom copy
-     to the report, including for localization purposes.
-     */
-    static
-    var reviewReport: ValueReportReview { get }
+
 }
 
 //---
@@ -104,14 +98,18 @@ extension ValueSpecification
 
         //---
 
-        let context = ValueReportContext(
-            origin: displayName,
-            value: value,
-            failedConditions: failedConditions,
-            builtInValidationIssues: builtInValidationIssues
-        )
+        if
+            let cutomReporting = self as? CustomValueReport.Type
+        {
+            let context = ValueReportContext(
+                origin: displayName,
+                value: value,
+                failedConditions: failedConditions,
+                builtInValidationIssues: builtInValidationIssues
+            )
 
-        reviewReport(context, &result)
+            cutomReporting.reviewReport(context, &result)
+        }
 
         //---
 
