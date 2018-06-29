@@ -38,7 +38,6 @@
 		7946EA64C09C2BA6CD25D67C /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2B0AAA034AD406EE714DE6 /* Entity.swift */; };
 		7B517B963382B333123A2CF7 /* Entity_CustomEntityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BBFECC7E2B18F32920301 /* Entity_CustomEntityReport.swift */; };
 		87F3EC35335ED647DCF99A41 /* ReportReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5B212DEAF2277242064967 /* ReportReview.swift */; };
-		8F8D53588226F4AA8D6A136D /* Spec_BasicValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A1A0AEC99F40137CF37346 /* Spec_BasicValue.swift */; };
 		9455BB5920E57D15003589FD /* BasicWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455BB5820E57D15003589FD /* BasicWrapper.swift */; };
 		9455BB5F20E5847E003589FD /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455BB5E20E5847D003589FD /* Utils.swift */; };
 		9DF83E6AC7B174DFEBDCBFE4 /* BoolFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */; };
@@ -50,7 +49,7 @@
 		BDA9D6EFCCE72B3AF0103B17 /* Wrapper_Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */; };
 		C39E0540651731D5CB462B7A /* CustomDisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8E005CD0822A86A7D58581 /* CustomDisplayNamed.swift */; };
 		DE8014809B4D5C3E9A5A03FD /* Wrapper_displayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588EB75313C187FFB02A0DAA /* Wrapper_displayName.swift */; };
-		DEAC653C3A29AC61289C0647 /* Spec_NoConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF526BB35B222C73EC42C98 /* Spec_NoConditions.swift */; };
+		DEAC653C3A29AC61289C0647 /* Spec_Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF526BB35B222C73EC42C98 /* Spec_Basic.swift */; };
 		E2021D6F57612ED7359B6D07 /* Optional+ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5848C7EDC2C2E1F20F5C209 /* Optional+ValueWrapper.swift */; };
 		E29146193C431356A3D2FDA9 /* BuiltInWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C76B791DAA779A4C1EB96 /* BuiltInWrappers.swift */; };
 		F3234AF4FA7863B19C82EF49 /* BasicWrapper+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD7108CB869301E48473A09 /* BasicWrapper+Validatable.swift */; };
@@ -130,7 +129,7 @@
 		C3B28CC64698A454E0096DCD /* Pods_Common_ValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common_ValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB00235B93710575CAB08309 /* Entity_BasicEntity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Entity_BasicEntity.swift; sourceTree = "<group>"; };
 		CD94D9F8533549367BC031D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		CEF526BB35B222C73EC42C98 /* Spec_NoConditions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Spec_NoConditions.swift; sourceTree = "<group>"; };
+		CEF526BB35B222C73EC42C98 /* Spec_Basic.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Spec_Basic.swift; sourceTree = "<group>"; };
 		D5F1C493FC204E2E60D585CC /* Spec_displayName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Spec_displayName.swift; sourceTree = "<group>"; };
 		D6F2CD420FBB0E07C361048C /* ConditionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConditionTests.swift; sourceTree = "<group>"; };
 		D76553EB3EE47043C4618064 /* WrapperTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WrapperTests.swift; sourceTree = "<group>"; };
@@ -141,7 +140,6 @@
 		EC5B212DEAF2277242064967 /* ReportReview.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ReportReview.swift; sourceTree = "<group>"; };
 		F03454CAB2263329A0E36CA4 /* Entity+AutoValidatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Entity+AutoValidatable.swift"; sourceTree = "<group>"; };
 		F3079DC809DB8184B97AD190 /* Pods_Common_ValidatableValueTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common_ValidatableValueTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5A1A0AEC99F40137CF37346 /* Spec_BasicValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Spec_BasicValue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,10 +198,9 @@
 			children = (
 				1C46AED961ADB6A4A4E336C3 /* Spec.swift */,
 				D5F1C493FC204E2E60D585CC /* Spec_displayName.swift */,
+				CEF526BB35B222C73EC42C98 /* Spec_Basic.swift */,
 				E626CDACA1C79BF2D729CD83 /* Spec_CustomValueReport.swift */,
 				4813AAB3C75560475FBFD671 /* Spec_SkipBuiltInValidation.swift */,
-				CEF526BB35B222C73EC42C98 /* Spec_NoConditions.swift */,
-				F5A1A0AEC99F40137CF37346 /* Spec_BasicValue.swift */,
 			);
 			path = Spec;
 			sourceTree = "<group>";
@@ -515,8 +512,7 @@
 				672B708BAF37BED1D8E4AAB8 /* Spec_displayName.swift in Sources */,
 				3F29D076DE7722DE209BE806 /* Spec_CustomValueReport.swift in Sources */,
 				114D28F34D0BE08BFEDB26E1 /* Spec.swift in Sources */,
-				8F8D53588226F4AA8D6A136D /* Spec_BasicValue.swift in Sources */,
-				DEAC653C3A29AC61289C0647 /* Spec_NoConditions.swift in Sources */,
+				DEAC653C3A29AC61289C0647 /* Spec_Basic.swift in Sources */,
 				9455BB5920E57D15003589FD /* BasicWrapper.swift in Sources */,
 				645C11E24C358C6932FF18C6 /* Spec_SkipBuiltInValidation.swift in Sources */,
 				1CFBBF1C4C07F705FCE2F6D8 /* Trait.swift in Sources */,

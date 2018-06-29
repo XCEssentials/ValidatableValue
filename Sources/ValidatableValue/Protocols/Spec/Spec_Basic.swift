@@ -24,5 +24,22 @@
 
  */
 
+/**
+ Special version of 'ValueSpecification' protocol that automatically defines
+ 'conditions' as an empty list, hence the spec won't indicate any validation
+ issues no matter what is the 'value'.
+ */
 public
-protocol BasicValueSpecification: /* ValueSpecification, */ NoConditions {}
+protocol BasicValueSpecification: ValueSpecification {}
+
+//---
+
+public
+extension BasicValueSpecification
+{
+    static
+    var conditions: [Condition<Value>]
+    {
+        return []
+    }
+}
