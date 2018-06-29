@@ -57,7 +57,7 @@ extension User
         ]
     }
 
-    enum LastName: BasicValueSpecification
+    enum LastName: ValueSpecification
     {
         typealias Value = String
     }
@@ -95,7 +95,7 @@ extension User
         ]
     }
 
-    enum Experience: BasicValueSpecification //yrs
+    enum Experience: ValueSpecification //yrs
     {
         typealias Value = UInt
     }

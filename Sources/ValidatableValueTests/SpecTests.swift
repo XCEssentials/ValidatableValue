@@ -39,7 +39,7 @@ extension SpecTests
 {
     func testSkipBuiltInValidation()
     {
-        enum LastName: BasicValueSpecification
+        enum LastName: ValueSpecification
         {
             typealias Value = String
         }
@@ -48,7 +48,7 @@ extension SpecTests
 
         //---
 
-        enum LastName2: BasicValueSpecification,
+        enum LastName2: ValueSpecification,
             SkipBuiltInValidation
         {
             typealias Value = String
@@ -71,24 +71,24 @@ extension SpecTests
         }
 
         XCTAssert(FirstName.conditions.count == 1)
-        XCTAssert(try FirstName.collectFailedConditions("").count == 1)
-        XCTAssert(try FirstName.collectFailedConditions("asdasdq").count == 0)
+        XCTAssert(try FirstName.failedConditions(for: "").count == 1)
+        XCTAssert(try FirstName.failedConditions(for: "asdasdq").count == 0)
 
         //---
 
-        enum LastName: BasicValueSpecification
+        enum LastName: ValueSpecification
         {
             typealias Value = String
         }
 
-        // XCTAssert(LastName.conditions.count == 0) // should NOT even compile!
-        XCTAssert(try LastName.collectFailedConditions("").count == 0) // 0!
-        XCTAssert(try LastName.collectFailedConditions("asdasdq").count == 0)
+        XCTAssert(LastName.conditions.count == 0) // should NOT even compile!
+        XCTAssert(try LastName.failedConditions(for: "").count == 0) // 0!
+        XCTAssert(try LastName.failedConditions(for: "asdasdq").count == 0)
     }
 
     func testDefaultValueReport()
     {
-        enum FirstName: BasicValueSpecification
+        enum FirstName: ValueSpecification
         {
             typealias Value = String
         }
@@ -107,7 +107,7 @@ extension SpecTests
 
     func testCustomValueReport()
     {
-        enum LastName: BasicValueSpecification,
+        enum LastName: ValueSpecification,
             CustomValueReport
         {
             static
@@ -147,7 +147,7 @@ extension SpecTests
 
     func testDisplayName()
     {
-        enum FirstName: BasicValueSpecification
+        enum FirstName: ValueSpecification
         {
             typealias Value = String
         }
@@ -156,7 +156,7 @@ extension SpecTests
 
         //---
 
-        enum LastName: BasicValueSpecification
+        enum LastName: ValueSpecification
         {
             typealias Value = String
 

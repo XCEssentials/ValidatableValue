@@ -45,8 +45,7 @@ extension ValueWrapper
     static
     func check(_ valueToCheck: Value) throws
     {
-        let failedConditions = try Specification
-            .collectFailedConditions(valueToCheck)
+        let failedConditions = try Specification.failedConditions(for: valueToCheck)
 
         //---
 

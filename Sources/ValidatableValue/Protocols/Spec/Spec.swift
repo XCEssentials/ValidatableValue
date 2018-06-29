@@ -42,6 +42,18 @@ protocol ValueSpecification: DisplayNamed
 
 //---
 
+public
+extension ValueSpecification
+{
+    static
+    var conditions: [Condition<Value>]
+    {
+        return []
+    }
+}
+
+//---
+
 // internal
 extension ValueSpecification
 {
@@ -57,8 +69,8 @@ extension ValueSpecification
     }
 
     static
-    func collectFailedConditions(
-        _ valueToCheck: Self.Value
+    func failedConditions(
+        for valueToCheck: Self.Value
         ) throws -> [String]
     {
         var result: [String] = []

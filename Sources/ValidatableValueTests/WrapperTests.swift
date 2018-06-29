@@ -39,7 +39,7 @@ extension WrapperTests
 {
     func testDisplayName()
     {
-        enum LastName: BasicValueSpecification
+        enum LastName: ValueSpecification
         {
             typealias Value = String
         }
@@ -157,7 +157,7 @@ extension WrapperTests
 
     func testMandatoryWithSpec()
     {
-        enum LastName: BasicValueSpecification,
+        enum LastName: ValueSpecification,
             CustomValueReport
         {
             typealias Value = String

@@ -39,7 +39,7 @@ extension EntityTests
 {
     func testConditionalConformance()
     {
-        enum FirstName: BasicValueSpecification
+        enum FirstName: ValueSpecification
         {
             typealias Value = String
         }
@@ -76,7 +76,7 @@ extension EntityTests
 
     func testAllValidatableMembers()
     {
-        enum FirstName: BasicValueSpecification
+        enum FirstName: ValueSpecification
         {
             typealias Value = String
         }
