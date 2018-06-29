@@ -26,6 +26,7 @@
 
 /**
  Special trait for 'ValueWrapper' protocol that indicates that
+ in case the wrapper is wrapped itself in 'Swift.Optional' -
  empty value should be considered as invalid.
  */
 public

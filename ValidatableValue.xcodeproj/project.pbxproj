@@ -14,7 +14,6 @@
 		1CFBBF1C4C07F705FCE2F6D8 /* Trait.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87C3F56A0C3EFD08F3D6F4E /* Trait.swift */; };
 		2163E6E07A769F9096357319 /* BasicWrapper_SingleValueCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B20780C7FD7BEC3667673D9 /* BasicWrapper_SingleValueCodable.swift */; };
 		33EE7B1919E2DD69E5A04F13 /* Entity+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03454CAB2263329A0E36CA4 /* Entity+Validatable.swift */; };
-		343453DCF50CEF3E716CCF80 /* Optional+AutoValidValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7AD933366DC54473BB4991 /* Optional+AutoValidValue.swift */; };
 		3876C86FCA9D279CFA81862E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68265D8F8ECD9F8ED2D9622C /* User.swift */; };
 		3AD581DB981A1215FE987386 /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0DE94DB9E3AAACF0393AA /* Validatable.swift */; };
 		3E1C01949F3FD8DC50385F5A /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300CAF1E28F0FBEBC6730B01 /* Main.swift */; };
@@ -23,7 +22,7 @@
 		5DB317F7B86F55EAF9B1B0AD /* DisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EC13225694BE2427FFD447 /* DisplayNamed.swift */; };
 		63D4C0D0DAD35CF4AD468426 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E5F4EFAFB2A99E43FE4A3F /* Errors.swift */; };
 		645C11E24C358C6932FF18C6 /* Spec_SkipBuiltInValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4813AAB3C75560475FBFD671 /* Spec_SkipBuiltInValidation.swift */; };
-		66D821985AC656B5A3671AF2 /* Optional+ValidatableValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C394091C16ED29574E4EF1C6 /* Optional+ValidatableValueWrapper.swift */; };
+		66D821985AC656B5A3671AF2 /* Optional+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C394091C16ED29574E4EF1C6 /* Optional+Validatable.swift */; };
 		67668922A16DB79C90262F14 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD94D9F8533549367BC031D5 /* Foundation.framework */; };
 		6A95C869D294EE52909F5E82 /* Pods_Common_ValidatableValueTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3079DC809DB8184B97AD190 /* Pods_Common_ValidatableValueTests.framework */; };
 		6AA9673207596830E0C9E2AA /* Pods_Common_ValidatableValue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B28CC64698A454E0096DCD /* Pods_Common_ValidatableValue.framework */; };
@@ -37,12 +36,11 @@
 		9455BB5F20E5847E003589FD /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9455BB5E20E5847D003589FD /* Utils.swift */; };
 		9DF83E6AC7B174DFEBDCBFE4 /* BoolFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */; };
 		A06EE71B4E1AFE9431FB9AEA /* Wrapper+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B35ED89C15946F5914CB01 /* Wrapper+Validatable.swift */; };
-		AB713226C1890CEB05826325 /* BasicWrapper+AutoValidValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50318270D48C94067B9E1D60 /* BasicWrapper+AutoValidValue.swift */; };
 		AE2DF798E6906D794BE7BA38 /* WrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76553EB3EE47043C4618064 /* WrapperTests.swift */; };
 		B33754FE3C9AE217597B2588 /* SupportForOptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F355EB3E1C89E57DDF0CE7 /* SupportForOptionalTests.swift */; };
 		B87702475B204DC284ED1FC1 /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E9A7351173D5382DC8B0B /* Wrapper.swift */; };
 		BDA9D6EFCCE72B3AF0103B17 /* Wrapper_Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */; };
-		E2021D6F57612ED7359B6D07 /* Optional+ValueWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5848C7EDC2C2E1F20F5C209 /* Optional+ValueWrapper.swift */; };
+		E2021D6F57612ED7359B6D07 /* Optional+BasicWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5848C7EDC2C2E1F20F5C209 /* Optional+BasicWrapper.swift */; };
 		E29146193C431356A3D2FDA9 /* BuiltInWrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C76B791DAA779A4C1EB96 /* BuiltInWrappers.swift */; };
 /* End PBXBuildFile section */
 
@@ -92,8 +90,6 @@
 		3F2B0AAA034AD406EE714DE6 /* Entity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		46EC13225694BE2427FFD447 /* DisplayNamed.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DisplayNamed.swift; sourceTree = "<group>"; };
 		4813AAB3C75560475FBFD671 /* Spec_SkipBuiltInValidation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Spec_SkipBuiltInValidation.swift; sourceTree = "<group>"; };
-		4E7AD933366DC54473BB4991 /* Optional+AutoValidValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+AutoValidValue.swift"; sourceTree = "<group>"; };
-		50318270D48C94067B9E1D60 /* BasicWrapper+AutoValidValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "BasicWrapper+AutoValidValue.swift"; sourceTree = "<group>"; };
 		576A5C1B8ADBDB9036DFF2F8 /* Condition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
 		68265D8F8ECD9F8ED2D9622C /* User.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		74CCC36DA9C1C68C623815E4 /* Pods-Common-ValidatableValueTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Common-ValidatableValueTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Common-ValidatableValueTests/Pods-Common-ValidatableValueTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,9 +105,9 @@
 		9FF0DE94DB9E3AAACF0393AA /* Validatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		A0B695DB864152114BA0C0C5 /* Utils_displayName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utils_displayName.swift; sourceTree = "<group>"; };
 		A0E5F4EFAFB2A99E43FE4A3F /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		A5848C7EDC2C2E1F20F5C209 /* Optional+ValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+ValueWrapper.swift"; sourceTree = "<group>"; };
+		A5848C7EDC2C2E1F20F5C209 /* Optional+BasicWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+BasicWrapper.swift"; sourceTree = "<group>"; };
 		C0F355EB3E1C89E57DDF0CE7 /* SupportForOptionalTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SupportForOptionalTests.swift; sourceTree = "<group>"; };
-		C394091C16ED29574E4EF1C6 /* Optional+ValidatableValueWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+ValidatableValueWrapper.swift"; sourceTree = "<group>"; };
+		C394091C16ED29574E4EF1C6 /* Optional+Validatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Optional+Validatable.swift"; sourceTree = "<group>"; };
 		C3B28CC64698A454E0096DCD /* Pods_Common_ValidatableValue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common_ValidatableValue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD94D9F8533549367BC031D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D6F2CD420FBB0E07C361048C /* ConditionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConditionTests.swift; sourceTree = "<group>"; };
@@ -159,9 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				E0D2AA7FAC11C2366821F306 /* Optional+DisplayNamed.swift */,
-				A5848C7EDC2C2E1F20F5C209 /* Optional+ValueWrapper.swift */,
-				C394091C16ED29574E4EF1C6 /* Optional+ValidatableValueWrapper.swift */,
-				4E7AD933366DC54473BB4991 /* Optional+AutoValidValue.swift */,
+				A5848C7EDC2C2E1F20F5C209 /* Optional+BasicWrapper.swift */,
+				C394091C16ED29574E4EF1C6 /* Optional+Validatable.swift */,
 			);
 			path = OptionalExtensions;
 			sourceTree = "<group>";
@@ -277,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				9455BB5820E57D15003589FD /* BasicWrapper.swift */,
-				50318270D48C94067B9E1D60 /* BasicWrapper+AutoValidValue.swift */,
 				1B20780C7FD7BEC3667673D9 /* BasicWrapper_SingleValueCodable.swift */,
 			);
 			path = BasicWrapper;
@@ -466,9 +460,8 @@
 				63D4C0D0DAD35CF4AD468426 /* Errors.swift in Sources */,
 				58F029B90F0FE1D90DF65961 /* Operators.swift in Sources */,
 				79052C1E3D8C753FA3877DDF /* Optional+DisplayNamed.swift in Sources */,
-				66D821985AC656B5A3671AF2 /* Optional+ValidatableValueWrapper.swift in Sources */,
-				343453DCF50CEF3E716CCF80 /* Optional+AutoValidValue.swift in Sources */,
-				E2021D6F57612ED7359B6D07 /* Optional+ValueWrapper.swift in Sources */,
+				66D821985AC656B5A3671AF2 /* Optional+Validatable.swift in Sources */,
+				E2021D6F57612ED7359B6D07 /* Optional+BasicWrapper.swift in Sources */,
 				87F3EC35335ED647DCF99A41 /* ReportReviews.swift in Sources */,
 				114D28F34D0BE08BFEDB26E1 /* Spec.swift in Sources */,
 				9455BB5920E57D15003589FD /* BasicWrapper.swift in Sources */,
@@ -476,7 +469,6 @@
 				1CFBBF1C4C07F705FCE2F6D8 /* Trait.swift in Sources */,
 				0731CDAEBA02EB14F2A37878 /* Utils_displayName.swift in Sources */,
 				3AD581DB981A1215FE987386 /* Validatable.swift in Sources */,
-				AB713226C1890CEB05826325 /* BasicWrapper+AutoValidValue.swift in Sources */,
 				B87702475B204DC284ED1FC1 /* Wrapper.swift in Sources */,
 				9455BB5F20E5847E003589FD /* Utils.swift in Sources */,
 				A06EE71B4E1AFE9431FB9AEA /* Wrapper+Validatable.swift in Sources */,

@@ -30,6 +30,16 @@ protocol ValueWrapper: BasicValueWrapper, Validatable
     Self.Value == Specification.Value
 {
     associatedtype Specification: ValueSpecification
+
+    associatedtype ValidValue: Codable & Equatable
+    associatedtype EnforcedValidValue: Codable & Equatable
+
+    func validValue(
+        ) throws -> ValidValue
+
+    func validValue(
+        _ collectError: inout [ValidationError]
+        ) throws -> EnforcedValidValue
 }
 
 //---

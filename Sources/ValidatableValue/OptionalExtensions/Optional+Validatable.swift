@@ -25,11 +25,83 @@
  */
 
 // public
+extension Swift.Optional: Validatable
+    where
+    Wrapped: ValueWrapper
+{
+    public
+    func validate() throws
+    {
+        if
+            let mandatory = Wrapped.self as? Mandatory.Type
+        {
+            switch self
+            {
+                case .none:
+                    throw ValidationError.mandatoryValueIsNotSet(
+                        origin: Wrapped.displayName,
+                        report: Wrapped.Specification.prepareReport(
+                            value: nil,
+                            failedConditions: [],
+                            builtInValidationIssues: [],
+                            suggestedReport: mandatory.defaultEmptyValueReport
+                        )
+                    )
+
+                case .some(let validatable):
+                    try validatable.validate()
+            }
+        }
+        else
+        if
+            case .some(let validatable) = self
+        {
+            try validatable.validate()
+        }
+    }
+}
+
+// MARK: - Convenience helpers
+
+public
 extension Swift.Optional
     where
-    Wrapped: Validatable & ValueWrapper & AutoValidValue
+    Wrapped: ValueWrapper
 {
-    // see various implementations below
+    /**
+     Convenience initializer initializes wrapper and validates it
+     right away.
+     */
+    init(
+        validate value: Value
+        ) throws
+    {
+        self = value.map{ .some(.init(wrappedValue: $0)) } ?? .none
+        try self.validate()
+    }
+
+    /**
+     Validate a given value without saving it.
+     */
+    static
+    func validate(
+        value: Value
+        ) throws
+    {
+        _ = try self.init(validate: value)
+    }
+
+    /**
+     Set new value and validate it in single operation.
+     */
+    mutating
+    func set(
+        _ newValue: Value
+        ) throws
+    {
+        value = newValue
+        try validate()
+    }
 }
 
 //---
@@ -37,7 +109,7 @@ extension Swift.Optional
 public
 extension Swift.Optional
     where
-    Wrapped: Validatable & ValueWrapper & AutoValidValue
+    Wrapped: ValueWrapper
 {
     public
     func validValue() throws -> Value // NON-Mandatory!
@@ -82,8 +154,7 @@ extension Swift.Optional
 public
 extension Swift.Optional
     where
-    Wrapped: Mandatory, // <<<---
-    Wrapped: Validatable & ValueWrapper & AutoValidValue
+    Wrapped: ValueWrapper & Mandatory // <<<---
 {
     func validValue() throws -> Wrapped.Value // Mandatory!
     {
@@ -106,6 +177,7 @@ extension Swift.Optional
     }
 
     /**
+     CAREFUL!!! The result is implicitly unwrapped optional!
      This is a special getter that allows to get an optional valid value
      OR collect an error, if stored value is invalid.
      This helper function allows to collect issues from multiple
@@ -140,3 +212,4 @@ extension Swift.Optional
         }
     }
 }
+

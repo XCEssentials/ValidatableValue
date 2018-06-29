@@ -72,6 +72,45 @@ extension ValueWrapper
         value = newValue
         try validate()
     }
+
+    func validValue(
+        ) throws -> Self.Value
+    {
+        try validate()
+
+        //---
+
+        return value
+    }
+
+    /**
+     Validates and returns 'value' regardless of its validity,
+     puts any encountered validation errors in the 'collectError'
+     array. Any unexpected occured error (except 'ValidationError')
+     will be thrown immediately.
+     */
+    func validValue(
+        _ collectError: inout [ValidationError]
+        ) throws -> Self.Value
+    {
+        do
+        {
+            try validate()
+        }
+        catch let error as ValidationError
+        {
+            collectError.append(error)
+        }
+        catch
+        {
+            // an unexpected error should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return value // return value regardless of its validity!
+    }
 }
 
 // MARK: - Private validation helpers
