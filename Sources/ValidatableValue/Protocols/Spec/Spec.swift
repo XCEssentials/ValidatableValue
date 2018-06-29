@@ -38,14 +38,6 @@ protocol ValueSpecification: DisplayNamed
      */
     static
     var conditions: [Condition<Value>] { get }
-
-    /**
-     In case the 'Value' itself conforms to 'Validatable' protocol,
-     should we validate it during validation process, in addition to
-     check againts this specification conditions (if presented)?
-     */
-    static
-    var performBuiltInValidation: Bool { get }
 }
 
 //---
@@ -53,6 +45,17 @@ protocol ValueSpecification: DisplayNamed
 // internal
 extension ValueSpecification
 {
+    /**
+     In case the 'Value' itself conforms to 'Validatable' protocol,
+     should we validate it during validation process, in addition to
+     check againts this specification conditions (if presented)?
+     */
+    static
+    var performBuiltInValidation: Bool
+    {
+        return !(self is SkipBuiltInValidation.Type)
+    }
+
     static
     func collectFailedConditions(
         _ valueToCheck: Self.Value

@@ -25,5 +25,4 @@
  */
 
 public
-protocol BasicEntity: ValidatableEntity,
-    AutoValidatable{}
+protocol BasicEntity: ValidatableEntity, AutoValidatable {}

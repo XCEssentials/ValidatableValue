@@ -201,9 +201,9 @@
 				1C46AED961ADB6A4A4E336C3 /* Spec.swift */,
 				D5F1C493FC204E2E60D585CC /* Spec_displayName.swift */,
 				E626CDACA1C79BF2D729CD83 /* Spec_CustomValueReport.swift */,
-				F5A1A0AEC99F40137CF37346 /* Spec_BasicValue.swift */,
-				CEF526BB35B222C73EC42C98 /* Spec_NoConditions.swift */,
 				4813AAB3C75560475FBFD671 /* Spec_SkipBuiltInValidation.swift */,
+				CEF526BB35B222C73EC42C98 /* Spec_NoConditions.swift */,
+				F5A1A0AEC99F40137CF37346 /* Spec_BasicValue.swift */,
 			);
 			path = Spec;
 			sourceTree = "<group>";

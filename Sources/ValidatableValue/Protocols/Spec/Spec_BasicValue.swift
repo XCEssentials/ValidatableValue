@@ -25,6 +25,4 @@
  */
 
 public
-protocol BasicValueSpecification: // ValueSpecification,
-    NoConditions
-{}
+protocol BasicValueSpecification: /* ValueSpecification, */ NoConditions {}

@@ -30,28 +30,4 @@
  for values that support validation on their own.
  */
 public
-protocol SkipBuiltInValidation: ValueSpecification, Trait {}
-
-//---
-
-public
-extension SkipBuiltInValidation
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        return false
-    }
-}
-
-//---
-
-public
-extension ValueSpecification
-{
-    static
-    var performBuiltInValidation: Bool
-    {
-        return true
-    }
-}
+protocol SkipBuiltInValidation: Trait {}
