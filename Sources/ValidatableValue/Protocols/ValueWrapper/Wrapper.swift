@@ -31,3 +31,16 @@ protocol ValueWrapper: BasicValueWrapper
 {
     associatedtype Specification: ValueSpecification
 }
+
+//---
+
+public
+extension ValueWrapper
+{
+    static
+    var displayName: String
+    {
+        return Specification.displayName
+    }
+}
+

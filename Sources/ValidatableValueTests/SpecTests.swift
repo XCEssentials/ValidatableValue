@@ -152,7 +152,7 @@ extension SpecTests
             typealias Value = String
         }
 
-        XCTAssert(FirstName.displayName == "First Name")
+        XCTAssert(FirstName.displayName == FirstName.intrinsicDisplayName)
 
         //---
 
@@ -161,13 +161,13 @@ extension SpecTests
             typealias Value = String
 
             static
-            let customDisplayName = "This is custom name for the Value"
+            let someStr = "This is custom name for the Value"
 
             static
-            let displayName = customDisplayName
+            let displayName = someStr
         }
 
-        XCTAssert(LastName.displayName != "Last Name")
-        XCTAssert(LastName.displayName == LastName.customDisplayName)
+        XCTAssert(LastName.displayName != LastName.intrinsicDisplayName)
+        XCTAssert(LastName.displayName == LastName.someStr)
     }
 }

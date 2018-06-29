@@ -39,24 +39,17 @@ extension SupportForOptionalTests
 {
     func testDisplayName()
     {
-        struct SomeObj: DisplayNamed
-        {
-            static
-            let displayName = "This is the name"
-        }
+        struct SomeObj: DisplayNamed {}
 
         let obj: SomeObj? = SomeObj()
 
         XCTAssert(type(of: obj).displayName == SomeObj.displayName)
     }
 
-    func testBasicBasicValueWrapper()
+    func testBasicValueWrapper()
     {
         struct SomeWrapper: BasicValueWrapper
         {
-            static
-            let displayName: String = "Test Wrapper"
-
             typealias Value = String
 
             var value: Value
@@ -72,7 +65,7 @@ extension SupportForOptionalTests
         let optionalWrapper: SomeWrapper? = SomeWrapper(wrappedValue: someValue)
 
         XCTAssert(type(of: wrapper).displayName == SomeWrapper.displayName)
-        XCTAssert(type(of: optionalWrapper).displayName == type(of: wrapper).displayName)
+        XCTAssert(type(of: optionalWrapper).displayName == SomeWrapper.displayName)
 
         XCTAssert(wrapper.value == optionalWrapper.value)
     }

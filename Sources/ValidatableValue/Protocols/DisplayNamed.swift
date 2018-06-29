@@ -38,3 +38,27 @@ protocol DisplayNamed
     static
     var displayName: String { get }
 }
+
+// MARK: - Default implementation
+
+public
+extension DisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return intrinsicDisplayName
+    }
+}
+
+// MARK: - Internal helpers
+
+//internal
+extension DisplayNamed
+{
+    static
+    var intrinsicDisplayName: String
+    {
+        return Utils.intrinsicDisplayName(for: self)
+    }
+}

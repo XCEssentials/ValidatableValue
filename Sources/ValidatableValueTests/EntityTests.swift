@@ -119,7 +119,7 @@ extension EntityTests
     {
         struct SomeEntity: BasicEntity {}
 
-        XCTAssert(SomeEntity.displayName == "Some Entity")
+        XCTAssert(SomeEntity.displayName == SomeEntity.intrinsicDisplayName)
 
         //---
 
@@ -127,14 +127,14 @@ extension EntityTests
             AutoValidatable
         {
             static
-            let customDisplayName = "This is a custom named Entity"
+            let someStr = "This is a custom named Entity"
 
             static
-            let displayName = customDisplayName
+            let displayName = someStr
         }
 
-        XCTAssert(CustomNamedEntity.displayName != "Custom Named Entity")
-        XCTAssert(CustomNamedEntity.displayName == CustomNamedEntity.customDisplayName)
+        XCTAssert(CustomNamedEntity.displayName != CustomNamedEntity.intrinsicDisplayName)
+        XCTAssert(CustomNamedEntity.displayName == CustomNamedEntity.someStr)
     }
 
     func testDefaultValueReport()
@@ -230,9 +230,6 @@ extension EntityTests
         struct SimpleWrapper: BasicValueWrapper,
             Validatable
         {
-            static
-            let displayName: String = "Test Wrapper"
-
             typealias Value = String?
 
             var value: Value
@@ -270,7 +267,11 @@ extension EntityTests
 
             XCTFail("Should not get here ever")
         }
-        catch ValidationError.entityIsNotValid(let origin, let issues, _)
+        catch ValidationError.entityIsNotValid(
+            let origin,
+            let issues,
+            _
+            )
         {
             XCTAssert(origin == AutoValidationEntity.displayName)
             XCTAssert(issues.count == 1)

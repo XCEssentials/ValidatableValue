@@ -31,3 +31,9 @@
  */
 public
 protocol AutoValidatable: Validatable, Trait {}
+
+// make it 'CustomValidatable' with 'customValidate' func ???
+// and then get rid of 'AutoValidatable', make 'auto' implementations
+// default for all validatable protocols, unless we have 'customValidate'
+// func??? Maybe jsut do it via conditional extension on 'Validatable'
+// itself?

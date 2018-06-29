@@ -55,13 +55,12 @@ extension WrapperTests
             init(wrappedValue: Value) { self.value = wrappedValue }
         }
 
-        XCTAssert(WrapperWithSpec.displayName != "Wrapper With Spec")
+        XCTAssert(WrapperWithSpec.displayName != WrapperWithSpec.intrinsicDisplayName)
         XCTAssert(WrapperWithSpec.displayName == LastName.displayName)
 
         //---
 
-        struct CustomNamedWrapperWithSpec: ValueWrapper,
-            CustomDisplayNamed
+        struct AnotherWrapper: ValueWrapper
         {
             typealias Specification = LastName
 
@@ -72,21 +71,19 @@ extension WrapperTests
             init(wrappedValue: Value) { self.value = wrappedValue }
 
             static
-            let customDisplayName = "This is a custom named wrapper"
+            let someStr = "This is a custom named wrapper"
+
+            static
+            let displayName = someStr
         }
 
-        XCTAssert(CustomNamedWrapperWithSpec.displayName != "Custom Named Wrapper")
-        XCTAssert(CustomNamedWrapperWithSpec.displayName != LastName.displayName)
-        XCTAssert(CustomNamedWrapperWithSpec.displayName == CustomNamedWrapperWithSpec.customDisplayName)
+         XCTAssert(AnotherWrapper.displayName == AnotherWrapper.someStr)
     }
 
     func testSingleValueCodable()
     {
         struct ImplicitlyCodableWrapper: BasicValueWrapper
         {
-            static
-            let displayName: String = "Test Wrapper"
-
             typealias Value = String
 
             var value: String
@@ -117,9 +114,6 @@ extension WrapperTests
         struct ExplicitlyCodableWrapper: BasicValueWrapper,
             SingleValueCodable
         {
-            static
-            let displayName: String = "Test Wrapper"
-
             typealias Value = String
 
             var value: String

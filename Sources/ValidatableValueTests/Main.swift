@@ -176,12 +176,6 @@ extension MainTests
 //        }
 //    }
 //
-//
-//    func testIntrinsicName()
-//    {
-//        XCTAssert(User.SomeNewSpec.displayName == "Some New Spec")
-//    }
-//
 //    func testMultipleErrors()
 //    {
 //        do
