@@ -34,13 +34,27 @@ public
 protocol ValidatableEntity: Codable & Equatable,
     DisplayNamed,
     Validatable
-{}
+{
+    /**
+     This closure allows to customize/override default validation
+     failure reports. This is helpful to add/set some custom copy
+     to the report, including for localization purposes.
+     */
+    static
+    var reviewReport: EntityReportReview { get }
+}
 
 //---
 
 public
 extension ValidatableEntity
 {
+    static
+    var reviewReport: EntityReportReview
+    {
+        return { _, _ in }
+    }
+
     var allValidatableMembers: [Validatable]
     {
         return Mirror(reflecting: self)
@@ -64,11 +78,7 @@ extension ValidatableEntity
 
         //---
 
-        if
-            let customReporting = self as? CustomEntityReport.Type
-        {
-            customReporting.reviewReport(issues, &result)
-        }
+        reviewReport(issues, &result)
 
         //---
 

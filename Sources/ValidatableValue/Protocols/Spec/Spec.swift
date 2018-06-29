@@ -38,9 +38,17 @@ protocol ValueSpecification: DisplayNamed
      */
     static
     var conditions: [Condition<Value>] { get }
+
+    /**
+     This closure allows to customize/override default validation
+     failure reports. This is helpful to add/set some custom copy
+     to the report, including for localization purposes.
+     */
+    static
+    var reviewReport: ValueReportReview { get }
 }
 
-//---
+// MARK: - Default implementations
 
 public
 extension ValueSpecification
@@ -50,9 +58,15 @@ extension ValueSpecification
     {
         return []
     }
+
+    static
+    var reviewReport: ValueReportReview
+    {
+        return { _, _ in }
+    }
 }
 
-//---
+// MARK: - Internal helpers
 
 // internal
 extension ValueSpecification
@@ -111,18 +125,14 @@ extension ValueSpecification
 
         //---
 
-        if
-            let cutomReporting = self as? CustomValueReport.Type
-        {
-            let context = ValueReportContext(
-                origin: displayName,
-                value: value,
-                failedConditions: failedConditions,
-                builtInValidationIssues: builtInValidationIssues
-            )
+        let context = ValueReportContext(
+            origin: displayName,
+            value: value,
+            failedConditions: failedConditions,
+            builtInValidationIssues: builtInValidationIssues
+        )
 
-            cutomReporting.reviewReport(context, &result)
-        }
+        reviewReport(context, &result)
 
         //---
 

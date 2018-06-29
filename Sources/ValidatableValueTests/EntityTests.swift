@@ -151,8 +151,7 @@ extension EntityTests
     func testCustomEntityReport()
     {
         struct SomeEntity: ValidatableEntity,
-            AutoValidatable,
-            CustomEntityReport
+            AutoValidatable
         {
             static
             let customReport = ("This is", "it!")
