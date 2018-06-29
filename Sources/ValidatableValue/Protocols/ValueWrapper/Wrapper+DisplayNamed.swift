@@ -25,9 +25,11 @@
  */
 
 public
-protocol ValueWrapper: BasicValueWrapper, Validatable
-    where
-    Self.Value == Specification.Value
+extension ValueWrapper
 {
-    associatedtype Specification: ValueSpecification
+    static
+    var displayName: String
+    {
+        return Specification.displayName
+    }
 }

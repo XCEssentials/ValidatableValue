@@ -24,10 +24,59 @@
 
  */
 
-public
-protocol ValueWrapper: BasicValueWrapper, Validatable
-    where
-    Self.Value == Specification.Value
+// internal
+extension ValidatableEntity
 {
-    associatedtype Specification: ValueSpecification
+    static
+    func prepareReport(
+        with issues: [ValidationError]
+        ) -> Report
+    {
+        var result = defaultReport(with: issues)
+
+        //---
+
+        reviewReport(issues, &result)
+
+        //---
+
+        return result
+    }
+
+    static
+    func defaultReport(
+        with issues: [ValidationError]
+        ) -> Report
+    {
+        let messages = issues
+            .map{
+
+                if
+                    $0.hasNestedIssues // report from a nested entity...
+                {
+                    return """
+                    ———
+                    \($0.report.message)
+                    ———
+                    """
+                }
+                else
+                {
+                    return "- \($0.report.message)"
+                }
+            }
+            .joined(separator: "\n")
+
+        //---
+
+        return (
+
+            "\"\(displayName)\" validation failed",
+
+            """
+            \"\(displayName)\" validation failed due to the issues listed below.
+            \(messages)
+            """
+        )
+    }
 }
