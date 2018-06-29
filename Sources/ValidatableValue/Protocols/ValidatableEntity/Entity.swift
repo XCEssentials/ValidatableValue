@@ -61,11 +61,26 @@ extension ValidatableEntity
 public
 extension ValidatableEntity
 {
+    var allMembers: [Any]
+    {
+        return Mirror(reflecting: self)
+            .children
+            .map{ $0.value }
+    }
+
     var allValidatableMembers: [Validatable]
     {
         return Mirror(reflecting: self)
             .children
             .map{ $0.value }
             .compactMap{ $0 as? Validatable }
+    }
+
+    var allRequiredMembers: [Mandatory & Validatable]
+    {
+        return Mirror(reflecting: self)
+            .children
+            .map{ $0.value }
+            .compactMap{ $0 as? Mandatory & Validatable }
     }
 }

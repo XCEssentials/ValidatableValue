@@ -51,6 +51,17 @@ extension DisplayNamed
     }
 }
 
+// MARK: - Convenience helpers
+
+public
+extension DisplayNamed
+{
+    var displayName: String
+    {
+        return type(of: self).displayName
+    }
+}
+
 // MARK: - Internal helpers
 
 //internal

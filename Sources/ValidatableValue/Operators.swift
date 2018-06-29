@@ -38,6 +38,20 @@ func << <VV, T>(
 
 //---
 
+public
+func << <VV, T>(
+    container: inout VV?, // optional support!
+    newValue: T
+    ) throws
+    where
+    VV: ValueWrapper,
+    VV.Value == T
+{
+    try container.set(newValue)
+}
+
+//---
+
 infix operator <?
 
 //---
@@ -48,7 +62,7 @@ func <? <VV, T>(
     newValue: T
     )
     where
-    VV: ValueWrapper,
+    VV: BasicValueWrapper,
     VV.Value == T
 {
     container.value = newValue
@@ -62,7 +76,7 @@ func == <VV, T>(
     value: T?
     ) -> Bool
     where
-    VV: ValueWrapper,
+    VV: BasicValueWrapper,
     VV.Value == T
 {
     return container.value == value
@@ -74,7 +88,7 @@ func == <VV, T>(
     container: VV
     ) -> Bool
     where
-    VV: ValueWrapper,
+    VV: BasicValueWrapper,
     VV.Value == T
 {
     return container.value == value

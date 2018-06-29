@@ -30,4 +30,4 @@
  for values that support validation on their own.
  */
 public
-protocol SkipBuiltInValidation: Trait {}
+protocol SkipBuiltInValidation {}

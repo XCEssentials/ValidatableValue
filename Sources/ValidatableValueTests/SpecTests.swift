@@ -54,7 +54,7 @@ extension SpecTests
             typealias Value = String
         }
 
-        XCTAssert(!LastName2.performBuiltInValidation)
+        XCTAssertFalse(LastName2.performBuiltInValidation)
     }
 
     func testSpecialConditions()

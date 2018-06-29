@@ -24,10 +24,7 @@
 
  */
 
-/**
- Protocols that conform to this protocol should never be used independently,
- only in conjunction with other protocols to which the 'trait' protocol
- adds some functionality or special characteristics.
- */
-public
-protocol Trait {}
+extension Swift.Optional: Mandatory
+    where
+    Wrapped: Mandatory
+{}

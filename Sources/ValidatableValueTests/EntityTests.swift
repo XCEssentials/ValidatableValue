@@ -73,7 +73,7 @@ extension EntityTests
         XCTAssert(valElements.count == 2) // only works in Swift 4.2+
     }
 
-    func testAllValidatableMembers()
+    func testMembersGetters()
     {
         enum FirstName: ValueSpecification
         {
@@ -82,10 +82,10 @@ extension EntityTests
 
         struct TheEntity: ValidatableEntity
         {
-            var wrap1: WrapperOf<FirstName>
-            var wrap1Opt: WrapperOf<FirstName>?
-            var wrap2: WrapperOfMandatory<FirstName>
-            var wrap2Opt: WrapperOfMandatory<FirstName>?
+            var wrap1: NonRequired<FirstName>
+            var wrap1Opt: NonRequired<FirstName>?
+            var wrap2: Required<FirstName>
+            var wrap2Opt: Required<FirstName>?
         }
 
         let entity = TheEntity(
@@ -97,21 +97,13 @@ extension EntityTests
 
         //---
 
-        let allMembers = Mirror(reflecting: entity).children
-
-        allMembers.forEach
-        {
-            print("\n")
-
-            print($0.label!)
-            print(type(of: $0.value))
-            print($0.value is Validatable)
-        }
-
+        let allMembers = entity.allMembers
         let valMembers = entity.allValidatableMembers
+        let reqMembers = entity.allRequiredMembers
 
-        print("Number of val members found: ---->>>>> \(valMembers.count)")
         XCTAssert(valMembers.count == allMembers.count)
+        XCTAssert(valMembers.count != reqMembers.count)
+        XCTAssert(reqMembers.count == 2)
     }
 
     func testDisplayName()

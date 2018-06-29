@@ -30,7 +30,7 @@
  empty value should be considered as invalid.
  */
 public
-protocol Mandatory: DisplayNamed, Trait {}
+protocol Mandatory: DisplayNamed {}
 
 //---
 

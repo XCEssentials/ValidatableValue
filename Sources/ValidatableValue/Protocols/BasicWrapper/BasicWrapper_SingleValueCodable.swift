@@ -34,7 +34,7 @@
  with single entry (which is unnecessary complication): "{\"value\": \"XXX\"}"
  */
 public
-protocol SingleValueCodable: BasicValueWrapper, Trait {}
+protocol SingleValueCodable: BasicValueWrapper {}
 
 //---
 
