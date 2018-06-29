@@ -25,7 +25,7 @@
  */
 
 public
-protocol ValueWrapper: BasicValueWrapper
+protocol ValueWrapper: BasicValueWrapper, Validatable
     where
     Self.Value == Specification.Value
 {

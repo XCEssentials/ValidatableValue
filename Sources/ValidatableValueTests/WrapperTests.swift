@@ -212,8 +212,7 @@ extension WrapperTests
             ]
         }
 
-        struct WrapperWithSpec: ValueWrapper,
-            AutoValidatable
+        struct WrapperWithSpec: ValueWrapper
         {
             typealias Specification = LastName
 

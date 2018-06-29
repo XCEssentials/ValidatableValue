@@ -26,8 +26,6 @@
 
 public
 extension ValueWrapper
-    where
-    Self: AutoValidatable
 {
     func validate() throws
     {
@@ -35,12 +33,51 @@ extension ValueWrapper
     }
 }
 
+// MARK: - Convenience validation helpers
+
+public
+extension ValueWrapper
+{
+    /**
+     Convenience initializer initializes wrapper and validates it
+     right away.
+     */
+    init(
+        validate value: Value
+        ) throws
+    {
+        self.init(wrappedValue: value)
+        try self.validate()
+    }
+
+    /**
+     Validate a given value without saving it.
+     */
+    static
+        func validate(
+        value: Value
+        ) throws
+    {
+        _ = try Self.init(validate: value)
+    }
+
+    /**
+     Set new value and validate it in single operation.
+     */
+    mutating
+    func set(
+        _ newValue: Value
+        ) throws
+    {
+        value = newValue
+        try validate()
+    }
+}
+
 // MARK: - Private validation helpers
 
 private
 extension ValueWrapper
-    where
-    Self: AutoValidatable
 {
     static
     func check(_ valueToCheck: Value) throws

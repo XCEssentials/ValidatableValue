@@ -81,8 +81,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: ValueWrapper,
-            AutoValidatable
+        struct SomeWrapper: ValueWrapper
         {
             typealias Specification = FirstName
 
@@ -166,7 +165,6 @@ extension SupportForOptionalTests
         }
 
         struct MandatoryWrapper: ValueWrapper,
-            AutoValidatable,
             Mandatory // <<<<------
         {
             typealias Specification = FirstName
@@ -262,8 +260,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct WrapperWithSpec: ValueWrapper,
-            AutoValidatable
+        struct WrapperWithSpec: ValueWrapper
         {
             typealias Specification = FirstName
 
@@ -393,7 +390,6 @@ extension SupportForOptionalTests
         }
 
         struct SomeWrapper: ValueWrapper,
-            AutoValidatable,
             AutoValidValue
         {
             typealias Specification = FirstName
@@ -586,7 +582,6 @@ extension SupportForOptionalTests
         }
 
         struct MandatoryWrapper: ValueWrapper,
-            AutoValidatable,
             AutoValidValue,
             Mandatory // <<<---
         {

@@ -26,8 +26,6 @@
 
 public
 extension ValidatableEntity
-    where
-    Self: AutoValidatable
 {
     /**
      Validates all validateable values contained inside the entity,

@@ -31,7 +31,7 @@ import XCEValidatableValue
 
 // MARK: - User
 
-struct User: BasicEntity
+struct User: ValidatableEntity
 {
     var firstName: Required<FirstName>?
 

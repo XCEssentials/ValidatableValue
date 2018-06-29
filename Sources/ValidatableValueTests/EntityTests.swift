@@ -44,8 +44,7 @@ extension EntityTests
             typealias Value = String
         }
 
-        struct SomeWrapper: ValueWrapper,
-            AutoValidatable
+        struct SomeWrapper: ValueWrapper
         {
             typealias Specification = FirstName
 
@@ -81,7 +80,7 @@ extension EntityTests
             typealias Value = String
         }
 
-        struct TheEntity: BasicEntity
+        struct TheEntity: ValidatableEntity
         {
             var wrap1: WrapperOf<FirstName>
             var wrap1Opt: WrapperOf<FirstName>?
@@ -117,14 +116,13 @@ extension EntityTests
 
     func testDisplayName()
     {
-        struct SomeEntity: BasicEntity {}
+        struct SomeEntity: ValidatableEntity {}
 
         XCTAssert(SomeEntity.displayName == SomeEntity.intrinsicDisplayName)
 
         //---
 
-        struct CustomNamedEntity: ValidatableEntity,
-            AutoValidatable
+        struct CustomNamedEntity: ValidatableEntity
         {
             static
             let someStr = "This is a custom named Entity"
@@ -139,7 +137,7 @@ extension EntityTests
 
     func testDefaultValueReport()
     {
-        struct SomeEntity: BasicEntity {}
+        struct SomeEntity: ValidatableEntity {}
 
         let defaultReport = SomeEntity.defaultReport(with: [])
 
@@ -150,8 +148,7 @@ extension EntityTests
 
     func testCustomEntityReport()
     {
-        struct SomeEntity: ValidatableEntity,
-            AutoValidatable
+        struct SomeEntity: ValidatableEntity
         {
             static
             let customReport = ("This is", "it!")
@@ -185,6 +182,9 @@ extension EntityTests
     {
         struct ManualValidationEntity: ValidatableEntity
         {
+            static
+            let someStr = "Is invalid"
+
             func validate() throws
             {
                 let issues: [ValidationError] = [
@@ -192,7 +192,7 @@ extension EntityTests
                         origin: "Some wrapper",
                         value: "Some value",
                         failedConditions: ["Test condition"],
-                        report: (title: "Some test value", message: "Is invalid")
+                        report: (title: "Some test value", message: type(of: self).someStr)
                     )
                 ]
 
@@ -208,14 +208,18 @@ extension EntityTests
 
             XCTFail("Should not get here ever")
         }
-        catch ValidationError.entityIsNotValid(let origin, let issues, _)
+        catch ValidationError.entityIsNotValid(
+            let origin,
+            let issues,
+            _
+            )
         {
             XCTAssert(origin == ManualValidationEntity.displayName)
             XCTAssert(issues.count == 1) // exactly as we've sent
 
             let report = issues[0].report
 
-            XCTAssert(report.title == "Some test value")
+            XCTAssert(report.message == ManualValidationEntity.someStr)
         }
         catch
         {
@@ -229,6 +233,9 @@ extension EntityTests
         struct SimpleWrapper: BasicValueWrapper,
             Validatable
         {
+            static
+            let someStr = "Is invalid"
+
             typealias Value = String?
 
             var value: Value
@@ -244,14 +251,14 @@ extension EntityTests
                         origin: type(of: self).displayName,
                         report: (
                             title: "Mandatory value is missing",
-                            message: "Can't be nil"
+                            message: type(of: self).someStr
                         )
                     )
                 }
             }
         }
 
-        struct AutoValidationEntity: BasicEntity
+        struct AutoValidationEntity: ValidatableEntity
         {
             let stringWrapper: SimpleWrapper
         }
@@ -277,7 +284,7 @@ extension EntityTests
 
             let report = issues[0].report
 
-            XCTAssert(report.message == "Can't be nil")
+            XCTAssert(report.message == SimpleWrapper.someStr)
         }
         catch
         {
