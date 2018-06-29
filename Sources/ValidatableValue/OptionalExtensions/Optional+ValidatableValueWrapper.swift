@@ -24,26 +24,26 @@
 
  */
 
-protocol Mark {}
-
-protocol Mark1: Mark {}
-protocol Mark2: Mark {}
-
-struct Wrap11: Mark1 {}
-struct Wrap12: Mark1 {}
-
-struct Wrap21: Mark2 {}
-struct Wrap22: Mark2 {}
-
-struct Final<T: Mark> {}
-
-typealias First<T: Mark1> = Final<T>
-typealias Second<T: Mark2> = Final<T>
-
-struct SomeStr
-{
-    let prop1: First<Wrap12>
-}
+//protocol Mark {}
+//
+//protocol Mark1: Mark {}
+//protocol Mark2: Mark {}
+//
+//struct Wrap11: Mark1 {}
+//struct Wrap12: Mark1 {}
+//
+//struct Wrap21: Mark2 {}
+//struct Wrap22: Mark2 {}
+//
+//struct Final<T: Mark> {}
+//
+//typealias First<T: Mark1> = Final<T>
+//typealias Second<T: Mark2> = Final<T>
+//
+//struct SomeStr
+//{
+//    let prop1: First<Wrap12>
+//}
 
 // EXPLORE non-generic protocols, they allow to type cast in run-time!
 
@@ -58,12 +58,20 @@ extension Swift.Optional: Validatable
     func validate() throws
     {
         if
-            Wrapped.self is Mandatory.Type
+            let mandatory = Wrapped.self as? Mandatory.Type
         {
             switch self
             {
                 case .none:
-                    throw Utils.emptyValueErrorWithSpec(for: Wrapped.self)
+                    throw ValidationError.mandatoryValueIsNotSet(
+                        origin: Wrapped.displayName,
+                        report: Wrapped.Specification.prepareReport(
+                            value: nil,
+                            failedConditions: [],
+                            builtInValidationIssues: [],
+                            suggestedReport: mandatory.defaultEmptyValueReport
+                        )
+                    )
 
                 case .some(let validatable):
                     try validatable.validate()

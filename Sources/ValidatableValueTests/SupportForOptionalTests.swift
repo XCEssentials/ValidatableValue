@@ -253,7 +253,7 @@ extension SupportForOptionalTests
             )
         {
             XCTAssert(origin == MandatoryWrapper.displayName)
-            XCTAssert(report == Utils.defaultEmptyValueReport(for: MandatoryWrapper.self))
+            XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
         }
         catch
         {
@@ -753,7 +753,7 @@ extension SupportForOptionalTests
             )
         {
             XCTAssert(origin == MandatoryWrapper.displayName)
-            XCTAssert(report == Utils.defaultEmptyValueReport(for: MandatoryWrapper.self))
+            XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
         }
         catch
         {
@@ -783,7 +783,7 @@ extension SupportForOptionalTests
                 ) = issues[0]
             {
                 XCTAssert(origin == MandatoryWrapper.displayName)
-                XCTAssert(report == Utils.defaultEmptyValueReport(for: MandatoryWrapper.self))
+                XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
             }
             else
             {

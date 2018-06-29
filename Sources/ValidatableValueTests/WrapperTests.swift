@@ -197,30 +197,6 @@ extension WrapperTests
         }
     }
 
-    func testMandatoryBasic()
-    {
-        struct BasicWrapper: BasicValueWrapper,
-            AutoDisplayNamed,
-            AutoValidatable,
-            Mandatory
-        {
-            typealias Value = Int
-
-            var value: Value
-
-            init(wrappedValue: Value) { self.value = wrappedValue }
-
-            func validate() throws {}
-        }
-
-        let defaultReport = Utils.defaultEmptyValueReport(for: BasicWrapper.self)
-
-        let valueNotSetError = Utils.emptyValueError(for: BasicWrapper.self)
-
-        XCTAssert(valueNotSetError.origin == BasicWrapper.displayName)
-        XCTAssert(valueNotSetError.report == defaultReport)
-    }
-
     func testMandatoryWithSpec()
     {
         enum LastName: ValueSpecification,
@@ -255,13 +231,17 @@ extension WrapperTests
             init(wrappedValue: Value) { self.value = wrappedValue }
         }
 
-        let defaultReport = Utils.defaultEmptyValueReport(for: WrapperWithSpec.self)
+        let defaultReport = WrapperWithSpec.defaultEmptyValueReport
 
-        let valueNotSetError = Utils.emptyValueErrorWithSpec(for: WrapperWithSpec.self)
+        let report = WrapperWithSpec.Specification.prepareReport(
+            value: nil,
+            failedConditions: [],
+            builtInValidationIssues: [],
+            suggestedReport: defaultReport
+        )
 
-        XCTAssert(valueNotSetError.origin == WrapperWithSpec.displayName)
-        XCTAssert(valueNotSetError.report != defaultReport)
-        XCTAssert(valueNotSetError.report == LastName.customReport)
+        XCTAssert(report != defaultReport)
+        XCTAssert(report == LastName.customReport)
     }
 
     func testConvenienceHelpersAndAutoValidatable()

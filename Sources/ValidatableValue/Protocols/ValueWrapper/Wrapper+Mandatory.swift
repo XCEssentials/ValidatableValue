@@ -29,4 +29,50 @@
  empty value should be considered as invalid.
  */
 public
-protocol Mandatory: Trait {}
+protocol Mandatory: DisplayNamed, Trait {}
+
+//---
+
+//internal
+extension Mandatory
+{
+    static
+    var defaultEmptyValueReport: Report
+    {
+        return (
+            "\"\(displayName)\" is empty",
+            "\"\(displayName)\" is empty, but expected to be non-empty."
+        )
+    }
+}
+
+extension Mandatory
+{
+//    static
+//    func emptyValueError<T: BasicValueWrapper>(
+//        for _: T.Type
+//        ) -> ValidationError
+//    {
+//        return ValidationError.mandatoryValueIsNotSet(
+//            origin: T.displayName,
+//            report: defaultEmptyValueReport(for: T.self)
+//        )
+//    }
+//
+//    static
+//    func emptyValueErrorWithSpec<T: ValueWrapper>(
+//        for _: T.Type
+//        ) -> ValidationError
+//    {
+//        return ValidationError.mandatoryValueIsNotSet(
+//            origin: T.displayName,
+//            report: T.Specification.prepareReport(
+//                value: nil,
+//                failedConditions: [],
+//                builtInValidationIssues: [],
+//                suggestedReport: defaultEmptyValueReport(for: T.self)
+//            )
+//        )
+//    }
+}
+

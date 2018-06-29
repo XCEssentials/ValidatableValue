@@ -90,7 +90,15 @@ extension Swift.Optional
         switch self
         {
             case .none:
-                throw Utils.emptyValueErrorWithSpec(for: Wrapped.self)
+                throw ValidationError.mandatoryValueIsNotSet(
+                    origin: Wrapped.displayName,
+                    report: Wrapped.Specification.prepareReport(
+                        value: nil,
+                        failedConditions: [],
+                        builtInValidationIssues: [],
+                        suggestedReport: Wrapped.defaultEmptyValueReport
+                    )
+                )
 
             case .some(let wrapper):
                 return try wrapper.validValue()
