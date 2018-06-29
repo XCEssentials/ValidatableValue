@@ -45,7 +45,6 @@ extension EntityTests
         }
 
         struct SomeWrapper: ValueWrapper,
-            AutoDisplayNamed,
             AutoValidatable,
             AutoReporting
         {
@@ -154,7 +153,6 @@ extension EntityTests
     func testCustomValueReport()
     {
         struct CustomReportEntity: ValidatableEntity,
-            AutoDisplayNamed,
             AutoValidatable
         {
             static
@@ -188,7 +186,6 @@ extension EntityTests
     func testManualValidation()
     {
         struct ManualValidationEntity: ValidatableEntity,
-            AutoDisplayNamed,
             AutoReporting
         {
             func validate() throws
@@ -233,9 +230,11 @@ extension EntityTests
     func testAutoValidatable()
     {
         struct SimpleWrapper: BasicValueWrapper,
-            AutoDisplayNamed,
             Validatable
         {
+            static
+            let displayName: String = "Test Wrapper"
+
             typealias Value = String?
 
             var value: Value

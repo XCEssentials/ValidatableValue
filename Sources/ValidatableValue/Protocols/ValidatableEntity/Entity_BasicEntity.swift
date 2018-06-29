@@ -26,7 +26,6 @@
 
 public
 protocol BasicEntity: ValidatableEntity,
-    AutoDisplayNamed,
     AutoValidatable,
     AutoReporting
 {}

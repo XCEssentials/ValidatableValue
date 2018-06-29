@@ -26,7 +26,6 @@
 
 public
 protocol BasicValueSpecification: // ValueSpecification,
-    AutoDisplayNamed,
     NoConditions,
     AutoReporting
 {}

@@ -49,7 +49,6 @@ struct User: BasicEntity
 extension User
 {
     enum FirstName: ValueSpecification,
-        AutoDisplayNamed,
         AutoReporting
     {
         static
@@ -65,7 +64,6 @@ extension User
     }
 
     enum Username: ValueSpecification,
-        AutoDisplayNamed,
         AutoReporting
     {
         static
@@ -77,7 +75,6 @@ extension User
     }
 
     enum Password: ValueSpecification,
-        AutoDisplayNamed,
         AutoReporting
     {
         static

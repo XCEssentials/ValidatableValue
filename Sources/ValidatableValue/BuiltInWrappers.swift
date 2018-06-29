@@ -32,7 +32,6 @@
 public
 struct WrapperOf<T: ValueSpecification>: ValueWrapper,
     SingleValueCodable,
-    AutoDisplayNamed,
     AutoValidatable,
     AutoValidValue
 {
@@ -62,7 +61,6 @@ typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
 public
 struct WrapperOfMandatory<T: ValueSpecification>: ValueWrapper,
     SingleValueCodable,
-    AutoDisplayNamed,
     AutoValidatable,
     AutoValidValue,
     Mandatory

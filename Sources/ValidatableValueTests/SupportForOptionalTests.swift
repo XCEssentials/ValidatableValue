@@ -52,9 +52,11 @@ extension SupportForOptionalTests
 
     func testBasicBasicValueWrapper()
     {
-        struct SomeWrapper: BasicValueWrapper,
-            AutoDisplayNamed
+        struct SomeWrapper: BasicValueWrapper
         {
+            static
+            let displayName: String = "Test Wrapper"
+
             typealias Value = String
 
             var value: Value
@@ -78,7 +80,6 @@ extension SupportForOptionalTests
     func testValidatableWithOptionalWrapper()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             AutoReporting
         {
             static
@@ -89,7 +90,6 @@ extension SupportForOptionalTests
         }
 
         struct SomeWrapper: ValueWrapper,
-            AutoDisplayNamed,
             AutoValidatable,
             AutoReporting
         {
@@ -166,7 +166,6 @@ extension SupportForOptionalTests
     func testValidatableWithMandatoryWrapper()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             AutoReporting
         {
             static
@@ -177,7 +176,6 @@ extension SupportForOptionalTests
         }
 
         struct MandatoryWrapper: ValueWrapper,
-            AutoDisplayNamed,
             AutoValidatable,
             AutoReporting,
             Mandatory // <<<<------
@@ -265,7 +263,6 @@ extension SupportForOptionalTests
     func testValidatableConvenienceHelpers()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             AutoReporting
         {
             typealias Value = String
@@ -278,7 +275,6 @@ extension SupportForOptionalTests
         }
 
         struct WrapperWithSpec: ValueWrapper,
-            AutoDisplayNamed,
             AutoValidatable
         {
             typealias Specification = FirstName
@@ -400,7 +396,6 @@ extension SupportForOptionalTests
     func testOptionalValidatableBasicValueWrapper()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             AutoReporting
         {
             static
@@ -411,7 +406,6 @@ extension SupportForOptionalTests
         }
 
         struct SomeWrapper: ValueWrapper,
-            AutoDisplayNamed,
             AutoValidatable,
             AutoReporting,
             AutoValidValue
@@ -597,7 +591,6 @@ extension SupportForOptionalTests
     func testMandatoryValidatableBasicValueWrapper()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             AutoReporting
         {
             static
@@ -608,7 +601,6 @@ extension SupportForOptionalTests
         }
 
         struct MandatoryWrapper: ValueWrapper,
-            AutoDisplayNamed,
             AutoValidatable,
             AutoReporting,
             AutoValidValue,

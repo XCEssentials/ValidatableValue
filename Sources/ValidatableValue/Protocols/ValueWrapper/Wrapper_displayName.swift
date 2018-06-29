@@ -24,10 +24,20 @@
 
  */
 
-/**
- Special trait for 'ValueSpecification', 'ValueWrapper' and 'ValidatableEntity'
- protocols that implies that 'DisplayNamed' protocol conformance should be
- implemented automatically.
- */
 public
-protocol AutoDisplayNamed: DisplayNamed, Trait {}
+extension ValueWrapper
+{
+    static
+    var displayName: String
+    {
+        if
+            let customNamed = self as? CustomDisplayNamed.Type
+        {
+            return customNamed.customDisplayName
+        }
+        else
+        {
+            return Specification.displayName
+        }
+    }
+}

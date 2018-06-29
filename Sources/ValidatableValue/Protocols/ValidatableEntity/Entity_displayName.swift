@@ -25,13 +25,19 @@
  */
 
 public
-extension ValueWrapper
-    where
-    Self: AutoDisplayNamed
+extension ValidatableEntity
 {
     static
     var displayName: String
     {
-        return Specification.displayName
+        if
+            let customNamed = self as? CustomDisplayNamed.Type
+        {
+            return customNamed.customDisplayName
+        }
+        else
+        {
+            return Utils.intrinsicDisplayName(for: self)
+        }
     }
 }

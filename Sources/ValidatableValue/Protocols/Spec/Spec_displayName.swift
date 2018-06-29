@@ -25,13 +25,19 @@
  */
 
 public
-extension ValidatableEntity
-    where
-    Self: AutoDisplayNamed
+extension ValueSpecification
 {
     static
     var displayName: String
     {
-        return Utils.intrinsicDisplayName(for: self)
+        if
+            let customNamed = self as? CustomDisplayNamed.Type
+        {
+            return customNamed.customDisplayName
+        }
+        else
+        {
+            return Utils.intrinsicDisplayName(for: self)
+        }
     }
 }

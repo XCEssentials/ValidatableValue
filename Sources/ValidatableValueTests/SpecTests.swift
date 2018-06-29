@@ -40,7 +40,6 @@ extension SpecTests
     func testSkipBuiltInValidation()
     {
         enum LastName: ValueSpecification,
-            AutoDisplayNamed,
             NoConditions,
             AutoReporting
         {
@@ -52,7 +51,6 @@ extension SpecTests
         //---
 
         enum LastName2: ValueSpecification,
-            AutoDisplayNamed,
             NoConditions,
             SkipBuiltInValidation,
             AutoReporting
@@ -66,7 +64,6 @@ extension SpecTests
     func testSpecialConditions()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             AutoReporting
         {
             typealias Value = String
@@ -85,7 +82,6 @@ extension SpecTests
         //---
 
         enum LastName: ValueSpecification,
-            AutoDisplayNamed,
             NoConditions,
             AutoReporting
         {
@@ -100,7 +96,6 @@ extension SpecTests
     func testDefaultValueReport()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             NoConditions,
             AutoReporting
         {
@@ -122,7 +117,6 @@ extension SpecTests
     func testCustomValueReport()
     {
         enum LastName: ValueSpecification,
-            AutoDisplayNamed,
             NoConditions
         {
             static
@@ -163,7 +157,6 @@ extension SpecTests
     func testDisplayName()
     {
         enum FirstName: ValueSpecification,
-            AutoDisplayNamed,
             NoConditions,
             AutoReporting
         {

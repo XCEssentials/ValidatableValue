@@ -24,14 +24,14 @@
 
  */
 
+/**
+ Special trait for 'ValueSpecification', 'ValueWrapper' and 'ValidatableEntity'
+ protocols that allows to override the intrinsic 'dsiplayName' from 'DisplayNamed'
+ protocol with a custom one.
+ */
 public
-extension ValueSpecification
-    where
-    Self: AutoDisplayNamed
+protocol CustomDisplayNamed: Trait
 {
     static
-    var displayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
-    }
+    var customDisplayName: String { get }
 }
