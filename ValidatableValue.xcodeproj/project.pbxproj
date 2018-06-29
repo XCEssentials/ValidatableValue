@@ -49,7 +49,7 @@
 		AE2DF798E6906D794BE7BA38 /* WrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76553EB3EE47043C4618064 /* WrapperTests.swift */; };
 		B33754FE3C9AE217597B2588 /* SupportForOptionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F355EB3E1C89E57DDF0CE7 /* SupportForOptionalTests.swift */; };
 		B87702475B204DC284ED1FC1 /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6E9A7351173D5382DC8B0B /* Wrapper.swift */; };
-		BDA9D6EFCCE72B3AF0103B17 /* Wrapper+Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05720A4067400E1FB730EE26 /* Wrapper+Mandatory.swift */; };
+		BDA9D6EFCCE72B3AF0103B17 /* Wrapper_Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */; };
 		C39E0540651731D5CB462B7A /* AutoDisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8E005CD0822A86A7D58581 /* AutoDisplayNamed.swift */; };
 		DE8014809B4D5C3E9A5A03FD /* Wrapper+AutoDisplayNamed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588EB75313C187FFB02A0DAA /* Wrapper+AutoDisplayNamed.swift */; };
 		DEAC653C3A29AC61289C0647 /* Spec_NoConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF526BB35B222C73EC42C98 /* Spec_NoConditions.swift */; };
@@ -94,7 +94,7 @@
 /* Begin PBXFileReference section */
 		0349DBD228CE7D96B6C92F07 /* Pods-Common-ValidatableValue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Common-ValidatableValue.release.xcconfig"; path = "Pods/Target Support Files/Pods-Common-ValidatableValue/Pods-Common-ValidatableValue.release.xcconfig"; sourceTree = "<group>"; };
 		0427A861E0251B925598C2FE /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		05720A4067400E1FB730EE26 /* Wrapper+Mandatory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Wrapper+Mandatory.swift"; sourceTree = "<group>"; };
+		05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Wrapper_Mandatory.swift; sourceTree = "<group>"; };
 		16029DFCCD9DA4C60F0069BD /* EntityTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EntityTests.swift; sourceTree = "<group>"; };
 		19071020C9FF0E0CBB38736F /* Pods-Common-ValidatableValueTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Common-ValidatableValueTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Common-ValidatableValueTests/Pods-Common-ValidatableValueTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1B20780C7FD7BEC3667673D9 /* BasicWrapper_SingleValueCodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BasicWrapper_SingleValueCodable.swift; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 				9B6E9A7351173D5382DC8B0B /* Wrapper.swift */,
 				588EB75313C187FFB02A0DAA /* Wrapper+AutoDisplayNamed.swift */,
 				75B35ED89C15946F5914CB01 /* Wrapper+AutoValidatable.swift */,
-				05720A4067400E1FB730EE26 /* Wrapper+Mandatory.swift */,
+				05720A4067400E1FB730EE26 /* Wrapper_Mandatory.swift */,
 			);
 			path = ValueWrapper;
 			sourceTree = "<group>";
@@ -536,7 +536,7 @@
 				9455BB5F20E5847E003589FD /* Utils.swift in Sources */,
 				A06EE71B4E1AFE9431FB9AEA /* Wrapper+AutoValidatable.swift in Sources */,
 				F3234AF4FA7863B19C82EF49 /* BasicWrapper+Validatable.swift in Sources */,
-				BDA9D6EFCCE72B3AF0103B17 /* Wrapper+Mandatory.swift in Sources */,
+				BDA9D6EFCCE72B3AF0103B17 /* Wrapper_Mandatory.swift in Sources */,
 				2163E6E07A769F9096357319 /* BasicWrapper_SingleValueCodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

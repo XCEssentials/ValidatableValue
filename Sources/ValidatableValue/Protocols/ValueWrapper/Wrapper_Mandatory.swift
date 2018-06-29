@@ -45,34 +45,3 @@ extension Mandatory
         )
     }
 }
-
-extension Mandatory
-{
-//    static
-//    func emptyValueError<T: BasicValueWrapper>(
-//        for _: T.Type
-//        ) -> ValidationError
-//    {
-//        return ValidationError.mandatoryValueIsNotSet(
-//            origin: T.displayName,
-//            report: defaultEmptyValueReport(for: T.self)
-//        )
-//    }
-//
-//    static
-//    func emptyValueErrorWithSpec<T: ValueWrapper>(
-//        for _: T.Type
-//        ) -> ValidationError
-//    {
-//        return ValidationError.mandatoryValueIsNotSet(
-//            origin: T.displayName,
-//            report: T.Specification.prepareReport(
-//                value: nil,
-//                failedConditions: [],
-//                builtInValidationIssues: [],
-//                suggestedReport: defaultEmptyValueReport(for: T.self)
-//            )
-//        )
-//    }
-}
-
