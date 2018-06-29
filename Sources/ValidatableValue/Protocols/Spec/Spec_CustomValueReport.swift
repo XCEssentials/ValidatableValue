@@ -24,6 +24,11 @@
 
  */
 
+/**
+ Special trait for 'ValueSpecification' protocol that allows to
+ customize validation failure reports. This is helpful to add/set
+ some custom copy to the report, including for localization purposes.
+ */
 public
 protocol CustomValueReport: Trait
 {

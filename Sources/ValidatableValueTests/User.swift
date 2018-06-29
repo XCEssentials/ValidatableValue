@@ -48,8 +48,7 @@ struct User: BasicEntity
 
 extension User
 {
-    enum FirstName: ValueSpecification,
-        AutoReporting
+    enum FirstName: ValueSpecification
     {
         static
         let conditions = [
@@ -63,8 +62,7 @@ extension User
         typealias Value = String
     }
 
-    enum Username: ValueSpecification,
-        AutoReporting
+    enum Username: ValueSpecification
     {
         static
         let conditions = [
@@ -74,8 +72,7 @@ extension User
         ]
     }
 
-    enum Password: ValueSpecification,
-        AutoReporting
+    enum Password: ValueSpecification
     {
         static
         let conditions: Conditions<String> = [

@@ -79,8 +79,7 @@ extension SupportForOptionalTests
 
     func testValidatableWithOptionalWrapper()
     {
-        enum FirstName: ValueSpecification,
-            AutoReporting
+        enum FirstName: ValueSpecification
         {
             static
             let conditions = [
@@ -90,8 +89,7 @@ extension SupportForOptionalTests
         }
 
         struct SomeWrapper: ValueWrapper,
-            AutoValidatable,
-            AutoReporting
+            AutoValidatable
         {
             typealias Specification = FirstName
 
@@ -165,8 +163,7 @@ extension SupportForOptionalTests
 
     func testValidatableWithMandatoryWrapper()
     {
-        enum FirstName: ValueSpecification,
-            AutoReporting
+        enum FirstName: ValueSpecification
         {
             static
             let conditions = [
@@ -177,7 +174,6 @@ extension SupportForOptionalTests
 
         struct MandatoryWrapper: ValueWrapper,
             AutoValidatable,
-            AutoReporting,
             Mandatory // <<<<------
         {
             typealias Specification = FirstName
@@ -262,8 +258,7 @@ extension SupportForOptionalTests
 
     func testValidatableConvenienceHelpers()
     {
-        enum FirstName: ValueSpecification,
-            AutoReporting
+        enum FirstName: ValueSpecification
         {
             typealias Value = String
 
@@ -395,8 +390,7 @@ extension SupportForOptionalTests
 
     func testOptionalValidatableBasicValueWrapper()
     {
-        enum FirstName: ValueSpecification,
-            AutoReporting
+        enum FirstName: ValueSpecification
         {
             static
             let conditions = [
@@ -407,7 +401,6 @@ extension SupportForOptionalTests
 
         struct SomeWrapper: ValueWrapper,
             AutoValidatable,
-            AutoReporting,
             AutoValidValue
         {
             typealias Specification = FirstName
@@ -590,8 +583,7 @@ extension SupportForOptionalTests
 
     func testMandatoryValidatableBasicValueWrapper()
     {
-        enum FirstName: ValueSpecification,
-            AutoReporting
+        enum FirstName: ValueSpecification
         {
             static
             let conditions = [
@@ -602,7 +594,6 @@ extension SupportForOptionalTests
 
         struct MandatoryWrapper: ValueWrapper,
             AutoValidatable,
-            AutoReporting,
             AutoValidValue,
             Mandatory // <<<---
         {

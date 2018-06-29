@@ -46,8 +46,6 @@ protocol ValueSpecification: DisplayNamed
      */
     static
     var performBuiltInValidation: Bool { get }
-
-
 }
 
 //---

@@ -45,8 +45,7 @@ extension EntityTests
         }
 
         struct SomeWrapper: ValueWrapper,
-            AutoValidatable,
-            AutoReporting
+            AutoValidatable
         {
             typealias Specification = FirstName
 
@@ -125,8 +124,7 @@ extension EntityTests
         //---
 
         struct CustomNamedEntity: ValidatableEntity,
-            AutoValidatable,
-            AutoReporting
+            AutoValidatable
         {
             static
             let customDisplayName = "This is a custom named Entity"
@@ -150,10 +148,11 @@ extension EntityTests
         XCTAssert(report == defaultReport)
     }
 
-    func testCustomValueReport()
+    func testCustomEntityReport()
     {
-        struct CustomReportEntity: ValidatableEntity,
-            AutoValidatable
+        struct SomeEntity: ValidatableEntity,
+            AutoValidatable,
+            CustomEntityReport
         {
             static
             let customReport = ("This is", "it!")
@@ -175,18 +174,17 @@ extension EntityTests
             }
         }
 
-        let defaultReport = CustomReportEntity.defaultReport(with: [])
+        let defaultReport = SomeEntity.defaultReport(with: [])
 
-        let report = CustomReportEntity.prepareReport(with: [])
+        let report = SomeEntity.prepareReport(with: [])
 
         XCTAssert(report != defaultReport)
-        XCTAssert(report == CustomReportEntity.customReport)
+        XCTAssert(report == SomeEntity.customReport)
     }
 
     func testManualValidation()
     {
-        struct ManualValidationEntity: ValidatableEntity,
-            AutoReporting
+        struct ManualValidationEntity: ValidatableEntity
         {
             func validate() throws
             {

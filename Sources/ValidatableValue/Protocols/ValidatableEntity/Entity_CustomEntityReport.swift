@@ -24,14 +24,19 @@
 
  */
 
+/**
+ Special trait for 'ValidatableEntity' protocol that allows to
+ customize validation failure reports. This is helpful to add/set
+ some custom copy to the report, including for localization purposes.
+ */
 public
-extension ValidatableEntity
-    where
-    Self: AutoReporting
+protocol CustomEntityReport
 {
+    /**
+     This closure allows to customize/override default validation
+     failure reports. This is helpful to add/set some custom copy
+     to the report, including for localization purposes.
+     */
     static
-    var reviewReport: EntityReportReview
-    {
-        return { _, _ in }
-    }
+    var reviewReport: EntityReportReview { get }
 }
