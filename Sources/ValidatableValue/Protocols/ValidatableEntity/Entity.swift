@@ -42,6 +42,13 @@ protocol ValidatableEntity: Codable & Equatable,
      */
     static
     var reviewReport: EntityReportReview { get }
+
+    /**
+     Returns list of all members that have to be involved in
+     automatic entity validation. For Swift 4.2+ implementation
+     is provided automatically.
+     */
+    var allValidatableMembers: [Validatable] { get }
 }
 
 // MARK: - Default implementations
@@ -54,6 +61,18 @@ extension ValidatableEntity
     {
         return { _, _ in }
     }
+
+    #if swift(>=4.2)
+
+    var allValidatableMembers: [Validatable]
+    {
+        return Mirror(reflecting: self)
+            .children
+            .map{ $0.value }
+            .compactMap{ $0 as? Validatable }
+    }
+
+    #endif
 }
 
 // MARK: - Convenience helpers
@@ -68,13 +87,7 @@ extension ValidatableEntity
             .map{ $0.value }
     }
 
-    var allValidatableMembers: [Validatable]
-    {
-        return Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
-            .compactMap{ $0 as? Validatable }
-    }
+    #if swift(>=4.2)
 
     var allRequiredMembers: [Mandatory & Validatable]
     {
@@ -83,4 +96,6 @@ extension ValidatableEntity
             .map{ $0.value }
             .compactMap{ $0 as? Mandatory & Validatable }
     }
+
+    #endif
 }

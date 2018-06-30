@@ -92,7 +92,7 @@ extension MainTests
         }
     }
 
-    func testUserDecodingWithMissingOptionalBasicKey()
+    func testUserDecodingWithMissingOptionalKeys()
     {
         // NOTE: we are missing the few
         // keys in the JSON below!
@@ -122,9 +122,6 @@ extension MainTests
             // 'lastName' is a NON-required field,
             // so when it's missing - it's okay
             XCTAssert(decodedUser.lastName.isValid)
-
-            // ovrall user us not supposed to be valid
-            XCTAssertFalse(decodedUser.isValid)
         }
         catch
         {
@@ -149,7 +146,15 @@ extension MainTests
             _
             )
         {
+            #if swift(>=4.2)
+
             XCTAssert(origin == user.firstName.displayName)
+
+            #else
+
+            XCTAssert(origin == type(of: user.firstName).displayName)
+
+            #endif
         }
         catch
         {
@@ -179,7 +184,15 @@ extension MainTests
             let issues, _
             )
         {
+            #if swift(>=4.2)
+
             XCTAssert(issues.count == user.allRequiredMembers.count)
+
+            #else
+
+            XCTAssert(issues.count == 3)
+
+            #endif
         }
         catch
         {
@@ -187,7 +200,7 @@ extension MainTests
         }
     }
 
-    func testEntityValidation()
+    func testAutomaticEntityValidation()
     {
         do
         {
@@ -365,27 +378,6 @@ extension MainTests
         {
             XCTFail("Should not get here ever")
         }
-    }
-
-    func testWholeUserIsValid()
-    {
-        user.firstName <? "Max"
-        user.lastName <? "Kevi"
-        user.username <? "maxim@google.com"
-        // forgot password...
-
-        XCTAssertFalse(user.isValid)
-
-        user.password <? "123t5y7gh"
-
-        XCTAssertFalse(user.isValid)
-        XCTAssertFalse(user.password.isValid)
-
-        // now lets improve the password to satisfy ALL password conditions
-
-        user.password <? "!C3t5y7gh"
-
-        XCTAssert(user.isValid)
     }
 
     func testFirstNameValueWrapper()

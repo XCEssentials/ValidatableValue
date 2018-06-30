@@ -44,6 +44,32 @@ struct User: ValidatableEntity
     var experience: NonRequired<Experience>?
 }
 
+// MARK: - User: Explicit validation implementation for Swift < 4.2
+
+#if swift(>=4.2)
+
+// 'ValidatableEntity' provides automatic 'allValidatableMembers'
+// implementation for Swift 4.2+
+
+#else
+
+extension User
+{
+    var allValidatableMembers: [Validatable]
+    {
+        return [
+
+            firstName,
+            lastName,
+            username,
+            password,
+            experience
+        ]
+    }
+}
+
+#endif
+
 // MARK: - User: Value Specs
 
 extension User
