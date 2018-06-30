@@ -59,10 +59,21 @@ typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOf<T: Codable & Equatable>: BasicValueWrapper,
+struct QuickWrapperOf<T: Codable & Equatable>: ValueWrapper,
     SingleValueCodable
 {
-    enum BasicValue: ValueSpecification { typealias Value = T }
+    public
+    enum Specification: ValueSpecification
+    {
+        public
+        typealias Value = T
+
+        public
+        static
+        var displayName: String { return "Basic Value" }
+    }
+
+    //---
 
     public
     typealias Value = T
@@ -115,11 +126,20 @@ typealias Required<T: ValueSpecification> = WrapperOfMandatory<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOfMandatory<T: Codable & Equatable>: BasicValueWrapper,
+struct QuickWrapperOfMandatory<T: Codable & Equatable>: ValueWrapper,
     SingleValueCodable,
     Mandatory
 {
-    enum BasicValue: ValueSpecification { typealias Value = T }
+    public
+    enum Specification: ValueSpecification
+    {
+        public
+        typealias Value = T
+
+        public
+        static
+        var displayName: String { return "Basic Value" }
+    }
 
     public
     typealias Value = T
