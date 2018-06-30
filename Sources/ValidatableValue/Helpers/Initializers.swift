@@ -25,71 +25,39 @@
  */
 
 public
-func << <VV, T>(
-    container: inout VV,
-    newValue: T
-    ) throws
+extension Equatable
     where
-    VV: ValueWrapper,
-    VV.Value == T
+    Self: Codable
 {
-    container = try newValue.wrappedIfValid()
-}
+    func wrapped<T: BasicValueWrapper>(
+        ) -> T
+        where
+        Self == T.Value
+    {
+        return T(wrappedValue: self)
+    }
 
-//---
+    func wrapped<T: BasicValueWrapper>(
+        ) -> T?
+        where
+        Self == T.Value
+    {
+        return .some(T(wrappedValue: self))
+    }
 
-public
-func << <VV, T>(
-    container: inout VV?, // optional support!
-    newValue: T
-    ) throws
-    where
-    VV: ValueWrapper,
-    VV.Value == T
-{
-    container = try newValue.wrappedIfValid()
-}
+    func wrappedIfValid<T: ValueWrapper>(
+        ) throws -> T
+        where
+        Self == T.Value
+    {
+        return try T(validate: self)
+    }
 
-//---
-
-infix operator <?
-
-//---
-
-public
-func <? <VV, T>(
-    container: inout VV,
-    newValue: T
-    )
-    where
-    VV: BasicValueWrapper,
-    VV.Value == T
-{
-    container = newValue.wrapped()
-}
-
-//---
-
-public
-func == <VV, T>(
-    container: VV,
-    value: T?
-    ) -> Bool
-    where
-    VV: BasicValueWrapper,
-    VV.Value == T
-{
-    return container.value == value
-}
-
-public
-func == <VV, T>(
-    value: T?,
-    container: VV
-    ) -> Bool
-    where
-    VV: BasicValueWrapper,
-    VV.Value == T
-{
-    return container.value == value
+    func wrappedIfValid<T: ValueWrapper>(
+        ) throws -> T?
+        where
+        Self == T.Value
+    {
+        return try .some(T(validate: self))
+    }
 }
