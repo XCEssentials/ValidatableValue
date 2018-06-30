@@ -33,7 +33,7 @@ func << <VV, T>(
     VV: ValueWrapper,
     VV.Value == T
 {
-    container = try newValue.wrappedIfValid()
+    try container.set(newValue)
 }
 
 //---
@@ -41,13 +41,13 @@ func << <VV, T>(
 public
 func << <VV, T>(
     container: inout VV?, // optional support!
-    newValue: T
+    newValue: T?
     ) throws
     where
     VV: ValueWrapper,
     VV.Value == T
 {
-    container = try newValue.wrappedIfValid()
+    try container.set(newValue)
 }
 
 //---
@@ -66,6 +66,20 @@ func <? <VV, T>(
     VV.Value == T
 {
     container = newValue.wrapped()
+}
+
+//---
+
+public
+func <? <VV, T>(
+    container: inout VV?,
+    newValue: T?
+    )
+    where
+    VV: BasicValueWrapper,
+    VV.Value == T
+{
+    container = newValue.map{ .some($0.wrapped()) } ?? .none
 }
 
 //---

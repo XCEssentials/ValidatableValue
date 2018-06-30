@@ -24,25 +24,47 @@
 
  */
 
-/**
- Special trait for 'ValueWrapper' protocol that indicates that
- in case the wrapper is wrapped itself in 'Swift.Optional' -
- empty value should be considered as INvalid.
- */
 public
-protocol Mandatory: DisplayNamed {}
-
-//---
-
-//internal
-extension Mandatory
+extension ValueWrapper
+    where
+    Self: NonMandatory // <<<--- NON-mandatory only!
 {
-    static
-    var defaultEmptyValueReport: Report
+    func validValue(
+        ) throws -> Self.Value
     {
-        return (
-            "\"\(displayName)\" is empty",
-            "\"\(displayName)\" is empty, but expected to be non-empty."
-        )
+        try validate()
+
+        //---
+
+        return value
+    }
+
+    /**
+     Validates and returns 'value' regardless of its validity,
+     puts any encountered validation errors in the 'collectError'
+     array. Any unexpected occured error (except 'ValidationError')
+     will be thrown immediately.
+     */
+    func validValue(
+        _ collectError: inout [ValidationError]
+        ) throws -> Self.Value
+    {
+        do
+        {
+            try validate()
+        }
+        catch let error as ValidationError
+        {
+            collectError.append(error)
+        }
+        catch
+        {
+            // an unexpected error should be thrown to the upper level
+            throw error
+        }
+
+        //---
+
+        return value // return value regardless of its validity!
     }
 }

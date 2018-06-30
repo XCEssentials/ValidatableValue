@@ -67,7 +67,7 @@ extension SupportForOptionalTests
         XCTAssert(type(of: wrapper).displayName == SomeWrapper.displayName)
         XCTAssert(type(of: optionalWrapper).displayName == SomeWrapper.displayName)
 
-        XCTAssert(wrapper.value == optionalWrapper.value)
+        XCTAssert(wrapper.value == optionalWrapper?.value)
     }
 
     func testValidatableWithOptionalWrapper()
@@ -81,7 +81,8 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: ValueWrapper
+        struct SomeWrapper: ValueWrapper,
+            NonMandatory
         {
             typealias Specification = FirstName
 
@@ -99,13 +100,12 @@ extension SupportForOptionalTests
 
         let validValue = "Sam"
         let emptyValue = ""
-        let noValue: String? = nil
 
         //---
 
         do
         {
-            try Optional<SomeWrapper>(wrappedValue: validValue).validate()
+            try Optional.some(SomeWrapper(wrappedValue: validValue)).validate()
         }
         catch
         {
@@ -117,7 +117,7 @@ extension SupportForOptionalTests
 
         do
         {
-            try Optional<SomeWrapper>(wrappedValue: emptyValue).validate()
+            try Optional.some(SomeWrapper(wrappedValue: emptyValue)).validate()
 
             XCTFail("Should not get here ever")
         }
@@ -144,7 +144,7 @@ extension SupportForOptionalTests
 
         do
         {
-            try Optional<SomeWrapper>(wrappedValue: noValue).validate()
+            try Optional<SomeWrapper>.none.validate()
         }
         catch
         {
@@ -183,13 +183,12 @@ extension SupportForOptionalTests
 
         let validValue = "Sam"
         let emptyValue = ""
-        let noValue: String? = nil
 
         //---
 
         do
         {
-            try Optional<MandatoryWrapper>(wrappedValue: validValue).validate()
+            try Optional.some(MandatoryWrapper(wrappedValue: validValue)).validate()
         }
         catch
         {
@@ -201,7 +200,7 @@ extension SupportForOptionalTests
 
         do
         {
-            try Optional<MandatoryWrapper>(wrappedValue: emptyValue).validate()
+            try Optional.some(MandatoryWrapper(wrappedValue: emptyValue)).validate()
 
             XCTFail("Should not get here ever")
         }
@@ -228,7 +227,7 @@ extension SupportForOptionalTests
 
         do
         {
-            try Optional<MandatoryWrapper>(wrappedValue: noValue).validate()
+            try Optional<MandatoryWrapper>.none.validate()
 
             XCTFail("Should not get here ever")
         }
@@ -260,7 +259,8 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct WrapperWithSpec: ValueWrapper
+        struct WrapperWithSpec: ValueWrapper,
+            NonMandatory
         {
             typealias Specification = FirstName
 
@@ -378,7 +378,7 @@ extension SupportForOptionalTests
         }
     }
 
-    func testOptionalValidatableBasicValueWrapper()
+    func testOptionalValueWrapper()
     {
         enum FirstName: ValueSpecification
         {
@@ -389,7 +389,8 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: ValueWrapper
+        struct SomeWrapper: ValueWrapper,
+            NonMandatory
         {
             typealias Specification = FirstName
 
@@ -407,13 +408,13 @@ extension SupportForOptionalTests
 
         let validValue = "Sam"
         let emptyValue = ""
-        let noValue: String? = nil
 
         //--- valid
 
         do
         {
-            let result = try Optional<SomeWrapper>(wrappedValue: validValue)
+            let result = try SomeWrapper?
+                .some(validValue.wrapped())?
                 .validValue()
 
             if
@@ -436,7 +437,8 @@ extension SupportForOptionalTests
         {
             var issues: [ValidationError] = []
 
-            let result = try Optional<SomeWrapper>(wrappedValue: validValue)
+            let result = try SomeWrapper?
+                .some(validValue.wrapped())?
                 .validValue(&issues)
 
             XCTAssert(issues.count == 0)
@@ -461,7 +463,8 @@ extension SupportForOptionalTests
 
         do
         {
-            _ = try Optional<SomeWrapper>(wrappedValue: emptyValue)
+            _ = try SomeWrapper?
+                .some(emptyValue.wrapped())?
                 .validValue()
 
             XCTFail("Should not get here ever")
@@ -489,7 +492,8 @@ extension SupportForOptionalTests
         {
             var issues: [ValidationError] = []
 
-            let result = try Optional<SomeWrapper>(wrappedValue: emptyValue)
+            let result = try SomeWrapper?
+                .some(emptyValue.wrapped())?
                 .validValue(&issues)
 
             if
@@ -524,7 +528,8 @@ extension SupportForOptionalTests
 
         do
         {
-            let result = try Optional<SomeWrapper>(wrappedValue: noValue)
+            let result = try SomeWrapper?
+                .none?
                 .validValue()
 
             if
@@ -534,7 +539,7 @@ extension SupportForOptionalTests
             }
             else
             {
-                XCTAssert(result == noValue)
+                XCTAssert(result == nil)
             }
         }
         catch
@@ -547,7 +552,8 @@ extension SupportForOptionalTests
         {
             var issues: [ValidationError] = []
 
-            let result = try Optional<SomeWrapper>(wrappedValue: noValue)
+            let result = try SomeWrapper?
+                .none?
                 .validValue(&issues)
 
             XCTAssert(issues.count == 0)
@@ -559,7 +565,7 @@ extension SupportForOptionalTests
             }
             else
             {
-                XCTAssert(result == noValue)
+                XCTAssert(result == nil)
             }
         }
         catch
@@ -569,7 +575,7 @@ extension SupportForOptionalTests
         }
     }
 
-    func testMandatoryValidatableBasicValueWrapper()
+    func testMandatoryValueWrapper()
     {
         enum FirstName: ValueSpecification
         {
@@ -599,13 +605,13 @@ extension SupportForOptionalTests
 
         let validValue = "Sam"
         let emptyValue = ""
-        let noValue: String? = nil
 
         //--- valid
 
         do
         {
-            let result = try Optional<MandatoryWrapper>(wrappedValue: validValue)
+            let result = try MandatoryWrapper?
+                .some(validValue.wrapped())
                 .validValue()
 
             XCTAssert(result == validValue)
@@ -620,7 +626,8 @@ extension SupportForOptionalTests
         {
             var issues: [ValidationError] = []
 
-            let result = try Optional<MandatoryWrapper>(wrappedValue: validValue)
+            let result = try MandatoryWrapper?
+                .some(validValue.wrapped())
                 .validValue(&issues)
 
             XCTAssert(issues.count == 0)
@@ -645,7 +652,8 @@ extension SupportForOptionalTests
 
         do
         {
-            _ = try Optional<MandatoryWrapper>(wrappedValue: emptyValue)
+            _ = try MandatoryWrapper?
+                .some(emptyValue.wrapped())
                 .validValue()
 
             XCTFail("Should not get here ever")
@@ -673,7 +681,8 @@ extension SupportForOptionalTests
         {
             var issues: [ValidationError] = []
 
-            let result = try Optional<MandatoryWrapper>(wrappedValue: emptyValue)
+            let result = try MandatoryWrapper?
+                .some(emptyValue.wrapped())
                 .validValue(&issues)
 
             if
@@ -711,7 +720,8 @@ extension SupportForOptionalTests
 
         do
         {
-            _ = try Optional<MandatoryWrapper>(wrappedValue: noValue)
+            _ = try MandatoryWrapper?
+                .none
                 .validValue()
 
             XCTFail("Should not get here ever")
@@ -734,7 +744,8 @@ extension SupportForOptionalTests
         {
             var issues: [ValidationError] = []
 
-            let result = try Optional<MandatoryWrapper>(wrappedValue: noValue)
+            let result = try MandatoryWrapper?
+                .none
                 .validValue(&issues)
 
             XCTAssert(issues.count == 1)

@@ -157,7 +157,8 @@ extension WrapperTests
 
     func testMandatoryWithSpec()
     {
-        enum LastName: ValueSpecification
+        enum LastName: ValueSpecification,
+            NonMandatory
         {
             typealias Value = String
 

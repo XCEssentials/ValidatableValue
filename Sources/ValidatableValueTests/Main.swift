@@ -55,6 +55,23 @@ extension MainTests
 
 extension MainTests
 {
+    func testWrappedInitializers()
+    {
+        user.firstName = "Sam".wrapped()
+
+        user.firstName = try! "Sam".wrappedIfValid()
+
+        try? user.firstName.validate()
+
+        _ = user.firstName?.isValid
+        _ = user.firstName?.value
+
+        // _ = try! user.firstName?.validValue() // won't compile!
+        _ = try! user.firstName.validValue()
+
+        _ = try! user.lastName?.validValue()
+    }
+
     func testDecoding()
     {
         struct SomeEntity: Codable
@@ -165,7 +182,7 @@ extension MainTests
 
         do
         {
-            _ = try user.experience.validValue()
+            _ = try user.experience?.validValue()
         }
         catch
         {
@@ -364,7 +381,7 @@ extension MainTests
         {
             XCTAssertFalse(user.username.isValid)
 
-            XCTAssert(Optional<NonRequired<User.Username>>(wrappedValue: nil).isValid)
+            XCTAssert(Optional<NonRequired<User.Username>>.none.isValid)
 
             try user.username.validate()
 
@@ -427,7 +444,7 @@ extension MainTests
 
         //---
 
-        XCTAssert(user.firstName.value == firstName)
+        XCTAssert(user.firstName?.value == firstName)
         XCTAssert(user.firstName.isValid)
 
         //---
@@ -443,7 +460,7 @@ extension MainTests
 
         //---
 
-        XCTAssert(user.firstName.value == anotherFirstName)
+        XCTAssert(user.firstName?.value == anotherFirstName)
         XCTAssert(user.firstName.isValid)
     }
 }

@@ -73,10 +73,10 @@ extension Swift.Optional
      right away.
      */
     init(
-        validate value: Value
+        validate value: Wrapped.Value?
         ) throws
     {
-        self = value.map{ .some(.init(wrappedValue: $0)) } ?? .none
+        self = value.map{ .some($0.wrapped()) } ?? .none
         try self.validate()
     }
 
@@ -85,7 +85,7 @@ extension Swift.Optional
      */
     static
     func validate(
-        value: Value
+        value: Wrapped.Value?
         ) throws
     {
         _ = try self.init(validate: value)
@@ -96,120 +96,14 @@ extension Swift.Optional
      */
     mutating
     func set(
-        _ newValue: Value
+        _ newValue: Wrapped.Value?
         ) throws
     {
-        value = newValue
-        try validate()
-    }
-}
-
-//---
-
-public
-extension Swift.Optional
-    where
-    Wrapped: ValueWrapper
-{
-    public
-    func validValue() throws -> Value // NON-Mandatory!
-    {
-        switch self
-        {
-            case .none:
-                return nil // 'nil' is allowed
-
-            case .some(let wrapper):
-                return try wrapper.validValue()
-        }
-    }
-
-    public
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Value // NON-Mandatory!
-    {
-        do
-        {
-            try validate()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
+        self = newValue.map{ .some($0.wrapped()) } ?? .none
 
         //---
 
-        return value // just return value regardless of its validity!
-    }
-}
-
-//---
-
-public
-extension Swift.Optional
-    where
-    Wrapped: ValueWrapper & Mandatory // <<<---
-{
-    func validValue() throws -> Wrapped.Value // Mandatory!
-    {
-        switch self
-        {
-            case .none:
-                throw ValidationError.mandatoryValueIsNotSet(
-                    origin: Wrapped.displayName,
-                    report: Wrapped.Specification.prepareReport(
-                        value: nil,
-                        failedConditions: [],
-                        builtInValidationIssues: [],
-                        suggestedReport: Wrapped.defaultEmptyValueReport
-                    )
-                )
-
-            case .some(let wrapper):
-                return try wrapper.validValue()
-        }
-    }
-
-    /**
-     CAREFUL!!! The result is implicitly unwrapped optional!
-     This is a special getter that allows to get an optional valid value
-     OR collect an error, if stored value is invalid.
-     This helper function allows to collect issues from multiple
-     validateable values wihtout throwing an error immediately,
-     but received value should ONLY be used/read if the 'collectError'
-     is empty in the end.
-     */
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Wrapped.Value! // Mandatory, implicitly unwrapped!
-    {
-        do
-        {
-            // NOTE: withing explicit result type
-            // it goes to a wrong version of the 'validValue()' func!
-            let result: Wrapped.Value = try validValue()
-
-            return result
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-
-            //---
-
-            return nil
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
+        try validate()
     }
 }
 

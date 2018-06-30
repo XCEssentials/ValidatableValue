@@ -24,37 +24,10 @@
 
  */
 
-extension Swift.Optional: BasicValueWrapper
-    where
-    Wrapped: BasicValueWrapper
-{
-    public
-    typealias Value = Wrapped.Value?
-
-    public
-    var value: Value
-    {
-        get
-        {
-            switch self
-            {
-                case .none:
-                    return nil
-
-                case .some(let wrapper):
-                    return wrapper.value
-            }
-        }
-
-        set
-        {
-            self = newValue.map{ .some(.init(wrappedValue: $0)) } ?? .none
-        }
-    }
-
-    public
-    init(wrappedValue: Value)
-    {
-        self = wrappedValue.map{ .some(.init(wrappedValue: $0)) } ?? .none
-    }
-}
+/**
+ Special trait for 'ValueWrapper' protocol that indicates that
+ in case the wrapper is wrapped itself in 'Swift.Optional' -
+ empty value should be considered as VALID.
+ */
+public
+protocol NonMandatory {}

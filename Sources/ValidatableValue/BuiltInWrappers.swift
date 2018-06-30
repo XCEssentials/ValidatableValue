@@ -31,7 +31,8 @@
  */
 public
 struct WrapperOf<T: ValueSpecification>: ValueWrapper,
-    SingleValueCodable
+    SingleValueCodable,
+    NonMandatory
 {
     public
     typealias Specification = T
@@ -60,7 +61,8 @@ typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
  */
 public
 struct QuickWrapperOf<T: Codable & Equatable>: ValueWrapper,
-    SingleValueCodable
+    SingleValueCodable,
+    NonMandatory
 {
     public
     enum Specification: ValueSpecification
