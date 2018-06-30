@@ -52,6 +52,34 @@ typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
 //---
 
 /**
+ Same as 'WrapperOf', but accepts just base value types,
+ does not require a Specification for the value. Use it
+ when just need the functionality of wrapper without any
+ special conditions for the type and not plannig to use
+ it in GUI directly.
+ */
+public
+struct QuickWrapperOf<T: Codable & Equatable>: BasicValueWrapper,
+    SingleValueCodable
+{
+    enum BasicValue: ValueSpecification { typealias Value = T }
+
+    public
+    typealias Value = T
+
+    public
+    var value: Value
+
+    public
+    init(wrappedValue: Value) { self.value = wrappedValue }
+}
+
+public
+typealias NonRequiredBase<T: Codable & Equatable> = QuickWrapperOf<T>
+
+//---
+
+/**
  Value stored in this wrapper will be validated acording to the
  provided specification. When this wrapper is optional - the empty
  value ('nil') is considered to be NOT valid.
@@ -76,3 +104,33 @@ struct WrapperOfMandatory<T: ValueSpecification>: ValueWrapper,
 
 public
 typealias Required<T: ValueSpecification> = WrapperOfMandatory<T>
+
+//---
+
+/**
+ Same as 'WrapperOfMandatory', but accepts just base value types,
+ does not require a Specification for the value. Use it
+ when just need the functionality of wrapper without any
+ special conditions for the type and not plannig to use
+ it in GUI directly.
+ */
+public
+struct QuickWrapperOfMandatory<T: Codable & Equatable>: BasicValueWrapper,
+    SingleValueCodable,
+    Mandatory
+{
+    enum BasicValue: ValueSpecification { typealias Value = T }
+
+    public
+    typealias Value = T
+
+    public
+    var value: Value
+
+    public
+    init(wrappedValue: Value) { self.value = wrappedValue }
+}
+
+public
+typealias RequiredBase<T: Codable & Equatable> = QuickWrapperOfMandatory<T>
+
