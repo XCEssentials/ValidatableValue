@@ -57,19 +57,31 @@ extension MainTests
 {
     func testWrappedInitializers()
     {
-        user.firstName = "Sam".wrapped()
+        do
+        {
+            user.firstName = "Sam".wrapped()
+            user.firstName = try "Sam".wrappedIfValid()
 
-        user.firstName = try! "Sam".wrappedIfValid()
+            try user.firstName.validate()
 
-        try? user.firstName.validate()
+            XCTAssert(user.firstName.isValid)
 
-        _ = user.firstName?.isValid
-        _ = user.firstName?.value
+            _ = user.firstName?.value
+            _ = user.firstName.value
 
-        // _ = try! user.firstName?.validValue() // won't compile!
-        _ = try! user.firstName.validValue()
+            // _ = try user.firstName?.validValue() // won't compile!
+            _ = try user.firstName.validValue()
 
-        _ = try! user.lastName?.validValue()
+            // last name is non-required, so 'nil' is okay
+            _ = try user.lastName?.validValue()
+        }
+        catch
+        {
+            print("")
+            print("ERROR: ==>>> \(error)")
+            print("")
+            XCTFail("Should not get here ever")
+        }
     }
 
     func testDecoding()
