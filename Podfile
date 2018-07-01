@@ -1,33 +1,23 @@
-repoName = 'ValidatableValue'
-projName = 'Main'
-
-platform :ios, '8.0'
-
-workspace repoName
+workspace 'ValidatableValue'
 
 use_frameworks!
 
-#===
+abstract_target 'Common' do
 
-target 'Fwk' do
+    podspec
 
-	project projName
+    target 'ValidatableValue' do
 
-	#===
+        project 'ValidatableValue'
+        platform :ios, '9.0'
 
-	podspec
+    end
 
-end
+    target 'ValidatableValueTests' do
 
-target 'Tests' do
+        project 'ValidatableValue'
+        platform :ios, '9.0'
 
-	project projName
-
-    #===
-
-    pod 'XCETesting', '~> 1.1'
+    end
 
 end
-
-
-
