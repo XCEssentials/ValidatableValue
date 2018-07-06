@@ -42,6 +42,7 @@
 		949E60C520E8D7B200FEBC75 /* Optional+BasicWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949E60C420E8D7B200FEBC75 /* Optional+BasicWrapper.swift */; };
 		94B01BA720E7ED6F008721C8 /* Initializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B01BA620E7ED6F008721C8 /* Initializers.swift */; };
 		94B5CD4F20E6C71900576CF8 /* Optional+Mandatory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B5CD4E20E6C71900576CF8 /* Optional+Mandatory.swift */; };
+		94E02CF120EF4B0C00D987D4 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E02CF020EF4B0C00D987D4 /* Checkmark.swift */; };
 		9DF83E6AC7B174DFEBDCBFE4 /* BoolFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */; };
 		A06EE71B4E1AFE9431FB9AEA /* Wrapper+Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B35ED89C15946F5914CB01 /* Wrapper+Validatable.swift */; };
 		AE2DF798E6906D794BE7BA38 /* WrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76553EB3EE47043C4618064 /* WrapperTests.swift */; };
@@ -117,6 +118,7 @@
 		949E60C420E8D7B200FEBC75 /* Optional+BasicWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+BasicWrapper.swift"; sourceTree = "<group>"; };
 		94B01BA620E7ED6F008721C8 /* Initializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Initializers.swift; sourceTree = "<group>"; };
 		94B5CD4E20E6C71900576CF8 /* Optional+Mandatory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Mandatory.swift"; sourceTree = "<group>"; };
+		94E02CF020EF4B0C00D987D4 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		9B6E9A7351173D5382DC8B0B /* Wrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
 		9FF0DE94DB9E3AAACF0393AA /* Validatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		A0B695DB864152114BA0C0C5 /* Utils_displayName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Utils_displayName.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				7F8A6AB8D67FB4F0C666E824 /* BoolFlag.swift */,
+				94E02CF020EF4B0C00D987D4 /* Checkmark.swift */,
 				94B01BA620E7ED6F008721C8 /* Initializers.swift */,
 			);
 			path = Helpers;
@@ -495,6 +498,7 @@
 				3AD581DB981A1215FE987386 /* Validatable.swift in Sources */,
 				B87702475B204DC284ED1FC1 /* Wrapper.swift in Sources */,
 				94B01BA720E7ED6F008721C8 /* Initializers.swift in Sources */,
+				94E02CF120EF4B0C00D987D4 /* Checkmark.swift in Sources */,
 				9455BB5F20E5847E003589FD /* Utils.swift in Sources */,
 				944794BE20E82F59003E9D1E /* Optional_validValue.swift in Sources */,
 				A06EE71B4E1AFE9431FB9AEA /* Wrapper+Validatable.swift in Sources */,
