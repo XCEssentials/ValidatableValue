@@ -73,4 +73,16 @@ extension Swift.Optional
                 self = .some(CheckmarkValue.checked.wrapped())
         }
     }
+
+    mutating
+    func toggleOn()
+    {
+        self = .some(CheckmarkValue.checked.wrapped())
+    }
+
+    mutating
+    func toggleOff()
+    {
+        self = .none
+    }
 }
