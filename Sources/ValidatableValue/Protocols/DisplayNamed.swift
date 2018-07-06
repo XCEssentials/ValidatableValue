@@ -31,12 +31,25 @@ public
 protocol DisplayNamed
 {
     /**
-     End user friendly title of any instance of this type,
-     represents the recommended way to refer to instances
-     of this type in GUI.
+     Recommended end-user friendly name/title of the field where
+     any instance of this type is being displayed in GUI.
      */
     static
     var displayName: String { get }
+
+    /**
+     Recommended end-user friendly subtitle of the field where
+     any instance of this type is being displayed in GUI.
+     */
+    static
+    var displayHint: String? { get }
+
+    /**
+     Recommended end user friendly placeholder of the field where
+     any instance of this type is being displayed in GUI.
+     */
+    static
+    var displayPlaceholder: String? { get }
 }
 
 // MARK: - Default implementation
@@ -49,6 +62,18 @@ extension DisplayNamed
     {
         return intrinsicDisplayName
     }
+
+    static
+    var displayHint: String?
+    {
+        return nil
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return nil
+    }
 }
 
 // MARK: - Convenience helpers
@@ -59,6 +84,16 @@ extension DisplayNamed
     var displayName: String
     {
         return type(of: self).displayName
+    }
+
+    var displayHint: String?
+    {
+        return type(of: self).displayHint
+    }
+
+    var displayPlaceholder: String?
+    {
+        return type(of: self).displayPlaceholder
     }
 }
 
