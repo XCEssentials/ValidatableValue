@@ -85,4 +85,10 @@ extension Swift.Optional
     {
         self = .none
     }
+
+    mutating
+    func set(checked isOn: Bool)
+    {
+        (isOn ? toggleOn() : toggleOff())
+    }
 }
