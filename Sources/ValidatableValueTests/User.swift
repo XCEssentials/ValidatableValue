@@ -42,6 +42,8 @@ struct User: ValidatableEntity
     var password: Required<Password>?
 
     var experience: NonRequired<Experience>?
+
+    var isVIP: NonRequired<VIP>?
 }
 
 // MARK: - User: Explicit validation implementation for Swift < 4.2
@@ -125,6 +127,8 @@ extension User
     {
         typealias Value = UInt
     }
+
+    enum VIP: Checkmark {}
 }
 
 // MARK: - User: Representations
