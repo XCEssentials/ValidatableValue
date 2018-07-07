@@ -41,9 +41,6 @@ extension ValidatableEntity
 
             do
             {
-                print(type(of: $0)) // TODO: remove later!
-                
-                // switch Optional extensions to built-in wrappers instead of conditional extensions with protocols!!!!!
                 try $0.validate()
             }
             catch let error as ValidationError
