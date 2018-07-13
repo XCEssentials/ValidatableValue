@@ -46,6 +46,50 @@ extension SupportForOptionalTests
         XCTAssert(type(of: obj).displayName == SomeObj.displayName)
     }
 
+    func testIsRequired()
+    {
+        enum SomeSpec: ValueSpecification
+        {
+            typealias Value = Int
+        }
+
+        struct SomeWrapper: ValueWrapper, NonMandatory
+        {
+            typealias Specification = SomeSpec
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(wrappedValue: Value)
+            {
+                self.value = wrappedValue
+            }
+        }
+
+        struct SomeMandatoryWrapper: ValueWrapper, Mandatory
+        {
+            typealias Specification = SomeSpec
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(wrappedValue: Value)
+            {
+                self.value = wrappedValue
+            }
+        }
+
+        //---
+
+        XCTAssertFalse(Optional<SomeWrapper>.isRequired)
+        XCTAssertFalse(Optional.some(SomeWrapper(wrappedValue: 1)).isRequired)
+
+        XCTAssert(Optional<SomeMandatoryWrapper>.isRequired)
+        XCTAssert(Optional.some(SomeMandatoryWrapper(wrappedValue: 1)).isRequired)
+    }
+
     func testBasicValueWrapper()
     {
         struct SomeWrapper: BasicValueWrapper

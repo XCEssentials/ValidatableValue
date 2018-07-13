@@ -37,6 +37,50 @@ class WrapperTests: XCTestCase {}
 
 extension WrapperTests
 {
+    func testIsRequired()
+    {
+        enum SomeSpec: ValueSpecification
+        {
+            typealias Value = Int
+        }
+
+        struct SomeWrapper: ValueWrapper, NonMandatory
+        {
+            typealias Specification = SomeSpec
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(wrappedValue: Value)
+            {
+                self.value = wrappedValue
+            }
+        }
+
+        struct SomeMandatoryWrapper: ValueWrapper, Mandatory
+        {
+            typealias Specification = SomeSpec
+
+            typealias Value = Specification.Value
+
+            var value: Value
+
+            init(wrappedValue: Value)
+            {
+                self.value = wrappedValue
+            }
+        }
+
+        //---
+
+        XCTAssertFalse(SomeWrapper.isRequired)
+        XCTAssertFalse(SomeWrapper(wrappedValue: 1).isRequired)
+
+        XCTAssert(SomeMandatoryWrapper.isRequired)
+        XCTAssert(SomeMandatoryWrapper(wrappedValue: 1).isRequired)
+    }
+
     func testDisplayName()
     {
         enum LastName: ValueSpecification
