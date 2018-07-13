@@ -25,58 +25,16 @@
  */
 
 public
-extension ValidatableEntity
+extension ValueWrapper
 {
-    /**
-     Validates all validateable values contained inside the entity,
-     throws a validation error if any issues found.
-     */
-    func validate() throws
+    static
+    var isRequired: Bool
     {
-        var issues: [ValidationError] = []
-
-        //---
-
-        try allValidatableMembers.forEach{
-
-            do
-            {
-                try $0.validate()
-            }
-            catch let error as ValidationError
-            {
-                issues.append(error)
-            }
-            catch
-            {
-                // throw any unexpected erros right away
-                throw error
-            }
-        }
-
-        //---
-
-        if
-            !issues.isEmpty
-        {
-            throw issues.asValidationIssues(for: self)
-        }
+        return (self is Mandatory.Type)
     }
-}
 
-public
-extension Array
-    where
-    Element == ValidationError
-{
-    func asValidationIssues<E: ValidatableEntity>(
-        for entity: E
-        ) -> ValidationError
+    var isRequired: Bool
     {
-        return .entityIsNotValid(
-            origin: type(of: entity).displayName,
-            issues: self,
-            report: type(of: entity).prepareReport(with: self)
-        )
+        return type(of: self).isRequired
     }
 }

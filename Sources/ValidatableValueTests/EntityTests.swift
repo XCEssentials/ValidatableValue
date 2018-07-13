@@ -66,7 +66,7 @@ extension EntityTests
 
             "Sam",
             SomeWrapper(wrappedValue: "John"),
-            Optional<SomeWrapper>(wrappedValue: "David") as Any
+            Optional.some(SomeWrapper(wrappedValue: "David")) as Any
         ]
 
         let valElements = array.compactMap{ $0 as? Validatable }
