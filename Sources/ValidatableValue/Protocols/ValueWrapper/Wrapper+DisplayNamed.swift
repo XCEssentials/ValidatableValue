@@ -32,4 +32,16 @@ extension ValueWrapper
     {
         return Specification.displayName
     }
+
+    static
+    var displayHint: String?
+    {
+        return Specification.displayHint
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return Specification.displayPlaceholder
+    }
 }
