@@ -86,6 +86,12 @@ extension WrapperTests
         enum LastName: ValueSpecification
         {
             typealias Value = String
+
+            static
+            let displayHint: String? = "Your last name"
+
+            static
+            let displayPlaceholder: String? = "Enter you last name here..."
         }
 
         struct WrapperWithSpec: ValueWrapper
@@ -101,6 +107,12 @@ extension WrapperTests
 
         XCTAssert(WrapperWithSpec.displayName != WrapperWithSpec.intrinsicDisplayName)
         XCTAssert(WrapperWithSpec.displayName == LastName.displayName)
+
+        XCTAssert(WrapperWithSpec.displayHint != nil)
+        XCTAssert(WrapperWithSpec.displayHint == LastName.displayHint)
+
+        XCTAssert(WrapperWithSpec.displayPlaceholder != nil)
+        XCTAssert(WrapperWithSpec.displayPlaceholder == LastName.displayPlaceholder)
 
         //---
 
