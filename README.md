@@ -65,7 +65,7 @@ Here is the simplest example of validatable value with single validation require
 
 ```swift
 var firstName = ValidatableValue<String>(
-    Require("Non-empty") { $0.characters.count > 0 } )
+    Require("Non-empty") { !$0.isEmpty } )
 ```
 
 Notice, that we declare this value as `var`, becasue by default the value is empty and needs to be set with a value that passes validation to whole value become valid.
