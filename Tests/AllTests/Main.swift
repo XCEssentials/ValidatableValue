@@ -175,15 +175,7 @@ extension MainTests
             _
             )
         {
-            #if swift(>=4.2)
-
             XCTAssert(origin == user.firstName.displayName)
-
-            #else
-
-            XCTAssert(origin == type(of: user.firstName).displayName)
-
-            #endif
         }
         catch
         {
@@ -213,15 +205,7 @@ extension MainTests
             let issues, _
             )
         {
-            #if swift(>=4.2)
-
             XCTAssert(issues.count == user.allRequiredMembers.count)
-
-            #else
-
-            XCTAssert(issues.count == 3)
-
-            #endif
         }
         catch
         {
