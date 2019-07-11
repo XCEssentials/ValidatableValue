@@ -43,6 +43,9 @@ struct User: ValidatableEntity
 
 // MARK: - User: Value Specs
 
+fileprivate
+typealias CS = CharacterSet
+
 extension User
 {
     enum FirstName: ValueSpecification
@@ -74,21 +77,15 @@ extension User
         static
         let conditions: Conditions<String> = [
 
-            Check("Lenght between 8 and 30 characters")
-            { 8...30 ~= $0.count },
-            Check("Has at least 1 capital character")
-            { 1 <= Pwd.caps.count(at: $0) },
-            Check("Has at least 4 lower characters")
-            { 4 <= Pwd.lows.count(at: $0) },
-            Check("Has at least 1 digit character")
-            { 1 <= Pwd.digits.count(at: $0) },
-            Check("Has at least 1 special character")
-            { 1 <= Pwd.specials.count(at: $0) },
+            Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
+            Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(in: $0) },
+            Check("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(in: $0) },
+            Check("Has at least 1 digit character"){ 1 <= Pwd.digits.count(in: $0) },
+            Check("Has at least 1 special character"){ 1 <= Pwd.specials.count(in: $0) },
             Check("""
-                    Consists of lowercase letters, decimal digits and
-                    following characters: ,.!?@#$%^&*()-_+=
-                    """)
-            { Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+                Consists of lowercase letters, decimal digits and
+                following special characters: \(String(describing: Pwd.specials))
+                """){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
         ]
     }
 
@@ -207,32 +204,5 @@ extension String
         let emailTest = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
 
         return emailTest.evaluate(with: value)
-    }
-}
-
-// MARK: - CharacterSet helpers
-
-fileprivate
-typealias CS = CharacterSet // swiftlint:disable:this type_name
-
-fileprivate
-extension CS
-{
-    func count(at str: String) -> UInt
-    {
-        var result: UInt = 0
-
-        //---
-
-        //swiftlint:disable:next identifier_name
-        for c in str
-            where String(c).rangeOfCharacter(from: self) != nil
-        {
-            result += 1
-        }
-
-        //---
-
-        return result
     }
 }
