@@ -62,8 +62,6 @@ extension ValidatableEntity
         return { _, _ in }
     }
 
-    #if swift(>=4.2)
-
     var allValidatableMembers: [Validatable]
     {
         return Mirror(reflecting: self)
@@ -71,8 +69,6 @@ extension ValidatableEntity
             .map{ $0.value }
             .compactMap{ $0 as? Validatable }
     }
-
-    #endif
 }
 
 // MARK: - Convenience helpers
@@ -87,8 +83,6 @@ extension ValidatableEntity
             .map{ $0.value }
     }
 
-    #if swift(>=4.2)
-
     var allRequiredMembers: [Mandatory & Validatable]
     {
         return Mirror(reflecting: self)
@@ -96,6 +90,4 @@ extension ValidatableEntity
             .map{ $0.value }
             .compactMap{ $0 as? Mandatory & Validatable }
     }
-
-    #endif
 }

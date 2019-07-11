@@ -1,9 +1,16 @@
-[![license](https://img.shields.io/github/license/XCEssentials/ValidatableValue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub tag](https://img.shields.io/github/tag/XCEssentials/ValidatableValue.svg)](https://cocoapods.org/?q=XCERequirement)
-[![CocoaPods](https://img.shields.io/cocoapods/v/XCEValidatableValue.svg)](https://cocoapods.org/?q=XCERequirement)
-[![CocoaPods](https://img.shields.io/cocoapods/p/XCEValidatableValue.svg)](https://cocoapods.org/?q=XCEUniFlow)
+[![GitHub License](https://img.shields.io/github/license/XCEssentials/ValidatableValue.svg?longCache=true)](LICENSE)
+[![GitHub Tag](https://img.shields.io/github/tag/XCEssentials/ValidatableValue.svg?longCache=true)](https://github.com/XCEssentials/ValidatableValue/tags)
+[![Swift Package Manager Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?longCache=true)](Package.swift)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg?longCache=true)](https://github.com/Carthage/Carthage)
+[![Written in Swift](https://img.shields.io/badge/Swift-5.0-orange.svg?longCache=true)](https://swift.org)
+[![Supported platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-blue.svg?longCache=true)](Package.swift)
+[![Build Status](https://travis-ci.com/XCEssentials/ValidatableValue.svg?branch=master)](https://travis-ci.com/XCEssentials/ValidatableValue)
 
-# Problem
+# ValidatableValue
+
+Generic value wrapper with built-in validation
+
+## Problem
 
 Every app has [data model](https://en.wikipedia.org/wiki/Data_model). A data model is usually implemented in the form of a custom composite [data type](https://en.wikipedia.org/wiki/Data_type) that stores one or more [properties](https://en.wikipedia.org/wiki/Property_(programming)). Ideally, the type of each property (no matter if it's atomic or composite) defines desired set of all possible values for this property. Plus, there are might be special rules that may define whatever any given value is acceptable for the property or not.
 
@@ -11,22 +18,22 @@ Swift has no built-in mechanizm of how to narrow-down set of allowed values with
 
 For example, to limit a vlaue to just integer numbers in the range from 1 to 100 and avoid all odd numbers within this range we usually use just Integer, and then somehow later implement the needed checks before actually put a value in this property. That leads to distribution of single portion of business logic (requirements for this particualr property) across at least two (sometimes more) places in the codebase.
 
-# Wishlist
+## Wishlist
 
 1. concise inline definition of value validation logic;
 2. safe value validation before actually writing it into property;
 3. combination of several requirements together to create composite requirement that defines custom allowed values set;
 4. eliminate any side effects by making validation logic to be written as pure function.
 
-# How to install
+## How to install
 
 The recommended way is to install using [CocoaPods](https://cocoapods.org/?q=XCEValidatableValue).
 
-# How it works
+## How it works
 
 The `ValidatableValue` data type represents a value that can be validated against custom rules/requirements. It also relies on `Value` generic type that represents base data type for potential value (one of the standard system data types or any custom one). The validation logic must be supplied as input parameter to the constructor in form of set of [Requirement](https://github.com/XCEssentials/Requirement) instances (might be empty in an edge case when any value of the base type is fine). There are several ways of creating a validatable value, see below.
 
-# How to use
+## How to use
 
 Assume we need to define a basic data model for representing user in our app.
 
