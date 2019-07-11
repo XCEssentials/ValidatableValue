@@ -63,34 +63,12 @@ let sourcesLocations: PerSubSpec = (
     Spec.Locations.tests + subSpecs.tests
 )
 
-let dummyFiles = [
-    sourcesLocations.core + "\(subSpecs.core).swift",
-    sourcesLocations.tests + "\(subSpecs.tests).swift"
-]
-
 // MARK: Parameters - Summary
 
 localRepo.report()
 remoteRepo.report()
 
 // MARK: -
-
-// MARK: Write - Dummy files
-
-try dummyFiles
-    .forEach{
-    
-        try CustomTextFile
-            .init(
-                "//"
-            )
-            .prepare(
-                at: $0
-            )
-            .writeToFileSystem(
-                ifFileExists: .skip
-            )
-    }
 
 // MARK: Write - ReadMe
 
