@@ -34,43 +34,12 @@ import XCEValidatableValue
 struct User: ValidatableEntity
 {
     var firstName: Required<FirstName>?
-
     var lastName: NonRequired<LastName>?
-
     var username: Required<Username>?
-
     var password: Required<Password>?
-
     var experience: NonRequired<Experience>?
-
     var isVIP: NonRequired<VIP>?
 }
-
-// MARK: - User: Explicit validation implementation for Swift < 4.2
-
-#if swift(>=4.2)
-
-// 'ValidatableEntity' provides automatic 'allValidatableMembers'
-// implementation for Swift 4.2+
-
-#else
-
-extension User
-{
-    var allValidatableMembers: [Validatable]
-    {
-        return [
-
-            firstName,
-            lastName,
-            username,
-            password,
-            experience
-        ]
-    }
-}
-
-#endif
 
 // MARK: - User: Value Specs
 

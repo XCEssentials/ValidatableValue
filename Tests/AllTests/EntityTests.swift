@@ -37,8 +37,6 @@ class EntityTests: XCTestCase {}
 
 extension EntityTests
 {
-    #if swift(>=4.2)
-
     func testConditionalConformance() // only works in Swift 4.2+
     {
         enum FirstName: ValueSpecification
@@ -75,8 +73,6 @@ extension EntityTests
         XCTAssert(valElements.count == 2)
     }
 
-    #endif
-
     func testMembersGetters()
     {
         enum FirstName: ValueSpecification
@@ -90,26 +86,6 @@ extension EntityTests
             var wrap1Opt: NonRequired<FirstName>?
             var wrap2: Required<FirstName>
             var wrap2Opt: Required<FirstName>?
-
-            #if swift(>=4.2)
-
-            // 'ValidatableEntity' provides automatic 'allValidatableMembers'
-            // implementation for Swift 4.2+
-
-            #else
-
-            var allValidatableMembers: [Validatable]
-            {
-                return [
-
-                    wrap1,
-                    wrap1Opt,
-                    wrap2,
-                    wrap2Opt
-                ]
-            }
-
-            #endif
         }
 
         let entity = TheEntity(
@@ -126,34 +102,15 @@ extension EntityTests
 
         XCTAssert(valMembers.count == allMembers.count)
 
-        #if swift(>=4.2)
-
         let reqMembers = entity.allRequiredMembers
 
         XCTAssert(valMembers.count != reqMembers.count)
         XCTAssert(reqMembers.count == 2)
-
-        #endif
     }
 
     func testDisplayName()
     {
-        struct SomeEntity: ValidatableEntity
-        {
-            #if swift(>=4.2)
-
-            // 'ValidatableEntity' provides automatic 'allValidatableMembers'
-            // implementation for Swift 4.2+
-
-            #else
-
-            var allValidatableMembers: [Validatable]
-            {
-                return []
-            }
-
-            #endif
-        }
+        struct SomeEntity: ValidatableEntity {}
 
         XCTAssert(SomeEntity.displayName == SomeEntity.intrinsicDisplayName)
 
@@ -166,20 +123,6 @@ extension EntityTests
 
             static
             let displayName = someStr
-
-            #if swift(>=4.2)
-
-            // 'ValidatableEntity' provides automatic 'allValidatableMembers'
-            // implementation for Swift 4.2+
-
-            #else
-
-            var allValidatableMembers: [Validatable]
-            {
-                return []
-            }
-
-            #endif
         }
 
         XCTAssert(CustomNamedEntity.displayName != CustomNamedEntity.intrinsicDisplayName)
@@ -188,22 +131,7 @@ extension EntityTests
 
     func testDefaultValueReport()
     {
-        struct SomeEntity: ValidatableEntity
-        {
-            #if swift(>=4.2)
-
-            // 'ValidatableEntity' provides automatic 'allValidatableMembers'
-            // implementation for Swift 4.2+
-
-            #else
-
-            var allValidatableMembers: [Validatable]
-            {
-                return []
-            }
-
-            #endif
-        }
+        struct SomeEntity: ValidatableEntity {}
 
         let defaultReport = SomeEntity.defaultReport(with: [])
 
@@ -234,20 +162,6 @@ extension EntityTests
                     report = customReport
                 }
             }
-
-            #if swift(>=4.2)
-
-            // 'ValidatableEntity' provides automatic 'allValidatableMembers'
-            // implementation for Swift 4.2+
-
-            #else
-
-            var allValidatableMembers: [Validatable]
-            {
-                return []
-            }
-
-            #endif
         }
 
         let defaultReport = SomeEntity.defaultReport(with: [])
@@ -278,20 +192,6 @@ extension EntityTests
 
                 throw issues.asValidationIssues(for: self)
             }
-
-            #if swift(>=4.2)
-
-            // 'ValidatableEntity' provides automatic 'allValidatableMembers'
-            // implementation for Swift 4.2+
-
-            #else
-
-            var allValidatableMembers: [Validatable]
-            {
-                return []
-            }
-
-            #endif
         }
 
         //---
@@ -355,23 +255,6 @@ extension EntityTests
         struct AutoValidationEntity: ValidatableEntity
         {
             let stringWrapper: SimpleWrapper
-
-            #if swift(>=4.2)
-
-            // 'ValidatableEntity' provides automatic 'allValidatableMembers'
-            // implementation for Swift 4.2+
-
-            #else
-
-            var allValidatableMembers: [Validatable]
-            {
-                return [
-
-                    stringWrapper
-                ]
-            }
-
-            #endif
         }
 
         //---
