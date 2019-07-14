@@ -26,6 +26,8 @@
 
 import Foundation
 
+import XCERequirement
+
 // only publically available members!
 import XCEValidatableValue
 
@@ -75,7 +77,7 @@ extension User
     enum Password: ValueSpecification
     {
         static
-        let conditions: Conditions<String> = [
+        let conditions: [Condition<String>] = [
 
             Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
             Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(in: $0) },
