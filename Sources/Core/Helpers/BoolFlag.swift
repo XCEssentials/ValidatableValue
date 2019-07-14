@@ -24,6 +24,8 @@
 
  */
 
+import XCERequirement
+
 //---
 
 /**
@@ -39,7 +41,7 @@ public
 extension BoolFlag
 {
     static
-    var conditions: Conditions<Bool>
+    var conditions: [Condition<Bool>]
     {
         return [
 

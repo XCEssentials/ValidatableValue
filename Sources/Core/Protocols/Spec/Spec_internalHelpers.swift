@@ -24,6 +24,10 @@
 
  */
 
+import XCERequirement
+
+//---
+
 // internal
 extension ValueSpecification
 {
@@ -53,9 +57,9 @@ extension ValueSpecification
             {
                 try $0.validate(value: valueToCheck)
             }
-            catch let error as ConditionUnsatisfied
+            catch let error as UnsatisfiedRequirement
             {
-                result.append(error.condition)
+                result.append(error.requirement)
             }
             catch
             {

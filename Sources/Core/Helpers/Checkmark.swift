@@ -92,3 +92,54 @@ extension Swift.Optional
         (isOn ? toggleOn() : toggleOff())
     }
 }
+
+//---
+
+public
+extension Swift.Optional
+    where
+    Wrapped == CheckmarkValue
+{
+    var isChecked: Bool
+    {
+        switch self
+        {
+            case .some:
+                return true
+
+            case .none:
+                return false
+        }
+    }
+
+    mutating
+    func toggle()
+    {
+        switch self
+        {
+            case .some:
+                self = .none
+
+            case .none:
+                self = .some(.checked)
+        }
+    }
+
+    mutating
+    func toggleOn()
+    {
+        self = .some(.checked)
+    }
+
+    mutating
+    func toggleOff()
+    {
+        self = .none
+    }
+
+    mutating
+    func set(checked isOn: Bool)
+    {
+        (isOn ? toggleOn() : toggleOff())
+    }
+}

@@ -25,18 +25,6 @@
  */
 
 public
-struct ConditionUnsatisfied: Error
-{
-    public
-    let input: Any
-
-    public
-    let condition: String
-}
-
-//---
-
-public
 enum ValidationError: Error
 {
     case mandatoryValueIsNotSet(

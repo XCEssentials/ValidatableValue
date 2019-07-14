@@ -24,6 +24,10 @@
 
  */
 
+import XCERequirement
+
+//---
+
 /**
  Describes custom value type for a wrapper.
  */
