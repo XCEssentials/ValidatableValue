@@ -55,7 +55,7 @@ extension ValueSpecification
         {
             do
             {
-                try $0.validate(value: valueToCheck)
+                try $0.validate(valueToCheck)
             }
             catch let error as UnsatisfiedRequirement
             {
