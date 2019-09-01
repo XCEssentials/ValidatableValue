@@ -84,10 +84,7 @@ extension User
             Check("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(in: $0) },
             Check("Has at least 1 digit character"){ 1 <= Pwd.digits.count(in: $0) },
             Check("Has at least 1 special character"){ 1 <= Pwd.specials.count(in: $0) },
-            Check("""
-                Consists of lowercase letters, decimal digits and
-                following special characters: \(String(describing: Pwd.specials))
-                """){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+            Check("Allowed characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
         ]
     }
 
