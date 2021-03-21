@@ -11,8 +11,7 @@ print("--- BEGIN of '\(Executable.name)' script ---")
 
 // MARK: Parameters
 
-Spec.BuildSettings.swiftVersion.value = "5.0"
-let swiftLangVersions = "[.v5]"
+Spec.BuildSettings.swiftVersion.value = "5.3"
 
 let localRepo = try Spec.LocalRepo.current()
 
@@ -164,8 +163,9 @@ try CustomTextFile("""
         ],
         dependencies: [
             .package(
+                name: "XCERequirement",
                 url: "https://github.com/XCEssentials/Requirement",
-                from: "2.0.0"
+                from: "2.2.0"
             )
         ],
         targets: [
@@ -184,8 +184,7 @@ try CustomTextFile("""
                 ],
                 path: "\(sourcesLocations.tests)"
             ),
-        ],
-        swiftLanguageVersions: \(swiftLangVersions)
+        ]
     )
     """
     )
