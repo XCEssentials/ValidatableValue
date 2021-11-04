@@ -160,7 +160,7 @@ extension WrapperTests
 
             let encodedWrapperStr = String(data: encodedWrapper, encoding: .utf8)
 
-            XCTAssert(encodedWrapperStr! == "{\"value\":\"Test\"}")
+            XCTAssert(encodedWrapperStr! == "{\"rawValue\":\"Test\"}")
         }
         catch
         {

@@ -83,7 +83,7 @@ public
 extension SomeValueSpecification where ValidValue == RawValue
 {
     static
-    func convert(rawValue: RawValue) throws -> ValidValue?
+    func convert(rawValue: RawValue) -> ValidValue?
     {
         rawValue
     }
@@ -93,7 +93,7 @@ public
 extension SomeValueSpecification where ValidValue: RawRepresentable, ValidValue.RawValue == RawValue
 {
     static
-    func convert(rawValue: RawValue) throws -> ValidValue?
+    func convert(rawValue: RawValue) -> ValidValue?
     {
         ValidValue.init(rawValue: rawValue)
     }

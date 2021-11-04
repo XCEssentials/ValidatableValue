@@ -38,13 +38,10 @@ struct WrapperOf<T: SomeValueSpecification>: SomeValidatableValueWrapper,
     typealias Specification = T
 
     public
-    typealias Value = Specification.RawValue
+    var rawValue: Specification.RawValue
 
     public
-    var rawValue: Value
-
-    public
-    init(wrappedValue: Value) { self.rawValue = wrappedValue }
+    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
 }
 
 public
@@ -71,6 +68,9 @@ struct QuickWrapperOf<T: Codable>: SomeValidatableValueWrapper,
         typealias RawValue = T
 
         public
+        typealias ValidValue = T
+        
+        public
         static
         var displayName: String { return "Basic Value" }
     }
@@ -78,13 +78,10 @@ struct QuickWrapperOf<T: Codable>: SomeValidatableValueWrapper,
     //---
 
     public
-    typealias Value = T
+    var rawValue: Specification.RawValue
 
     public
-    var rawValue: Value
-
-    public
-    init(wrappedValue: Value) { self.rawValue = wrappedValue }
+    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
 }
 
 public
@@ -106,13 +103,10 @@ struct WrapperOfMandatory<T: SomeValueSpecification>: SomeValidatableValueWrappe
     typealias Specification = T
 
     public
-    typealias Value = Specification.RawValue
+    var rawValue: Specification.RawValue
 
     public
-    var rawValue: Value
-
-    public
-    init(wrappedValue: Value) { self.rawValue = wrappedValue }
+    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
 }
 
 public
@@ -139,18 +133,18 @@ struct QuickWrapperOfMandatory<T: Codable>: SomeValidatableValueWrapper,
         typealias RawValue = T
 
         public
+        typealias ValidValue = T
+        
+        public
         static
         var displayName: String { return "Basic Value" }
     }
 
     public
-    typealias Value = T
+    var rawValue: Specification.RawValue
 
     public
-    var rawValue: Value
-
-    public
-    init(wrappedValue: Value) { self.rawValue = wrappedValue }
+    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
 }
 
 public
