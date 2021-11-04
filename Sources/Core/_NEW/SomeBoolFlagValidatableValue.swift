@@ -24,25 +24,23 @@
 
  */
 
+import XCERequirement
+
+//---
+
+/**
+ Special case of value spec for simple bool flag value.
+ It automatically fulfills all requirements, except reporting.
+ */
 public
-enum ValidationError: Error
+protocol SomeBoolFlagValidatableValue: SomeValidatableValue, BoolFlag {}
+
+public
+protocol BoolFlag {}
+
+public
+extension BoolFlag
 {
-    case mandatoryValueIsMissing
-
-    case unsatisfiedConditions([Error], rawValue: Any)
-
-    case invalidEntity([Error])
-    
-    public
-    var hasNestedIssues: Bool
-    {
-        switch self
-        {
-            case .invalidEntity(let errors) where !errors.isEmpty:
-                return true
-                
-            default:
-                return false
-        }
-    }
+    typealias Raw = Bool
+    typealias Target = Bool
 }

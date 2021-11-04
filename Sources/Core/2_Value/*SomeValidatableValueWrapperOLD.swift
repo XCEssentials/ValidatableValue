@@ -24,63 +24,53 @@
 
  */
 
-import XCERequirement
-
-//---
-
-/**
- Describes custom value type for a wrapper.
- */
 public
-protocol SomeValueSpecification: DisplayNamed
+protocol SomeValidatableValueWrapperOLD: SomeValidatable, Codable, DisplayNamed
 {
-    associatedtype RawValue: Codable
+    associatedtype Specification: SomeValueSpecificationOLD
+    
+    init(wrappedValue: Specification.RawValue)
 
-    associatedtype ValidValue: Codable
-    
-    /// Specifies how we convert `RawValue` into `ValidValue`.
-    ///
-    /// Error thrown from this conversion considered to be
-    /// validation error as well.
-    static
-    func convert(rawValue: RawValue) -> ValidValue?
-    
-    /**
-     Set of conditions for the 'Value' which gonna be used
-     for value validation.
-     */
-    static
-    var conditions: [Condition<RawValue>] { get }
+    var rawValue: Specification.RawValue { get set }
 }
 
-// MARK: - Default implementations
+// MARK: - Required?
 
 public
-extension SomeValueSpecification
+extension SomeValidatableValueWrapperOLD
 {
     static
-    var conditions: [Condition<RawValue>]
+    var isRequired: Bool
     {
-        return []
+        return (self is Mandatory.Type)
+    }
+
+    var isRequired: Bool
+    {
+        return type(of: self).isRequired
     }
 }
 
-public
-extension SomeValueSpecification where ValidValue == RawValue
-{
-    static
-    func convert(rawValue: RawValue) -> ValidValue?
-    {
-        rawValue
-    }
-}
+// MARK: - DisplayNamed support
 
 public
-extension SomeValueSpecification where ValidValue: RawRepresentable, ValidValue.RawValue == RawValue
+extension SomeValidatableValueWrapperOLD
 {
     static
-    func convert(rawValue: RawValue) -> ValidValue?
+    var displayName: String
     {
-        ValidValue.init(rawValue: rawValue)
+        return Specification.displayName
+    }
+
+    static
+    var displayHint: String?
+    {
+        return Specification.displayHint
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return Specification.displayPlaceholder
     }
 }

@@ -25,7 +25,7 @@
  */
 
 public
-typealias NonRequired<T: SomeValueSpecification> = WrapperOf<T>
+typealias NonRequired<T: SomeValueSpecificationOLD> = WrapperOf<T>
 
 //---
 
@@ -35,7 +35,7 @@ typealias NonRequired<T: SomeValueSpecification> = WrapperOf<T>
  value ('nil') is considered to be valid.
  */
 public
-struct WrapperOf<T: SomeValueSpecification>: SomeValidatableValue,
+struct WrapperOf<T: SomeValueSpecificationOLD>: SomeValidatableValueWrapperOLD,
     SomeSingleValueCodable,
     NonMandatory
 {

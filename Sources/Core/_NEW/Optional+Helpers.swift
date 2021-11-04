@@ -24,77 +24,69 @@
 
  */
 
-extension Swift.Optional: SomeValidatable
-    where
-    Wrapped: SomeValidatableValue
+// MARK: - Validation
+
+extension Swift.Optional: SomeValidatable where Wrapped: SomeValidatableValueWrapper
 {
     public
     func validate() throws
     {
-        if
-            Wrapped.self is Mandatory
+        switch self
         {
+            case .none where Wrapped.self is Mandatory:
+                
+                throw ValidationError.requiredValueIsMissing
+                
+            case .none:
+                
+                break // it's okay to be missing for non-Mandatory wrappers
+                
+            case .some(let wrapped):
+                
+                try wrapped.validate()
+        }
+    }
+}
+
+public
+extension Swift.Optional where Wrapped: SomeValidatableValueWrapper & Mandatory
+{
+    var validValue: Wrapped.Value.Valid
+    {
+        get throws {
+           
             switch self
             {
                 case .none:
-                    throw ValidationError.mandatoryValueIsMissing
-
-                case .some(let validatable):
-                    try validatable.validate()
+                    
+                    throw ValidationError.requiredValueIsMissing
+                    
+                case .some(let wrapped):
+                    
+                    return try wrapped.validValue
             }
         }
-        else
-        if
-            case .some(let validatable) = self
-        {
-            try validatable.validate()
-        }
     }
 }
 
-// MARK: - Convenience helpers
+// MARK: - Metadata
 
 public
-extension Swift.Optional
-    where
-    Wrapped: SomeValidatableValue
+typealias ValidatableValueWrapperMetadata = (
+    isEmpty: Bool,
+    isMandatory: Bool,
+    isValid: Bool
+)
+
+public
+extension Swift.Optional where Wrapped: SomeValidatableValueWrapper
 {
-    /**
-     Convenience initializer initializes wrapper and validates it
-     right away.
-     */
-    init(
-        validate value: Wrapped.Specification.RawValue?
-        ) throws
+    var metadata: ValidatableValueWrapperMetadata
     {
-        self = value.map{ .some($0.wrapped()) } ?? .none
-        try self.validate()
-    }
-
-    /**
-     Validate a given value without saving it.
-     */
-    static
-    func validate(
-        value: Wrapped.Specification.RawValue?
-        ) throws
-    {
-        _ = try self.init(validate: value)
-    }
-
-    /**
-     Set new value and validate it in single operation.
-     */
-    mutating
-    func set(
-        _ newValue: Wrapped.Specification.RawValue?
-        ) throws
-    {
-        self = newValue.map{ .some($0.wrapped()) } ?? .none
-
-        //---
-
-        try validate()
+        return (
+            self == nil,
+            self is Mandatory,
+            self.isValid
+        )
     }
 }
-

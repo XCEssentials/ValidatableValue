@@ -31,7 +31,7 @@
  when non-‘nil’ - it’s the ‘checked’ state of checkmark.
  */
 public
-protocol SomeCheckmarkSpecification: SomeValueSpecification, Checkmark {}
+protocol SomeCheckmarkValidatableValue: SomeValidatableValue, Checkmark {}
 
 public
 protocol Checkmark {}
@@ -39,14 +39,14 @@ protocol Checkmark {}
 public
 extension Checkmark
 {
-    typealias RawValue = CheckmarkValue
-    typealias ValidValue = CheckmarkValue
+    typealias Raw = CheckmarkValue
+    typealias Valid = CheckmarkValue
 }
 
 //---
 
 public
-enum CheckmarkValue: UInt, Codable
+enum CheckmarkValue: UInt, Codable, Equatable
 {
     case checked
 }
@@ -56,9 +56,9 @@ enum CheckmarkValue: UInt, Codable
 public
 extension Swift.Optional
     where
-    Wrapped: SomeValidatableValue,
-    Wrapped.Specification: Checkmark,
-    Wrapped.Specification.RawValue == CheckmarkValue
+    Wrapped: SomeValidatableValueWrapper,
+    Wrapped.Value: SomeCheckmarkValidatableValue,
+    Wrapped.Value.Raw == CheckmarkValue
 {
     var isChecked: Bool
     {
@@ -81,65 +81,14 @@ extension Swift.Optional
                 self = .none
 
             case .none:
-                self = .some(CheckmarkValue.checked.wrapped())
+                self = .some(.init(rawValue: CheckmarkValue.checked))
         }
     }
 
     mutating
     func toggleOn()
     {
-        self = .some(CheckmarkValue.checked.wrapped())
-    }
-
-    mutating
-    func toggleOff()
-    {
-        self = .none
-    }
-
-    mutating
-    func set(checked isOn: Bool)
-    {
-        (isOn ? toggleOn() : toggleOff())
-    }
-}
-
-//---
-
-public
-extension Swift.Optional
-    where
-    Wrapped == CheckmarkValue
-{
-    var isChecked: Bool
-    {
-        switch self
-        {
-            case .some:
-                return true
-
-            case .none:
-                return false
-        }
-    }
-
-    mutating
-    func toggle()
-    {
-        switch self
-        {
-            case .some:
-                self = .none
-
-            case .none:
-                self = .some(.checked)
-        }
-    }
-
-    mutating
-    func toggleOn()
-    {
-        self = .some(.checked)
+        self = .some(.init(rawValue: CheckmarkValue.checked))
     }
 
     mutating

@@ -25,20 +25,26 @@
  */
 
 public
-extension Swift.Optional
-    where
-    Wrapped: SomeValidatableValue
+enum ValidationError: Error
 {
-    var rawValue: Wrapped.Specification.RawValue?
+    case requiredValueIsMissing // thrown from Optional extension only
+    
+    case unsatisfiedConditions([Error], rawValue: Any)
+
+    case unableToConvert(rawValue: Any)
+
+    case invalidEntity([Error]) // expected nested ValidationError instances
+    
+    public
+    var hasNestedIssues: Bool
     {
         switch self
         {
-            case .none:
-                return nil
-
-            case .some(let wrapper):
-                return wrapper.rawValue
+            case .invalidEntity(let errors) where !errors.isEmpty:
+                return true
+                
+            default:
+                return false
         }
     }
 }
-

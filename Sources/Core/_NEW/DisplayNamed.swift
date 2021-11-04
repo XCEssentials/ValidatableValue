@@ -56,35 +56,17 @@ protocol DisplayNamed
     var displayPlaceholder: String? { get }
 }
 
-// MARK: - Default implementation
-
-public
-extension DisplayNamed
-{
-    static
-    var displayName: String
-    {
-        return intrinsicDisplayName
-    }
-
-    static
-    var displayHint: String?
-    {
-        return nil
-    }
-
-    static
-    var displayPlaceholder: String?
-    {
-        return nil
-    }
-}
-
 // MARK: - Convenience helpers
 
 public
 extension DisplayNamed
 {
+    static
+    var intrinsicDisplayName: String
+    {
+        return Utils.intrinsicDisplayName(for: self)
+    }
+    
     var displayName: String
     {
         return type(of: self).displayName
@@ -98,18 +80,6 @@ extension DisplayNamed
     var displayPlaceholder: String?
     {
         return type(of: self).displayPlaceholder
-    }
-}
-
-// MARK: - Internal helpers
-
-//internal
-extension DisplayNamed
-{
-    static
-    var intrinsicDisplayName: String
-    {
-        return Utils.intrinsicDisplayName(for: self)
     }
 }
 

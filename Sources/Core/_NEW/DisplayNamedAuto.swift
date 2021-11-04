@@ -24,38 +24,36 @@
 
  */
 
-import XCERequirement
+import Foundation
 
 //---
 
 /**
- Special case of value spec for simple bool flag value.
- It automatically fulfills all requirements, except reporting.
+ Provides user friendly 'display name' suitable for showing in GUI.
  */
 public
-protocol SomeBoolFlagSpecification: SomeValueSpecification, BoolFlag {}
+protocol DisplayNamedAuto: DisplayNamed {}
+
+// MARK: - Default implementation
 
 public
-protocol BoolFlag {}
-
-public
-extension BoolFlag
-{
-    typealias RawValue = Bool
-    typealias TargetValue = Bool
-}
-
-//---
-
-public
-extension SomeBoolFlagSpecification
+extension DisplayNamed
 {
     static
-    var conditions: [Condition<Bool>]
+    var displayName: String
     {
-        return [
+        return intrinsicDisplayName
+    }
 
-            Check(displayName){ $0 }
-        ]
+    static
+    var displayHint: String?
+    {
+        return nil
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return nil
     }
 }

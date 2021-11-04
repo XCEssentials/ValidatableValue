@@ -25,7 +25,7 @@
  */
 
 public
-extension SomeValidatableValue
+extension SomeValidatableValueWrapperOLD
 {
     func validate() throws
     {
@@ -49,7 +49,7 @@ extension SomeValidatableValue
         if
             !failedConditions.isEmpty
         {
-            throw ValidationError.unsatisfiedConditions(
+            throw ValidationErrorOLD.unsatisfiedConditions(
                 failedConditions,
                 rawValue: rawValue
             )
@@ -60,7 +60,7 @@ extension SomeValidatableValue
 // MARK: - Convenience validation helpers
 
 public
-extension SomeValidatableValue
+extension SomeValidatableValueWrapperOLD
 {
     /**
      Convenience initializer initializes wrapper and validates it

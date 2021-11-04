@@ -24,53 +24,40 @@
 
  */
 
+/**
+ Data model type that supposed to store all important data
+ in various validatable value properties. Such properties will be automatically
+ checked for validity each time when whole entity is being tested for validity.
+ Those property will be also automatically encoded and decoded.
+ */
 public
-protocol SomeValidatableValue: SomeValidatable, Codable, DisplayNamed
+protocol SomeValidatableEntityOLD: SomeValidatable, Codable, DisplayNamed {}
+
+// MARK: - Convenience helpers
+
+public
+extension SomeValidatableEntityOLD
 {
-    associatedtype Specification: SomeValueSpecification
+    var allMembers: [Any]
+    {
+        return Mirror(reflecting: self)
+            .children
+            .map{ $0.value }
+    }
     
-    init(wrappedValue: Specification.RawValue)
-
-    var rawValue: Specification.RawValue { get set }
-}
-
-// MARK: - Required?
-
-public
-extension SomeValidatableValue
-{
-    static
-    var isRequired: Bool
+    /**
+     Returns list of all members that have to be involved in
+     automatic entity validation.
+     */
+    var allValidatableMembers: [SomeValidatable]
     {
-        return (self is Mandatory.Type)
+        return allMembers
+            .compactMap{ $0 as? SomeValidatable }
     }
 
-    var isRequired: Bool
+    var allRequiredValidatableMembers: [Mandatory & SomeValidatable]
     {
-        return type(of: self).isRequired
-    }
-}
-
-// MARK: - DisplayNamed support
-
-public
-extension SomeValidatableValue
-{
-    static
-    var displayName: String
-    {
-        return Specification.displayName
-    }
-
-    static
-    var displayHint: String?
-    {
-        return Specification.displayHint
-    }
-
-    static
-    var displayPlaceholder: String?
-    {
-        return Specification.displayPlaceholder
+        return allMembers
+            .compactMap{ $0 as? Mandatory & SomeValidatable }
     }
 }

@@ -24,38 +24,63 @@
 
  */
 
-/**
- Special trait for 'SomeValidatableValue' protocol that allows to customize
- 'Codable' protocol support and make the wrapper encode and decode itself
- as a single value (because the only important thing stored inside wrapper
- is teh value anyway, everything else belongs to type leve, not instance level).
- Without this trait wrapper will rely on implicit 'Codable' support
- provided by Swift itself and will be encoded as object/dictionary
- with single entry (which is unnecessary complication): "{\"value\": \"XXX\"}"
- */
-public
-protocol SomeSingleValueCodable: SomeValidatableValue {}
+import XCERequirement
 
 //---
 
+/**
+ Describes custom value type for a wrapper.
+ */
 public
-extension SomeSingleValueCodable
+protocol SomeValueSpecificationOLD: DisplayNamed
 {
-    func encode(to encoder: Encoder) throws
-    {
-        var container = encoder.singleValueContainer()
+    associatedtype RawValue: Codable
 
-        //---
-        
-        try container.encode(rawValue)
+    associatedtype ValidValue: Codable
+    
+    /// Specifies how we convert `RawValue` into `ValidValue`.
+    ///
+    /// Error thrown from this conversion considered to be
+    /// validation error as well.
+    static
+    func convert(rawValue: RawValue) -> ValidValue?
+    
+    /**
+     Set of conditions for the 'Value' which gonna be used
+     for value validation.
+     */
+    static
+    var conditions: [Condition<RawValue>] { get }
+}
+
+// MARK: - Default implementations
+
+public
+extension SomeValueSpecificationOLD
+{
+    static
+    var conditions: [Condition<RawValue>]
+    {
+        return []
     }
+}
 
-    init(from decoder: Decoder) throws
+public
+extension SomeValueSpecificationOLD where ValidValue == RawValue
+{
+    static
+    func convert(rawValue: RawValue) -> ValidValue?
     {
-        let container = try decoder.singleValueContainer()
+        rawValue
+    }
+}
 
-        //---
-
-        self.init(wrappedValue: try container.decode(Specification.RawValue.self))
+public
+extension SomeValueSpecificationOLD where ValidValue: RawRepresentable, ValidValue.RawValue == RawValue
+{
+    static
+    func convert(rawValue: RawValue) -> ValidValue?
+    {
+        ValidValue.init(rawValue: rawValue)
     }
 }

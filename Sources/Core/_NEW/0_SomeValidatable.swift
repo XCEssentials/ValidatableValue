@@ -25,39 +25,33 @@
  */
 
 /**
- Data model type that supposed to store all important data
- in various validatable value properties. Such properties will be automatically
- checked for validity each time when whole entity is being tested for validity.
- Those property will be also automatically encoded and decoded.
+ Represents anything that can be validated according to its
+ internal implementation.
  */
 public
-protocol SomeValidatableEntity: SomeValidatable, Codable, DisplayNamed {}
-
-// MARK: - Convenience helpers
+protocol SomeValidatable
+{
+    func validate() throws
+}
 
 public
-extension SomeValidatableEntity
+extension SomeValidatable
 {
-    var allMembers: [Any]
-    {
-        return Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
-    }
-    
     /**
-     Returns list of all members that have to be involved in
-     automatic entity validation.
+     Relies on the 'validate()' func, returns 'false'
+     if 'validate()' throws an error, or returns 'true' otherwise.
      */
-    var allValidatableMembers: [SomeValidatable]
+    var isValid: Bool
     {
-        return allMembers
-            .compactMap{ $0 as? SomeValidatable }
-    }
+        do
+        {
+            _ = try validate()
 
-    var allRequiredValidatableMembers: [Mandatory & SomeValidatable]
-    {
-        return allMembers
-            .compactMap{ $0 as? Mandatory & SomeValidatable }
+            return true
+        }
+        catch
+        {
+            return false
+        }
     }
 }

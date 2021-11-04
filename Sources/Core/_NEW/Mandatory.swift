@@ -25,35 +25,13 @@
  */
 
 /**
- Represents anything that can be validated according to its
- internal implementation.
+ Special trait for 'SomeValidatableValueWrapper' protocol that indicates that
+ in case the wrapper is wrapped itself in 'Swift.Optional' -
+ empty value should be considered as INvalid.
  */
 public
-protocol SomeValidatable
-{
-    func validate() throws
-}
+protocol Mandatory: SomeValidatable {}
 
 //---
 
-public
-extension SomeValidatable
-{
-    /**
-     Relies on the 'validate()' func, returns 'false'
-     if 'validate()' throws an error, or returns 'true' otherwise.
-     */
-    var isValid: Bool
-    {
-        do
-        {
-            _ = try validate()
-
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
-}
+extension Swift.Optional: Mandatory where Wrapped: Mandatory {}

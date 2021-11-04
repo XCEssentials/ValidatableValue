@@ -24,10 +24,25 @@
 
  */
 
-/**
- Special trait for 'ValueWrapper' protocol that indicates that
- in case the wrapper is wrapped itself in 'Swift.Optional' -
- empty value should be considered as INvalid.
- */
 public
-protocol Mandatory: DisplayNamed {}
+enum ValidationErrorOLD: Error
+{
+    case mandatoryValueIsMissing
+
+    case unsatisfiedConditions([Error], rawValue: Any)
+
+    case invalidEntity([Error])
+    
+    public
+    var hasNestedIssues: Bool
+    {
+        switch self
+        {
+            case .invalidEntity(let errors) where !errors.isEmpty:
+                return true
+                
+            default:
+                return false
+        }
+    }
+}

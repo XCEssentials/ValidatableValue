@@ -37,12 +37,12 @@ typealias RequiredBase<T: Codable> = QuickWrapperOfMandatory<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOfMandatory<T: Codable>: SomeValidatableValue,
+struct QuickWrapperOfMandatory<T: Codable>: SomeValidatableValueWrapperOLD,
     SomeSingleValueCodable,
     Mandatory
 {
     public
-    enum Specification: SomeValueSpecification
+    enum Specification: SomeValueSpecificationOLD
     {
         public
         typealias RawValue = T

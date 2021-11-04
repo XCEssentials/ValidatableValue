@@ -25,7 +25,7 @@
  */
 
 public
-typealias Required<T: SomeValueSpecification> = WrapperOfMandatory<T>
+typealias Required<T: SomeValueSpecificationOLD> = WrapperOfMandatory<T>
 
 //---
 
@@ -35,7 +35,7 @@ typealias Required<T: SomeValueSpecification> = WrapperOfMandatory<T>
  value ('nil') is considered to be NOT valid.
  */
 public
-struct WrapperOfMandatory<T: SomeValueSpecification>: SomeValidatableValue,
+struct WrapperOfMandatory<T: SomeValueSpecificationOLD>: SomeValidatableValueWrapperOLD,
     SomeSingleValueCodable,
     Mandatory
 {

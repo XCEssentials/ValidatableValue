@@ -27,7 +27,7 @@
 // MARK: - SomeValidatableEntity
 
 public
-extension SomeValidatableEntity
+extension SomeValidatableEntityOLD
 {
     /**
      Validates all validateable values contained inside the entity,
@@ -45,7 +45,7 @@ extension SomeValidatableEntity
             {
                 try $0.validate()
             }
-            catch let error as ValidationError
+            catch let error as ValidationErrorOLD
             {
                 issues.append(error)
             }
@@ -69,9 +69,9 @@ extension SomeValidatableEntity
 public
 extension Array where Element == Error // ValidationError
 {
-    func asValidationIssues<E: SomeValidatableEntity>(
+    func asValidationIssues<E: SomeValidatableEntityOLD>(
         for entity: E
-        ) -> ValidationError
+        ) -> ValidationErrorOLD
     {
         .invalidEntity(self)
             

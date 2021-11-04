@@ -25,7 +25,7 @@
  */
 
 public
-extension SomeValidatableValue
+extension SomeValidatableValueWrapperOLD
     where
     Self: NonMandatory // <<<--- NON-mandatory only!
 {
@@ -67,7 +67,7 @@ extension SomeValidatableValue
 public
 extension Swift.Optional
     where
-    Wrapped: SomeValidatableValue & Mandatory // <<<---
+    Wrapped: SomeValidatableValueWrapperOLD & Mandatory // <<<---
 {
     var validValue: Wrapped.Specification.ValidValue? // Mandatory!
     {
@@ -76,7 +76,7 @@ extension Swift.Optional
             switch self
             {
             case .none:
-                throw ValidationError.mandatoryValueIsMissing
+                throw ValidationErrorOLD.mandatoryValueIsMissing
 
             case .some(let wrapper):
                 try wrapper.validate()
