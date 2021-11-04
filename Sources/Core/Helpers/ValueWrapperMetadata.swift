@@ -34,7 +34,7 @@ typealias ValueWrapperMetadata = (
 
 extension Swift.Optional
     where
-    Wrapped: SomeValueWrapper
+    Wrapped: SomeValidatableValueWrapper
 {
     var metadata: ValueWrapperMetadata
     {

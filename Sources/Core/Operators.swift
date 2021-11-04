@@ -30,7 +30,7 @@ func << <VV, T>(
     newValue: T
     ) throws
     where
-    VV: SomeValueWrapper,
+    VV: SomeValidatableValueWrapper,
     VV.Value == T
 {
     try container.set(newValue)
@@ -44,7 +44,7 @@ func << <VV, T>(
     newValue: T?
     ) throws
     where
-    VV: SomeValueWrapper,
+    VV: SomeValidatableValueWrapper,
     VV.Value == T
 {
     try container.set(newValue)

@@ -25,7 +25,7 @@
  */
 
 public
-extension SomeValueWrapper
+extension SomeValidatableValueWrapper
 {
     func validate() throws
     {
@@ -36,7 +36,7 @@ extension SomeValueWrapper
 // MARK: - Convenience validation helpers
 
 public
-extension SomeValueWrapper
+extension SomeValidatableValueWrapper
 {
     /**
      Convenience initializer initializes wrapper and validates it
@@ -78,7 +78,7 @@ extension SomeValueWrapper
 // MARK: - Private validation helpers
 
 private
-extension SomeValueWrapper
+extension SomeValidatableValueWrapper
 {
     static
     func check(_ valueToCheck: Value) throws

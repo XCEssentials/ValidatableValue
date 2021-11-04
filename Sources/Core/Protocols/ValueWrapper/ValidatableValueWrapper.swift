@@ -25,23 +25,9 @@
  */
 
 public
-extension SomeValueWrapper
+protocol SomeValidatableValueWrapper: SomeBasicValueWrapper, SomeValidatable
+    where
+    Self.Value == Specification.RawValue
 {
-    static
-    var displayName: String
-    {
-        return Specification.displayName
-    }
-
-    static
-    var displayHint: String?
-    {
-        return Specification.displayHint
-    }
-
-    static
-    var displayPlaceholder: String?
-    {
-        return Specification.displayPlaceholder
-    }
+    associatedtype Specification: SomeValueSpecification
 }

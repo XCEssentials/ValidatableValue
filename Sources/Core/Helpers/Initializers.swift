@@ -45,7 +45,7 @@ extension Decodable
         return .some(T(wrappedValue: self))
     }
 
-    func wrappedIfValid<T: SomeValueWrapper>(
+    func wrappedIfValid<T: SomeValidatableValueWrapper>(
         ) throws -> T
         where
         Self == T.Value
@@ -53,7 +53,7 @@ extension Decodable
         return try T(validate: self)
     }
 
-    func wrappedIfValid<T: SomeValueWrapper>(
+    func wrappedIfValid<T: SomeValidatableValueWrapper>(
         ) throws -> T?
         where
         Self == T.Value

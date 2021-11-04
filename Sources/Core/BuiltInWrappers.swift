@@ -30,7 +30,7 @@
  value ('nil') is considered to be valid.
  */
 public
-struct WrapperOf<T: SomeValueSpecification>: SomeValueWrapper,
+struct WrapperOf<T: SomeValueSpecification>: SomeValidatableValueWrapper,
     SomeSingleValueCodable,
     NonMandatory
 {
@@ -60,7 +60,7 @@ typealias NonRequired<T: SomeValueSpecification> = WrapperOf<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOf<T: Codable>: SomeValueWrapper,
+struct QuickWrapperOf<T: Codable>: SomeValidatableValueWrapper,
     SomeSingleValueCodable,
     NonMandatory
 {
@@ -98,7 +98,7 @@ typealias NonRequiredBase<T: Codable> = QuickWrapperOf<T>
  value ('nil') is considered to be NOT valid.
  */
 public
-struct WrapperOfMandatory<T: SomeValueSpecification>: SomeValueWrapper,
+struct WrapperOfMandatory<T: SomeValueSpecification>: SomeValidatableValueWrapper,
     SomeSingleValueCodable,
     Mandatory
 {
@@ -128,7 +128,7 @@ typealias Required<T: SomeValueSpecification> = WrapperOfMandatory<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOfMandatory<T: Codable>: SomeValueWrapper,
+struct QuickWrapperOfMandatory<T: Codable>: SomeValidatableValueWrapper,
     SomeSingleValueCodable,
     Mandatory
 {

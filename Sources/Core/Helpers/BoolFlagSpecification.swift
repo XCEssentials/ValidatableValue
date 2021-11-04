@@ -33,7 +33,17 @@ import XCERequirement
  It automatically fulfills all requirements, except reporting.
  */
 public
-protocol SomeBoolFlagSpecification: SomeValueSpecification {}
+protocol SomeBoolFlagSpecification: SomeValueSpecification, BoolFlag {}
+
+public
+protocol BoolFlag {}
+
+public
+extension BoolFlag
+{
+    typealias RawValue = Bool
+    typealias TargetValue = Bool
+}
 
 //---
 

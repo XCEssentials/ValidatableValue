@@ -25,46 +25,23 @@
  */
 
 public
-extension SomeValueWrapper
-    where
-    Self: NonMandatory // <<<--- NON-mandatory only!
+extension SomeValidatableValueWrapper //: DisplayNamed
 {
-    func validValue(
-        ) throws -> Self.Value
+    static
+    var displayName: String
     {
-        try validate()
-
-        //---
-
-        return value
+        return Specification.displayName
     }
 
-    /**
-     Validates and returns 'value' regardless of its validity,
-     puts any encountered validation errors in the 'collectError'
-     array. Any unexpected occured error (except 'ValidationError')
-     will be thrown immediately.
-     */
-    func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Self.Value
+    static
+    var displayHint: String?
     {
-        do
-        {
-            try validate()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-        }
-        catch
-        {
-            // an unexpected error should be thrown to the upper level
-            throw error
-        }
+        return Specification.displayHint
+    }
 
-        //---
-
-        return value // return value regardless of its validity!
+    static
+    var displayPlaceholder: String?
+    {
+        return Specification.displayPlaceholder
     }
 }

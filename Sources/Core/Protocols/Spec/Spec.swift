@@ -36,6 +36,15 @@ protocol SomeValueSpecification: DisplayNamed
 {
     associatedtype RawValue: Codable
 
+    associatedtype ValidValue: Codable
+    
+    /// Specifies how we convert `RawValue` into `ValidValue`.
+    ///
+    /// Error thrown from this conversion considered to be
+    /// validation error as well.
+    static
+    func convert(rawValue: RawValue) -> ValidValue?
+    
     /**
      Set of conditions for the 'Value' which gonna be used
      for value validation.
@@ -69,3 +78,24 @@ extension SomeValueSpecification
         return { _, _ in }
     }
 }
+
+public
+extension SomeValueSpecification where ValidValue == RawValue
+{
+    static
+    func convert(rawValue: RawValue) throws -> ValidValue?
+    {
+        rawValue
+    }
+}
+
+public
+extension SomeValueSpecification where ValidValue: RawRepresentable, ValidValue.RawValue == RawValue
+{
+    static
+    func convert(rawValue: RawValue) throws -> ValidValue?
+    {
+        ValidValue.init(rawValue: rawValue)
+    }
+}
+

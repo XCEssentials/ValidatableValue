@@ -44,7 +44,7 @@ extension EntityTests
             typealias RawValue = String
         }
 
-        struct SomeWrapper: SomeValueWrapper
+        struct SomeWrapper: SomeValidatableValueWrapper
         {
             typealias Specification = FirstName
 

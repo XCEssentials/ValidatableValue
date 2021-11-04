@@ -53,7 +53,7 @@ extension SupportForOptionalTests
             typealias RawValue = Int
         }
 
-        struct SomeWrapper: SomeValueWrapper, NonMandatory
+        struct SomeWrapper: SomeValidatableValueWrapper, NonMandatory
         {
             typealias Specification = SomeSpec
 
@@ -67,7 +67,7 @@ extension SupportForOptionalTests
             }
         }
 
-        struct SomeMandatoryWrapper: SomeValueWrapper, Mandatory
+        struct SomeMandatoryWrapper: SomeValidatableValueWrapper, Mandatory
         {
             typealias Specification = SomeSpec
 
@@ -125,7 +125,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: SomeValueWrapper,
+        struct SomeWrapper: SomeValidatableValueWrapper,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -208,7 +208,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: SomeValueWrapper,
+        struct MandatoryWrapper: SomeValidatableValueWrapper,
             Mandatory // <<<<------
         {
             typealias Specification = FirstName
@@ -303,7 +303,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct WrapperWithSpec: SomeValueWrapper,
+        struct WrapperWithSpec: SomeValidatableValueWrapper,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -433,7 +433,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: SomeValueWrapper,
+        struct SomeWrapper: SomeValidatableValueWrapper,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -630,7 +630,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: SomeValueWrapper,
+        struct MandatoryWrapper: SomeValidatableValueWrapper,
             Mandatory // <<<---
         {
             typealias Specification = FirstName

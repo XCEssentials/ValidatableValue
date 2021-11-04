@@ -31,7 +31,17 @@
  when non-‘nil’ - it’s the ‘checked’ state of checkmark.
  */
 public
-protocol SomeCheckmarkSpecification: SomeValueSpecification where RawValue == CheckmarkValue {}
+protocol SomeCheckmarkSpecification: SomeValueSpecification, Checkmark {}
+
+public
+protocol Checkmark {}
+
+public
+extension Checkmark
+{
+    typealias RawValue = CheckmarkValue
+    typealias ValidValue = CheckmarkValue
+}
 
 //---
 
@@ -46,8 +56,9 @@ enum CheckmarkValue: UInt, Codable
 public
 extension Swift.Optional
     where
-    Wrapped: SomeValueWrapper,
-    Wrapped.Specification: SomeCheckmarkSpecification
+    Wrapped: SomeValidatableValueWrapper,
+    Wrapped.Specification: Checkmark,
+    Wrapped.Value == CheckmarkValue
 {
     var isChecked: Bool
     {

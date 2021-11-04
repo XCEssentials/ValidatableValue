@@ -25,7 +25,7 @@
  */
 
 public
-extension SomeValueWrapper
+extension SomeValidatableValueWrapper
 {
     static
     var isRequired: Bool
