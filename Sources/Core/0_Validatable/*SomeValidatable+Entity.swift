@@ -67,18 +67,18 @@ extension SomeValidatableEntity
 }
 
 public
-extension Array
-    where
-    Element == Error // ValidationError
+extension Array where Element == Error // ValidationError
 {
     func asValidationIssues<E: SomeValidatableEntity>(
         for entity: E
         ) -> ValidationError
     {
-        return .entityIsNotValid(
-            origin: type(of: entity).displayName,
-            issues: self,
-            report: type(of: entity).prepareReport(with: self)
-        )
+        .invalidEntity(self)
+            
+//        .entityIsNotValid(
+//            origin: type(of: entity).displayName,
+//            issues: self,
+//            report: type(of: entity).prepareReport(with: self)
+//        )
     }
 }

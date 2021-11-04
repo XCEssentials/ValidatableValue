@@ -51,14 +51,6 @@ protocol SomeValueSpecification: DisplayNamed
      */
     static
     var conditions: [Condition<RawValue>] { get }
-
-    /**
-     This closure allows to customize/override default validation
-     failure reports. This is helpful to add/set some custom copy
-     to the report, including for localization purposes.
-     */
-    static
-    var onCustomizeReport: OnCustomizeValueReport { get }
 }
 
 // MARK: - Default implementations
@@ -70,12 +62,6 @@ extension SomeValueSpecification
     var conditions: [Condition<RawValue>]
     {
         return []
-    }
-
-    static
-    var onCustomizeReport: OnCustomizeValueReport
-    {
-        return { _, _ in }
     }
 }
 
@@ -96,90 +82,5 @@ extension SomeValueSpecification where ValidValue: RawRepresentable, ValidValue.
     func convert(rawValue: RawValue) -> ValidValue?
     {
         ValidValue.init(rawValue: rawValue)
-    }
-}
-
-// MARK: - Internal helpers
-
-// internal
-extension SomeValueSpecification
-{
-    /**
-     In case the 'Value' itself conforms to 'Validatable' protocol,
-     should we validate it during validation process, in addition to
-     check againts this specification conditions (if presented)?
-     */
-    static
-    var performBuiltInValidation: Bool
-    {
-        return !(self is SkipBuiltInValidation.Type)
-    }
-
-    static
-    func failedConditions(
-        for valueToCheck: Self.RawValue
-        ) throws -> [String]
-    {
-        var result: [String] = []
-
-        //---
-
-        try conditions.forEach
-        {
-            do
-            {
-                try $0.validate(valueToCheck)
-            }
-            catch let error as UnsatisfiedRequirement
-            {
-                result.append(error.requirement)
-            }
-            catch
-            {
-                // an unexpected error, just throw it right away
-                throw error
-            }
-        }
-
-        //---
-
-        return result
-    }
-
-    static
-    func prepareReport(
-        value: Any?,
-        failedConditions: [String],
-        builtInValidationIssues: [Error],
-        suggestedReport: Report
-        ) -> Report
-    {
-        var result = suggestedReport
-
-        //---
-
-        let context = ValueReportContext(
-            origin: displayName,
-            value: value,
-            failedConditions: failedConditions,
-            builtInValidationIssues: builtInValidationIssues
-        )
-
-        onCustomizeReport(context, &result)
-
-        //---
-
-        return result
-    }
-
-    static
-    func defaultValidationReport(
-        with failedConditions: [String]
-        ) -> Report
-    {
-        return (
-            "\"\(displayName)\" validation failed",
-            "\"\(displayName)\" is invalid, because it does not satisfy following conditions: \(failedConditions)."
-        )
     }
 }

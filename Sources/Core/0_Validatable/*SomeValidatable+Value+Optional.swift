@@ -24,7 +24,6 @@
 
  */
 
-// public
 extension Swift.Optional: SomeValidatable
     where
     Wrapped: SomeValidatableValue
@@ -33,20 +32,12 @@ extension Swift.Optional: SomeValidatable
     func validate() throws
     {
         if
-            let mandatory = Wrapped.self as? Mandatory.Type
+            Wrapped.self is Mandatory
         {
             switch self
             {
                 case .none:
-                    throw ValidationError.mandatoryValueIsNotSet(
-                        origin: Wrapped.displayName,
-                        report: Wrapped.Specification.prepareReport(
-                            value: nil,
-                            failedConditions: [],
-                            builtInValidationIssues: [],
-                            suggestedReport: mandatory.defaultEmptyValueReport
-                        )
-                    )
+                    throw ValidationError.mandatoryValueIsMissing
 
                 case .some(let validatable):
                     try validatable.validate()

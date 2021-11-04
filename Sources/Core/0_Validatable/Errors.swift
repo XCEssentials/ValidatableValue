@@ -27,85 +27,20 @@
 public
 enum ValidationError: Error
 {
-    case mandatoryValueIsNotSet(
-        origin: String,
-        report: (title: String, message: String)
-    )
+    case mandatoryValueIsMissing
 
-    case valueIsNotValid(
-        origin: String,
-        value: Any,
-        failedConditions: [String],
-        report: (title: String, message: String)
-    )
+    case unsatisfiedConditions([Error], rawValue: Any)
 
-    indirect
-    case nestedValidationFailed(
-        origin: String,
-        value: Any,
-        failedConditions: [String],
-        builtInValidationIssues: [Error],
-        report: (title: String, message: String) // from current level
-    )
-
-    indirect
-    case entityIsNotValid(
-        origin: String,
-        issues: [Error],
-        report: (title: String, message: String)
-    )
-
-    //---
-
-    public
-    var origin: String
-    {
-        switch self
-        {
-            case .mandatoryValueIsNotSet(let result, _):
-                return result
-
-            case .valueIsNotValid(let result, _, _, _):
-                return result
-
-            case .nestedValidationFailed(let result, _, _, _, _):
-                return result
-
-            case .entityIsNotValid(let result, _, _):
-                return result
-        }
-    }
-
-    public
-    var report: (title: String, message: String)
-    {
-        switch self
-        {
-            case .mandatoryValueIsNotSet(_, let result):
-                return result
-
-            case .valueIsNotValid(_, _, _, let result):
-                return result
-
-            case .nestedValidationFailed(_, _, _, _, let result):
-                return result
-
-            case .entityIsNotValid(_, _, let result):
-                return result
-        }
-    }
-
+    case invalidEntity([Error])
+    
     public
     var hasNestedIssues: Bool
     {
         switch self
         {
-            case .nestedValidationFailed:
+            case .invalidEntity(let errors) where !errors.isEmpty:
                 return true
-
-            case .entityIsNotValid:
-                return true
-
+                
             default:
                 return false
         }

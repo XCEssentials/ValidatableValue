@@ -29,7 +29,31 @@ extension SomeValidatableValue
 {
     func validate() throws
     {
-        try type(of: self).check(rawValue)
+        let failedConditions: [Error] = Specification
+            .conditions
+            .compactMap {
+                
+                do
+                {
+                    try $0.validate(rawValue)
+                    return nil
+                }
+                catch
+                {
+                    return error
+                }
+            }
+        
+        //---
+        
+        if
+            !failedConditions.isEmpty
+        {
+            throw ValidationError.unsatisfiedConditions(
+                failedConditions,
+                rawValue: rawValue
+            )
+        }
     }
 }
 
@@ -71,136 +95,5 @@ extension SomeValidatableValue
     {
         rawValue = newValue
         try validate()
-    }
-}
-
-
-// MARK: - Private validation helpers
-
-private
-extension SomeValidatableValue
-{
-    static
-    func check(_ valueToCheck: Specification.RawValue) throws
-    {
-        let failedConditions = try Specification.failedConditions(for: valueToCheck)
-
-        //---
-
-        if
-            let validatableValue = valueToCheck as? SomeValidatable,
-            Specification.performBuiltInValidation
-        {
-            try checkNestedValidatable(
-                value: validatableValue,
-                failedConditions: failedConditions
-            )
-        }
-        else
-        {
-            try justCheckFailedConditions(
-                failedConditions,
-                with: valueToCheck
-            )
-        }
-    }
-
-    static
-    func justCheckFailedConditions(
-        _ failedConditions: [String],
-        with checkedValue: Specification.RawValue
-        ) throws
-    {
-        if
-            !failedConditions.isEmpty
-        {
-            throw ValidationError.valueIsNotValid(
-                origin: displayName,
-                value: checkedValue,
-                failedConditions: failedConditions,
-                report: Specification.prepareReport(
-                    value: checkedValue,
-                    failedConditions: failedConditions,
-                    builtInValidationIssues: [],
-                    suggestedReport: Specification.defaultValidationReport(
-                        with: failedConditions
-                    )
-                )
-            )
-        }
-    }
-
-    static
-    func checkNestedValidatable(
-        value validatableValueToCheck: SomeValidatable,
-        failedConditions: [String]
-        ) throws
-    {
-        do
-        {
-            try validatableValueToCheck.validate()
-        }
-        catch ValidationError.entityIsNotValid(_, let issues, let report)
-        {
-            throw reportNestedValidationFailed(
-                checkedValue: validatableValueToCheck,
-                failedConditions: failedConditions,
-                builtInValidationIssues: issues,
-                builtInReport: report
-            )
-        }
-        catch let error as ValidationError
-        {
-            throw reportNestedValidationFailed(
-                checkedValue: validatableValueToCheck,
-                failedConditions: failedConditions,
-                builtInValidationIssues: [error],
-                builtInReport: nil
-            )
-        }
-        catch
-        {
-            // an unexpected error, just throw it right away
-            throw error
-        }
-    }
-
-    static
-    func reportNestedValidationFailed(
-        checkedValue: SomeValidatable,
-        failedConditions: [String],
-        builtInValidationIssues: [Error],
-        builtInReport: (title: String, message: String)?
-        ) -> Error
-    {
-        let baseReport = Specification
-            .defaultValidationReport(with: failedConditions)
-
-        let finalReport = builtInReport
-            .map{(
-                title: baseReport.title,
-                message: """
-                \(baseReport.message)
-                ———
-                \($0.message)
-                ———
-                """
-                )}
-            ?? baseReport
-
-        //---
-
-        return ValidationError.nestedValidationFailed(
-            origin: displayName,
-            value: checkedValue,
-            failedConditions: failedConditions,
-            builtInValidationIssues: builtInValidationIssues,
-            report: Specification.prepareReport(
-                value: checkedValue,
-                failedConditions: failedConditions,
-                builtInValidationIssues: builtInValidationIssues,
-                suggestedReport: finalReport
-            )
-        )
     }
 }

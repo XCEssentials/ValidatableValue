@@ -76,15 +76,7 @@ extension Swift.Optional
             switch self
             {
             case .none:
-                throw ValidationError.mandatoryValueIsNotSet(
-                    origin: Wrapped.displayName,
-                    report: Wrapped.Specification.prepareReport(
-                        value: nil,
-                        failedConditions: [],
-                        builtInValidationIssues: [],
-                        suggestedReport: Wrapped.defaultEmptyValueReport
-                    )
-                )
+                throw ValidationError.mandatoryValueIsMissing
 
             case .some(let wrapper):
                 try wrapper.validate()

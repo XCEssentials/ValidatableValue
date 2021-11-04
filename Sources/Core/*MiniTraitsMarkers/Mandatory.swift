@@ -31,18 +31,3 @@
  */
 public
 protocol Mandatory: DisplayNamed {}
-
-//---
-
-//internal
-extension Mandatory
-{
-    static
-    var defaultEmptyValueReport: Report
-    {
-        return (
-            "\"\(displayName)\" is empty",
-            "\"\(displayName)\" is empty, but expected to be non-empty."
-        )
-    }
-}

@@ -31,28 +31,7 @@
  Those property will be also automatically encoded and decoded.
  */
 public
-protocol SomeValidatableEntity: SomeValidatable, Codable, DisplayNamed
-{
-    /**
-     This closure allows to customize/override default validation
-     failure reports. This is helpful to add/set some custom copy
-     to the report, including for localization purposes.
-     */
-    static
-    var onCustomizeReport: OnCustomizeEntityReport { get }
-}
-
-// MARK: - Default implementations
-
-public
-extension SomeValidatableEntity
-{
-    static
-    var onCustomizeReport: OnCustomizeEntityReport
-    {
-        return { _, _ in }
-    }
-}
+protocol SomeValidatableEntity: SomeValidatable, Codable, DisplayNamed {}
 
 // MARK: - Convenience helpers
 

@@ -1,42 +1,42 @@
+////
+////  UtilsTests.swift
+////  ValidatableValueTests
+////
+////  Created by Maxim Khatskevich on 2018-06-29.
+////
 //
-//  UtilsTests.swift
-//  ValidatableValueTests
+//import XCTest
 //
-//  Created by Maxim Khatskevich on 2018-06-29.
+//@testable
+//import XCEValidatableValue
 //
-
-import XCTest
-
-@testable
-import XCEValidatableValue
-
-//---
-
-enum TypeOne: DisplayNamed {}
-
-fileprivate
-struct TypeTwo: DisplayNamed {}
-
-//---
-
-class UtilsTests: XCTestCase
-{
-    class TypeThree: DisplayNamed {}
-}
-
-//---
-
-extension UtilsTests
-{
-    func testIntrinsicDisplayName()
-    {
-        enum TypeFour: DisplayNamed {}
-
-        //---
-
-        XCTAssert(TypeOne.intrinsicDisplayName == "Type One")
-        XCTAssert(TypeTwo.intrinsicDisplayName == "Type Two")
-        XCTAssert(TypeThree.intrinsicDisplayName == "Type Three")
-        XCTAssert(TypeFour.intrinsicDisplayName == "Type Four")
-    }
-}
+////---
+//
+//enum TypeOne: DisplayNamed {}
+//
+//fileprivate
+//struct TypeTwo: DisplayNamed {}
+//
+////---
+//
+//class UtilsTests: XCTestCase
+//{
+//    class TypeThree: DisplayNamed {}
+//}
+//
+////---
+//
+//extension UtilsTests
+//{
+//    func testIntrinsicDisplayName()
+//    {
+//        enum TypeFour: DisplayNamed {}
+//
+//        //---
+//
+//        XCTAssert(TypeOne.intrinsicDisplayName == "Type One")
+//        XCTAssert(TypeTwo.intrinsicDisplayName == "Type Two")
+//        XCTAssert(TypeThree.intrinsicDisplayName == "Type Three")
+//        XCTAssert(TypeFour.intrinsicDisplayName == "Type Four")
+//    }
+//}
