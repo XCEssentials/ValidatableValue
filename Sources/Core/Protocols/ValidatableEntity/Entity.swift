@@ -31,9 +31,9 @@
  Those property will be also automatically encoded and decoded.
  */
 public
-protocol ValidatableEntity: Codable & Equatable,
+protocol SomeValidatableEntity: Codable & Equatable,
     DisplayNamed,
-    Validatable
+    SomeValidatable
 {
     /**
      This closure allows to customize/override default validation
@@ -48,13 +48,13 @@ protocol ValidatableEntity: Codable & Equatable,
      automatic entity validation. For Swift 4.2+ implementation
      is provided automatically.
      */
-    var allValidatableMembers: [Validatable] { get }
+    var allValidatableMembers: [SomeValidatable] { get }
 }
 
 // MARK: - Default implementations
 
 public
-extension ValidatableEntity
+extension SomeValidatableEntity
 {
     static
     var reviewReport: EntityReportReview
@@ -62,19 +62,19 @@ extension ValidatableEntity
         return { _, _ in }
     }
 
-    var allValidatableMembers: [Validatable]
+    var allValidatableMembers: [SomeValidatable]
     {
         return Mirror(reflecting: self)
             .children
             .map{ $0.value }
-            .compactMap{ $0 as? Validatable }
+            .compactMap{ $0 as? SomeValidatable }
     }
 }
 
 // MARK: - Convenience helpers
 
 public
-extension ValidatableEntity
+extension SomeValidatableEntity
 {
     var allMembers: [Any]
     {
@@ -83,11 +83,11 @@ extension ValidatableEntity
             .map{ $0.value }
     }
 
-    var allRequiredMembers: [Mandatory & Validatable]
+    var allRequiredMembers: [Mandatory & SomeValidatable]
     {
         return Mirror(reflecting: self)
             .children
             .map{ $0.value }
-            .compactMap{ $0 as? Mandatory & Validatable }
+            .compactMap{ $0 as? Mandatory & SomeValidatable }
     }
 }

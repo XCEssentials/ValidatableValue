@@ -39,12 +39,12 @@ extension WrapperTests
 {
     func testIsRequired()
     {
-        enum SomeSpec: ValueSpecification
+        enum SomeSpec: SomeValueSpecification
         {
             typealias Value = Int
         }
 
-        struct SomeWrapper: ValueWrapper, NonMandatory
+        struct SomeWrapper: SomeValueWrapper, NonMandatory
         {
             typealias Specification = SomeSpec
 
@@ -58,7 +58,7 @@ extension WrapperTests
             }
         }
 
-        struct SomeMandatoryWrapper: ValueWrapper, Mandatory
+        struct SomeMandatoryWrapper: SomeValueWrapper, Mandatory
         {
             typealias Specification = SomeSpec
 
@@ -83,7 +83,7 @@ extension WrapperTests
 
     func testDisplayName()
     {
-        enum LastName: ValueSpecification
+        enum LastName: SomeValueSpecification
         {
             typealias Value = String
 
@@ -94,7 +94,7 @@ extension WrapperTests
             let displayPlaceholder: String? = "Enter you last name here..."
         }
 
-        struct WrapperWithSpec: ValueWrapper
+        struct WrapperWithSpec: SomeValueWrapper
         {
             typealias Specification = LastName
 
@@ -116,7 +116,7 @@ extension WrapperTests
 
         //---
 
-        struct AnotherWrapper: ValueWrapper
+        struct AnotherWrapper: SomeValueWrapper
         {
             typealias Specification = LastName
 
@@ -138,7 +138,7 @@ extension WrapperTests
 
     func testSingleValueCodable()
     {
-        struct ImplicitlyCodableWrapper: BasicValueWrapper
+        struct ImplicitlyCodableWrapper: SomeBasicValueWrapper
         {
             typealias Value = String
 
@@ -167,8 +167,8 @@ extension WrapperTests
 
         //---
 
-        struct ExplicitlyCodableWrapper: BasicValueWrapper,
-            SingleValueCodable
+        struct ExplicitlyCodableWrapper: SomeBasicValueWrapper,
+            SomeSingleValueCodable
         {
             typealias Value = String
 
@@ -213,7 +213,7 @@ extension WrapperTests
 
     func testMandatoryWithSpec()
     {
-        enum LastName: ValueSpecification,
+        enum LastName: SomeValueSpecification,
             NonMandatory
         {
             typealias Value = String
@@ -232,7 +232,7 @@ extension WrapperTests
             }
         }
 
-        struct WrapperWithSpec: ValueWrapper,
+        struct WrapperWithSpec: SomeValueWrapper,
             Mandatory
         {
             typealias Specification = LastName
@@ -258,7 +258,7 @@ extension WrapperTests
 
     func testConvenienceHelpersAndAutoValidatable()
     {
-        enum LastName: ValueSpecification
+        enum LastName: SomeValueSpecification
         {
             typealias Value = String
 
@@ -269,7 +269,7 @@ extension WrapperTests
             ]
         }
 
-        struct WrapperWithSpec: ValueWrapper
+        struct WrapperWithSpec: SomeValueWrapper
         {
             typealias Specification = LastName
 

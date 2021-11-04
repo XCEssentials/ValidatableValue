@@ -25,7 +25,7 @@
  */
 
 public
-extension ValueWrapper
+extension SomeValueWrapper
     where
     Self: NonMandatory // <<<--- NON-mandatory only!
 {

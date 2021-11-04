@@ -27,7 +27,7 @@
 public
 extension Swift.Optional
     where
-    Wrapped: BasicValueWrapper
+    Wrapped: SomeBasicValueWrapper
 {
     var value: Wrapped.Value?
     {

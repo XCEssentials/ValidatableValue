@@ -32,7 +32,7 @@ import XCERequirement
  Describes custom value type for a wrapper.
  */
 public
-protocol ValueSpecification: DisplayNamed
+protocol SomeValueSpecification: DisplayNamed
 {
     associatedtype Value: Codable & Equatable
 
@@ -55,7 +55,7 @@ protocol ValueSpecification: DisplayNamed
 // MARK: - Default implementations
 
 public
-extension ValueSpecification
+extension SomeValueSpecification
 {
     static
     var conditions: [Condition<Value>]

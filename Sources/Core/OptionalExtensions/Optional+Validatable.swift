@@ -25,9 +25,9 @@
  */
 
 // public
-extension Swift.Optional: Validatable
+extension Swift.Optional: SomeValidatable
     where
-    Wrapped: ValueWrapper
+    Wrapped: SomeValueWrapper
 {
     public
     func validate() throws
@@ -66,7 +66,7 @@ extension Swift.Optional: Validatable
 public
 extension Swift.Optional
     where
-    Wrapped: ValueWrapper
+    Wrapped: SomeValueWrapper
 {
     /**
      Convenience initializer initializes wrapper and validates it

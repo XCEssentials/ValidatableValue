@@ -30,7 +30,7 @@ func << <VV, T>(
     newValue: T
     ) throws
     where
-    VV: ValueWrapper,
+    VV: SomeValueWrapper,
     VV.Value == T
 {
     try container.set(newValue)
@@ -44,7 +44,7 @@ func << <VV, T>(
     newValue: T?
     ) throws
     where
-    VV: ValueWrapper,
+    VV: SomeValueWrapper,
     VV.Value == T
 {
     try container.set(newValue)
@@ -62,7 +62,7 @@ func <? <VV, T>(
     newValue: T
     )
     where
-    VV: BasicValueWrapper,
+    VV: SomeBasicValueWrapper,
     VV.Value == T
 {
     container = newValue.wrapped()
@@ -76,7 +76,7 @@ func <? <VV, T>(
     newValue: T?
     )
     where
-    VV: BasicValueWrapper,
+    VV: SomeBasicValueWrapper,
     VV.Value == T
 {
     container = newValue.map{ .some($0.wrapped()) } ?? .none
@@ -90,7 +90,7 @@ func == <VV, T>(
     value: T?
     ) -> Bool
     where
-    VV: BasicValueWrapper,
+    VV: SomeBasicValueWrapper,
     VV.Value == T
 {
     return container.value == value
@@ -102,7 +102,7 @@ func == <VV, T>(
     container: VV
     ) -> Bool
     where
-    VV: BasicValueWrapper,
+    VV: SomeBasicValueWrapper,
     VV.Value == T
 {
     return container.value == value

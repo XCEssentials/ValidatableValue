@@ -39,12 +39,12 @@ extension EntityTests
 {
     func testConditionalConformance() // only works in Swift 4.2+
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: SomeValueSpecification
         {
             typealias Value = String
         }
 
-        struct SomeWrapper: ValueWrapper
+        struct SomeWrapper: SomeValueWrapper
         {
             typealias Specification = FirstName
 
@@ -67,7 +67,7 @@ extension EntityTests
             Optional.some(SomeWrapper(wrappedValue: "David")) as Any
         ]
 
-        let valElements = array.compactMap{ $0 as? Validatable }
+        let valElements = array.compactMap{ $0 as? SomeValidatable }
 
         print("Number of val members found: ---->>>>> \(valElements.count)")
         XCTAssert(valElements.count == 2)
@@ -75,12 +75,12 @@ extension EntityTests
 
     func testMembersGetters()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: SomeValueSpecification
         {
             typealias Value = String
         }
 
-        struct TheEntity: ValidatableEntity
+        struct TheEntity: SomeValidatableEntity
         {
             var wrap1: NonRequired<FirstName>
             var wrap1Opt: NonRequired<FirstName>?
@@ -110,13 +110,13 @@ extension EntityTests
 
     func testDisplayName()
     {
-        struct SomeEntity: ValidatableEntity {}
+        struct SomeEntity: SomeValidatableEntity {}
 
         XCTAssert(SomeEntity.displayName == SomeEntity.intrinsicDisplayName)
 
         //---
 
-        struct CustomNamedEntity: ValidatableEntity
+        struct CustomNamedEntity: SomeValidatableEntity
         {
             static
             let someStr = "This is a custom named Entity"
@@ -131,7 +131,7 @@ extension EntityTests
 
     func testDefaultValueReport()
     {
-        struct SomeEntity: ValidatableEntity {}
+        struct SomeEntity: SomeValidatableEntity {}
 
         let defaultReport = SomeEntity.defaultReport(with: [])
 
@@ -142,7 +142,7 @@ extension EntityTests
 
     func testCustomEntityReport()
     {
-        struct SomeEntity: ValidatableEntity
+        struct SomeEntity: SomeValidatableEntity
         {
             static
             let customReport = ("This is", "it!")
@@ -174,7 +174,7 @@ extension EntityTests
 
     func testManualValidation()
     {
-        struct ManualValidationEntity: ValidatableEntity
+        struct ManualValidationEntity: SomeValidatableEntity
         {
             static
             let someStr = "Is invalid"
@@ -224,8 +224,8 @@ extension EntityTests
 
     func testAutoValidatable()
     {
-        struct SimpleWrapper: BasicValueWrapper,
-            Validatable
+        struct SimpleWrapper: SomeBasicValueWrapper,
+            SomeValidatable
         {
             static
             let someStr = "Is invalid"
@@ -252,7 +252,7 @@ extension EntityTests
             }
         }
 
-        struct AutoValidationEntity: ValidatableEntity
+        struct AutoValidationEntity: SomeValidatableEntity
         {
             let stringWrapper: SimpleWrapper
         }

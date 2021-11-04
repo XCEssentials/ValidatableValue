@@ -29,7 +29,7 @@
  internal implementation.
  */
 public
-protocol Validatable
+protocol SomeValidatable
 {
     func validate() throws
 }
@@ -37,7 +37,7 @@ protocol Validatable
 //---
 
 public
-extension Validatable
+extension SomeValidatable
 {
     /**
      Relies on the 'validate()' func, returns 'false'

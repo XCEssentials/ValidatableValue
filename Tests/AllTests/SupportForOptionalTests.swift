@@ -48,12 +48,12 @@ extension SupportForOptionalTests
 
     func testIsRequired()
     {
-        enum SomeSpec: ValueSpecification
+        enum SomeSpec: SomeValueSpecification
         {
             typealias Value = Int
         }
 
-        struct SomeWrapper: ValueWrapper, NonMandatory
+        struct SomeWrapper: SomeValueWrapper, NonMandatory
         {
             typealias Specification = SomeSpec
 
@@ -67,7 +67,7 @@ extension SupportForOptionalTests
             }
         }
 
-        struct SomeMandatoryWrapper: ValueWrapper, Mandatory
+        struct SomeMandatoryWrapper: SomeValueWrapper, Mandatory
         {
             typealias Specification = SomeSpec
 
@@ -92,7 +92,7 @@ extension SupportForOptionalTests
 
     func testBasicValueWrapper()
     {
-        struct SomeWrapper: BasicValueWrapper
+        struct SomeWrapper: SomeBasicValueWrapper
         {
             typealias Value = String
 
@@ -116,7 +116,7 @@ extension SupportForOptionalTests
 
     func testValidatableWithOptionalWrapper()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: SomeValueSpecification
         {
             static
             let conditions = [
@@ -125,7 +125,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: ValueWrapper,
+        struct SomeWrapper: SomeValueWrapper,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -199,7 +199,7 @@ extension SupportForOptionalTests
 
     func testValidatableWithMandatoryWrapper()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: SomeValueSpecification
         {
             static
             let conditions = [
@@ -208,7 +208,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: ValueWrapper,
+        struct MandatoryWrapper: SomeValueWrapper,
             Mandatory // <<<<------
         {
             typealias Specification = FirstName
@@ -292,7 +292,7 @@ extension SupportForOptionalTests
 
     func testValidatableConvenienceHelpers()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: SomeValueSpecification
         {
             typealias Value = String
 
@@ -303,7 +303,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct WrapperWithSpec: ValueWrapper,
+        struct WrapperWithSpec: SomeValueWrapper,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -424,7 +424,7 @@ extension SupportForOptionalTests
 
     func testOptionalValueWrapper()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: SomeValueSpecification
         {
             static
             let conditions = [
@@ -433,7 +433,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: ValueWrapper,
+        struct SomeWrapper: SomeValueWrapper,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -621,7 +621,7 @@ extension SupportForOptionalTests
 
     func testMandatoryValueWrapper()
     {
-        enum FirstName: ValueSpecification
+        enum FirstName: SomeValueSpecification
         {
             static
             let conditions = [
@@ -630,7 +630,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: ValueWrapper,
+        struct MandatoryWrapper: SomeValueWrapper,
             Mandatory // <<<---
         {
             typealias Specification = FirstName

@@ -33,12 +33,12 @@ import XCERequirement
  It automatically fulfills all requirements, except reporting.
  */
 public
-protocol BoolFlag: ValueSpecification {}
+protocol SomeBoolFlagSpecification: SomeValueSpecification {}
 
 //---
 
 public
-extension BoolFlag
+extension SomeBoolFlagSpecification
 {
     static
     var conditions: [Condition<Bool>]

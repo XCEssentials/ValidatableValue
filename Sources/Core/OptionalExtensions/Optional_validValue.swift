@@ -27,7 +27,7 @@
 public
 extension Swift.Optional
     where
-    Wrapped: ValueWrapper & Mandatory // <<<---
+    Wrapped: SomeValueWrapper & Mandatory // <<<---
 {
     func validValue() throws -> Wrapped.Value // Mandatory!
     {

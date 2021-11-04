@@ -27,7 +27,7 @@
 public
 extension Optional
     where
-    Wrapped: ValueWrapper
+    Wrapped: SomeValueWrapper
 {
     static
     var isRequired: Bool

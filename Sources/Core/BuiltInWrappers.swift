@@ -30,8 +30,8 @@
  value ('nil') is considered to be valid.
  */
 public
-struct WrapperOf<T: ValueSpecification>: ValueWrapper,
-    SingleValueCodable,
+struct WrapperOf<T: SomeValueSpecification>: SomeValueWrapper,
+    SomeSingleValueCodable,
     NonMandatory
 {
     public
@@ -48,7 +48,7 @@ struct WrapperOf<T: ValueSpecification>: ValueWrapper,
 }
 
 public
-typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
+typealias NonRequired<T: SomeValueSpecification> = WrapperOf<T>
 
 //---
 
@@ -60,12 +60,12 @@ typealias NonRequired<T: ValueSpecification> = WrapperOf<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOf<T: Codable & Equatable>: ValueWrapper,
-    SingleValueCodable,
+struct QuickWrapperOf<T: Codable & Equatable>: SomeValueWrapper,
+    SomeSingleValueCodable,
     NonMandatory
 {
     public
-    enum Specification: ValueSpecification
+    enum Specification: SomeValueSpecification
     {
         public
         typealias Value = T
@@ -98,8 +98,8 @@ typealias NonRequiredBase<T: Codable & Equatable> = QuickWrapperOf<T>
  value ('nil') is considered to be NOT valid.
  */
 public
-struct WrapperOfMandatory<T: ValueSpecification>: ValueWrapper,
-    SingleValueCodable,
+struct WrapperOfMandatory<T: SomeValueSpecification>: SomeValueWrapper,
+    SomeSingleValueCodable,
     Mandatory
 {
     public
@@ -116,7 +116,7 @@ struct WrapperOfMandatory<T: ValueSpecification>: ValueWrapper,
 }
 
 public
-typealias Required<T: ValueSpecification> = WrapperOfMandatory<T>
+typealias Required<T: SomeValueSpecification> = WrapperOfMandatory<T>
 
 //---
 
@@ -128,12 +128,12 @@ typealias Required<T: ValueSpecification> = WrapperOfMandatory<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOfMandatory<T: Codable & Equatable>: ValueWrapper,
-    SingleValueCodable,
+struct QuickWrapperOfMandatory<T: Codable & Equatable>: SomeValueWrapper,
+    SomeSingleValueCodable,
     Mandatory
 {
     public
-    enum Specification: ValueSpecification
+    enum Specification: SomeValueSpecification
     {
         public
         typealias Value = T

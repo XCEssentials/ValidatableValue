@@ -29,7 +29,7 @@ import XCERequirement
 //---
 
 // internal
-extension ValueSpecification
+extension SomeValueSpecification
 {
     /**
      In case the 'Value' itself conforms to 'Validatable' protocol,

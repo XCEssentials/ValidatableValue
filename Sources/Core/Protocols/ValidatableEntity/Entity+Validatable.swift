@@ -25,7 +25,7 @@
  */
 
 public
-extension ValidatableEntity
+extension SomeValidatableEntity
 {
     /**
      Validates all validateable values contained inside the entity,
@@ -69,7 +69,7 @@ extension Array
     where
     Element == ValidationError
 {
-    func asValidationIssues<E: ValidatableEntity>(
+    func asValidationIssues<E: SomeValidatableEntity>(
         for entity: E
         ) -> ValidationError
     {

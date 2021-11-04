@@ -33,7 +33,7 @@ import XCEValidatableValue
 
 // MARK: - User
 
-struct User: ValidatableEntity
+struct User: SomeValidatableEntity
 {
     var firstName: Required<FirstName>?
     var lastName: NonRequired<LastName>?
@@ -50,7 +50,7 @@ typealias CS = CharacterSet
 
 extension User
 {
-    enum FirstName: ValueSpecification
+    enum FirstName: SomeValueSpecification
     {
         static
         let conditions = [
@@ -59,12 +59,12 @@ extension User
         ]
     }
 
-    enum LastName: ValueSpecification
+    enum LastName: SomeValueSpecification
     {
         typealias Value = String
     }
 
-    enum Username: ValueSpecification
+    enum Username: SomeValueSpecification
     {
         static
         let conditions = [
@@ -74,7 +74,7 @@ extension User
         ]
     }
 
-    enum Password: ValueSpecification
+    enum Password: SomeValueSpecification
     {
         static
         let conditions: [Condition<String>] = [
@@ -88,12 +88,12 @@ extension User
         ]
     }
 
-    enum Experience: ValueSpecification //yrs
+    enum Experience: SomeValueSpecification //yrs
     {
         typealias Value = UInt
     }
 
-    enum VIP: Checkmark {}
+    enum VIP: SomeCheckmarkSpecification {}
 }
 
 // MARK: - User: Representations

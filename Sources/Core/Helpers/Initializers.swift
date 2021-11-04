@@ -29,7 +29,7 @@ extension Equatable
     where
     Self: Codable
 {
-    func wrapped<T: BasicValueWrapper>(
+    func wrapped<T: SomeBasicValueWrapper>(
         ) -> T
         where
         Self == T.Value
@@ -37,7 +37,7 @@ extension Equatable
         return T(wrappedValue: self)
     }
 
-    func wrapped<T: BasicValueWrapper>(
+    func wrapped<T: SomeBasicValueWrapper>(
         ) -> T?
         where
         Self == T.Value
@@ -45,7 +45,7 @@ extension Equatable
         return .some(T(wrappedValue: self))
     }
 
-    func wrappedIfValid<T: ValueWrapper>(
+    func wrappedIfValid<T: SomeValueWrapper>(
         ) throws -> T
         where
         Self == T.Value
@@ -53,7 +53,7 @@ extension Equatable
         return try T(validate: self)
     }
 
-    func wrappedIfValid<T: ValueWrapper>(
+    func wrappedIfValid<T: SomeValueWrapper>(
         ) throws -> T?
         where
         Self == T.Value

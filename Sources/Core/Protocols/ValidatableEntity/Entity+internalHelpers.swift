@@ -25,7 +25,7 @@
  */
 
 // internal
-extension ValidatableEntity
+extension SomeValidatableEntity
 {
     static
     func prepareReport(

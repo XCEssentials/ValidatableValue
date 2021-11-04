@@ -26,5 +26,5 @@
 
 extension Swift.Optional: Mandatory
     where
-    Wrapped: ValueWrapper & Mandatory // <<<---
+    Wrapped: SomeValueWrapper & Mandatory // <<<---
 {}

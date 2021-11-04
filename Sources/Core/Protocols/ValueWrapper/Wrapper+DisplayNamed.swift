@@ -25,7 +25,7 @@
  */
 
 public
-extension ValueWrapper
+extension SomeValueWrapper
 {
     static
     var displayName: String

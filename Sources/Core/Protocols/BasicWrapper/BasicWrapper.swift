@@ -29,7 +29,7 @@
  kind of value inside.
  */
 public
-protocol BasicValueWrapper: Codable & Equatable, DisplayNamed
+protocol SomeBasicValueWrapper: Codable & Equatable, DisplayNamed
 {
     associatedtype Value: Codable & Equatable
 

@@ -25,7 +25,7 @@
  */
 
 public
-extension ValueWrapper
+extension SomeValueWrapper
 {
     func validate() throws
     {
@@ -36,7 +36,7 @@ extension ValueWrapper
 // MARK: - Convenience validation helpers
 
 public
-extension ValueWrapper
+extension SomeValueWrapper
 {
     /**
      Convenience initializer initializes wrapper and validates it
@@ -78,7 +78,7 @@ extension ValueWrapper
 // MARK: - Private validation helpers
 
 private
-extension ValueWrapper
+extension SomeValueWrapper
 {
     static
     func check(_ valueToCheck: Value) throws
@@ -88,7 +88,7 @@ extension ValueWrapper
         //---
 
         if
-            let validatableValue = valueToCheck as? Validatable,
+            let validatableValue = valueToCheck as? SomeValidatable,
             Specification.performBuiltInValidation
         {
             try checkNestedValidatable(
@@ -132,7 +132,7 @@ extension ValueWrapper
 
     static
     func checkNestedValidatable(
-        value validatableValueToCheck: Validatable,
+        value validatableValueToCheck: SomeValidatable,
         failedConditions: [String]
         ) throws
     {
@@ -167,7 +167,7 @@ extension ValueWrapper
 
     static
     func reportNestedValidationFailed(
-        checkedValue: Validatable,
+        checkedValue: SomeValidatable,
         failedConditions: [String],
         builtInValidationIssues: [ValidationError],
         builtInReport: (title: String, message: String)?

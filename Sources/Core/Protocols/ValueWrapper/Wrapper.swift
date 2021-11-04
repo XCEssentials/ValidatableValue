@@ -25,9 +25,9 @@
  */
 
 public
-protocol ValueWrapper: BasicValueWrapper, Validatable
+protocol SomeValueWrapper: SomeBasicValueWrapper, SomeValidatable
     where
     Self.Value == Specification.Value
 {
-    associatedtype Specification: ValueSpecification
+    associatedtype Specification: SomeValueSpecification
 }
