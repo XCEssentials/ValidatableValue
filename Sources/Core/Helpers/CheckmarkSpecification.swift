@@ -31,7 +31,7 @@
  when non-‘nil’ - it’s the ‘checked’ state of checkmark.
  */
 public
-protocol SomeCheckmarkSpecification: SomeValueSpecification where Value == CheckmarkValue {}
+protocol SomeCheckmarkSpecification: SomeValueSpecification where RawValue == CheckmarkValue {}
 
 //---
 

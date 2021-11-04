@@ -41,14 +41,14 @@ extension WrapperTests
     {
         enum SomeSpec: SomeValueSpecification
         {
-            typealias Value = Int
+            typealias RawValue = Int
         }
 
         struct SomeWrapper: SomeValueWrapper, NonMandatory
         {
             typealias Specification = SomeSpec
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -62,7 +62,7 @@ extension WrapperTests
         {
             typealias Specification = SomeSpec
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -85,7 +85,7 @@ extension WrapperTests
     {
         enum LastName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
 
             static
             let displayHint: String? = "Your last name"
@@ -98,7 +98,7 @@ extension WrapperTests
         {
             typealias Specification = LastName
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -120,7 +120,7 @@ extension WrapperTests
         {
             typealias Specification = LastName
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -216,7 +216,7 @@ extension WrapperTests
         enum LastName: SomeValueSpecification,
             NonMandatory
         {
-            typealias Value = String
+            typealias RawValue = String
 
             static
             let customReport = ("Custom report", "about Last Name")
@@ -236,7 +236,7 @@ extension WrapperTests
             Mandatory
         {
             typealias Specification = LastName
-            typealias Value = LastName.Value
+            typealias Value = LastName.RawValue
 
             var value: Value
 

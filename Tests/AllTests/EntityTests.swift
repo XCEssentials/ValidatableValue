@@ -41,14 +41,14 @@ extension EntityTests
     {
         enum FirstName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
         }
 
         struct SomeWrapper: SomeValueWrapper
         {
             typealias Specification = FirstName
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -77,7 +77,7 @@ extension EntityTests
     {
         enum FirstName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
         }
 
         struct TheEntity: SomeValidatableEntity

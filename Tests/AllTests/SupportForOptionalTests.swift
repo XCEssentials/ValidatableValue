@@ -50,14 +50,14 @@ extension SupportForOptionalTests
     {
         enum SomeSpec: SomeValueSpecification
         {
-            typealias Value = Int
+            typealias RawValue = Int
         }
 
         struct SomeWrapper: SomeValueWrapper, NonMandatory
         {
             typealias Specification = SomeSpec
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -71,7 +71,7 @@ extension SupportForOptionalTests
         {
             typealias Specification = SomeSpec
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -130,7 +130,7 @@ extension SupportForOptionalTests
         {
             typealias Specification = FirstName
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -213,7 +213,7 @@ extension SupportForOptionalTests
         {
             typealias Specification = FirstName
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -438,7 +438,7 @@ extension SupportForOptionalTests
         {
             typealias Specification = FirstName
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 
@@ -635,7 +635,7 @@ extension SupportForOptionalTests
         {
             typealias Specification = FirstName
 
-            typealias Value = Specification.Value
+            typealias Value = Specification.RawValue
 
             var value: Value
 

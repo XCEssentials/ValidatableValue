@@ -61,7 +61,7 @@ extension User
 
     enum LastName: SomeValueSpecification
     {
-        typealias Value = String
+        typealias RawValue = String
     }
 
     enum Username: SomeValueSpecification
@@ -90,7 +90,7 @@ extension User
 
     enum Experience: SomeValueSpecification //yrs
     {
-        typealias Value = UInt
+        typealias RawValue = UInt
     }
 
     enum VIP: SomeCheckmarkSpecification {}

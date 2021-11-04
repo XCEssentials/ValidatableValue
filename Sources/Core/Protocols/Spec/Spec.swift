@@ -34,14 +34,14 @@ import XCERequirement
 public
 protocol SomeValueSpecification: DisplayNamed
 {
-    associatedtype Value: Codable
+    associatedtype RawValue: Codable
 
     /**
      Set of conditions for the 'Value' which gonna be used
      for value validation.
      */
     static
-    var conditions: [Condition<Value>] { get }
+    var conditions: [Condition<RawValue>] { get }
 
     /**
      This closure allows to customize/override default validation
@@ -58,7 +58,7 @@ public
 extension SomeValueSpecification
 {
     static
-    var conditions: [Condition<Value>]
+    var conditions: [Condition<RawValue>]
     {
         return []
     }

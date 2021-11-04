@@ -38,7 +38,7 @@ struct WrapperOf<T: SomeValueSpecification>: SomeValueWrapper,
     typealias Specification = T
 
     public
-    typealias Value = Specification.Value
+    typealias Value = Specification.RawValue
 
     public
     var value: Value
@@ -68,7 +68,7 @@ struct QuickWrapperOf<T: Codable>: SomeValueWrapper,
     enum Specification: SomeValueSpecification
     {
         public
-        typealias Value = T
+        typealias RawValue = T
 
         public
         static
@@ -106,7 +106,7 @@ struct WrapperOfMandatory<T: SomeValueSpecification>: SomeValueWrapper,
     typealias Specification = T
 
     public
-    typealias Value = Specification.Value
+    typealias Value = Specification.RawValue
 
     public
     var value: Value
@@ -136,7 +136,7 @@ struct QuickWrapperOfMandatory<T: Codable>: SomeValueWrapper,
     enum Specification: SomeValueSpecification
     {
         public
-        typealias Value = T
+        typealias RawValue = T
 
         public
         static

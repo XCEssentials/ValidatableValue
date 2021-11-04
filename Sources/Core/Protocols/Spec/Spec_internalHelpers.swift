@@ -44,7 +44,7 @@ extension SomeValueSpecification
 
     static
     func failedConditions(
-        for valueToCheck: Self.Value
+        for valueToCheck: Self.RawValue
         ) throws -> [String]
     {
         var result: [String] = []

@@ -27,7 +27,7 @@
 public
 protocol SomeValueWrapper: SomeBasicValueWrapper, SomeValidatable
     where
-    Self.Value == Specification.Value
+    Self.Value == Specification.RawValue
 {
     associatedtype Specification: SomeValueSpecification
 }

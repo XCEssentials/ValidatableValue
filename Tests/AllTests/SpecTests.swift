@@ -41,7 +41,7 @@ extension SpecTests
     {
         enum LastName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
         }
 
         XCTAssert(LastName.performBuiltInValidation)
@@ -51,7 +51,7 @@ extension SpecTests
         enum LastName2: SomeValueSpecification,
             SkipBuiltInValidation
         {
-            typealias Value = String
+            typealias RawValue = String
         }
 
         XCTAssertFalse(LastName2.performBuiltInValidation)
@@ -61,7 +61,7 @@ extension SpecTests
     {
         enum FirstName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
 
             static
             let conditions = [
@@ -78,7 +78,7 @@ extension SpecTests
 
         enum LastName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
         }
 
         XCTAssert(LastName.conditions.count == 0) // should NOT even compile!
@@ -90,7 +90,7 @@ extension SpecTests
     {
         enum FirstName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
         }
 
         let defaultReport = FirstName.defaultValidationReport(with: [])
@@ -114,7 +114,7 @@ extension SpecTests
 
             //---
 
-            typealias Value = String
+            typealias RawValue = String
 
             static
             var reviewReport: ValueReportReview
@@ -148,7 +148,7 @@ extension SpecTests
     {
         enum FirstName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
         }
 
         XCTAssert(FirstName.displayName == FirstName.intrinsicDisplayName)
@@ -157,7 +157,7 @@ extension SpecTests
 
         enum LastName: SomeValueSpecification
         {
-            typealias Value = String
+            typealias RawValue = String
 
             static
             let someStr = "This is custom name for the Value"
