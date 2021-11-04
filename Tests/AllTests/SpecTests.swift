@@ -117,7 +117,7 @@ extension SpecTests
             typealias RawValue = String
 
             static
-            var reviewReport: ValueReportReview
+            var onCustomizeReport: OnCustomizeValueReport
             {
                 // by default, we don't adjust anything in the report
                 return {

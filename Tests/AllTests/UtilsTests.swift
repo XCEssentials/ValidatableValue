@@ -12,16 +12,16 @@ import XCEValidatableValue
 
 //---
 
-enum TypeOne {}
+enum TypeOne: DisplayNamed {}
 
 fileprivate
-struct TypeTwo {}
+struct TypeTwo: DisplayNamed {}
 
 //---
 
 class UtilsTests: XCTestCase
 {
-    class TypeThree {}
+    class TypeThree: DisplayNamed {}
 }
 
 //---
@@ -30,13 +30,13 @@ extension UtilsTests
 {
     func testIntrinsicDisplayName()
     {
-        enum TypeFour {}
+        enum TypeFour: DisplayNamed {}
 
         //---
 
-        XCTAssert(Utils.intrinsicDisplayName(for: TypeOne.self) == "Type One")
-        XCTAssert(Utils.intrinsicDisplayName(for: TypeTwo.self) == "Type Two")
-        XCTAssert(Utils.intrinsicDisplayName(for: TypeThree.self) == "Type Three")
-        XCTAssert(Utils.intrinsicDisplayName(for: TypeFour.self) == "Type Four")
+        XCTAssert(TypeOne.intrinsicDisplayName == "Type One")
+        XCTAssert(TypeTwo.intrinsicDisplayName == "Type Two")
+        XCTAssert(TypeThree.intrinsicDisplayName == "Type Three")
+        XCTAssert(TypeFour.intrinsicDisplayName == "Type Four")
     }
 }

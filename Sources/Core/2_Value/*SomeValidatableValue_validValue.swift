@@ -25,9 +25,49 @@
  */
 
 public
+extension SomeValidatableValue
+    where
+    Self: NonMandatory // <<<--- NON-mandatory only!
+{
+    var validValue: Self.Specification.ValidValue?
+    {
+        get throws {
+            
+            try validate()
+
+            //---
+
+            return Specification.convert(rawValue: rawValue)
+        }
+    }
+
+    /**
+     Validates and returns 'value' regardless of its validity,
+     puts any encountered validation errors in the 'collectError'
+     array.
+     */
+    func validValue(
+        _ collectError: inout [Error]
+        ) throws -> Self.Specification.ValidValue?
+    {
+        do
+        {
+            return try validValue
+        }
+        catch
+        {
+            collectError.append(error)
+            return nil
+        }
+    }
+}
+
+// MARK: - Optional extensions
+
+public
 extension Swift.Optional
     where
-    Wrapped: SomeValidatableValueWrapper & Mandatory // <<<---
+    Wrapped: SomeValidatableValue & Mandatory // <<<---
 {
     var validValue: Wrapped.Specification.ValidValue? // Mandatory!
     {

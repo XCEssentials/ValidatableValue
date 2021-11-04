@@ -24,24 +24,7 @@
 
  */
 
-public
-extension SomeValidatableValueWrapper //: DisplayNamed
-{
-    static
-    var displayName: String
-    {
-        return Specification.displayName
-    }
-
-    static
-    var displayHint: String?
-    {
-        return Specification.displayHint
-    }
-
-    static
-    var displayPlaceholder: String?
-    {
-        return Specification.displayPlaceholder
-    }
-}
+extension Swift.Optional: Mandatory
+    where
+    Wrapped: SomeValidatableValue & Mandatory // <<<---
+{}

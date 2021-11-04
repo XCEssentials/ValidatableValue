@@ -24,5 +24,19 @@
 
  */
 
-// internal
-enum Utils {}
+public
+extension Optional
+    where
+    Wrapped: SomeValidatableValue
+{
+    static
+    var isRequired: Bool
+    {
+        return (Wrapped.self is Mandatory.Type)
+    }
+
+    var isRequired: Bool
+    {
+        return type(of: self).isRequired
+    }
+}

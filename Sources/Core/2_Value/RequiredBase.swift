@@ -24,7 +24,40 @@
 
  */
 
-extension Swift.Optional: Mandatory
-    where
-    Wrapped: SomeValidatableValueWrapper & Mandatory // <<<---
-{}
+public
+typealias RequiredBase<T: Codable> = QuickWrapperOfMandatory<T>
+
+//---
+
+/**
+ Same as 'WrapperOfMandatory', but accepts just base value types,
+ does not require a Specification for the value. Use it
+ when just need the functionality of wrapper without any
+ special conditions for the type and not plannig to use
+ it in GUI directly.
+ */
+public
+struct QuickWrapperOfMandatory<T: Codable>: SomeValidatableValue,
+    SomeSingleValueCodable,
+    Mandatory
+{
+    public
+    enum Specification: SomeValueSpecification
+    {
+        public
+        typealias RawValue = T
+
+        public
+        typealias ValidValue = T
+        
+        public
+        static
+        var displayName: String { return "Basic Value" }
+    }
+
+    public
+    var rawValue: Specification.RawValue
+
+    public
+    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
+}

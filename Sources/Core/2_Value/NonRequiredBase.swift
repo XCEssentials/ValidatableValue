@@ -25,26 +25,41 @@
  */
 
 public
-typealias Report = (title: String, message: String)
+typealias NonRequiredBase<T: Codable> = QuickWrapperOf<T>
 
 //---
 
+/**
+ Same as 'WrapperOf', but accepts just base value types,
+ does not require a Specification for the value. Use it
+ when just need the functionality of wrapper without any
+ special conditions for the type and not plannig to use
+ it in GUI directly.
+ */
 public
-struct ValueReportContext
+struct QuickWrapperOf<T: Codable>: SomeValidatableValue,
+    SomeSingleValueCodable,
+    NonMandatory
 {
-    let origin: String
-    let value: Any?
-    let failedConditions: [String]
-    let builtInValidationIssues: [Error]
+    public
+    enum Specification: SomeValueSpecification
+    {
+        public
+        typealias RawValue = T
+
+        public
+        typealias ValidValue = T
+        
+        public
+        static
+        var displayName: String { return "Basic Value" }
+    }
+
+    //---
+
+    public
+    var rawValue: Specification.RawValue
+
+    public
+    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
 }
-
-public
-typealias ValueReportReview = (ValueReportContext, inout Report) -> Void
-
-//---
-
-public
-typealias EntityReportContext = [Error]
-
-public
-typealias EntityReportReview = (EntityReportContext, inout Report) -> Void

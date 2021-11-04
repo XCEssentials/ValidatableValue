@@ -31,9 +31,7 @@
  Those property will be also automatically encoded and decoded.
  */
 public
-protocol SomeValidatableEntity: Codable,
-    DisplayNamed,
-    SomeValidatable
+protocol SomeValidatableEntity: SomeValidatable, Codable, DisplayNamed
 {
     /**
      This closure allows to customize/override default validation
@@ -41,7 +39,7 @@ protocol SomeValidatableEntity: Codable,
      to the report, including for localization purposes.
      */
     static
-    var reviewReport: EntityReportReview { get }
+    var onCustomizeReport: OnCustomizeEntityReport { get }
 
     /**
      Returns list of all members that have to be involved in
@@ -57,7 +55,7 @@ public
 extension SomeValidatableEntity
 {
     static
-    var reviewReport: EntityReportReview
+    var onCustomizeReport: OnCustomizeEntityReport
     {
         return { _, _ in }
     }
@@ -89,5 +87,71 @@ extension SomeValidatableEntity
             .children
             .map{ $0.value }
             .compactMap{ $0 as? Mandatory & SomeValidatable }
+    }
+}
+
+// MARK: - Internal helpers
+
+// internal
+extension SomeValidatableEntity
+{
+    static
+    func prepareReport(
+        with issues: [Error]
+        ) -> Report
+    {
+        var result = defaultReport(with: issues)
+
+        //---
+
+        onCustomizeReport(issues, &result)
+
+        //---
+
+        return result
+    }
+
+    static
+    func defaultReport(
+        with issues: [Error]
+        ) -> Report
+    {
+        let messages = issues
+            .map{
+
+                if
+                    let validationError = $0 as? ValidationError,
+                    validationError.hasNestedIssues // report from a nested entity...
+                {
+                    return """
+                    ———
+                    \(validationError.report.message)
+                    ———
+                    """
+                }
+                else
+                if
+                    let validationError = $0 as? ValidationError
+                {
+                    return "- \(validationError.report.message)"
+                }
+                else
+                {
+                    return "- \($0)"
+                }
+            }
+            .joined(separator: "\n")
+
+        //---
+
+        return (
+
+            "\"\(displayName)\" validation failed",
+
+            """
+            \"\(displayName)\" validation failed due to the issues listed below.
+            \(messages)
+            """
+        )
     }
 }

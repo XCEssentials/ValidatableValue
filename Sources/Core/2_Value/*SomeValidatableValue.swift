@@ -25,11 +25,52 @@
  */
 
 public
-protocol SomeValidatableValueWrapper: SomeValidatable, Codable, DisplayNamed
+protocol SomeValidatableValue: SomeValidatable, Codable, DisplayNamed
 {
     associatedtype Specification: SomeValueSpecification
     
     init(wrappedValue: Specification.RawValue)
 
     var rawValue: Specification.RawValue { get set }
+}
+
+// MARK: - Required?
+
+public
+extension SomeValidatableValue
+{
+    static
+    var isRequired: Bool
+    {
+        return (self is Mandatory.Type)
+    }
+
+    var isRequired: Bool
+    {
+        return type(of: self).isRequired
+    }
+}
+
+// MARK: - Display name
+
+public
+extension SomeValidatableValue //: DisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return Specification.displayName
+    }
+
+    static
+    var displayHint: String?
+    {
+        return Specification.displayHint
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return Specification.displayPlaceholder
+    }
 }

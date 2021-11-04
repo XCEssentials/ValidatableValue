@@ -53,7 +53,7 @@ extension SupportForOptionalTests
             typealias RawValue = Int
         }
 
-        struct SomeWrapper: SomeValidatableValueWrapper, NonMandatory
+        struct SomeWrapper: SomeValidatableValue, NonMandatory
         {
             typealias Specification = SomeSpec
 
@@ -67,7 +67,7 @@ extension SupportForOptionalTests
             }
         }
 
-        struct SomeMandatoryWrapper: SomeValidatableValueWrapper, Mandatory
+        struct SomeMandatoryWrapper: SomeValidatableValue, Mandatory
         {
             typealias Specification = SomeSpec
 
@@ -92,7 +92,7 @@ extension SupportForOptionalTests
 
     func testBasicValueWrapper()
     {
-        struct SomeWrapper: SomeValidatableValueWrapper
+        struct SomeWrapper: SomeValidatableValue
         {
             enum Specification: SomeValueSpecification
             {
@@ -128,7 +128,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: SomeValidatableValueWrapper,
+        struct SomeWrapper: SomeValidatableValue,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -211,7 +211,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: SomeValidatableValueWrapper,
+        struct MandatoryWrapper: SomeValidatableValue,
             Mandatory // <<<<------
         {
             typealias Specification = FirstName
@@ -306,7 +306,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct WrapperWithSpec: SomeValidatableValueWrapper,
+        struct WrapperWithSpec: SomeValidatableValue,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -436,7 +436,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct SomeWrapper: SomeValidatableValueWrapper,
+        struct SomeWrapper: SomeValidatableValue,
             NonMandatory
         {
             typealias Specification = FirstName
@@ -631,7 +631,7 @@ extension SupportForOptionalTests
             ]
         }
 
-        struct MandatoryWrapper: SomeValidatableValueWrapper,
+        struct MandatoryWrapper: SomeValidatableValue,
             Mandatory // <<<---
         {
             typealias Specification = FirstName

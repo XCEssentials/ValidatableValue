@@ -56,7 +56,7 @@ enum CheckmarkValue: UInt, Codable
 public
 extension Swift.Optional
     where
-    Wrapped: SomeValidatableValueWrapper,
+    Wrapped: SomeValidatableValue,
     Wrapped.Specification: Checkmark,
     Wrapped.Specification.RawValue == CheckmarkValue
 {

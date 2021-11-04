@@ -25,16 +25,26 @@
  */
 
 public
-extension SomeValidatableValueWrapper
-{
-    static
-    var isRequired: Bool
-    {
-        return (self is Mandatory.Type)
-    }
+typealias Report = (title: String, message: String)
 
-    var isRequired: Bool
-    {
-        return type(of: self).isRequired
-    }
+//---
+
+public
+struct ValueReportContext
+{
+    let origin: String
+    let value: Any?
+    let failedConditions: [String]
+    let builtInValidationIssues: [Error]
 }
+
+public
+typealias OnCustomizeValueReport = (ValueReportContext, inout Report) -> Void
+
+//---
+
+public
+typealias EntityReportContext = [Error]
+
+public
+typealias OnCustomizeEntityReport = (EntityReportContext, inout Report) -> Void

@@ -44,7 +44,7 @@ extension EntityTests
             typealias RawValue = String
         }
 
-        struct SomeWrapper: SomeValidatableValueWrapper
+        struct SomeWrapper: SomeValidatableValue
         {
             typealias Specification = FirstName
 
@@ -150,7 +150,7 @@ extension EntityTests
             //---
 
             static
-            var reviewReport: EntityReportReview
+            var onCustomizeReport: OnCustomizeEntityReport
             {
                 // by default, we don't adjust anything in the report
                 return {
@@ -224,7 +224,7 @@ extension EntityTests
 
     func testAutoValidatable()
     {
-        struct SimpleWrapper: SomeValidatableValueWrapper,
+        struct SimpleWrapper: SomeValidatableValue,
             SomeValidatable
         {
             static

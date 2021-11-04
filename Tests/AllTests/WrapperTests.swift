@@ -44,7 +44,7 @@ extension WrapperTests
             typealias RawValue = Int
         }
 
-        struct SomeWrapper: SomeValidatableValueWrapper, NonMandatory
+        struct SomeWrapper: SomeValidatableValue, NonMandatory
         {
             typealias Specification = SomeSpec
 
@@ -58,7 +58,7 @@ extension WrapperTests
             }
         }
 
-        struct SomeMandatoryWrapper: SomeValidatableValueWrapper, Mandatory
+        struct SomeMandatoryWrapper: SomeValidatableValue, Mandatory
         {
             typealias Specification = SomeSpec
 
@@ -94,7 +94,7 @@ extension WrapperTests
             let displayPlaceholder: String? = "Enter you last name here..."
         }
 
-        struct WrapperWithSpec: SomeValidatableValueWrapper
+        struct WrapperWithSpec: SomeValidatableValue
         {
             typealias Specification = LastName
 
@@ -116,7 +116,7 @@ extension WrapperTests
 
         //---
 
-        struct AnotherWrapper: SomeValidatableValueWrapper
+        struct AnotherWrapper: SomeValidatableValue
         {
             typealias Specification = LastName
 
@@ -138,7 +138,7 @@ extension WrapperTests
 
     func testSingleValueCodable()
     {
-        struct ImplicitlyCodableWrapper: SomeValidatableValueWrapper
+        struct ImplicitlyCodableWrapper: SomeValidatableValue
         {
             enum Specification: SomeValueSpecification
             {
@@ -170,7 +170,7 @@ extension WrapperTests
 
         //---
 
-        struct ExplicitlyCodableWrapper: SomeValidatableValueWrapper,
+        struct ExplicitlyCodableWrapper: SomeValidatableValue,
             SomeSingleValueCodable
         {
             enum Specification: SomeValueSpecification
@@ -228,7 +228,7 @@ extension WrapperTests
             let customReport = ("Custom report", "about Last Name")
 
             static
-            let reviewReport: ValueReportReview =
+            let onCustomizeReport: OnCustomizeValueReport =
             {
                 _, report in
 
@@ -238,7 +238,7 @@ extension WrapperTests
             }
         }
 
-        struct WrapperWithSpec: SomeValidatableValueWrapper,
+        struct WrapperWithSpec: SomeValidatableValue,
             Mandatory
         {
             typealias Specification = LastName
@@ -275,7 +275,7 @@ extension WrapperTests
             ]
         }
 
-        struct WrapperWithSpec: SomeValidatableValueWrapper
+        struct WrapperWithSpec: SomeValidatableValue
         {
             typealias Specification = LastName
 

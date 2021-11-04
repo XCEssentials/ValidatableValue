@@ -28,7 +28,95 @@ import Foundation
 
 //---
 
-extension Utils
+/**
+ Provides user friendly 'display name' suitable for showing in GUI.
+ */
+public
+protocol DisplayNamed
+{
+    /**
+     Recommended end-user friendly name/title of the field where
+     any instance of this type is being displayed in GUI.
+     */
+    static
+    var displayName: String { get }
+
+    /**
+     Recommended end-user friendly subtitle of the field where
+     any instance of this type is being displayed in GUI.
+     */
+    static
+    var displayHint: String? { get }
+
+    /**
+     Recommended end user friendly placeholder of the field where
+     any instance of this type is being displayed in GUI.
+     */
+    static
+    var displayPlaceholder: String? { get }
+}
+
+// MARK: - Default implementation
+
+public
+extension DisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return intrinsicDisplayName
+    }
+
+    static
+    var displayHint: String?
+    {
+        return nil
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return nil
+    }
+}
+
+// MARK: - Convenience helpers
+
+public
+extension DisplayNamed
+{
+    var displayName: String
+    {
+        return type(of: self).displayName
+    }
+
+    var displayHint: String?
+    {
+        return type(of: self).displayHint
+    }
+
+    var displayPlaceholder: String?
+    {
+        return type(of: self).displayPlaceholder
+    }
+}
+
+// MARK: - Internal helpers
+
+//internal
+extension DisplayNamed
+{
+    static
+    var intrinsicDisplayName: String
+    {
+        return Utils.intrinsicDisplayName(for: self)
+    }
+}
+
+//---
+
+fileprivate
+enum Utils
 {
     static
     func intrinsicDisplayName<T>(
