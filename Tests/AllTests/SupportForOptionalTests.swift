@@ -462,7 +462,7 @@ extension SupportForOptionalTests
         {
             let result = try SomeWrapper?
                 .some(validValue.wrapped())?
-                .validValue()
+                .validValue
 
             if
                 let unwrapped = result
@@ -482,7 +482,7 @@ extension SupportForOptionalTests
 
         do
         {
-            var issues: [ValidationError] = []
+            var issues: [Error] = []
 
             let result = try SomeWrapper?
                 .some(validValue.wrapped())?
@@ -512,7 +512,7 @@ extension SupportForOptionalTests
         {
             _ = try SomeWrapper?
                 .some(emptyValue.wrapped())?
-                .validValue()
+                .validValue
 
             XCTFail("Should not get here ever")
         }
@@ -537,23 +537,21 @@ extension SupportForOptionalTests
 
         do
         {
-            var issues: [ValidationError] = []
+            var issues: [Error] = []
 
-            let result = try SomeWrapper?
+            let _ = try SomeWrapper?
                 .some(emptyValue.wrapped())?
                 .validValue(&issues)
 
             if
-                let unwrapped = result,
+                let validationError = issues[0] as? ValidationError,
                 case ValidationError.valueIsNotValid(
                     let origin,
                     let value,
                     let failedConditions,
                     let report
-                ) = issues[0]
+                ) = validationError
             {
-                XCTAssert(unwrapped == emptyValue)
-
                 XCTAssert(origin == SomeWrapper.displayName)
                 XCTAssert(value is String)
                 XCTAssert((value as! String) == emptyValue)
@@ -577,7 +575,7 @@ extension SupportForOptionalTests
         {
             let result = try SomeWrapper?
                 .none?
-                .validValue()
+                .validValue
 
             if
                 let _ = result
@@ -597,7 +595,7 @@ extension SupportForOptionalTests
 
         do
         {
-            var issues: [ValidationError] = []
+            var issues: [Error] = []
 
             let result = try SomeWrapper?
                 .none?
@@ -659,7 +657,7 @@ extension SupportForOptionalTests
         {
             let result = try MandatoryWrapper?
                 .some(validValue.wrapped())
-                .validValue()
+                .validValue
 
             XCTAssert(result == validValue)
         }
@@ -669,29 +667,21 @@ extension SupportForOptionalTests
             XCTFail("Should not get here ever")
         }
 
-        do
+        var issues: [Error] = []
+
+        var result = MandatoryWrapper?
+            .some(validValue.wrapped())
+            .validValue(&issues)
+
+        XCTAssert(issues.count == 0)
+
+        if
+            let unwrapped = result
         {
-            var issues: [ValidationError] = []
-
-            let result = try MandatoryWrapper?
-                .some(validValue.wrapped())
-                .validValue(&issues)
-
-            XCTAssert(issues.count == 0)
-
-            if
-                let unwrapped = result
-            {
-                XCTAssert(unwrapped == validValue)
-            }
-            else
-            {
-                XCTFail("Should not get here ever")
-            }
+            XCTAssert(unwrapped == validValue)
         }
-        catch
+        else
         {
-            print(error)
             XCTFail("Should not get here ever")
         }
 
@@ -701,7 +691,7 @@ extension SupportForOptionalTests
         {
             _ = try MandatoryWrapper?
                 .some(emptyValue.wrapped())
-                .validValue()
+                .validValue
 
             XCTFail("Should not get here ever")
         }
@@ -724,42 +714,34 @@ extension SupportForOptionalTests
             XCTFail("Should not get here ever")
         }
 
-        do
+        issues = []
+
+        result = MandatoryWrapper?
+            .some(emptyValue.wrapped())
+            .validValue(&issues)
+
+        if
+            let _ = result
         {
-            var issues: [ValidationError] = []
-
-            let result = try MandatoryWrapper?
-                .some(emptyValue.wrapped())
-                .validValue(&issues)
-
-            if
-                let _ = result
-            {
-                XCTFail("Should not get here ever")
-            }
-            else
-            if
-                case ValidationError.valueIsNotValid(
-                    let origin,
-                    let value,
-                    let failedConditions,
-                    let report
-                ) = issues[0]
-            {
-                XCTAssert(origin == MandatoryWrapper.displayName)
-                XCTAssert(value is String)
-                XCTAssert((value as! String) == emptyValue)
-                XCTAssert(failedConditions == [String.checkNonEmpty.description])
-                XCTAssert(report == FirstName.defaultValidationReport(with: failedConditions))
-            }
-            else
-            {
-                XCTFail("Should not get here ever")
-            }
+            XCTFail("Should not get here ever")
         }
-        catch
+        else
+        if
+            case ValidationError.valueIsNotValid(
+                let origin,
+                let value,
+                let failedConditions,
+                let report
+            ) = issues[0]
         {
-            print(error)
+            XCTAssert(origin == MandatoryWrapper.displayName)
+            XCTAssert(value is String)
+            XCTAssert((value as! String) == emptyValue)
+            XCTAssert(failedConditions == [String.checkNonEmpty.description])
+            XCTAssert(report == FirstName.defaultValidationReport(with: failedConditions))
+        }
+        else
+        {
             XCTFail("Should not get here ever")
         }
 
@@ -769,7 +751,7 @@ extension SupportForOptionalTests
         {
             _ = try MandatoryWrapper?
                 .none
-                .validValue()
+                .validValue
 
             XCTFail("Should not get here ever")
         }
@@ -787,39 +769,31 @@ extension SupportForOptionalTests
             XCTFail("Should not get here ever")
         }
 
-        do
+        issues = []
+
+        result = MandatoryWrapper?
+            .none
+            .validValue(&issues)
+
+        XCTAssert(issues.count == 1)
+
+        if
+            let _ = result
         {
-            var issues: [ValidationError] = []
-
-            let result = try MandatoryWrapper?
-                .none
-                .validValue(&issues)
-
-            XCTAssert(issues.count == 1)
-
-            if
-                let _ = result
-            {
-                XCTFail("Should not get here ever")
-            }
-            else
-            if
-                case ValidationError.mandatoryValueIsNotSet(
-                    let origin,
-                    let report
-                ) = issues[0]
-            {
-                XCTAssert(origin == MandatoryWrapper.displayName)
-                XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
-            }
-            else
-            {
-                XCTFail("Should not get here ever")
-            }
+            XCTFail("Should not get here ever")
         }
-        catch
+        else
+        if
+            case ValidationError.mandatoryValueIsNotSet(
+                let origin,
+                let report
+            ) = issues[0]
         {
-            print(error)
+            XCTAssert(origin == MandatoryWrapper.displayName)
+            XCTAssert(report == MandatoryWrapper.defaultEmptyValueReport)
+        }
+        else
+        {
             XCTFail("Should not get here ever")
         }
     }

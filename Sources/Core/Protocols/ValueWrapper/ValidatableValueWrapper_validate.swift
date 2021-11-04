@@ -169,9 +169,9 @@ extension SomeValidatableValueWrapper
     func reportNestedValidationFailed(
         checkedValue: SomeValidatable,
         failedConditions: [String],
-        builtInValidationIssues: [ValidationError],
+        builtInValidationIssues: [Error],
         builtInReport: (title: String, message: String)?
-        ) -> ValidationError
+        ) -> Error
     {
         let baseReport = Specification
             .defaultValidationReport(with: failedConditions)
@@ -190,7 +190,7 @@ extension SomeValidatableValueWrapper
 
         //---
 
-        return .nestedValidationFailed(
+        return ValidationError.nestedValidationFailed(
             origin: displayName,
             value: checkedValue,
             failedConditions: failedConditions,

@@ -29,42 +29,35 @@ extension SomeValidatableValueWrapper
     where
     Self: NonMandatory // <<<--- NON-mandatory only!
 {
-    func validValue(
-        ) throws -> Self.Specification.RawValue
+    var validValue: Self.Specification.ValidValue?
     {
-        try validate()
+        get throws {
+            
+            try validate()
 
-        //---
+            //---
 
-        return rawValue
+            return Specification.convert(rawValue: rawValue)
+        }
     }
 
     /**
      Validates and returns 'value' regardless of its validity,
      puts any encountered validation errors in the 'collectError'
-     array. Any unexpected occured error (except 'ValidationError')
-     will be thrown immediately.
+     array.
      */
     func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Self.Specification.RawValue
+        _ collectError: inout [Error]
+        ) throws -> Self.Specification.ValidValue?
     {
         do
         {
-            try validate()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
+            return try validValue
         }
         catch
         {
-            // an unexpected error should be thrown to the upper level
-            throw error
+            collectError.append(error)
+            return nil
         }
-
-        //---
-
-        return rawValue // return value regardless of its validity!
     }
 }

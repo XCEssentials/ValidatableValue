@@ -35,7 +35,7 @@ struct ValueReportContext
     let origin: String
     let value: Any?
     let failedConditions: [String]
-    let builtInValidationIssues: [ValidationError]
+    let builtInValidationIssues: [Error]
 }
 
 public
@@ -44,7 +44,7 @@ typealias ValueReportReview = (ValueReportContext, inout Report) -> Void
 //---
 
 public
-typealias EntityReportContext = [ValidationError]
+typealias EntityReportContext = [Error]
 
 public
 typealias EntityReportReview = (EntityReportContext, inout Report) -> Void

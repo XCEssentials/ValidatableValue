@@ -131,7 +131,7 @@ extension User
 //
 //    func valid() throws -> Valid
 //    {
-//        var issues: [ValidationError] = []
+//        var issues: [Error] = []
 //
 //        let someConstant = try self.someConstant.validValue(&issues)
 //        let firstName = try self.firstName.validValue(&issues)

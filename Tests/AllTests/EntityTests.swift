@@ -181,8 +181,8 @@ extension EntityTests
 
             func validate() throws
             {
-                let issues: [ValidationError] = [
-                    .valueIsNotValid(
+                let issues: [Error] = [
+                    ValidationError.valueIsNotValid(
                         origin: "Some wrapper",
                         value: "Some value",
                         failedConditions: ["Test condition"],
@@ -211,7 +211,7 @@ extension EntityTests
             XCTAssert(origin == ManualValidationEntity.displayName)
             XCTAssert(issues.count == 1) // exactly as we've sent
 
-            let report = issues[0].report
+            let report = (issues[0] as! ValidationError).report
 
             XCTAssert(report.message == ManualValidationEntity.someStr)
         }
@@ -279,7 +279,7 @@ extension EntityTests
             XCTAssert(origin == AutoValidationEntity.displayName)
             XCTAssert(issues.count == 1)
 
-            let report = issues[0].report
+            let report = (issues[0] as! ValidationError).report
 
             XCTAssert(report.message == SimpleWrapper.someStr)
         }

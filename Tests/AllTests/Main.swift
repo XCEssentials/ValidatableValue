@@ -70,10 +70,10 @@ extension MainTests
             _ = user.firstName.rawValue
 
             // _ = try user.firstName?.validValue() // won't compile!
-            _ = try user.firstName.validValue()
+            _ = try user.firstName.validValue
 
             // last name is non-required, so 'nil' is okay
-            _ = try user.lastName?.validValue()
+            _ = try user.lastName?.validValue
         }
         catch
         {
@@ -168,7 +168,7 @@ extension MainTests
 
         do
         {
-            _ = try user.firstName.validValue()
+            _ = try user.firstName.validValue
         }
         catch ValidationError.mandatoryValueIsNotSet(
             let origin,
@@ -186,7 +186,7 @@ extension MainTests
 
         do
         {
-            _ = try user.experience?.validValue()
+            _ = try user.experience?.validValue
         }
         catch
         {

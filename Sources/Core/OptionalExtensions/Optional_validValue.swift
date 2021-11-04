@@ -29,24 +29,27 @@ extension Swift.Optional
     where
     Wrapped: SomeValidatableValueWrapper & Mandatory // <<<---
 {
-    func validValue() throws -> Wrapped.Specification.RawValue // Mandatory!
+    var validValue: Wrapped.Specification.ValidValue? // Mandatory!
     {
-        switch self
-        {
-        case .none:
-            throw ValidationError.mandatoryValueIsNotSet(
-                origin: Wrapped.displayName,
-                report: Wrapped.Specification.prepareReport(
-                    value: nil,
-                    failedConditions: [],
-                    builtInValidationIssues: [],
-                    suggestedReport: Wrapped.defaultEmptyValueReport
+        get throws {
+            
+            switch self
+            {
+            case .none:
+                throw ValidationError.mandatoryValueIsNotSet(
+                    origin: Wrapped.displayName,
+                    report: Wrapped.Specification.prepareReport(
+                        value: nil,
+                        failedConditions: [],
+                        builtInValidationIssues: [],
+                        suggestedReport: Wrapped.defaultEmptyValueReport
+                    )
                 )
-            )
 
-        case .some(let wrapper):
-            try wrapper.validate()
-            return wrapper.rawValue
+            case .some(let wrapper):
+                try wrapper.validate()
+                return Wrapped.Specification.convert(rawValue: wrapper.rawValue)
+            }
         }
     }
 
@@ -60,25 +63,17 @@ extension Swift.Optional
      is empty in the end.
      */
     func validValue(
-        _ collectError: inout [ValidationError]
-        ) throws -> Wrapped.Specification.RawValue! // Mandatory, implicitly unwrapped!
+        _ collectError: inout [Error]
+        ) -> Wrapped.Specification.ValidValue? // Mandatory
     {
         do
         {
-            return try validValue()
-        }
-        catch let error as ValidationError
-        {
-            collectError.append(error)
-
-            //---
-
-            return nil
+            return try validValue
         }
         catch
         {
-            // an unexpected error should be thrown to the upper level
-            throw error
+            collectError.append(error)
+            return nil
         }
     }
 }

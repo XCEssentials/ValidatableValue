@@ -77,7 +77,7 @@ extension SomeValueSpecification
     func prepareReport(
         value: Any?,
         failedConditions: [String],
-        builtInValidationIssues: [ValidationError],
+        builtInValidationIssues: [Error],
         suggestedReport: Report
         ) -> Report
     {

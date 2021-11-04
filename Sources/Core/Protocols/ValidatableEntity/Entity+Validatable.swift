@@ -33,7 +33,7 @@ extension SomeValidatableEntity
      */
     func validate() throws
     {
-        var issues: [ValidationError] = []
+        var issues: [Error] = []
 
         //---
 
@@ -67,7 +67,7 @@ extension SomeValidatableEntity
 public
 extension Array
     where
-    Element == ValidationError
+    Element == Error
 {
     func asValidationIssues<E: SomeValidatableEntity>(
         for entity: E

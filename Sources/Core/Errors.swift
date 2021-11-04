@@ -44,14 +44,14 @@ enum ValidationError: Error
         origin: String,
         value: Any,
         failedConditions: [String],
-        builtInValidationIssues: [ValidationError],
+        builtInValidationIssues: [Error],
         report: (title: String, message: String) // from current level
     )
 
     indirect
     case entityIsNotValid(
         origin: String,
-        issues: [ValidationError],
+        issues: [Error],
         report: (title: String, message: String)
     )
 

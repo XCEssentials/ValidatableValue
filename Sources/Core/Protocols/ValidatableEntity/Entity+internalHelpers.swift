@@ -29,7 +29,7 @@ extension SomeValidatableEntity
 {
     static
     func prepareReport(
-        with issues: [ValidationError]
+        with issues: [Error]
         ) -> Report
     {
         var result = defaultReport(with: issues)
@@ -45,24 +45,31 @@ extension SomeValidatableEntity
 
     static
     func defaultReport(
-        with issues: [ValidationError]
+        with issues: [Error]
         ) -> Report
     {
         let messages = issues
             .map{
 
                 if
-                    $0.hasNestedIssues // report from a nested entity...
+                    let validationError = $0 as? ValidationError,
+                    validationError.hasNestedIssues // report from a nested entity...
                 {
                     return """
                     ———
-                    \($0.report.message)
+                    \(validationError.report.message)
                     ———
                     """
                 }
                 else
+                if
+                    let validationError = $0 as? ValidationError
                 {
-                    return "- \($0.report.message)"
+                    return "- \(validationError.report.message)"
+                }
+                else
+                {
+                    return "- \($0)"
                 }
             }
             .joined(separator: "\n")
