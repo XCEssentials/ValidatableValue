@@ -29,9 +29,9 @@
  kind of value inside.
  */
 public
-protocol SomeBasicValueWrapper: Codable & Equatable, DisplayNamed
+protocol SomeBasicValueWrapper: Codable, DisplayNamed
 {
-    associatedtype Value: Codable & Equatable
+    associatedtype Value: Codable
 
     //---
 

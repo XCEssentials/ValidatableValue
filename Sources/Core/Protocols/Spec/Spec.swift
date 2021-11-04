@@ -34,7 +34,7 @@ import XCERequirement
 public
 protocol SomeValueSpecification: DisplayNamed
 {
-    associatedtype Value: Codable & Equatable
+    associatedtype Value: Codable
 
     /**
      Set of conditions for the 'Value' which gonna be used

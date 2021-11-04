@@ -25,9 +25,9 @@
  */
 
 public
-extension Equatable
+extension Decodable
     where
-    Self: Codable
+    Self: Encodable
 {
     func wrapped<T: SomeBasicValueWrapper>(
         ) -> T

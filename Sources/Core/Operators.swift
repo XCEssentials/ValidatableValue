@@ -90,6 +90,8 @@ func == <VV, T>(
     value: T?
     ) -> Bool
     where
+    VV: Equatable,
+    T: Equatable,
     VV: SomeBasicValueWrapper,
     VV.Value == T
 {
@@ -102,6 +104,8 @@ func == <VV, T>(
     container: VV
     ) -> Bool
     where
+    VV: Equatable,
+    T: Equatable,
     VV: SomeBasicValueWrapper,
     VV.Value == T
 {

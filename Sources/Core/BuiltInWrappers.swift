@@ -60,7 +60,7 @@ typealias NonRequired<T: SomeValueSpecification> = WrapperOf<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOf<T: Codable & Equatable>: SomeValueWrapper,
+struct QuickWrapperOf<T: Codable>: SomeValueWrapper,
     SomeSingleValueCodable,
     NonMandatory
 {
@@ -88,7 +88,7 @@ struct QuickWrapperOf<T: Codable & Equatable>: SomeValueWrapper,
 }
 
 public
-typealias NonRequiredBase<T: Codable & Equatable> = QuickWrapperOf<T>
+typealias NonRequiredBase<T: Codable> = QuickWrapperOf<T>
 
 //---
 
@@ -128,7 +128,7 @@ typealias Required<T: SomeValueSpecification> = WrapperOfMandatory<T>
  it in GUI directly.
  */
 public
-struct QuickWrapperOfMandatory<T: Codable & Equatable>: SomeValueWrapper,
+struct QuickWrapperOfMandatory<T: Codable>: SomeValueWrapper,
     SomeSingleValueCodable,
     Mandatory
 {
@@ -154,5 +154,5 @@ struct QuickWrapperOfMandatory<T: Codable & Equatable>: SomeValueWrapper,
 }
 
 public
-typealias RequiredBase<T: Codable & Equatable> = QuickWrapperOfMandatory<T>
+typealias RequiredBase<T: Codable> = QuickWrapperOfMandatory<T>
 

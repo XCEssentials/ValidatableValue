@@ -31,7 +31,7 @@
  Those property will be also automatically encoded and decoded.
  */
 public
-protocol SomeValidatableEntity: Codable & Equatable,
+protocol SomeValidatableEntity: Codable,
     DisplayNamed,
     SomeValidatable
 {
