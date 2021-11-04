@@ -205,7 +205,7 @@ extension MainTests
             let issues, _
             )
         {
-            XCTAssert(issues.count == user.allRequiredMembers.count)
+            XCTAssert(issues.count == user.allRequiredValidatableMembers.count)
         }
         catch
         {

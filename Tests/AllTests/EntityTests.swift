@@ -102,7 +102,7 @@ extension EntityTests
 
         XCTAssert(valMembers.count == allMembers.count)
 
-        let reqMembers = entity.allRequiredMembers
+        let reqMembers = entity.allRequiredValidatableMembers
 
         XCTAssert(valMembers.count != reqMembers.count)
         XCTAssert(reqMembers.count == 2)

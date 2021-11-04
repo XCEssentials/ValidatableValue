@@ -40,13 +40,6 @@ protocol SomeValidatableEntity: SomeValidatable, Codable, DisplayNamed
      */
     static
     var onCustomizeReport: OnCustomizeEntityReport { get }
-
-    /**
-     Returns list of all members that have to be involved in
-     automatic entity validation. For Swift 4.2+ implementation
-     is provided automatically.
-     */
-    var allValidatableMembers: [SomeValidatable] { get }
 }
 
 // MARK: - Default implementations
@@ -58,14 +51,6 @@ extension SomeValidatableEntity
     var onCustomizeReport: OnCustomizeEntityReport
     {
         return { _, _ in }
-    }
-
-    var allValidatableMembers: [SomeValidatable]
-    {
-        return Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
-            .compactMap{ $0 as? SomeValidatable }
     }
 }
 
@@ -80,78 +65,20 @@ extension SomeValidatableEntity
             .children
             .map{ $0.value }
     }
-
-    var allRequiredMembers: [Mandatory & SomeValidatable]
+    
+    /**
+     Returns list of all members that have to be involved in
+     automatic entity validation.
+     */
+    var allValidatableMembers: [SomeValidatable]
     {
-        return Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
+        return allMembers
+            .compactMap{ $0 as? SomeValidatable }
+    }
+
+    var allRequiredValidatableMembers: [Mandatory & SomeValidatable]
+    {
+        return allMembers
             .compactMap{ $0 as? Mandatory & SomeValidatable }
-    }
-}
-
-// MARK: - Internal helpers
-
-// internal
-extension SomeValidatableEntity
-{
-    static
-    func prepareReport(
-        with issues: [Error]
-        ) -> Report
-    {
-        var result = defaultReport(with: issues)
-
-        //---
-
-        onCustomizeReport(issues, &result)
-
-        //---
-
-        return result
-    }
-
-    static
-    func defaultReport(
-        with issues: [Error]
-        ) -> Report
-    {
-        let messages = issues
-            .map{
-
-                if
-                    let validationError = $0 as? ValidationError,
-                    validationError.hasNestedIssues // report from a nested entity...
-                {
-                    return """
-                    ———
-                    \(validationError.report.message)
-                    ———
-                    """
-                }
-                else
-                if
-                    let validationError = $0 as? ValidationError
-                {
-                    return "- \(validationError.report.message)"
-                }
-                else
-                {
-                    return "- \($0)"
-                }
-            }
-            .joined(separator: "\n")
-
-        //---
-
-        return (
-
-            "\"\(displayName)\" validation failed",
-
-            """
-            \"\(displayName)\" validation failed due to the issues listed below.
-            \(messages)
-            """
-        )
     }
 }

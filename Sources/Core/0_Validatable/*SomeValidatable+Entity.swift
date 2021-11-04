@@ -24,6 +24,8 @@
 
  */
 
+// MARK: - SomeValidatableEntity
+
 public
 extension SomeValidatableEntity
 {
@@ -67,7 +69,7 @@ extension SomeValidatableEntity
 public
 extension Array
     where
-    Element == Error
+    Element == Error // ValidationError
 {
     func asValidationIssues<E: SomeValidatableEntity>(
         for entity: E

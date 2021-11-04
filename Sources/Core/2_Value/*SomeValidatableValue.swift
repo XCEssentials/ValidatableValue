@@ -51,10 +51,10 @@ extension SomeValidatableValue
     }
 }
 
-// MARK: - Display name
+// MARK: - DisplayNamed support
 
 public
-extension SomeValidatableValue //: DisplayNamed
+extension SomeValidatableValue
 {
     static
     var displayName: String

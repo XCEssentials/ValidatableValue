@@ -24,14 +24,26 @@
 
  */
 
-extension Swift.Optional: DisplayNamed
-    where
-    Wrapped: DisplayNamed
+extension Swift.Optional: DisplayNamed where Wrapped: DisplayNamed
 {
     public
     static
     var displayName: String
     {
         return Wrapped.displayName
+    }
+
+    public
+    static
+    var displayHint: String?
+    {
+        return Wrapped.displayHint
+    }
+
+    public
+    static
+    var displayPlaceholder: String?
+    {
+        return Wrapped.displayPlaceholder
     }
 }
