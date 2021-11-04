@@ -50,11 +50,11 @@ extension EntityTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -235,14 +235,14 @@ extension EntityTests
                 typealias RawValue = String?
             }
 
-            var value: Specification.RawValue
+            var rawValue: Specification.RawValue
 
-            init(wrappedValue: Specification.RawValue) { self.value = wrappedValue }
+            init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
 
             func validate() throws
             {
                 if
-                    value == nil
+                    rawValue == nil
                 {
                     throw ValidationError.mandatoryValueIsNotSet(
                         origin: type(of: self).displayName,

@@ -29,7 +29,7 @@ protocol SomeValidatableValueWrapper: SomeValidatable, Codable, DisplayNamed
 {
     associatedtype Specification: SomeValueSpecification
     
-    init(wrappedValue: Specification.RawValue) // TODO: rename into `rawValue`???
+    init(wrappedValue: Specification.RawValue)
 
-    var value: Specification.RawValue { get set }  // TODO: rename into `rawValue`???
+    var rawValue: Specification.RawValue { get set }
 }

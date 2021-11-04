@@ -29,7 +29,7 @@ extension Swift.Optional
     where
     Wrapped: SomeValidatableValueWrapper
 {
-    var value: Wrapped.Specification.RawValue?
+    var rawValue: Wrapped.Specification.RawValue?
     {
         switch self
         {
@@ -37,7 +37,7 @@ extension Swift.Optional
                 return nil
 
             case .some(let wrapper):
-                return wrapper.value
+                return wrapper.rawValue
         }
     }
 }

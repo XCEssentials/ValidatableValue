@@ -59,11 +59,11 @@ extension SupportForOptionalTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -73,11 +73,11 @@ extension SupportForOptionalTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -99,9 +99,9 @@ extension SupportForOptionalTests
                 typealias RawValue = String
             }
 
-            var value: Specification.RawValue
+            var rawValue: Specification.RawValue
 
-            init(wrappedValue: String) { self.value = wrappedValue }
+            init(wrappedValue: String) { self.rawValue = wrappedValue }
         }
 
         //---
@@ -114,7 +114,7 @@ extension SupportForOptionalTests
         XCTAssert(type(of: wrapper).displayName == SomeWrapper.displayName)
         XCTAssert(type(of: optionalWrapper).displayName == SomeWrapper.displayName)
 
-        XCTAssert(wrapper.value == optionalWrapper?.value)
+        XCTAssert(wrapper.rawValue == optionalWrapper?.rawValue)
     }
 
     func testValidatableWithOptionalWrapper()
@@ -135,11 +135,11 @@ extension SupportForOptionalTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -218,11 +218,11 @@ extension SupportForOptionalTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -313,9 +313,9 @@ extension SupportForOptionalTests
 
             typealias Value = Specification.Value
 
-            var value: Value
+            var rawValue: Value
 
-            init(wrappedValue: Value) { self.value = wrappedValue }
+            init(wrappedValue: Value) { self.rawValue = wrappedValue }
         }
 
         //---
@@ -443,11 +443,11 @@ extension SupportForOptionalTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -640,11 +640,11 @@ extension SupportForOptionalTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 

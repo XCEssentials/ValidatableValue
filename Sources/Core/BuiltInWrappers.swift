@@ -41,10 +41,10 @@ struct WrapperOf<T: SomeValueSpecification>: SomeValidatableValueWrapper,
     typealias Value = Specification.RawValue
 
     public
-    var value: Value
+    var rawValue: Value
 
     public
-    init(wrappedValue: Value) { self.value = wrappedValue }
+    init(wrappedValue: Value) { self.rawValue = wrappedValue }
 }
 
 public
@@ -81,10 +81,10 @@ struct QuickWrapperOf<T: Codable>: SomeValidatableValueWrapper,
     typealias Value = T
 
     public
-    var value: Value
+    var rawValue: Value
 
     public
-    init(wrappedValue: Value) { self.value = wrappedValue }
+    init(wrappedValue: Value) { self.rawValue = wrappedValue }
 }
 
 public
@@ -109,10 +109,10 @@ struct WrapperOfMandatory<T: SomeValueSpecification>: SomeValidatableValueWrappe
     typealias Value = Specification.RawValue
 
     public
-    var value: Value
+    var rawValue: Value
 
     public
-    init(wrappedValue: Value) { self.value = wrappedValue }
+    init(wrappedValue: Value) { self.rawValue = wrappedValue }
 }
 
 public
@@ -147,10 +147,10 @@ struct QuickWrapperOfMandatory<T: Codable>: SomeValidatableValueWrapper,
     typealias Value = T
 
     public
-    var value: Value
+    var rawValue: Value
 
     public
-    init(wrappedValue: Value) { self.value = wrappedValue }
+    init(wrappedValue: Value) { self.rawValue = wrappedValue }
 }
 
 public

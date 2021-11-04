@@ -66,8 +66,8 @@ extension MainTests
 
             XCTAssert(user.firstName.isValid)
 
-            _ = user.firstName?.value
-            _ = user.firstName.value
+            _ = user.firstName?.rawValue
+            _ = user.firstName.rawValue
 
             // _ = try user.firstName?.validValue() // won't compile!
             _ = try user.firstName.validValue()
@@ -440,7 +440,7 @@ extension MainTests
 
         //---
 
-        XCTAssert(user.firstName?.value == firstName)
+        XCTAssert(user.firstName?.rawValue == firstName)
         XCTAssert(user.firstName.isValid)
 
         //---
@@ -456,24 +456,24 @@ extension MainTests
 
         //---
 
-        XCTAssert(user.firstName?.value == anotherFirstName)
+        XCTAssert(user.firstName?.rawValue == anotherFirstName)
         XCTAssert(user.firstName.isValid)
     }
 
     func testChekmark()
     {
-        XCTAssertNil(user.isVIP?.value)
+        XCTAssertNil(user.isVIP?.rawValue)
         XCTAssertFalse(user.isVIP.isChecked)
 
         user.isVIP.toggle()
 
-        XCTAssertNotNil(user.isVIP?.value)
-        XCTAssert(user.isVIP?.value == .checked)
+        XCTAssertNotNil(user.isVIP?.rawValue)
+        XCTAssert(user.isVIP?.rawValue == .checked)
         XCTAssert(user.isVIP.isChecked)
 
         user.isVIP.toggle()
 
-        XCTAssertNil(user.isVIP?.value)
+        XCTAssertNil(user.isVIP?.rawValue)
         XCTAssertFalse(user.isVIP.isChecked)
     }
 }

@@ -29,7 +29,7 @@ extension SomeValidatableValueWrapper
 {
     func validate() throws
     {
-        try type(of: self).check(value)
+        try type(of: self).check(rawValue)
     }
 }
 
@@ -69,7 +69,7 @@ extension SomeValidatableValueWrapper
         _ newValue: Specification.RawValue
         ) throws
     {
-        value = newValue
+        rawValue = newValue
         try validate()
     }
 }

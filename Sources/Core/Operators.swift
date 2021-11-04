@@ -95,7 +95,7 @@ func == <VV, T>(
     VV: SomeValidatableValueWrapper,
     VV.Specification.RawValue == T
 {
-    return container.value == value
+    return container.rawValue == value
 }
 
 public
@@ -109,5 +109,5 @@ func == <VV, T>(
     VV: SomeValidatableValueWrapper,
     VV.Specification.RawValue == T
 {
-    return container.value == value
+    return container.rawValue == value
 }

@@ -50,11 +50,11 @@ extension WrapperTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -64,11 +64,11 @@ extension WrapperTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
             init(wrappedValue: Value)
             {
-                self.value = wrappedValue
+                self.rawValue = wrappedValue
             }
         }
 
@@ -100,9 +100,9 @@ extension WrapperTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
-            init(wrappedValue: Value) { self.value = wrappedValue }
+            init(wrappedValue: Value) { self.rawValue = wrappedValue }
         }
 
         XCTAssert(WrapperWithSpec.displayName != WrapperWithSpec.intrinsicDisplayName)
@@ -122,9 +122,9 @@ extension WrapperTests
 
             typealias Value = Specification.RawValue
 
-            var value: Value
+            var rawValue: Value
 
-            init(wrappedValue: Value) { self.value = wrappedValue }
+            init(wrappedValue: Value) { self.rawValue = wrappedValue }
 
             static
             let someStr = "This is a custom named wrapper"
@@ -145,9 +145,9 @@ extension WrapperTests
                 typealias RawValue = String
             }
 
-            var value: String
+            var rawValue: String
 
-            init(wrappedValue: String) { self.value = wrappedValue }
+            init(wrappedValue: String) { self.rawValue = wrappedValue }
         }
 
         //---
@@ -178,9 +178,9 @@ extension WrapperTests
                 typealias RawValue = String
             }
 
-            var value: String
+            var rawValue: String
 
-            init(wrappedValue: String) { self.value = wrappedValue }
+            init(wrappedValue: String) { self.rawValue = wrappedValue }
         }
 
         struct Entity: Codable
@@ -208,7 +208,7 @@ extension WrapperTests
 
             let decodedEntity = try JSONDecoder().decode(Entity.self, from: encodedEntity)
 
-            XCTAssert(decodedEntity.wrapper.value == testValue)
+            XCTAssert(decodedEntity.wrapper.rawValue == testValue)
         }
         catch
         {
@@ -244,9 +244,9 @@ extension WrapperTests
             typealias Specification = LastName
             typealias Value = LastName.RawValue
 
-            var value: Value
+            var rawValue: Value
 
-            init(wrappedValue: Value) { self.value = wrappedValue }
+            init(wrappedValue: Value) { self.rawValue = wrappedValue }
         }
 
         let defaultReport = WrapperWithSpec.defaultEmptyValueReport
@@ -281,9 +281,9 @@ extension WrapperTests
 
             typealias Value = Specification.Value
 
-            var value: Value
+            var rawValue: Value
 
-            init(wrappedValue: Value) { self.value = wrappedValue }
+            init(wrappedValue: Value) { self.rawValue = wrappedValue }
         }
 
         //---

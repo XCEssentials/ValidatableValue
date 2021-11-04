@@ -36,7 +36,7 @@ extension SomeValidatableValueWrapper
 
         //---
 
-        return value
+        return rawValue
     }
 
     /**
@@ -65,6 +65,6 @@ extension SomeValidatableValueWrapper
 
         //---
 
-        return value // return value regardless of its validity!
+        return rawValue // return value regardless of its validity!
     }
 }

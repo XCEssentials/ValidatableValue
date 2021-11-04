@@ -46,7 +46,7 @@ extension Swift.Optional
 
         case .some(let wrapper):
             try wrapper.validate()
-            return wrapper.value
+            return wrapper.rawValue
         }
     }
 

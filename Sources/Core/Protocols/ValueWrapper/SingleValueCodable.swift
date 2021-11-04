@@ -47,7 +47,7 @@ extension SomeSingleValueCodable
 
         //---
         
-        try container.encode(value)
+        try container.encode(rawValue)
     }
 
     init(from decoder: Decoder) throws
