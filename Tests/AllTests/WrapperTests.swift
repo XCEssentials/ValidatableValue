@@ -138,9 +138,12 @@ extension WrapperTests
 
     func testSingleValueCodable()
     {
-        struct ImplicitlyCodableWrapper: SomeBasicValueWrapper
+        struct ImplicitlyCodableWrapper: SomeValidatableValueWrapper
         {
-            typealias Value = String
+            enum Specification: SomeValueSpecification
+            {
+                typealias RawValue = String
+            }
 
             var value: String
 
@@ -167,10 +170,13 @@ extension WrapperTests
 
         //---
 
-        struct ExplicitlyCodableWrapper: SomeBasicValueWrapper,
+        struct ExplicitlyCodableWrapper: SomeValidatableValueWrapper,
             SomeSingleValueCodable
         {
-            typealias Value = String
+            enum Specification: SomeValueSpecification
+            {
+                typealias RawValue = String
+            }
 
             var value: String
 

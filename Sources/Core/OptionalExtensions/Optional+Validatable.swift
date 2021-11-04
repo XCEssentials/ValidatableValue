@@ -73,7 +73,7 @@ extension Swift.Optional
      right away.
      */
     init(
-        validate value: Wrapped.Value?
+        validate value: Wrapped.Specification.RawValue?
         ) throws
     {
         self = value.map{ .some($0.wrapped()) } ?? .none
@@ -85,7 +85,7 @@ extension Swift.Optional
      */
     static
     func validate(
-        value: Wrapped.Value?
+        value: Wrapped.Specification.RawValue?
         ) throws
     {
         _ = try self.init(validate: value)
@@ -96,7 +96,7 @@ extension Swift.Optional
      */
     mutating
     func set(
-        _ newValue: Wrapped.Value?
+        _ newValue: Wrapped.Specification.RawValue?
         ) throws
     {
         self = newValue.map{ .some($0.wrapped()) } ?? .none

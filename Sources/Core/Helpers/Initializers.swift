@@ -29,18 +29,18 @@ extension Decodable
     where
     Self: Encodable
 {
-    func wrapped<T: SomeBasicValueWrapper>(
+    func wrapped<T: SomeValidatableValueWrapper>(
         ) -> T
         where
-        Self == T.Value
+    Self == T.Specification.RawValue
     {
         return T(wrappedValue: self)
     }
 
-    func wrapped<T: SomeBasicValueWrapper>(
+    func wrapped<T: SomeValidatableValueWrapper>(
         ) -> T?
         where
-        Self == T.Value
+        Self == T.Specification.RawValue
     {
         return .some(T(wrappedValue: self))
     }
@@ -48,7 +48,7 @@ extension Decodable
     func wrappedIfValid<T: SomeValidatableValueWrapper>(
         ) throws -> T
         where
-        Self == T.Value
+        Self == T.Specification.RawValue
     {
         return try T(validate: self)
     }
@@ -56,7 +56,7 @@ extension Decodable
     func wrappedIfValid<T: SomeValidatableValueWrapper>(
         ) throws -> T?
         where
-        Self == T.Value
+        Self == T.Specification.RawValue
     {
         return try .some(T(validate: self))
     }

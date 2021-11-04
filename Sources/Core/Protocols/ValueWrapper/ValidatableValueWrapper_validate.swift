@@ -43,7 +43,7 @@ extension SomeValidatableValueWrapper
      right away.
      */
     init(
-        validate value: Value
+        validate value: Specification.RawValue
         ) throws
     {
         self.init(wrappedValue: value)
@@ -55,7 +55,7 @@ extension SomeValidatableValueWrapper
      */
     static
     func validate(
-        value: Value
+        value: Specification.RawValue
         ) throws
     {
         _ = try Self.init(validate: value)
@@ -66,7 +66,7 @@ extension SomeValidatableValueWrapper
      */
     mutating
     func set(
-        _ newValue: Value
+        _ newValue: Specification.RawValue
         ) throws
     {
         value = newValue
@@ -81,7 +81,7 @@ private
 extension SomeValidatableValueWrapper
 {
     static
-    func check(_ valueToCheck: Value) throws
+    func check(_ valueToCheck: Specification.RawValue) throws
     {
         let failedConditions = try Specification.failedConditions(for: valueToCheck)
 
@@ -108,7 +108,7 @@ extension SomeValidatableValueWrapper
     static
     func justCheckFailedConditions(
         _ failedConditions: [String],
-        with checkedValue: Value
+        with checkedValue: Specification.RawValue
         ) throws
     {
         if

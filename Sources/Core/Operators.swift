@@ -31,7 +31,7 @@ func << <VV, T>(
     ) throws
     where
     VV: SomeValidatableValueWrapper,
-    VV.Value == T
+    VV.Specification.RawValue == T
 {
     try container.set(newValue)
 }
@@ -45,7 +45,7 @@ func << <VV, T>(
     ) throws
     where
     VV: SomeValidatableValueWrapper,
-    VV.Value == T
+    VV.Specification.RawValue == T
 {
     try container.set(newValue)
 }
@@ -62,8 +62,8 @@ func <? <VV, T>(
     newValue: T
     )
     where
-    VV: SomeBasicValueWrapper,
-    VV.Value == T
+    VV: SomeValidatableValueWrapper,
+    VV.Specification.RawValue == T
 {
     container = newValue.wrapped()
 }
@@ -76,8 +76,8 @@ func <? <VV, T>(
     newValue: T?
     )
     where
-    VV: SomeBasicValueWrapper,
-    VV.Value == T
+    VV: SomeValidatableValueWrapper,
+    VV.Specification.RawValue == T
 {
     container = newValue.map{ .some($0.wrapped()) } ?? .none
 }
@@ -92,8 +92,8 @@ func == <VV, T>(
     where
     VV: Equatable,
     T: Equatable,
-    VV: SomeBasicValueWrapper,
-    VV.Value == T
+    VV: SomeValidatableValueWrapper,
+    VV.Specification.RawValue == T
 {
     return container.value == value
 }
@@ -106,8 +106,8 @@ func == <VV, T>(
     where
     VV: Equatable,
     T: Equatable,
-    VV: SomeBasicValueWrapper,
-    VV.Value == T
+    VV: SomeValidatableValueWrapper,
+    VV.Specification.RawValue == T
 {
     return container.value == value
 }

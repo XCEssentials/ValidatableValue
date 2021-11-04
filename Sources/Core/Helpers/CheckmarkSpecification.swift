@@ -58,7 +58,7 @@ extension Swift.Optional
     where
     Wrapped: SomeValidatableValueWrapper,
     Wrapped.Specification: Checkmark,
-    Wrapped.Value == CheckmarkValue
+    Wrapped.Specification.RawValue == CheckmarkValue
 {
     var isChecked: Bool
     {

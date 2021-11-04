@@ -27,9 +27,9 @@
 public
 extension Swift.Optional
     where
-    Wrapped: SomeBasicValueWrapper
+    Wrapped: SomeValidatableValueWrapper
 {
-    var value: Wrapped.Value?
+    var value: Wrapped.Specification.RawValue?
     {
         switch self
         {

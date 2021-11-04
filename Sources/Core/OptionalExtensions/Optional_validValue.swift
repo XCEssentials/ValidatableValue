@@ -29,7 +29,7 @@ extension Swift.Optional
     where
     Wrapped: SomeValidatableValueWrapper & Mandatory // <<<---
 {
-    func validValue() throws -> Wrapped.Value // Mandatory!
+    func validValue() throws -> Wrapped.Specification.RawValue // Mandatory!
     {
         switch self
         {
@@ -61,7 +61,7 @@ extension Swift.Optional
      */
     func validValue(
         _ collectError: inout [ValidationError]
-        ) throws -> Wrapped.Value! // Mandatory, implicitly unwrapped!
+        ) throws -> Wrapped.Specification.RawValue! // Mandatory, implicitly unwrapped!
     {
         do
         {

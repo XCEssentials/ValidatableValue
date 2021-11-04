@@ -25,7 +25,7 @@
  */
 
 /**
- Special trait for 'SomeBasicValueWrapper' protocol that allows to customize
+ Special trait for 'SomeValidatableValueWrapper' protocol that allows to customize
  'Codable' protocol support and make the wrapper encode and decode itself
  as a single value (because the only important thing stored inside wrapper
  is teh value anyway, everything else belongs to type leve, not instance level).
@@ -34,7 +34,7 @@
  with single entry (which is unnecessary complication): "{\"value\": \"XXX\"}"
  */
 public
-protocol SomeSingleValueCodable: SomeBasicValueWrapper {}
+protocol SomeSingleValueCodable: SomeValidatableValueWrapper {}
 
 //---
 
@@ -56,6 +56,6 @@ extension SomeSingleValueCodable
 
         //---
 
-        self.init(wrappedValue: try container.decode(Value.self))
+        self.init(wrappedValue: try container.decode(Specification.RawValue.self))
     }
 }

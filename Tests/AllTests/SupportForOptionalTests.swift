@@ -92,11 +92,14 @@ extension SupportForOptionalTests
 
     func testBasicValueWrapper()
     {
-        struct SomeWrapper: SomeBasicValueWrapper
+        struct SomeWrapper: SomeValidatableValueWrapper
         {
-            typealias Value = String
+            enum Specification: SomeValueSpecification
+            {
+                typealias RawValue = String
+            }
 
-            var value: Value
+            var value: Specification.RawValue
 
             init(wrappedValue: String) { self.value = wrappedValue }
         }

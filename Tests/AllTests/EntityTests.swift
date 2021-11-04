@@ -224,17 +224,20 @@ extension EntityTests
 
     func testAutoValidatable()
     {
-        struct SimpleWrapper: SomeBasicValueWrapper,
+        struct SimpleWrapper: SomeValidatableValueWrapper,
             SomeValidatable
         {
             static
             let someStr = "Is invalid"
 
-            typealias Value = String?
+            enum Specification: SomeValueSpecification
+            {
+                typealias RawValue = String?
+            }
 
-            var value: Value
+            var value: Specification.RawValue
 
-            init(wrappedValue: Value) { self.value = wrappedValue }
+            init(wrappedValue: Specification.RawValue) { self.value = wrappedValue }
 
             func validate() throws
             {

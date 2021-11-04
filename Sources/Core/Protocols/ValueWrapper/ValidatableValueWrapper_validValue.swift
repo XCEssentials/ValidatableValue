@@ -30,7 +30,7 @@ extension SomeValidatableValueWrapper
     Self: NonMandatory // <<<--- NON-mandatory only!
 {
     func validValue(
-        ) throws -> Self.Value
+        ) throws -> Self.Specification.RawValue
     {
         try validate()
 
@@ -47,7 +47,7 @@ extension SomeValidatableValueWrapper
      */
     func validValue(
         _ collectError: inout [ValidationError]
-        ) throws -> Self.Value
+        ) throws -> Self.Specification.RawValue
     {
         do
         {

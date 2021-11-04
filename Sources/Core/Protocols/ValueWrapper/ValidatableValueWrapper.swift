@@ -25,9 +25,11 @@
  */
 
 public
-protocol SomeValidatableValueWrapper: SomeBasicValueWrapper, SomeValidatable
-    where
-    Self.Value == Specification.RawValue
+protocol SomeValidatableValueWrapper: SomeValidatable, Codable, DisplayNamed
 {
     associatedtype Specification: SomeValueSpecification
+    
+    init(wrappedValue: Specification.RawValue) // TODO: rename into `rawValue`???
+
+    var value: Specification.RawValue { get set }  // TODO: rename into `rawValue`???
 }
