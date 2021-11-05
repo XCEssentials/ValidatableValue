@@ -24,16 +24,14 @@
 
  */
 
+/**
+ Special trait for 'SomeValidatableValueWrapper' protocol that indicates that
+ in case the wrapper is wrapped itself in 'Swift.Optional' -
+ empty value should be considered as INvalid.
+ */
 public
-extension Decodable where Self: Encodable
-{
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
-    {
-        return T(rawValue: self)
-    }
+protocol Mandatory: SomeValidatable {}
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
-    {
-        return .some(T(rawValue: self))
-    }
-}
+//---
+
+extension Swift.Optional: Mandatory where Wrapped: SomeValidatableValueWrapper & Mandatory {}

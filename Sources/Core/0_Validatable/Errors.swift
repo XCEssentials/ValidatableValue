@@ -25,15 +25,26 @@
  */
 
 public
-extension Decodable where Self: Encodable
+enum ValidationError: Error
 {
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
-    {
-        return T(rawValue: self)
-    }
+    case requiredValueIsMissing // thrown from Optional extension only
+    
+    case unsatisfiedConditions([Error], rawValue: Any)
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
+    case unableToConvert(rawValue: Any)
+
+    case invalidEntity([Error]) // expected nested ValidationError instances
+    
+    public
+    var hasNestedIssues: Bool
     {
-        return .some(T(rawValue: self))
+        switch self
+        {
+            case .invalidEntity(let errors) where !errors.isEmpty:
+                return true
+                
+            default:
+                return false
+        }
     }
 }

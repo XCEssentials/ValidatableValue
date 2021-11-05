@@ -25,15 +25,29 @@
  */
 
 public
-extension Decodable where Self: Encodable
+func == <VV, T>(
+    container: VV,
+    value: T?
+    ) -> Bool
+    where
+    VV: Equatable,
+    T: Equatable,
+    VV: SomeValidatableValueWrapper,
+    VV.Value.Raw == T
 {
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
-    {
-        return T(rawValue: self)
-    }
+    return container.rawValue == value
+}
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
-    {
-        return .some(T(rawValue: self))
-    }
+public
+func == <VV, T>(
+    value: T?,
+    container: VV
+    ) -> Bool
+    where
+    VV: Equatable,
+    T: Equatable,
+    VV: SomeValidatableValueWrapper,
+    VV.Value.Raw == T
+{
+    return container.rawValue == value
 }

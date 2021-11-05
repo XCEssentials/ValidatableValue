@@ -24,16 +24,26 @@
 
  */
 
+/**
+ Value stored in this wrapper will be validated acording to the
+ provided specification. When this wrapper is optional - the empty
+ value ('nil') is considered to be NOT valid.
+ */
 public
-extension Decodable where Self: Encodable
+struct Required<T: SomeValidatableValue>:
+    SomeValidatableValueWrapper,
+    SomeSingleValueCodable,
+    Mandatory
 {
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
-    {
-        return T(rawValue: self)
-    }
+    public
+    typealias Value = T
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
+    public
+    var rawValue: T.Raw
+
+    public
+    init(rawValue: T.Raw)
     {
-        return .some(T(rawValue: self))
+        self.rawValue = rawValue
     }
 }
