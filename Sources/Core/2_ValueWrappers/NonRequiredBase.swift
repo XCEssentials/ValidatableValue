@@ -24,16 +24,41 @@
 
  */
 
+import XCERequirement
+
+//---
+
+/**
+ Same as 'WrapperOf', but accepts just base value types,
+ does not require a Specification for the value. Use it
+ when just need the functionality of wrapper without any
+ special conditions for the type and not plannig to use
+ it in GUI directly.
+ */
 public
-extension Decodable where Self: Encodable
+struct NonRequiredBase<T: Codable>:
+    SomeValidatableValueWrapper,
+    SomeSingleValueCodable
 {
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
+    public
+    enum Value: SomeValidatableValue, DisplayNamedAuto
     {
-        return T(rawValue: self)
+        public
+        typealias Raw = T
+
+        public
+        typealias Valid = T
+        
+        public
+        static
+        var conditions: [Check<T>] { [] }
     }
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
-    {
-        return .some(T(rawValue: self))
-    }
+    //---
+
+    public
+    var rawValue: T
+
+    public
+    init(rawValue: T) { self.rawValue = rawValue }
 }

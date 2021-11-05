@@ -24,16 +24,34 @@
 
  */
 
+/**
+ Represents anything that can be validated according to its
+ internal implementation.
+ */
 public
-extension Decodable where Self: Encodable
+protocol SomeValidatable
 {
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
-    {
-        return T(rawValue: self)
-    }
+    func validate() throws
+}
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
+public
+extension SomeValidatable
+{
+    /**
+     Relies on the 'validate()' func, returns 'false'
+     if 'validate()' throws an error, or returns 'true' otherwise.
+     */
+    var isValid: Bool
     {
-        return .some(T(rawValue: self))
+        do
+        {
+            _ = try validate()
+
+            return true
+        }
+        catch
+        {
+            return false
+        }
     }
 }

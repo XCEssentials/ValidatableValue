@@ -24,16 +24,23 @@
 
  */
 
-public
-extension Decodable where Self: Encodable
-{
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
-    {
-        return T(rawValue: self)
-    }
+import XCERequirement
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
-    {
-        return .some(T(rawValue: self))
-    }
+//---
+
+/**
+ Special case of value spec for simple bool flag value.
+ It automatically fulfills all requirements, except reporting.
+ */
+public
+protocol SomeBoolFlagValidatableValue: SomeValidatableValue, BoolFlag {}
+
+public
+protocol BoolFlag {}
+
+public
+extension BoolFlag
+{
+    typealias Raw = Bool
+    typealias Target = Bool
 }

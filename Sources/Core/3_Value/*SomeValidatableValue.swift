@@ -24,16 +24,60 @@
 
  */
 
-public
-extension Decodable where Self: Encodable
-{
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
-    {
-        return T(rawValue: self)
-    }
+import XCERequirement
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
+//---
+
+/**
+ Describes custom value type for a wrapper.
+ */
+public
+protocol SomeValidatableValue: DisplayNamed
+{
+    associatedtype Raw: Codable
+
+    associatedtype Valid: Codable
+    
+    /// Specifies how we convert `Raw` into `Valid`.
+    ///
+    /// Error thrown from this conversion considered to be
+    /// validation error as well.
+    static
+    func convert(rawValue: Raw) -> Valid?
+    
+    /**
+     Set of conditions for the 'Value' which gonna be used
+     for value validation.
+     */
+    static
+    var conditions: [Condition<Raw>] { get }
+}
+
+// MARK: - Default implementations
+
+public
+extension SomeValidatableValue
+{
+    static
+    var conditions: [Condition<Raw>] { [] }
+}
+
+public
+extension SomeValidatableValue where Raw == Valid
+{
+    static
+    func convert(rawValue: Raw) -> Valid?
     {
-        return .some(T(rawValue: self))
+        rawValue
+    }
+}
+
+public
+extension SomeValidatableValue where Valid: RawRepresentable, Valid.RawValue == Raw
+{
+    static
+    func convert(rawValue: Raw) -> Valid?
+    {
+        Valid.init(rawValue: rawValue)
     }
 }

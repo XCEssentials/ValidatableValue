@@ -24,16 +24,36 @@
 
  */
 
+import Foundation
+
+//---
+
+/**
+ Provides user friendly 'display name' suitable for showing in GUI.
+ */
 public
-extension Decodable where Self: Encodable
+protocol DisplayNamedAuto: DisplayNamed {}
+
+// MARK: - Default implementation
+
+public
+extension DisplayNamed
 {
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
+    static
+    var displayName: String
     {
-        return T(rawValue: self)
+        return intrinsicDisplayName
     }
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
+    static
+    var displayHint: String?
     {
-        return .some(T(rawValue: self))
+        return nil
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return nil
     }
 }

@@ -24,16 +24,26 @@
 
  */
 
-public
-extension Decodable where Self: Encodable
+extension Swift.Optional: DisplayNamed where Wrapped: DisplayNamed
 {
-    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
+    public
+    static
+    var displayName: String
     {
-        return T(rawValue: self)
+        return Wrapped.displayName
     }
 
-    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
+    public
+    static
+    var displayHint: String?
     {
-        return .some(T(rawValue: self))
+        return Wrapped.displayHint
+    }
+
+    public
+    static
+    var displayPlaceholder: String?
+    {
+        return Wrapped.displayPlaceholder
     }
 }
