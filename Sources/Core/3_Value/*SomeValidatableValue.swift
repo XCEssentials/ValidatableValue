@@ -56,6 +56,13 @@ protocol SomeValidatableValue: DisplayNamed
 // MARK: - Default implementations
 
 public
+extension SomeValidatableValue
+{
+    static
+    var conditions: [Condition<Raw>] { [] }
+}
+
+public
 extension SomeValidatableValue where Raw == Valid
 {
     static
