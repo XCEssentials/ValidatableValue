@@ -24,10 +24,40 @@
 
  */
 
+import XCERequirement
+
+//---
+
 /**
- Special trait for 'ValueWrapper' protocol that indicates that
- in case the wrapper is wrapped itself in 'Swift.Optional' -
- empty value should be considered as VALID.
+ Same as 'WrapperOfMandatory', but accepts just base value types,
+ does not require a Specification for the value. Use it
+ when just need the functionality of wrapper without any
+ special conditions for the type and not plannig to use
+ it in GUI directly.
  */
 public
-protocol NonMandatory {}
+struct RequiredBase<T: Codable>:
+    SomeValidatableValueWrapper,
+    SomeSingleValueCodable,
+    Mandatory
+{
+    public
+    enum Value: SomeValidatableValue, DisplayNamedAuto
+    {
+        public
+        typealias Raw = T
+
+        public
+        typealias Valid = T
+        
+        public
+        static
+        var conditions: [Check<T>] { [] }
+    }
+
+    public
+    var rawValue: T
+
+    public
+    init(rawValue: T) { self.rawValue = rawValue }
+}

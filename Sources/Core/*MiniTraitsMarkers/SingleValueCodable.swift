@@ -25,13 +25,37 @@
  */
 
 /**
- Special trait for 'SomeValidatableValueWrapper' protocol that indicates that
- in case the wrapper is wrapped itself in 'Swift.Optional' -
- empty value should be considered as INvalid.
+ Special trait for 'SomeValidatableValueWrapper' protocol that allows to customize
+ 'Codable' protocol support and make the wrapper encode and decode itself
+ as a single value (because the only important thing stored inside wrapper
+ is teh value anyway, everything else belongs to type leve, not instance level).
+ Without this trait wrapper will rely on implicit 'Codable' support
+ provided by Swift itself and will be encoded as object/dictionary
+ with single entry (which is unnecessary complication): "{\"value\": \"XXX\"}"
  */
 public
-protocol Mandatory: SomeValidatable {}
+protocol SomeSingleValueCodable: SomeValidatableValueWrapper {}
 
 //---
 
-extension Swift.Optional: Mandatory where Wrapped: Mandatory {}
+public
+extension SomeSingleValueCodable
+{
+    func encode(to encoder: Encoder) throws
+    {
+        var container = encoder.singleValueContainer()
+
+        //---
+        
+        try container.encode(rawValue)
+    }
+
+    init(from decoder: Decoder) throws
+    {
+        let container = try decoder.singleValueContainer()
+
+        //---
+
+        self.init(rawValue: try container.decode(Value.Raw.self))
+    }
+}

@@ -25,37 +25,21 @@
  */
 
 /**
- Special trait for 'SomeValidatableValue' protocol that allows to customize
- 'Codable' protocol support and make the wrapper encode and decode itself
- as a single value (because the only important thing stored inside wrapper
- is teh value anyway, everything else belongs to type leve, not instance level).
- Without this trait wrapper will rely on implicit 'Codable' support
- provided by Swift itself and will be encoded as object/dictionary
- with single entry (which is unnecessary complication): "{\"value\": \"XXX\"}"
+ Value stored in this wrapper will be validated acording to the
+ provided specification. When this wrapper is optional - the empty
+ value ('nil') is considered to be valid.
  */
 public
-protocol SomeSingleValueCodable: SomeValidatableValueWrapperOLD {}
-
-//---
-
-public
-extension SomeSingleValueCodable
+struct NonRequired<T: SomeValidatableValue>:
+    SomeValidatableValueWrapper,
+    SomeSingleValueCodable
 {
-    func encode(to encoder: Encoder) throws
-    {
-        var container = encoder.singleValueContainer()
+    public
+    typealias Value = T
 
-        //---
-        
-        try container.encode(rawValue)
-    }
+    public
+    var rawValue: T.Raw
 
-    init(from decoder: Decoder) throws
-    {
-        let container = try decoder.singleValueContainer()
-
-        //---
-
-        self.init(wrappedValue: try container.decode(Specification.RawValue.self))
-    }
+    public
+    init(rawValue: T.Raw) { self.rawValue = rawValue }
 }

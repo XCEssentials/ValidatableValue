@@ -24,27 +24,41 @@
 
  */
 
-public
-typealias Required<T: SomeValueSpecificationOLD> = WrapperOfMandatory<T>
+import XCERequirement
 
 //---
 
 /**
- Value stored in this wrapper will be validated acording to the
- provided specification. When this wrapper is optional - the empty
- value ('nil') is considered to be NOT valid.
+ Same as 'WrapperOf', but accepts just base value types,
+ does not require a Specification for the value. Use it
+ when just need the functionality of wrapper without any
+ special conditions for the type and not plannig to use
+ it in GUI directly.
  */
 public
-struct WrapperOfMandatory<T: SomeValueSpecificationOLD>: SomeValidatableValueWrapperOLD,
-    SomeSingleValueCodable,
-    Mandatory
+struct NonRequiredBase<T: Codable>:
+    SomeValidatableValueWrapper,
+    SomeSingleValueCodable
 {
     public
-    typealias Specification = T
+    enum Value: SomeValidatableValue, DisplayNamedAuto
+    {
+        public
+        typealias Raw = T
+
+        public
+        typealias Valid = T
+        
+        public
+        static
+        var conditions: [Check<T>] { [] }
+    }
+
+    //---
 
     public
-    var rawValue: Specification.RawValue
+    var rawValue: T
 
     public
-    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
+    init(rawValue: T) { self.rawValue = rawValue }
 }

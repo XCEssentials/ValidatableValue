@@ -24,27 +24,26 @@
 
  */
 
-public
-typealias NonRequired<T: SomeValueSpecificationOLD> = WrapperOf<T>
-
-//---
-
 /**
  Value stored in this wrapper will be validated acording to the
  provided specification. When this wrapper is optional - the empty
- value ('nil') is considered to be valid.
+ value ('nil') is considered to be NOT valid.
  */
 public
-struct WrapperOf<T: SomeValueSpecificationOLD>: SomeValidatableValueWrapperOLD,
+struct Required<T: SomeValidatableValue>:
+    SomeValidatableValueWrapper,
     SomeSingleValueCodable,
-    NonMandatory
+    Mandatory
 {
     public
-    typealias Specification = T
+    typealias Value = T
 
     public
-    var rawValue: Specification.RawValue
+    var rawValue: T.Raw
 
     public
-    init(wrappedValue: Specification.RawValue) { self.rawValue = wrappedValue }
+    init(rawValue: T.Raw)
+    {
+        self.rawValue = rawValue
+    }
 }

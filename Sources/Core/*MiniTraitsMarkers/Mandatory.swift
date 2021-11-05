@@ -25,39 +25,13 @@
  */
 
 /**
- Data model type that supposed to store all important data
- in various validatable value properties. Such properties will be automatically
- checked for validity each time when whole entity is being tested for validity.
- Those property will be also automatically encoded and decoded.
+ Special trait for 'SomeValidatableValueWrapper' protocol that indicates that
+ in case the wrapper is wrapped itself in 'Swift.Optional' -
+ empty value should be considered as INvalid.
  */
 public
-protocol SomeValidatableEntityOLD: SomeValidatable, Codable, DisplayNamed {}
+protocol Mandatory: SomeValidatable {}
 
-// MARK: - Convenience helpers
+//---
 
-public
-extension SomeValidatableEntityOLD
-{
-    var allMembers: [Any]
-    {
-        return Mirror(reflecting: self)
-            .children
-            .map{ $0.value }
-    }
-    
-    /**
-     Returns list of all members that have to be involved in
-     automatic entity validation.
-     */
-    var allValidatableMembers: [SomeValidatable]
-    {
-        return allMembers
-            .compactMap{ $0 as? SomeValidatable }
-    }
-
-    var allRequiredValidatableMembers: [Mandatory & SomeValidatable]
-    {
-        return allMembers
-            .compactMap{ $0 as? Mandatory & SomeValidatable }
-    }
-}
+extension Swift.Optional: Mandatory where Wrapped: SomeValidatableValueWrapper & Mandatory {}

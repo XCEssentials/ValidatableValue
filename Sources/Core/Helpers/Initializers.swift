@@ -27,23 +27,13 @@
 public
 extension Decodable where Self: Encodable
 {
-    func wrapped<T: SomeValidatableValueWrapperOLD>() -> T where Self == T.Specification.RawValue
+    func wrapped<T: SomeValidatableValueWrapper>() -> T where Self == T.Value.Raw
     {
-        return T(wrappedValue: self)
+        return T(rawValue: self)
     }
 
-    func wrapped<T: SomeValidatableValueWrapperOLD>() -> T? where Self == T.Specification.RawValue
+    func wrapped<T: SomeValidatableValueWrapper>() -> T? where Self == T.Value.Raw
     {
-        return .some(T(wrappedValue: self))
-    }
-
-    func wrappedIfValid<T: SomeValidatableValueWrapperOLD>() throws -> T where Self == T.Specification.RawValue
-    {
-        return try T(validate: self)
-    }
-
-    func wrappedIfValid<T: SomeValidatableValueWrapperOLD>() throws -> T? where Self == T.Specification.RawValue
-    {
-        return try .some(T(validate: self))
+        return .some(T(rawValue: self))
     }
 }
