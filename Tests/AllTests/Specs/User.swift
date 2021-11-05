@@ -97,65 +97,45 @@ extension User
 
 // MARK: - User: Representations
 
-//extension User
-//{
-////    typealias Draft = (
-////        someConstant: Int?,
-////        firstName: String?,
-////        lastName: String?,
-////        username: String?,
-////        passwordIsSet: Bool
-////    )
-////
-////    func draft() -> Draft
-////    {
-////        return (
-////            someConstant.value,
-////            firstName.value,
-////            lastName.value,
-////            username.value,
-////            password.value != nil
-////        )
-////    }
-//
-//    //---
-//
-//    typealias Valid =
-//    (
-//        someConstant: Int,
-//        firstName: String,
-//        lastName: String?,
-//        username: String
-//    )
-//
-//    func valid() throws -> Valid
-//    {
-//        var issues: [Error] = []
-//
-//        let someConstant = try self.someConstant.validValue(&issues)
-//        let firstName = try self.firstName.validValue(&issues)
-//        let lastName = self.lastName.value
-//        let username = try self.username.validValue(&issues)
-//        // NOTE: we are skipping Password!
-//
-//        //---
-//
-//        if
-//            issues.isEmpty
-//        {
-//            return (
-//                someConstant!,
-//                firstName!,
-//                lastName,
-//                username!
-//            )
-//        }
-//        else
-//        {
-//            throw issues.asValidationIssues(for: self)
-//        }
-//    }
-//}
+extension User
+{
+    typealias DraftShortOverview = (
+        firstName: String?,
+        lastName: String?,
+        username: String?,
+        passwordIsSet: Bool
+    )
+
+    func draftShortOverview() -> DraftShortOverview
+    {
+        return (
+            firstName?.rawValue,
+            lastName?.rawValue,
+            username?.rawValue,
+            password?.rawValue != nil
+        )
+    }
+
+    //---
+
+    typealias ValidShortOverview =
+    (
+        firstName: String,
+        lastName: String?,
+        username: String,
+        passwordIsValid: Bool
+    )
+
+    func validShortOverview() throws -> ValidShortOverview
+    {
+        return try (
+            firstName.validValue,
+            lastName?.validValue,
+            username.validValue,
+            password.isValid
+        )
+    }
+}
 
 // MARK: - Password helpers
 

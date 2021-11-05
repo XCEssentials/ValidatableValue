@@ -67,6 +67,19 @@ extension Swift.Optional where Wrapped: SomeValidatableValueWrapper & Mandatory
             }
         }
     }
+    
+    var isValid: Bool
+    {
+        do
+        {
+            try validate()
+            return true
+        }
+        catch
+        {
+            return false
+        }
+    }
 }
 
 // MARK: - Metadata
