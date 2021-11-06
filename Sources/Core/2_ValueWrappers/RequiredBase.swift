@@ -42,7 +42,7 @@ struct RequiredBase<T: Codable>:
     Mandatory
 {
     public
-    enum Value: SomeValidatableValue, DisplayNamedAuto
+    enum Value: SomeValidatableValue
     {
         public
         typealias Raw = T

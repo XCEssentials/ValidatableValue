@@ -35,25 +35,49 @@ public
 protocol DisplayNamed
 {
     /**
-     Recommended end-user friendly name/title of the field where
+     Recommended user friendly name/title of the field where
      any instance of this type is being displayed in GUI.
      */
     static
     var displayName: String { get }
 
     /**
-     Recommended end-user friendly subtitle of the field where
-     any instance of this type is being displayed in GUI.
-     */
-    static
-    var displayHint: String? { get }
-
-    /**
-     Recommended end user friendly placeholder of the field where
+     Recommended user friendly placeholder of the field where
      any instance of this type is being displayed in GUI.
      */
     static
     var displayPlaceholder: String? { get }
+    
+    /**
+     Recommended user friendly subtitle of the field where
+     any instance of this type is being displayed in GUI.
+     */
+    static
+    var displayHint: String? { get }
+}
+
+// MARK: - Default implementation
+
+public
+extension DisplayNamed
+{
+    static
+    var displayName: String
+    {
+        return intrinsicDisplayName
+    }
+
+    static
+    var displayPlaceholder: String?
+    {
+        return intrinsicDisplayName
+    }
+    
+    static
+    var displayHint: String?
+    {
+        return nil
+    }
 }
 
 // MARK: - Convenience helpers
@@ -72,18 +96,44 @@ extension DisplayNamed
         return type(of: self).displayName
     }
 
-    var displayHint: String?
-    {
-        return type(of: self).displayHint
-    }
-
     var displayPlaceholder: String?
     {
         return type(of: self).displayPlaceholder
     }
+    
+    var displayHint: String?
+    {
+        return type(of: self).displayHint
+    }
 }
 
-//---
+// MARK: - Optionals support
+
+extension Swift.Optional: DisplayNamed where Wrapped: DisplayNamed
+{
+    public
+    static
+    var displayName: String
+    {
+        return Wrapped.displayName
+    }
+
+    public
+    static
+    var displayPlaceholder: String?
+    {
+        return Wrapped.displayPlaceholder
+    }
+    
+    public
+    static
+    var displayHint: String?
+    {
+        return Wrapped.displayHint
+    }
+}
+
+// MARK: - Utils (private)
 
 fileprivate
 enum Utils

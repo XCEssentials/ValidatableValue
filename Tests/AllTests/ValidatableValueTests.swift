@@ -96,33 +96,6 @@ extension SpecTests
         XCTAssertEqual(FirstName.conditions.filter { $0.isValid("asdasdq") }.count, 1)
     }
 
-    func test_displayName_implicit()
-    {
-        enum FirstName: SomeValidatableValue
-        {
-            typealias Raw = String
-        }
-
-        XCTAssert(FirstName.displayName == FirstName.intrinsicDisplayName)
-    }
-    
-    func test_displayName_explicit()
-    {
-        enum LastName: SomeValidatableValue
-        {
-            typealias Raw = String
-
-            static
-            let someStr = "This is custom name for the Value"
-
-            static
-            let displayName = someStr
-        }
-
-        XCTAssert(LastName.displayName != LastName.intrinsicDisplayName)
-        XCTAssert(LastName.displayName == LastName.someStr)
-    }
-    
     func test_convert_implicitForRawRepresentable()
     {
         enum ColorPreference: SomeValidatableValue

@@ -41,7 +41,7 @@ struct NonRequiredBase<T: Codable>:
     SomeSingleValueCodable
 {
     public
-    enum Value: SomeValidatableValue, DisplayNamedAuto
+    enum Value: SomeValidatableValue
     {
         public
         typealias Raw = T
