@@ -48,9 +48,9 @@ extension Swift.Optional: SomeValidatable where Wrapped: SomeValidatableValueWra
     }
 }
 
-public
 extension Swift.Optional where Wrapped: SomeValidatableValueWrapper & Mandatory
 {
+    public
     var validValue: Wrapped.Value.Valid
     {
         get throws {
@@ -65,19 +65,6 @@ extension Swift.Optional where Wrapped: SomeValidatableValueWrapper & Mandatory
                     
                     return try wrapped.validValue
             }
-        }
-    }
-    
-    var isValid: Bool
-    {
-        do
-        {
-            try validate()
-            return true
-        }
-        catch
-        {
-            return false
         }
     }
 }
