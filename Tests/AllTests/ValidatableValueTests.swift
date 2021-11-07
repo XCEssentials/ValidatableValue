@@ -129,9 +129,9 @@ extension SpecTests
             typealias Raw = String
         }
 
-        XCTAssertEqual(FirstName.conditions.count, 0)
-        XCTAssertEqual(FirstName.conditions.filter { $0.isValid("") }.count, 0)
-        XCTAssertEqual(FirstName.conditions.filter { $0.isValid("asdasdq") }.count, 0) // 0!
+        XCTAssertEqual(FirstName.conditionsOnRaw.count, 0)
+        XCTAssertEqual(FirstName.conditionsOnRaw.filter { $0.isValid("") }.count, 0)
+        XCTAssertEqual(FirstName.conditionsOnRaw.filter { $0.isValid("asdasdq") }.count, 0) // 0!
     }
     
     func test_conditions_explicit()
@@ -141,15 +141,15 @@ extension SpecTests
             typealias Raw = String
 
             static
-            let conditions = [
+            let conditionsOnRaw = [
 
                 String.checkNonEmpty
             ]
         }
 
-        XCTAssertEqual(FirstName.conditions.count, 1)
-        XCTAssertEqual(FirstName.conditions.filter { $0.isValid("") }.count, 0)
-        XCTAssertEqual(FirstName.conditions.filter { $0.isValid("asdasdq") }.count, 1)
+        XCTAssertEqual(FirstName.conditionsOnRaw.count, 1)
+        XCTAssertEqual(FirstName.conditionsOnRaw.filter { $0.isValid("") }.count, 0)
+        XCTAssertEqual(FirstName.conditionsOnRaw.filter { $0.isValid("asdasdq") }.count, 1)
     }
 
     func test_convert_implicitForRawRepresentable()

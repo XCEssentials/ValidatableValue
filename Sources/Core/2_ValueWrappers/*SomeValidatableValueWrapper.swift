@@ -105,8 +105,8 @@ extension SomeValidatableValueWrapper
 {
     func checkConditionsAndConvert() throws -> Value.Valid
     {
-        let unsatisfiedConditions: [Error] = Value
-            .conditions
+        let unsatisfiedConditionsRaw: [Error] = Value
+            .conditionsOnRaw
             .compactMap {
 
                 do
@@ -123,11 +123,11 @@ extension SomeValidatableValueWrapper
         //---
 
         guard
-            unsatisfiedConditions.isEmpty
+            unsatisfiedConditionsRaw.isEmpty
         else
         {
             throw ValidationError.unsatisfiedConditions(
-                unsatisfiedConditions,
+                unsatisfiedConditionsRaw,
                 rawValue: rawValue
             )
         }
@@ -139,6 +139,35 @@ extension SomeValidatableValueWrapper
         else
         {
             throw ValidationError.unableToConvert(rawValue: rawValue)
+        }
+        
+        //---
+        
+        let unsatisfiedConditionsValid: [Error] = Value
+            .conditionsOnValid
+            .compactMap {
+                
+                do
+                {
+                    try $0.validate(result)
+                    return nil // this condition indicated no issue
+                }
+                catch
+                {
+                    return error
+                }
+            }
+        
+        //---
+        
+        guard
+            unsatisfiedConditionsValid.isEmpty
+        else
+        {
+            throw ValidationError.unsatisfiedConditions(
+                unsatisfiedConditionsValid,
+                rawValue: rawValue
+            )
         }
         
         //---
