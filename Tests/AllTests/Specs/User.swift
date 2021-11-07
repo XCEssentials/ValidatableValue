@@ -52,7 +52,7 @@ extension User
     enum FirstName: SomeValidatableValue
     {
         static
-        let conditions = [
+        let conditionsOnRaw = [
 
             String.checkNonEmpty
         ]
@@ -66,7 +66,7 @@ extension User
     enum Username: SomeValidatableValue
     {
         static
-        let conditions = [
+        let conditionsOnRaw = [
 
             String.checkNonEmpty,
             Check("Valid email address", String.isValidEmail)
@@ -76,7 +76,7 @@ extension User
     enum Password: SomeValidatableValue
     {
         static
-        let conditions: [Condition<String>] = [
+        let conditionsOnRaw: [Condition<String>] = [
 
             Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
             Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(in: $0) },

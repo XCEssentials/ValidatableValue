@@ -49,12 +49,13 @@ protocol SomeValidatableValue: DisplayNamed
     static
     func convert(rawValue: Raw) -> Valid?
     
-    /**
-     Set of conditions for the 'Value' which gonna be used
-     for value validation.
-     */
+    /// Set of conditions for validation.
     static
-    var conditions: [Condition<Raw>] { get }
+    var conditionsOnRaw: [Condition<Raw>] { get }
+    
+    /// Set of conditions for validation.
+    static
+    var conditionsOnValid: [Condition<Valid>] { get }
 }
 
 // MARK: - Default implementations
@@ -63,7 +64,10 @@ public
 extension SomeValidatableValue
 {
     static
-    var conditions: [Condition<Raw>] { [] }
+    var conditionsOnRaw: [Condition<Raw>] { [] }
+    
+    static
+    var conditionsOnValid: [Condition<Valid>] { [] }
 }
 
 public

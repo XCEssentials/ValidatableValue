@@ -47,7 +47,7 @@ extension WrapperTests
     enum WithConditions: SomeValidatableValue
     {
         static
-        var conditions: [Check<String>] = [
+        var conditionsOnRaw: [Check<String>] = [
         
             .init("Contains `a`", { $0.contains("a") })
         ]
@@ -288,7 +288,7 @@ extension WrapperTests
     func test_validValue_NonRequired_WithConditions_Optional()
     {
         var wrapperMaybe: NonRequired<WithConditions>?
-        
+
         /// NOTE: if we try to access `validValue` directly on `wrapperMaybe`
         /// (wihtout unwrapping it) we will get following compilation error:
         ///
@@ -302,9 +302,9 @@ extension WrapperTests
         /// cause if you set a value - then it will behave just like
         /// `Required` and validate the value according to the `conditions`,
         /// EXCEPT the way it handles empty collections.
-        
+
         //---
-        
+
         wrapperMaybe = nil
 
         XCTAssertNil(try wrapperMaybe?.validValue) // nil & does NOT throw!
@@ -320,9 +320,9 @@ extension WrapperTests
         wrapperMaybe = "aaa".wrapped()
 
         XCTAssertEqual(try wrapperMaybe?.validValue, .some("aaa"))
-        
+
         //---
-        
+
         XCTAssert(type(of: try wrapperMaybe?.validValue) == String?.self)
     }
     
