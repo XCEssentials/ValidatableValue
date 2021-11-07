@@ -39,5 +39,13 @@ struct NonRequired<T: SomeValidatableValue>: SomeNonRequiredValueWrapper
     var rawValue: T.Raw
 
     public
-    init(rawValue: T.Raw) { self.rawValue = rawValue }
+    init(_ rawValue: T.Raw) { self.rawValue = rawValue }
+}
+
+//---
+
+public
+extension NonRequired where Value.Raw: ExpressibleByArrayLiteral
+{
+    init() { self.rawValue = [] }
 }

@@ -39,5 +39,13 @@ struct Required<T: SomeValidatableValue>: SomeRequiredValueWrapper
     var rawValue: T.Raw
 
     public
-    init(rawValue: T.Raw) { self.rawValue = rawValue }
+    init(_ rawValue: T.Raw) { self.rawValue = rawValue }
+}
+
+//---
+
+public
+extension Required where Value.Raw: ExpressibleByArrayLiteral
+{
+    init() { self.rawValue = [] }
 }
