@@ -27,18 +27,24 @@
 // MARK: - Metadata
 
 public
-typealias ValidatableValueWrapperMetadata = (
+typealias ValidatationMetadata = (
     isEmpty: Bool,
     isRequired: Bool,
     isValid: Bool
 )
 
+public
+protocol WithValidationMetadata
+{
+    var metadata: ValidatationMetadata { get }
+}
+
 //---
 
-public
 extension SomeNonRequiredValueWrapper
 {
-    var metadata: ValidatableValueWrapperMetadata
+    public
+    var metadata: ValidatationMetadata
     {
         return (
             isEmpty,
@@ -50,10 +56,10 @@ extension SomeNonRequiredValueWrapper
 
 //---
 
-public
 extension SomeRequiredValueWrapper
 {
-    var metadata: ValidatableValueWrapperMetadata
+    public
+    var metadata: ValidatationMetadata
     {
         return (
             isEmpty,
@@ -65,10 +71,10 @@ extension SomeRequiredValueWrapper
 
 //---
 
-public
-extension Swift.Optional where Wrapped: SomeNonRequiredValueWrapper
+extension Swift.Optional: WithValidationMetadata where Wrapped: SomeNonRequiredValueWrapper
 {
-    var metadata: ValidatableValueWrapperMetadata
+    public
+    var metadata: ValidatationMetadata
     {
         return (
             map { $0.isEmpty } ?? true,
@@ -80,10 +86,10 @@ extension Swift.Optional where Wrapped: SomeNonRequiredValueWrapper
 
 //---
 
-public
 extension Swift.Optional where Wrapped: SomeRequiredValueWrapper
 {
-    var metadata: ValidatableValueWrapperMetadata
+    public
+    var metadata: ValidatationMetadata
     {
         return (
             map { $0.isEmpty } ?? true,

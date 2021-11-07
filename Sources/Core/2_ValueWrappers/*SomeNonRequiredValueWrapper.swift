@@ -25,7 +25,11 @@
  */
 
 public
-protocol SomeNonRequiredValueWrapper: SomeValidatableValueWrapper, SomeValidatable {}
+protocol SomeNonRequiredValueWrapper:
+    SomeValidatableValueWrapper,
+    SomeValidatable,
+    WithValidationMetadata
+{}
 
 //---
 
