@@ -49,3 +49,11 @@ extension Required where Value.Raw: ExpressibleByArrayLiteral
 {
     init() { self.rawValue = [] }
 }
+
+//---
+
+public
+extension Required where Value.Raw: ExpressibleByStringLiteral
+{
+    init() { self.rawValue = "" }
+}
