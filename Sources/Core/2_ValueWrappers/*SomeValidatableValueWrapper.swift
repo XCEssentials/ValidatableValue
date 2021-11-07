@@ -25,7 +25,7 @@
  */
 
 public
-protocol SomeValidatableValueWrapper: SomeValidatable, Codable, DisplayNamed
+protocol SomeValidatableValueWrapper: Codable, DisplayNamed
 {
     associatedtype Value: SomeValidatableValue
     
@@ -58,59 +58,75 @@ extension SomeValidatableValueWrapper
     }
 }
 
-// MARK: - SomeValidatable support
+// MARK: - Codable support
 
 public
 extension SomeValidatableValueWrapper
 {
-    func validate() throws
+    func encode(to encoder: Encoder) throws
     {
-        _ = try validValue
+        var container = encoder.singleValueContainer()
+
+        //---
+        
+        try container.encode(rawValue)
     }
-    
-    var validValue: Value.Valid
+
+    init(from decoder: Decoder) throws
     {
-        get throws {
-            
-            let unsatisfiedConditions: [Error] = Value
-                .conditions
-                .compactMap {
+        let container = try decoder.singleValueContainer()
 
-                    do
-                    {
-                        try $0.validate(rawValue)
-                        return nil // this condition indicated no issue
-                    }
-                    catch
-                    {
-                        return error
-                    }
+        //---
+
+        self.init(rawValue: try container.decode(Value.Raw.self))
+    }
+}
+
+// MARK: - (PRIVATE) Shared functionality
+
+//internal
+extension SomeValidatableValueWrapper
+{
+    func checkConditionsAndConvert() throws -> Value.Valid
+    {
+        let unsatisfiedConditions: [Error] = Value
+            .conditions
+            .compactMap {
+
+                do
+                {
+                    try $0.validate(rawValue)
+                    return nil // this condition indicated no issue
                 }
-
-            //---
-
-            guard
-                unsatisfiedConditions.isEmpty
-            else
-            {
-                throw ValidationError.unsatisfiedConditions(
-                    unsatisfiedConditions,
-                    rawValue: rawValue
-                )
+                catch
+                {
+                    return error
+                }
             }
-            
-            //---
-            
-            guard
-                let result = Value.convert(rawValue: rawValue)
-            else
-            {
-                throw ValidationError.unableToConvert(rawValue: rawValue)
-            }
-            
-            //---
-            
-            return result
+
+        //---
+
+        guard
+            unsatisfiedConditions.isEmpty
+        else
+        {
+            throw ValidationError.unsatisfiedConditions(
+                unsatisfiedConditions,
+                rawValue: rawValue
+            )
         }
+        
+        //---
+        
+        guard
+            let result = Value.convert(rawValue: rawValue)
+        else
+        {
+            throw ValidationError.unableToConvert(rawValue: rawValue)
+        }
+        
+        //---
+        
+        return result
     }
 }

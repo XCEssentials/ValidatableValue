@@ -24,36 +24,32 @@
 
  */
 
-import Foundation
+public
+protocol SomeNonRequiredValueWrapper: SomeValidatableValueWrapper, SomeValidatable {}
 
 //---
 
-/**
- Provides user friendly 'display name' suitable for showing in GUI.
- */
 public
-protocol DisplayNamedAuto: DisplayNamed {}
-
-// MARK: - Default implementation
-
-public
-extension DisplayNamed
+extension SomeNonRequiredValueWrapper
 {
-    static
-    var displayName: String
+    func validate() throws
     {
-        return intrinsicDisplayName
+        _ = try validValue
     }
-
-    static
-    var displayHint: String?
+    
+    var validValue: Value.Valid?
     {
-        return nil
-    }
-
-    static
-    var displayPlaceholder: String?
-    {
-        return nil
+        get throws {
+            
+            if
+                Value.isEmpty(rawValue: rawValue)
+            {
+                return nil // NOTE: we skip validation, but also no value!
+            }
+            else
+            {
+                return try checkConditionsAndConvert()
+            }
+        }
     }
 }

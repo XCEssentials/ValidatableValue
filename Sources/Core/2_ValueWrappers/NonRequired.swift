@@ -30,9 +30,7 @@
  value ('nil') is considered to be valid.
  */
 public
-struct NonRequired<T: SomeValidatableValue>:
-    SomeValidatableValueWrapper,
-    SomeSingleValueCodable
+struct NonRequired<T: SomeValidatableValue>: SomeNonRequiredValueWrapper
 {
     public
     typealias Value = T

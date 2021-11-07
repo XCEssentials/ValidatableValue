@@ -34,11 +34,6 @@ public
 extension String
 {
     static
-    let checkNonEmpty = Check<String>("Non-empty"){ !$0.isEmpty }
-
-    //---
-
-    static
     func isValidEmail(_ value: String) -> Bool
     {
         let emailRegex =

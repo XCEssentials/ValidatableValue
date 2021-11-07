@@ -54,12 +54,6 @@ extension SomeValidatableEntity
         return allMembers
             .compactMap{ $0 as? SomeValidatable }
     }
-
-    var allRequiredValidatableMembers: [Mandatory & SomeValidatable]
-    {
-        return allMembers
-            .compactMap{ $0 as? Mandatory & SomeValidatable }
-    }
 }
 
 // MARK: - SomeValidatable support

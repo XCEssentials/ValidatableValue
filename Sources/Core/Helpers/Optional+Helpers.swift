@@ -26,31 +26,24 @@
 
 // MARK: - Validation
 
-extension Swift.Optional: SomeValidatable where Wrapped: SomeValidatableValueWrapper
+extension Swift.Optional: SomeValidatable where Wrapped: SomeValidatable
 {
     public
     func validate() throws
     {
-        switch self
-        {
-            case .none where Wrapped.self is Mandatory:
-                
-                throw ValidationError.requiredValueIsMissing
-                
-            case .none:
-                
-                break // it's okay to be missing for non-Mandatory wrappers
-                
-            case .some(let wrapped):
-                
-                try wrapped.validate()
-        }
+        try map { try $0.validate() }
     }
 }
 
-public
-extension Swift.Optional where Wrapped: SomeValidatableValueWrapper & Mandatory
+extension Swift.Optional where Wrapped: SomeRequiredValueWrapper
 {
+    public
+    func validate() throws
+    {
+        _ = try validValue
+    }
+    
+    public
     var validValue: Wrapped.Value.Valid
     {
         get throws {
@@ -67,39 +60,26 @@ extension Swift.Optional where Wrapped: SomeValidatableValueWrapper & Mandatory
             }
         }
     }
-    
-    var isValid: Bool
-    {
-        do
-        {
-            try validate()
-            return true
-        }
-        catch
-        {
-            return false
-        }
-    }
 }
 
 // MARK: - Metadata
-
-public
-typealias ValidatableValueWrapperMetadata = (
-    isEmpty: Bool,
-    isMandatory: Bool,
-    isValid: Bool
-)
-
-public
-extension Swift.Optional where Wrapped: SomeValidatableValueWrapper
-{
-    var metadata: ValidatableValueWrapperMetadata
-    {
-        return (
-            self == nil,
-            self is Mandatory,
-            self.isValid
-        )
-    }
-}
+//
+//public
+//typealias ValidatableValueWrapperMetadata = (
+//    isEmpty: Bool,
+//    isMandatory: Bool,
+//    isValid: Bool
+//)
+//
+//extension Swift.Optional: SomeValidatable where Wrapped: SomeValidatableValueWrapper & SomeValidatable
+//{
+//    public
+//    var metadata: ValidatableValueWrapperMetadata
+//    {
+//        return (
+//            self == nil,
+//            self is Mandatory,
+//            self.isValid
+//        )
+//    }
+//}

@@ -29,6 +29,8 @@ enum ValidationError: Error
 {
     case requiredValueIsMissing // thrown from Optional extension only
     
+    case requiredValueIsEmptyCollection
+    
     case unsatisfiedConditions([Error], rawValue: Any)
 
     case unableToConvert(rawValue: Any)
