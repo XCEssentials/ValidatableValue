@@ -39,12 +39,12 @@ class WrapperTests: XCTestCase {}
 
 extension WrapperTests
 {
-    enum EmptyStringOk: SomeValidatableValue
+    enum NoExplicitConditions: SomeValidatableValue
     {
         typealias Raw = String
     }
     
-    enum NonEmptyString: SomeValidatableValue
+    enum WithConditions: SomeValidatableValue
     {
         static
         var conditions: [Check<String>] = [
@@ -58,15 +58,23 @@ extension WrapperTests
 
 extension WrapperTests
 {
-    func test_validValue_Required_EmptyStringOk_NonOptional()
+    func test_validValue_Required_NoExplicitConditions_NonOptional()
     {
-        var wrapper: Required<EmptyStringOk>
+        var wrapper: Required<NoExplicitConditions>
         
         //---
         
         wrapper = "".wrapped()
         
-        XCTAssertEqual(try wrapper.validValue, "")
+        XCTAssertThrowsError(try wrapper.validValue) {
+            
+            guard
+                case ValidationError.requiredValueIsEmptyCollection = $0
+            else
+            {
+                return XCTFail("Unexpected error: \($0)")
+            }
+        }
         
         //---
         
@@ -79,9 +87,9 @@ extension WrapperTests
         XCTAssert(type(of: try wrapper.validValue) == String.self)
     }
     
-    func test_validValue_Required_EmptyStringOk_Optional()
+    func test_validValue_Required_NoExplicitConditions_Optional()
     {
-        var wrapperMaybe: Required<EmptyStringOk>?
+        var wrapperMaybe: Required<NoExplicitConditions>?
         
         //---
         
@@ -101,7 +109,15 @@ extension WrapperTests
         
         wrapperMaybe = "".wrapped()
 
-        XCTAssertEqual(try wrapperMaybe.validValue, "")
+        XCTAssertThrowsError(try wrapperMaybe.validValue) {
+            
+            guard
+                case ValidationError.requiredValueIsEmptyCollection = $0
+            else
+            {
+                return XCTFail("Unexpected error: \($0)")
+            }
+        }
 
         //---
 
@@ -114,30 +130,30 @@ extension WrapperTests
         XCTAssert(type(of: try wrapperMaybe.validValue) == String.self)
     }
     
-    func test_validValue_NonRequired_EmptyStringOk_NonOptional()
+    func test_validValue_NonRequired_NoExplicitConditions_NonOptional()
     {
-        var wrapper: NonRequired<EmptyStringOk>
+        var wrapper: NonRequired<NoExplicitConditions>
         
         //---
         
         wrapper = "".wrapped()
         
-        XCTAssertEqual(try wrapper.validValue, "")
+        XCTAssertEqual(try wrapper.validValue, .none) // nil!
         
         //---
         
         wrapper = "aaa".wrapped()
         
-        XCTAssertEqual(try wrapper.validValue, "aaa")
+        XCTAssertEqual(try wrapper.validValue, .some("aaa"))
         
         //---
         
-        XCTAssert(type(of: try wrapper.validValue) == String.self)
+        XCTAssert(type(of: try wrapper.validValue) == String?.self)
     }
     
-    func test_validValue_NonRequired_EmptyStringOk_Optional()
+    func test_validValue_NonRequired_NoExplicitConditions_Optional()
     {
-        var wrapperMaybe: NonRequired<EmptyStringOk>?
+        var wrapperMaybe: NonRequired<NoExplicitConditions>?
         
         /// NOTE: if we try to access `validValue` directly on `wrapperMaybe`
         /// (wihtout unwrapping it) we will get following compilation error:
@@ -157,13 +173,13 @@ extension WrapperTests
         
         wrapperMaybe = nil
 
-        XCTAssertNil(try wrapperMaybe?.validValue) // NOTE: does NOT throw!
+        XCTAssertNil(try wrapperMaybe?.validValue) // nil & does NOT throw!
 
         //---
 
         wrapperMaybe = "".wrapped()
 
-        XCTAssertEqual(try wrapperMaybe?.validValue, .some(""))
+        XCTAssertEqual(try wrapperMaybe?.validValue, .none) // nil!
 
         //---
 
@@ -176,9 +192,9 @@ extension WrapperTests
         XCTAssert(type(of: try wrapperMaybe?.validValue) == String?.self)
     }
     
-    func test_validValue_Required_NonEmptyString_NonOptional()
+    func test_validValue_Required_WithConditions_NonOptional()
     {
-        var wrapper: Required<NonEmptyString>
+        var wrapper: Required<WithConditions>
         
         //---
         
@@ -187,7 +203,7 @@ extension WrapperTests
         XCTAssertThrowsError(try wrapper.validValue) {
             
             guard
-                case ValidationError.unsatisfiedConditions = $0
+                case ValidationError.requiredValueIsEmptyCollection = $0
             else
             {
                 return XCTFail("Unexpected error: \($0)")
@@ -205,9 +221,9 @@ extension WrapperTests
         XCTAssert(type(of: try wrapper.validValue) == String.self)
     }
     
-    func test_validValue_Required_NonEmptyString_Optional()
+    func test_validValue_Required_WithConditions_Optional()
     {
-        var wrapperMaybe: Required<NonEmptyString>?
+        var wrapperMaybe: Required<WithConditions>?
         
         //---
         
@@ -230,7 +246,7 @@ extension WrapperTests
         XCTAssertThrowsError(try wrapperMaybe.validValue) {
             
             guard
-                case ValidationError.unsatisfiedConditions = $0
+                case ValidationError.requiredValueIsEmptyCollection = $0
             else
             {
                 return XCTFail("Unexpected error: \($0)")
@@ -248,38 +264,30 @@ extension WrapperTests
         XCTAssert(type(of: try wrapperMaybe.validValue) == String.self)
     }
     
-    func test_validValue_NonRequired_NonEmptyString_NonOptional()
+    func test_validValue_NonRequired_WithConditions_NonOptional()
     {
-        var wrapper: NonRequired<NonEmptyString>
+        var wrapper: NonRequired<WithConditions>
         
         //---
         
         wrapper = "".wrapped()
         
-        XCTAssertThrowsError(try wrapper.validValue) {
-            
-            guard
-                case ValidationError.unsatisfiedConditions = $0
-            else
-            {
-                return XCTFail("Unexpected error: \($0)")
-            }
-        }
+        XCTAssertEqual(try wrapper.validValue, .none) // nil!
         
         //---
         
         wrapper = "aaa".wrapped()
         
-        XCTAssertEqual(try wrapper.validValue, "aaa")
+        XCTAssertEqual(try wrapper.validValue, .some("aaa"))
         
         //---
         
-        XCTAssert(type(of: try wrapper.validValue) == String.self)
+        XCTAssert(type(of: try wrapper.validValue) == String?.self)
     }
     
-    func test_validValue_NonRequired_NonEmptyString_Optional()
+    func test_validValue_NonRequired_WithConditions_Optional()
     {
-        var wrapperMaybe: NonRequired<NonEmptyString>?
+        var wrapperMaybe: NonRequired<WithConditions>?
         
         /// NOTE: if we try to access `validValue` directly on `wrapperMaybe`
         /// (wihtout unwrapping it) we will get following compilation error:
@@ -299,21 +307,13 @@ extension WrapperTests
         
         wrapperMaybe = nil
 
-        XCTAssertNil(try wrapperMaybe?.validValue) // NOTE: does NOT throw!
+        XCTAssertNil(try wrapperMaybe?.validValue) // nil & does NOT throw!
 
         //---
 
         wrapperMaybe = "".wrapped()
 
-        XCTAssertThrowsError(try wrapperMaybe?.validValue) {
-            
-            guard
-                case ValidationError.unsatisfiedConditions = $0
-            else
-            {
-                return XCTFail("Unexpected error: \($0)")
-            }
-        }
+        XCTAssertEqual(try wrapperMaybe?.validValue, .none) // nil!
 
         //---
 

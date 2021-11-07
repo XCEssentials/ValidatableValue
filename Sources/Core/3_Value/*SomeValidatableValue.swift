@@ -38,6 +38,10 @@ protocol SomeValidatableValue: DisplayNamed
 
     associatedtype Valid: Codable
     
+    /// Helps identify whatever given value considered as empty.
+    static
+    func isEmpty(rawValue: Raw) -> Bool
+    
     /// Specifies how we convert `Raw` into `Valid`.
     ///
     /// Error thrown from this conversion considered to be
@@ -79,5 +83,25 @@ extension SomeValidatableValue where Valid: RawRepresentable, Valid.RawValue == 
     func convert(rawValue: Raw) -> Valid?
     {
         Valid.init(rawValue: rawValue)
+    }
+}
+
+public
+extension SomeValidatableValue
+{
+    static
+    func isEmpty(rawValue: Raw) -> Bool
+    {
+        false
+    }
+}
+
+public
+extension SomeValidatableValue where Raw: Collection
+{
+    static
+    func isEmpty(rawValue: Raw) -> Bool
+    {
+        rawValue.isEmpty
     }
 }

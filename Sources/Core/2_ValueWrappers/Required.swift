@@ -30,10 +30,7 @@
  value ('nil') is considered to be NOT valid.
  */
 public
-struct Required<T: SomeValidatableValue>:
-    SomeValidatableValueWrapper,
-    SomeSingleValueCodable,
-    Mandatory
+struct Required<T: SomeValidatableValue>: SomeRequiredValueWrapper
 {
     public
     typealias Value = T
@@ -42,8 +39,5 @@ struct Required<T: SomeValidatableValue>:
     var rawValue: T.Raw
 
     public
-    init(rawValue: T.Raw)
-    {
-        self.rawValue = rawValue
-    }
+    init(rawValue: T.Raw) { self.rawValue = rawValue }
 }

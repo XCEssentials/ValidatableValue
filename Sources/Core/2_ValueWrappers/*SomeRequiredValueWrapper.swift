@@ -24,41 +24,32 @@
 
  */
 
-import XCERequirement
+public
+protocol SomeRequiredValueWrapper: SomeValidatableValueWrapper, SomeValidatable {}
 
 //---
 
-/**
- Same as 'WrapperOf', but accepts just base value types,
- does not require a Specification for the value. Use it
- when just need the functionality of wrapper without any
- special conditions for the type and not plannig to use
- it in GUI directly.
- */
 public
-struct NonRequiredBase<T: Codable>:
-    SomeValidatableValueWrapper,
-    SomeSingleValueCodable
+extension SomeRequiredValueWrapper
 {
-    public
-    enum Value: SomeValidatableValue
+    func validate() throws
     {
-        public
-        typealias Raw = T
-
-        public
-        typealias Valid = T
-        
-        public
-        static
-        var conditions: [Check<T>] { [] }
+        _ = try validValue
     }
-
-    //---
-
-    public
-    var rawValue: T
-
-    public
-    init(rawValue: T) { self.rawValue = rawValue }
+    
+    var validValue: Value.Valid
+    {
+        get throws {
+            
+            if
+                Value.isEmpty(rawValue: rawValue)
+            {
+                throw ValidationError.requiredValueIsEmptyCollection
+            }
+            else
+            {
+                return try checkConditionsAndConvert()
+            }
+        }
+    }
 }

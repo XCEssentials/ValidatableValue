@@ -66,6 +66,62 @@ extension SpecTests
         XCTAssert(Age.Valid.self == UInt.self) // inferred!
     }
     
+    func test_isEmpty_implicit_collection()
+    {
+        enum FirstName: SomeValidatableValue
+        {
+            typealias Raw = String
+        }
+        
+        XCTAssertTrue(FirstName.isEmpty(rawValue: ""))
+        XCTAssertFalse(FirstName.isEmpty(rawValue: "1"))
+    }
+    
+    func test_isEmpty_implicit_nonCollection()
+    {
+        enum Age: SomeValidatableValue
+        {
+            typealias Raw = Int
+        }
+        
+        XCTAssertFalse(Age.isEmpty(rawValue: 0))
+        XCTAssertFalse(Age.isEmpty(rawValue: 1))
+    }
+    
+    func test_isEmpty_explicit_collection()
+    {
+        enum FirstName: SomeValidatableValue
+        {
+            typealias Raw = String
+            
+            static
+            func isEmpty(rawValue: String) -> Bool
+            {
+                false
+            }
+        }
+        
+        XCTAssertFalse(FirstName.isEmpty(rawValue: ""))
+        XCTAssertFalse(FirstName.isEmpty(rawValue: "1"))
+    }
+    
+    func test_isEmpty_explicit_nonCollection()
+    {
+        enum Age: SomeValidatableValue
+        {
+            typealias Raw = Int
+            
+            static
+            func isEmpty(rawValue: Int) -> Bool
+            {
+                true
+            }
+        }
+        
+        XCTAssertTrue(Age.isEmpty(rawValue: 0))
+        XCTAssertTrue(Age.isEmpty(rawValue: 1))
+    }
+    
     func test_conditions_implicit()
     {
         enum FirstName: SomeValidatableValue
