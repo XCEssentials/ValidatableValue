@@ -34,7 +34,7 @@ protocol SomeValidatableValueWrapper: Codable, DisplayNamed
     
     var isEmpty: Bool { get }
     
-    init(rawValue: Value.Raw)
+    init(_ rawValue: Value.Raw)
 
     var rawValue: Value.Raw { get set }
 }
@@ -94,7 +94,7 @@ extension SomeValidatableValueWrapper
 
         //---
 
-        self.init(rawValue: try container.decode(Value.Raw.self))
+        self.init(try container.decode(Value.Raw.self))
     }
 }
 

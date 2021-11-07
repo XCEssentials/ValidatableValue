@@ -81,14 +81,14 @@ extension Swift.Optional
                 self = .none
 
             case .none:
-                self = .some(.init(rawValue: CheckmarkValue.checked))
+                self = .some(.init(CheckmarkValue.checked))
         }
     }
 
     mutating
     func toggleOn()
     {
-        self = .some(.init(rawValue: CheckmarkValue.checked))
+        self = .some(.init(CheckmarkValue.checked))
     }
 
     mutating
