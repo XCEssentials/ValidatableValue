@@ -24,38 +24,71 @@
 
  */
 
+// MARK: - Metadata
+
 public
-protocol SomeRequiredValueWrapper: SomeValidatableValueWrapper, SomeValidatable {}
+typealias ValidatableValueWrapperMetadata = (
+    isEmpty: Bool,
+    isRequired: Bool,
+    isValid: Bool
+)
+
+//---
+
+public
+extension SomeNonRequiredValueWrapper
+{
+    var metadata: ValidatableValueWrapperMetadata
+    {
+        return (
+            isEmpty,
+            false,
+            isValid
+        )
+    }
+}
 
 //---
 
 public
 extension SomeRequiredValueWrapper
 {
-    static
-    var isRequired: Bool
+    var metadata: ValidatableValueWrapperMetadata
     {
-        true
+        return (
+            isEmpty,
+            true,
+            isValid
+        )
     }
-    
-    func validate() throws
+}
+
+//---
+
+public
+extension Swift.Optional where Wrapped: SomeNonRequiredValueWrapper
+{
+    var metadata: ValidatableValueWrapperMetadata
     {
-        _ = try validValue
+        return (
+            map { $0.isEmpty } ?? true,
+            false,
+            map { $0.isValid } ?? false
+        )
     }
-    
-    var validValue: Value.Valid
+}
+
+//---
+
+public
+extension Swift.Optional where Wrapped: SomeRequiredValueWrapper
+{
+    var metadata: ValidatableValueWrapperMetadata
     {
-        get throws {
-            
-            if
-                Value.isEmpty(rawValue: rawValue)
-            {
-                throw ValidationError.requiredValueIsEmptyCollection
-            }
-            else
-            {
-                return try checkConditionsAndConvert()
-            }
-        }
+        return (
+            map { $0.isEmpty } ?? true,
+            true,
+            isValid
+        )
     }
 }
