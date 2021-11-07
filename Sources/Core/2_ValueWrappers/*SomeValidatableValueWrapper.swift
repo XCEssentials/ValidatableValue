@@ -29,9 +29,25 @@ protocol SomeValidatableValueWrapper: Codable, DisplayNamed
 {
     associatedtype Value: SomeValidatableValue
     
+    static
+    var isRequired: Bool { get }
+    
+    var isEmpty: Bool { get }
+    
     init(rawValue: Value.Raw)
 
     var rawValue: Value.Raw { get set }
+}
+
+// MARK: - Default implementations
+
+public
+extension SomeValidatableValueWrapper
+{
+    var isEmpty: Bool
+    {
+        Value.isEmpty(rawValue: rawValue)
+    }
 }
 
 // MARK: - DisplayNamed support

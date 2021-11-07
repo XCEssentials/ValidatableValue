@@ -32,6 +32,12 @@ protocol SomeNonRequiredValueWrapper: SomeValidatableValueWrapper, SomeValidatab
 public
 extension SomeNonRequiredValueWrapper
 {
+    static
+    var isRequired: Bool
+    {
+        false
+    }
+    
     func validate() throws
     {
         _ = try validValue

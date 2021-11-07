@@ -61,25 +61,3 @@ extension Swift.Optional where Wrapped: SomeRequiredValueWrapper
         }
     }
 }
-
-// MARK: - Metadata
-//
-//public
-//typealias ValidatableValueWrapperMetadata = (
-//    isEmpty: Bool,
-//    isMandatory: Bool,
-//    isValid: Bool
-//)
-//
-//extension Swift.Optional: SomeValidatable where Wrapped: SomeValidatableValueWrapper & SomeValidatable
-//{
-//    public
-//    var metadata: ValidatableValueWrapperMetadata
-//    {
-//        return (
-//            self == nil,
-//            self is Mandatory,
-//            self.isValid
-//        )
-//    }
-//}
