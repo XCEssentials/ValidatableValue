@@ -24,58 +24,29 @@
 
  */
 
-/**
- Value stored in this wrapper will be validated acording to the
- provided specification. When this wrapper is optional - the empty
- value ('nil') is considered to be NOT valid.
- */
-public
-struct Required<T: SomeValidatableValue>: SomeRequiredValueWrapper
-{
-    public
-    typealias Value = T
+import XCTest
 
-    public
-    var rawValue: T.Raw
+@testable
+import XCEValidatableValue
+
+//---
+
+class PersistenceTests: XCTestCase {}
+
+//---
+
+extension PersistenceTests
+{
+    func test_storageKeyProtocol()
     {
-        didSet
+        enum KeyContext
         {
-            storage.store(value: rawValue)
+            enum StorageKey: SomeStorageKey
+            {
+                case one
+            }
         }
+        
+        XCTAssert(KeyContext.StorageKey.one.name.contains("KeyContext.StorageKey.one"))
     }
-    
-    public
-    let storage: ValueStorage
-
-    public
-    init(_ rawValue: T.Raw)
-    {
-        self.rawValue = rawValue
-        self.storage = .none
-    }
-    
-    public
-    init(_ defaultValue: T.Raw, storage: ValueStorage)
-    {
-        self.rawValue = storage.fetchValue(default: defaultValue)
-        self.storage = storage
-    }
-}
-
-//---
-
-public
-extension Required where Value.Raw: ExpressibleByArrayLiteral
-{
-    init() { self.init([]) }
-    init(storage: ValueStorage) { self.init([], storage: storage) }
-}
-
-//---
-
-public
-extension Required where Value.Raw: ExpressibleByStringLiteral
-{
-    init() { self.init("") }
-    init(storage: ValueStorage) { self.init("", storage: storage) }
 }

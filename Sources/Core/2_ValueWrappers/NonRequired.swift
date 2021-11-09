@@ -37,9 +37,29 @@ struct NonRequired<T: SomeValidatableValue>: SomeNonRequiredValueWrapper
 
     public
     var rawValue: T.Raw
+    {
+        didSet
+        {
+            storage.store(value: rawValue)
+        }
+    }
+    
+    public
+    let storage: ValueStorage
 
     public
-    init(_ rawValue: T.Raw) { self.rawValue = rawValue }
+    init(_ rawValue: T.Raw)
+    {
+        self.rawValue = rawValue
+        self.storage = .none
+    }
+    
+    public
+    init(_ defaultValue: T.Raw, storage: ValueStorage)
+    {
+        self.rawValue = storage.fetchValue(default: defaultValue)
+        self.storage = storage
+    }
 }
 
 //---
@@ -47,7 +67,8 @@ struct NonRequired<T: SomeValidatableValue>: SomeNonRequiredValueWrapper
 public
 extension NonRequired where Value.Raw: ExpressibleByArrayLiteral
 {
-    init() { self.rawValue = [] }
+    init() { self.init([]) }
+    init(storage: ValueStorage) { self.init([], storage: storage) }
 }
 
 //---
@@ -55,5 +76,6 @@ extension NonRequired where Value.Raw: ExpressibleByArrayLiteral
 public
 extension NonRequired where Value.Raw: ExpressibleByStringLiteral
 {
-    init() { self.rawValue = "" }
+    init() { self.init("") }
+    init(storage: ValueStorage) { self.init("", storage: storage) }
 }
