@@ -62,4 +62,12 @@ extension SomeRequiredValueWrapper
             }
         }
     }
+    
+    var vv: Value.Valid
+    {
+        get throws {
+            
+            try validValue
+        }
+    }
 }
