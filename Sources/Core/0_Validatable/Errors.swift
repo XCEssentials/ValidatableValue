@@ -27,22 +27,36 @@
 public
 enum ValidationError: Error
 {
-    case requiredValueIsMissing // thrown from Optional extension only
+    case requiredValueIsMissing( // thrown from Optional extension only
+        source: DisplayNamedInfo
+    )
     
-    case requiredValueIsEmptyCollection
+    case requiredValueIsEmptyCollection(
+        source: DisplayNamedInfo
+    )
     
-    case unsatisfiedConditions([Error], rawValue: Any)
+    case unsatisfiedConditions(
+        [Error],
+        rawValue: Any,
+        source: DisplayNamedInfo
+    )
 
-    case unableToConvert(rawValue: Any)
+    case unableToConvert(
+        rawValue: Any,
+        source: DisplayNamedInfo
+    )
 
-    case invalidEntity([Error]) // expected nested ValidationError instances
+    /// expect nested ValidationError instances
+    case invalidEntity(
+        [Error]
+    )
     
     public
     var hasNestedIssues: Bool
     {
         switch self
         {
-            case .invalidEntity(let errors) where !errors.isEmpty:
+            case .invalidEntity:
                 return true
                 
             default:
