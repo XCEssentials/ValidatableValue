@@ -52,7 +52,9 @@ extension Swift.Optional where Wrapped: SomeRequiredValueWrapper
             {
                 case .none:
                     
-                    throw ValidationError.requiredValueIsMissing
+                    throw ValidationError.requiredValueIsMissing(
+                        source: Wrapped.info
+                    )
                     
                 case .some(let wrapped):
                     

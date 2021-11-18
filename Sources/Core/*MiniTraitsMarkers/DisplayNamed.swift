@@ -28,6 +28,21 @@ import Foundation
 
 //---
 
+public
+struct DisplayNamedInfo
+{
+    public
+    var displayName: String
+
+    public
+    var displayPlaceholder: String?
+    
+    public
+    var displayHint: String?
+}
+
+//---
+
 /**
  Provides user friendly 'display name' suitable for showing in GUI.
  */
