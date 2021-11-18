@@ -344,9 +344,9 @@ extension WrapperTests
 
         let wrapper: Required<LastName> = "Smith".wrapped()
 
-        XCTAssertEqual(wrapper.displayName, "Your Last Name")
-        XCTAssertEqual(wrapper.displayPlaceholder, "Your last/family name here")
-        XCTAssertEqual(wrapper.displayHint, "We need to know your last name")
+        XCTAssertEqual(type(of: wrapper).info.displayName, "Your Last Name")
+        XCTAssertEqual(type(of: wrapper).info.displayPlaceholder, "Your last/family name here")
+        XCTAssertEqual(type(of: wrapper).info.displayHint, "We need to know your last name")
     }
 
     func testSingleValueCodable()

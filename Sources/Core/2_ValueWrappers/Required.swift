@@ -46,12 +46,11 @@ struct Required<T: SomeValidatableValue>: SomeRequiredValueWrapper
     
     public
     let storage: ValueStorage
-
+    
     public
     init(_ rawValue: T.Raw)
     {
-        self.rawValue = rawValue
-        self.storage = .none
+        self.init(rawValue, storage: .none)
     }
     
     public
@@ -62,7 +61,7 @@ struct Required<T: SomeValidatableValue>: SomeRequiredValueWrapper
     }
 }
 
-//---
+// MARK: - Array helpers
 
 public
 extension Required where Value.Raw: ExpressibleByArrayLiteral
@@ -71,7 +70,7 @@ extension Required where Value.Raw: ExpressibleByArrayLiteral
     init(storage: ValueStorage) { self.init([], storage: storage) }
 }
 
-//---
+// MARK: - String helpers
 
 public
 extension Required where Value.Raw: ExpressibleByStringLiteral

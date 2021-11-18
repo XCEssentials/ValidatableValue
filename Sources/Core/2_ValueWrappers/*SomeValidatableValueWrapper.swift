@@ -25,7 +25,7 @@
  */
 
 public
-protocol SomeValidatableValueWrapper: Codable, DisplayNamed
+protocol SomeValidatableValueWrapper: Codable
 {
     associatedtype Value: SomeValidatableValue
     
@@ -56,21 +56,13 @@ public
 extension SomeValidatableValueWrapper
 {
     static
-    var displayName: String
+    var info: DisplayNamedInfo
     {
-        return Value.displayName
-    }
-
-    static
-    var displayHint: String?
-    {
-        return Value.displayHint
-    }
-
-    static
-    var displayPlaceholder: String?
-    {
-        return Value.displayPlaceholder
+        .init(
+            displayName: Value.displayName,
+            displayPlaceholder: Value.displayPlaceholder,
+            displayHint: Value.displayHint
+        )
     }
 }
 
@@ -128,7 +120,8 @@ extension SomeValidatableValueWrapper
         {
             throw ValidationError.unsatisfiedConditions(
                 unsatisfiedConditionsRaw,
-                rawValue: rawValue
+                rawValue: rawValue,
+                source: Self.info
             )
         }
         
@@ -138,7 +131,10 @@ extension SomeValidatableValueWrapper
             let result = Value.convert(rawValue: rawValue)
         else
         {
-            throw ValidationError.unableToConvert(rawValue: rawValue)
+            throw ValidationError.unableToConvert(
+                rawValue: rawValue,
+                source: Self.info
+            )
         }
         
         //---
@@ -166,7 +162,8 @@ extension SomeValidatableValueWrapper
         {
             throw ValidationError.unsatisfiedConditions(
                 unsatisfiedConditionsValid,
-                rawValue: rawValue
+                rawValue: rawValue,
+                source: Self.info
             )
         }
         
