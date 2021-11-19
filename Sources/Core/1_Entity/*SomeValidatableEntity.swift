@@ -61,11 +61,17 @@ extension SomeValidatableEntity
 public
 extension SomeValidatableEntity
 {
+    /// Performs built-in default validation based on validatable members only.
+    func validate() throws
+    {
+        try validateAllValidatableMembers()
+    }
+    
     /**
      Validates all validateable values contained inside the entity,
      throws a validation error if any issues found.
      */
-    func validate() throws
+    func validateAllValidatableMembers() throws
     {
         let validationIssues: [Error] = allValidatableMembers
             .compactMap{
