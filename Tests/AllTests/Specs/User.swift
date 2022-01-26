@@ -69,7 +69,7 @@ extension User
         let conditionsOnRaw = [
 
             String.checkNonEmpty,
-            Check("Valid email address", String.isValidEmail)
+            Requirement("Valid email address", String.isValidEmail)
         ]
     }
 
@@ -78,12 +78,12 @@ extension User
         static
         let conditionsOnRaw: [Condition<String>] = [
 
-            Check("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
-            Check("Has at least 1 capital character"){ 1 <= Pwd.caps.count(in: $0) },
-            Check("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(in: $0) },
-            Check("Has at least 1 digit character"){ 1 <= Pwd.digits.count(in: $0) },
-            Check("Has at least 1 special character"){ 1 <= Pwd.specials.count(in: $0) },
-            Check("Allowed characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
+            Requirement("Lenght between 8 and 30 characters"){ 8...30 ~= $0.count },
+            Requirement("Has at least 1 capital character"){ 1 <= Pwd.caps.count(in: $0) },
+            Requirement("Has at least 4 lower characters"){ 4 <= Pwd.lows.count(in: $0) },
+            Requirement("Has at least 1 digit character"){ 1 <= Pwd.digits.count(in: $0) },
+            Requirement("Has at least 1 special character"){ 1 <= Pwd.specials.count(in: $0) },
+            Requirement("Allowed characters only"){ Pwd.allowed.isSuperset(of: CS(charactersIn: $0)) }
         ]
     }
 
