@@ -32,7 +32,7 @@ public
 extension Collection
 {
     static
-    var checkNonEmpty: Check<Self> { .init("Non-empty"){ $0.isNonEmpty } }
+    var checkNonEmpty: Requirement<Self> { .init("Non-empty"){ $0.isNonEmpty } }
     
     var isNonEmpty: Bool { !isEmpty }
 }
