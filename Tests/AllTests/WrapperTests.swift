@@ -47,7 +47,7 @@ extension WrapperTests
     enum WithConditions: SomeValidatableValue
     {
         static
-        var conditionsOnRaw: [Check<String>] = [
+        var conditionsOnRaw: [Requirement<String>] = [
         
             .init("Contains `a`", { $0.contains("a") })
         ]
