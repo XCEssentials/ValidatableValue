@@ -69,11 +69,27 @@ extension ValueStorage
                 
             case .appStorageDefault(key: let key):
                 
-                return (UserDefaults.standard.value(forKey: key.name) as? T) ?? defaultValue
+                if
+                    ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
+                {
+                    return (UserDefaults.standard.value(forKey: key.name) as? T) ?? defaultValue
+                }
+                else
+                {
+                    return defaultValue
+                }
                 
             case .appStorage(key: let key, storageName: let storageName):
                 
-                return (UserDefaults(suiteName: storageName)?.value(forKey: key.name) as? T) ?? defaultValue
+                if
+                    ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
+                {
+                    return (UserDefaults(suiteName: storageName)?.value(forKey: key.name) as? T) ?? defaultValue
+                }
+                else
+                {
+                    return defaultValue
+                }
         }
     }
     
@@ -87,15 +103,23 @@ extension ValueStorage
                 
             case .appStorageDefault(key: let key):
                 
-                let theStore = UserDefaults.standard
-                theStore.set(value, forKey: key.name)
-                theStore.synchronize()
+                if
+                    ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
+                {
+                    let theStore = UserDefaults.standard
+                    theStore.set(value, forKey: key.name)
+                    theStore.synchronize()
+                }
                 
             case .appStorage(key: let key, storageName: let storageName):
                 
-                let theStore = UserDefaults(suiteName: storageName)
-                theStore?.set(value, forKey: key.name)
-                theStore?.synchronize()
+                if
+                    ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
+                {
+                    let theStore = UserDefaults(suiteName: storageName)
+                    theStore?.set(value, forKey: key.name)
+                    theStore?.synchronize()
+                }
         }
     }
 }
