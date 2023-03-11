@@ -64,6 +64,9 @@ public
 extension SomeValidatableValue
 {
     static
+    var isSecret: Bool { self is IsSecretValue }
+    
+    static
     var conditionsOnRaw: [Condition<Raw>] { [] }
     
     static
