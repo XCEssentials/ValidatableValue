@@ -168,4 +168,22 @@ extension SpecTests
         XCTAssert(ColorPreference.convert(rawValue: "white") == .white)
         XCTAssertNil(ColorPreference.convert(rawValue: "sdfsdf"))
     }
+    
+    func test_value_isSecret()
+    {
+        enum LastName: SomeValidatableValue
+        {
+            typealias Raw = String
+            typealias Valid = String
+        }
+        
+        enum Pwd: SomeValidatableValue, IsSecretValue
+        {
+            typealias Raw = String
+            typealias Valid = String
+        }
+        
+        XCTAssertFalse(NonRequired<LastName>("").metadata.isSecret)
+        XCTAssertTrue(NonRequired<Pwd>("").metadata.isSecret)
+    }
 }

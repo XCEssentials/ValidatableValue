@@ -38,6 +38,9 @@ protocol SomeValidatableValue: DisplayNamed
 
     associatedtype Valid: Codable
     
+    static
+    var isSecret: Bool { get }
+    
     /// Helps identify whatever given value considered as empty.
     static
     func isEmpty(rawValue: Raw) -> Bool
@@ -61,11 +64,28 @@ protocol SomeValidatableValue: DisplayNamed
 // MARK: - Default implementations
 
 public
+extension SomeValidatableValue where Self: IsSecretValue
+{
+    static
+    var isSecret: Bool
+    {
+        true
+    }
+}
+
+public
 extension SomeValidatableValue
 {
     static
-    var isSecret: Bool { self is IsSecretValue }
-    
+    var isSecret: Bool
+    {
+        false
+    }
+}
+
+public
+extension SomeValidatableValue
+{
     static
     var conditionsOnRaw: [Condition<Raw>] { [] }
     
