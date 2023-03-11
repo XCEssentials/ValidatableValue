@@ -28,6 +28,7 @@
 
 public
 typealias ValidatationMetadata = (
+    isSecret: Bool,
     isEmpty: Bool,
     isRequired: Bool,
     isValid: Bool
@@ -47,6 +48,7 @@ extension SomeNonRequiredValueWrapper
     var metadata: ValidatationMetadata
     {
         return (
+            type(of: self).isSecret,
             isEmpty,
             false,
             isValid
@@ -62,6 +64,7 @@ extension SomeRequiredValueWrapper
     var metadata: ValidatationMetadata
     {
         return (
+            type(of: self).isSecret,
             isEmpty,
             true,
             isValid
@@ -77,6 +80,7 @@ extension Swift.Optional: WithValidationMetadata where Wrapped: SomeNonRequiredV
     var metadata: ValidatationMetadata
     {
         return (
+            Wrapped.isSecret,
             map { $0.isEmpty } ?? true,
             false,
             map { $0.isValid } ?? false
@@ -92,6 +96,7 @@ extension Swift.Optional where Wrapped: SomeRequiredValueWrapper
     var metadata: ValidatationMetadata
     {
         return (
+            Wrapped.isSecret,
             map { $0.isEmpty } ?? true,
             true,
             isValid

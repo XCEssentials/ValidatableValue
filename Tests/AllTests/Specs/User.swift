@@ -73,7 +73,7 @@ extension User
         ]
     }
 
-    enum Password: SomeValidatableValue
+    enum Password: SomeValidatableValue, IsSecretValue
     {
         static
         let conditionsOnRaw: [Condition<String>] = [

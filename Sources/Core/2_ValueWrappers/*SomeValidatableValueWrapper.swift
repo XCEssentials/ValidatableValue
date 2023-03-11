@@ -32,6 +32,9 @@ protocol SomeValidatableValueWrapper: Codable
     static
     var isRequired: Bool { get }
     
+    static
+    var isSecret: Bool { get }
+    
     var isEmpty: Bool { get }
     
     init(_ rawValue: Value.Raw)
@@ -44,6 +47,12 @@ protocol SomeValidatableValueWrapper: Codable
 public
 extension SomeValidatableValueWrapper
 {
+    static
+    var isSecret: Bool
+    {
+        Value.isSecret
+    }
+    
     var isEmpty: Bool
     {
         Value.isEmpty(rawValue: rawValue)
