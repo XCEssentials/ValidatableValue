@@ -69,7 +69,7 @@ extension WrapperTests
         XCTAssertThrowsError(try wrapper.validValue) {
             
             guard
-                case ValidationError.requiredValueIsEmptyCollection = $0
+                case ValidationError.requiredValueIsEmpty = $0
             else
             {
                 return XCTFail("Unexpected error: \($0)")
@@ -112,7 +112,7 @@ extension WrapperTests
         XCTAssertThrowsError(try wrapperMaybe.validValue) {
             
             guard
-                case ValidationError.requiredValueIsEmptyCollection = $0
+                case ValidationError.requiredValueIsEmpty = $0
             else
             {
                 return XCTFail("Unexpected error: \($0)")
@@ -203,7 +203,7 @@ extension WrapperTests
         XCTAssertThrowsError(try wrapper.validValue) {
             
             guard
-                case ValidationError.requiredValueIsEmptyCollection = $0
+                case ValidationError.requiredValueIsEmpty = $0
             else
             {
                 return XCTFail("Unexpected error: \($0)")
@@ -246,7 +246,7 @@ extension WrapperTests
         XCTAssertThrowsError(try wrapperMaybe.validValue) {
             
             guard
-                case ValidationError.requiredValueIsEmptyCollection = $0
+                case ValidationError.requiredValueIsEmpty = $0
             else
             {
                 return XCTFail("Unexpected error: \($0)")
