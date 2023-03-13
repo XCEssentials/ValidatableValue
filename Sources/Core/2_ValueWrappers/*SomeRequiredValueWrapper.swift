@@ -54,7 +54,7 @@ extension SomeRequiredValueWrapper
             if
                 Value.isEmpty(rawValue: rawValue)
             {
-                throw ValidationError.requiredValueIsEmptyCollection(
+                throw ValidationError.requiredValueIsEmpty(
                     source: Self.info
                 )
             }

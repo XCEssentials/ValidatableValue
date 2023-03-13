@@ -40,23 +40,23 @@ struct NonRequired<T: SomeValidatableValue>: SomeNonRequiredValueWrapper
     {
         didSet
         {
-            storage.store(value: rawValue)
+            storage?.store(value: rawValue)
         }
     }
     
     public
-    let storage: ValueStorage
+    let storage: ValueStorage?
     
     public
     init(_ rawValue: T.Raw)
     {
-        self.init(rawValue, storage: .none)
+        self.init(rawValue, storage: nil)
     }
     
     public
-    init(_ defaultValue: T.Raw, storage: ValueStorage)
+    init(_ defaultValue: T.Raw, storage: ValueStorage?)
     {
-        self.rawValue = storage.fetchValue(default: defaultValue)
+        self.rawValue = storage?.fetchValue(default: defaultValue) ?? defaultValue
         self.storage = storage
     }
 }
