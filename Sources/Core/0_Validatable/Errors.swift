@@ -31,7 +31,7 @@ enum ValidationError: Error
         source: DisplayNamedInfo
     )
     
-    case requiredValueIsEmptyCollection(
+    case requiredValueIsEmpty(
         source: DisplayNamedInfo
     )
     

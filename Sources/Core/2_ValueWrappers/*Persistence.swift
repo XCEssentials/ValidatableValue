@@ -48,8 +48,7 @@ extension SomeStorageKey
 public
 enum ValueStorage
 {
-    case none
-    case appStorageDefault(key: SomeStorageKey)
+    case appStorageStandard(key: SomeStorageKey)
     case appStorage(key: SomeStorageKey, storageName: String)
     //case keychain(key: SomeStorageKey)
 }
@@ -63,11 +62,7 @@ extension ValueStorage
     {
         switch self
         {
-            case .none:
-                
-                return defaultValue
-                
-            case .appStorageDefault(key: let key):
+            case .appStorageStandard(let key):
                 
                 if
                     ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
@@ -97,11 +92,7 @@ extension ValueStorage
     {
         switch self
         {
-            case .none:
-                
-                break
-                
-            case .appStorageDefault(key: let key):
+            case .appStorageStandard(let key):
                 
                 if
                     ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil
