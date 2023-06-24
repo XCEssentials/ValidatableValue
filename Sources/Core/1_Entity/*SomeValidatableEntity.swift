@@ -49,10 +49,10 @@ extension SomeValidatableEntity
      Returns list of all members that have to be involved in
      automatic entity validation.
      */
-    var allValidatableMembers: [SomeValidatable]
+    var allValidatableMembers: [any SomeValidatable]
     {
         return allMembers
-            .compactMap{ $0 as? SomeValidatable }
+            .compactMap{ $0 as? (any SomeValidatable) }
     }
 }
 

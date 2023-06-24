@@ -46,11 +46,28 @@ extension SomeStorageKey
 // MARK: - ValueStorage
 
 public
-enum ValueStorage
+enum ValueStorage: Equatable
 {
     case appStorageStandard(key: SomeStorageKey)
     case appStorage(key: SomeStorageKey, storageName: String)
     //case keychain(key: SomeStorageKey)
+    
+    public
+    static
+    func == (lhs: ValueStorage, rhs: ValueStorage) -> Bool
+    {
+        switch (lhs, rhs)
+        {
+            case (.appStorageStandard(let lhsKey), .appStorageStandard(let rhsKey)):
+                return lhsKey.name == rhsKey.name
+                
+            case (.appStorage(let lhsKey, let lhsStorageName), .appStorage(let rhsKey, let rhsStorageName)):
+                return (lhsKey.name == rhsKey.name && lhsStorageName == rhsStorageName)
+            
+            default:
+                return false
+        }
+    }
 }
 
 //---
