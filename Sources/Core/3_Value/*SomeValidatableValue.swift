@@ -32,11 +32,11 @@ import XCERequirement
  Describes custom value type for a wrapper.
  */
 public
-protocol SomeValidatableValue: DisplayNamed
+protocol SomeValidatableValue: DisplayNamed, Equatable
 {
-    associatedtype Raw: Codable
+    associatedtype Raw: Codable, Equatable
 
-    associatedtype Valid: Codable
+    associatedtype Valid: Codable, Equatable
     
     static
     var isSecret: Bool { get }

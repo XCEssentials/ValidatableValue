@@ -25,7 +25,7 @@
  */
 
 public
-protocol SomeValidatableValueWrapper: Codable
+protocol SomeValidatableValueWrapper: Codable, Equatable
 {
     associatedtype Value: SomeValidatableValue
     

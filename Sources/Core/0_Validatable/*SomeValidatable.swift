@@ -29,7 +29,7 @@
  internal implementation.
  */
 public
-protocol SomeValidatable
+protocol SomeValidatable: Equatable
 {
     func validate() throws
 }
